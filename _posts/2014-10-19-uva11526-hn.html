@@ -1,0 +1,71 @@
+---
+layout: post
+title: UVa11526 H(n)
+date: 2014-10-19 00:03:37.000000000 +08:00
+categories:
+- UVa
+- 信息学竞赛
+- 数学
+- 数论
+- 编程
+tags:
+- 数论
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+author:
+  login: hsfzxjy
+  email: 956357208@qq.com
+  display_name: hsfzxjy
+  first_name: ''
+  last_name: ''
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<blockquote>
+<p>链接：<a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;category=27&amp;problem=2521&amp;mosmsg=Submission%20received%20with%20ID%2014374168">Link</a> 耗时：2.232s</p>
+</blockquote>
+<h2><strong>分析</strong></h2>
+<p>粗看题目，不过就是要求这样一个式子：$\sum_{i=1}^n{[\frac{n}{i}]}$的值。但<strong>注意到</strong>：题目给的数据范围极大，有$2^{31}-1$之多，若遍历计算，则时间复杂度为$O(n)$，将严重超时，不可取。<br />
+而事实上，通过尝试我们可以发现：$\sum_{i=1}^{n}{[\frac{n}{i}]}=2*\sum_{i=1}^{\sqrt n}{[\frac{n}{i}]}-{[\sqrt n]}^2$，这是一个重要的结论。因为这条式子一旦成立，时间复杂度即可从$O(n)$降为$O(\sqrt n)$，这是一个极为可观的改善。下面我们来证明一下这个结论：<br />
+事实上，$$\sum_{i=[{\sqrt n}]+1}^{n}{[\frac{n}{i}]}$$ $$=1\times(n-[\frac{n}{2}])+2\times([\frac{n}{2}]-[\frac{n}{3}])+\ldots+[\sqrt{n}]\times([\frac{n}{\sqrt{n}}]-{[\frac{n}{\sqrt n}+1]})$$ $$=n+[\frac{n}{2}]+[\frac{n}{3}]+\ldots+[\frac{n}{\sqrt n}]-[\sqrt n]\times[\frac{n}{[\sqrt n]+1}]$$ $$=\sum_{i=1}^{[\sqrt n]}{[\frac{n}{i}]}-{[\sqrt n]}^2$$ 从而，命题得证。</p>
+<h2><strong>Code</strong></h2>
+<pre><code>var
+    n, _, i: longint;
+
+function h: int64; inline;
+var
+    k, t: longint;
+begin
+    h := 0;
+    t := trunc(sqrt(n));
+    k := 1;
+    while k &lt;=t do
+    begin
+        h := h + n div k;
+        inc(k);
+    end;
+    h := h * 2 - t * t;
+end;
+
+begin
+    assign(input, 'main.in'); reset(input);
+    assign(output, 'main.out'); rewrite(output);
+
+    readln(_);
+    while _ &gt; 0 do
+    begin
+        dec(_);
+        readln(n);
+        if n &lt;= 0 then
+            writeln(0)
+        else
+            writeln(h);
+    end;
+
+    close(input);
+    close(output);
+end.
+</code></pre>

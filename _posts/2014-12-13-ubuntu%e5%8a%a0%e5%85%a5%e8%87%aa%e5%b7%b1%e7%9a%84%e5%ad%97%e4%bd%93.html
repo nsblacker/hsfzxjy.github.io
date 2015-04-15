@@ -1,0 +1,32 @@
+---
+layout: post
+title: Ubuntu加入自己的字体
+date: 2014-12-13 15:50:34.000000000 +08:00
+categories:
+- Ubuntu
+tags:
+- ubuntu
+- 字体
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+author:
+  login: hsfzxjy
+  email: 956357208@qq.com
+  display_name: hsfzxjy
+  first_name: ''
+  last_name: ''
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<p>假设字体文件夹为：<code>～/Fonts</code>。执行：</p>
+<pre><code>sudo mkdir -p /usr/share/fonts/myFonts
+sudo cp ~/Fonts/*.ttf /usr/share/fonts/myFonts/
+sudo chmod 644 /usr/share/fonts/myFonts/*.ttf
+cd /usr/share/fonts/winFonts/
+sudo mkfontscale （创建雅黑字体的fonts.scale文件，它用来控制字体旋转缩放）
+sudo mkfontdir （创建雅黑字体的fonts.dir文件，它用来控制字体粗斜体产生）
+sudo fc-cache -fv （建立字体缓存信息，也就是让系统认识雅黑）
+</code></pre>

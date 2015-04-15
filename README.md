@@ -1,2 +1,2 @@
 # hsfzxjy.github.io
-A individual site for hsfzxjy.
+An individual site for hsfzxjy.

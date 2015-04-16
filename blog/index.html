@@ -1,0 +1,27 @@
+---
+layout: page
+title: Blog for hsfzxjy
+tagline: echo off
+lang: zh-cn
+---
+{% include JB/setup %}
+
+Here's a sample "posts list".
+
+<ul class="posts">
+  {% for post in paginator.posts %}
+    <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>
+  {% endfor %}
+</ul>
+<ul class="pager">
+  {% if paginator.next_page %}
+    <li class="previous">
+      <a class="prev" href="{{paginator.next_page_path}}">&larr; Next</a>
+    </li>
+  {% endif %}
+  {% if paginator.previous_page %}
+  <li class="next">
+    <a class="next" href="{{paginator.previous_page_path}}">Previous &rarr;</a>
+  </li>
+  {% endif %}
+</ul>

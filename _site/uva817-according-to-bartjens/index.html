@@ -1,0 +1,414 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>UVa817 According to Bartjens</title>
+    
+    <meta name="author" content="Jinyi Xie">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap styles -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional theme -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+    <!-- Sticky Footer -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bs-sticky-footer.css" rel="stylesheet">
+    
+    <!-- Custom styles -->
+    <link href="/assets/themes/bootstrap-3/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!-- Update these with your own images
+      <link rel="shortcut icon" href="images/favicon.ico">
+      <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+      <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+      <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+    -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+  </head>
+
+  <body>
+    <div id="wrap">
+      <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jb-navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Blog for hsfzxjy</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="jb-navbar-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+          <form class="navbar-form navbar-right" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+
+      <div class="container">
+        
+<div class="page-header">
+  <h1>UVa817 According to Bartjens </h1>
+</div>
+
+<div class="row post-full">
+  <div class="col-xs-12">
+    <div class="date">
+      <span>17 October 2014</span>
+    </div>
+    <div class="content">
+      <blockquote>
+<p>链接：<a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;category=10&amp;problem=758&amp;mosmsg=Submission%20received%20with%20ID%2014367065">Link</a> 状态：<strong>WA</strong></p>
+</blockquote>
+<h2><strong>分析</strong></h2>
+<p>做了两个小时，很可惜最终还是WA了。非常奇怪——和网上的C++代码运行结果完全一样，但却WA了。不过，在这里我还是记录一下解题的过程。<br />
+这道题数据量很小，直接爆搜每个空位，用*, +, -, #0来代表符号或不填。</p>
+<h2><strong>Code</strong></h2>
+<pre><code>const
+    operators: array [1..4] of char = ('*', '+', '-', #0); //符号
+var
+    s: string;
+    _, n: integer;
+    op: array [0..10] of char;
+    yes: Boolean;
+
+function toValue(ch: char): integer;
+begin
+    exit(ord(ch) - ord('0'));
+end;
+
+procedure calcAndPrint; 
+var
+    numtop, opstop: Integer;  //数字栈，符号栈
+    num: array [1..10] of longint;
+    ops: array [1..10] of char;
+    i: integer;
+begin
+    i := 1;
+    numtop := 1;
+    num[numtop] := toValue(s[1]);
+    opstop := 0;
+    while i &lt;= n do
+    begin
+        while (i &lt; n) and (op[i] = #0) do
+        begin
+            inc(i);
+            num[numtop] := num[numtop] * 10 + toValue(s[i]);
+        end;
+        if (op[i] in ['+', '-']) or (i &gt;= n) then
+        begin
+            while (opstop &gt; 0) and (ops[opstop] = '*') do
+            begin
+                dec(opstop);
+                num[numtop - 1] := num[numtop] * num[numtop -1];
+                dec(numtop);
+            end;
+        end;
+        if i &gt;= n then break;
+        inc(opstop);
+        ops[opstop] := op[i];
+        inc(i);
+        inc(numtop);
+        num[numtop] := toValue(s[i]);
+    end;
+    i := 1;
+    while i &lt; numtop do
+    begin
+        if ops[i] = '+' then
+            num[i+1] := num[i] + num[i+1]
+        else
+            num[i+1] := num[i] - num[i+1];
+        inc(i);
+    end;
+    if (num[numtop] = 2000) and (opstop &gt; 0) then
+    begin
+        yes := True;
+        write('  ');
+        for i := 1 to n do
+        begin
+            write(s[i]);
+            if op[i] &lt;&gt; #0  then
+                write(op[i]);
+        end;
+        writeln('=');
+    end;
+end;
+
+procedure dfs(t: integer); //搜索第t个位置
+var
+    i: Integer;
+    ch: char;
+begin
+    if t = n then
+    begin
+        calcAndPrint;
+        exit;
+    end;
+    for i := 1 to 4 do
+    begin
+        ch := operators[i];
+        if (ch = #0) and (s[t] = '0') and ((t = 1) or (t &gt; 1) and (op[t-1] &lt;&gt; #0)) then continue;
+        op[t] := ch;
+        dfs(t+1);
+    end;
+end;
+
+var
+    i: Integer;
+
+begin
+    assign(input, 'main.in'); reset(input);
+    assign(output, 'main.out'); rewrite(output);
+
+    readln(s);
+    _ := 0;
+    while not eof and (s[1] &lt;&gt; '=') do
+    begin
+        i := 1;
+        while not (s[i] in ['0'..'9', '=']) do
+        begin
+            inc(i);
+        end;
+        delete(s, 1, i-1);
+        n := pos('=', s) - 1;
+        inc(_);
+        writeln('Problem ', _);
+        yes := False;
+        fillchar(op, sizeof(op), 0);
+        dfs(1);
+        if not yes then
+            writeln('  IMPOSSIBLE');
+        readln(s);
+    end;
+
+    close(input); close(output);
+end.
+</code></pre>
+
+    </div>
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-open"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/categories.html#uva-ref">
+    		uva <span>12</span>
+    	</a></li>
+     
+    	<li><a href="/categories.html#信息学竞赛-ref">
+    		信息学竞赛 <span>24</span>
+    	</a></li>
+     
+    	<li><a href="/categories.html#编程-ref">
+    		编程 <span>31</span>
+    	</a></li>
+    
+  
+
+
+    </ul>
+    
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-tags"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/tags.html#搜索-ref">搜索 <span>2</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  
+    <hr>
+    <ul class="pagination">
+    
+      <li class="prev"><a href="/uva225-golygons/" title="UVa225 Golygons">&laquo; Previous</a></li>
+    
+      <li><a href="/archive.html">Archive</a></li>
+    
+      <li class="next"><a href="/uva11526-hn/" title="UVa11526 H(n)">Next &raquo;</a></li>
+    
+    </ul>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+    var disqus_developer = 1;
+    var disqus_shortname = 'hsfzxjy'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+</div>
+
+
+      </div>
+
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p>&copy; 2015 Jinyi Xie
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </div>
+    </div>
+
+    
+
+
+
+
+    <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/assets/themes/bootstrap-3/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
+

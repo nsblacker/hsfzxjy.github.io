@@ -1,0 +1,153 @@
+@min-xs: 480px;
+@max-xs: 767px;
+@min-sm: 768px;
+@max-sm: 991px;
+@min-md: 992px;
+@max-md: 1199px;
+@max-lg: 1200px;
+
+h1, h2, h3, h4 {
+    color: #333;
+}
+
+/* posts index */
+.post > h3.title {
+    position: relative;
+    padding-top: 10px; 
+}
+
+.post > h3.title span.date {
+    position: absolute;
+    right: 0;
+    font-size: 0.9em; 
+}
+
+.post > .more {
+    margin: 10px 0;
+    text-align: left; 
+}
+
+/* post-full*/
+.post-full .date {
+    margin-bottom: 20px;
+    font-weight: bold; 
+}
+
+/* tag_box */
+.tag_box {
+    list-style: none;
+    margin: 0;
+    overflow: hidden; 
+}
+
+.tag_box li {
+    line-height: 28px; 
+}
+
+.tag_box li i {
+    opacity: 0.9; 
+}
+
+.tag_box.inline li {
+    float: left; 
+}
+
+.tag_box a {
+    padding: 3px 6px;
+    margin: 2px;
+    background: #eee;
+    color: #555;
+    border-radius: 3px;
+    text-decoration: none;
+    border: 1px dashed #cccccc; 
+}
+
+.tag_box a span {
+    vertical-align: super;
+    font-size: 0.8em; 
+}
+
+.tag_box a:hover {
+    background-color: #e5e5e5; 
+}
+
+.tag_box a.active {
+    background: #57A957;
+    border: 1px solid #4c964d;
+    color: #FFF; 
+}
+
+.content p {
+    text-indent: 2em;
+}
+
+h1, h2, h3, h4, h5 {
+    a {
+        color: black;
+    }
+
+    a:hover {
+        color: black;
+    }
+}
+
+.posts {
+    article {
+        border-bottom: #eee solid 1px;
+    }
+}
+
+html, body {
+    background: #eee;
+}
+
+#main-container {
+    background: #fff;
+}
+
+blockquote {
+    color: rgb(153, 153, 153);
+    font-size: 16px;
+
+    p {
+        font-size: 16px;
+    }
+}
+
+.post-content {
+    padding: 80px 30px;
+}
+
+.post-title {
+    font-size: 24px;
+}
+
+@media (min-width: @min-sm) {
+    .post-content {
+        padding: 80px 60px;
+    }
+
+    .post-title {
+        font-size: 30px;
+    }
+}
+
+@media (min-width: @min-md) {
+    .post-content {
+        padding: 80px 90px;
+    }
+
+    .post-title {
+        font-size: 50px;
+    }
+}
+
+.time {
+    color: #117964;
+}
+
+a {
+    &:hover {
+        text-decoration: none;
+    }
+}

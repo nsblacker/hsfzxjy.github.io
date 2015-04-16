@@ -8,14 +8,14 @@ http://hsfzxjy.github.io/pages.html
 http://hsfzxjy.github.io/rss.xml
 http://hsfzxjy.github.io/sitemap.txt
 http://hsfzxjy.github.io/tags.html
-http://hsfzxjy.github.io/blog/page2/index.html
-http://hsfzxjy.github.io/blog/page3/index.html
-http://hsfzxjy.github.io/blog/page4/index.html
-http://hsfzxjy.github.io/blog/page5/index.html
-http://hsfzxjy.github.io/blog/page6/index.html
-http://hsfzxjy.github.io/blog/page7/index.html
-http://hsfzxjy.github.io/blog/page8/index.html
-http://hsfzxjy.github.io/blog/page9/index.html
+http://hsfzxjy.github.io/page2/index.html
+http://hsfzxjy.github.io/page3/index.html
+http://hsfzxjy.github.io/page4/index.html
+http://hsfzxjy.github.io/page5/index.html
+http://hsfzxjy.github.io/page6/index.html
+http://hsfzxjy.github.io/page7/index.html
+http://hsfzxjy.github.io/page8/index.html
+http://hsfzxjy.github.io/page9/index.html
 
 http://hsfzxjy.github.io/solution-of-network-broken-down-per-20s-under-ubuntu/
 http://hsfzxjy.github.io/provement-of-Sinusoidal-AC-RMS-calculation-formula/

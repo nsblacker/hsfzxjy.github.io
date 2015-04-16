@@ -1,0 +1,599 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Blog for hsfzxjy</title>
+    
+    <meta name="author" content="Jinyi Xie">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap styles -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional theme -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+    <!-- Sticky Footer -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bs-sticky-footer.css" rel="stylesheet">
+    
+    <!-- Custom styles -->
+    <link href="/assets/themes/bootstrap-3/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Update these with your own images
+      <link rel="shortcut icon" href="images/favicon.ico">
+      <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+      <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+      <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+    -->
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX", "output/HTML-CSS"],
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+          processEscapes: true
+        },
+        "HTML-CSS": { availableFonts: ["TeX"] }
+      });
+    </script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default" defer async="true"></script>
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+  </head>
+
+  <body>
+    <div id="wrap">
+      <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jb-navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Blog for hsfzxjy</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="jb-navbar-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+
+      <div class="container" id="main-container">
+        
+<div class="page-header">
+  <h1>
+    <center>
+        Blog for hsfzxjy  <small>echo off</small>
+    </center>
+  </h1>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    
+
+<div class="posts">
+  
+    <article class="post-content">
+        <header class="text-center">
+            <h1 class="post-title">
+                <a href="/uva-11584-partitioning-by-palindromes/">UVa11584 Partitioning by Palindromes</a>
+            </h1>
+            <p class="time">24 Sep 2014</p>
+        </header>
+        <section class="content">
+            <blockquote>
+<p>这是一道区间型DP，转移方程很简单，但在实现的过程中却遇见了很多坑，在此记录一下。 链接：<a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;category=27&amp;problem=2631&amp;mosmsg=Submission%20received%20with%20ID%2014256745">Link</a> 耗时：0.368s</p>
+</blockquote>
+<p>容易想到，前i个数的划分情况可以由1,2,3...,i-1的划分情况来决定。因此很容易得到状态转移方程：</p>
+<blockquote>
+<p>d[i] = min(d[i], d[j]+1) //j = 0, 1, 2...n-1 并且 s[j+1, i]为回文串，初始条件：d[i] = i。</p>
+</blockquote>
+<p>d[i]表示前i项的最小划分。这样一来状态转移的复杂度就为O($n^2$)。<br />
+但状态转移的判断呢？“回文串”是一个复杂的条件，判断一个串是否为回文串需要将该串至少遍历一遍。这样一来时间复杂度就上升为O($n^3$)了。而事实上在这种算法中有许多无谓的计算，因此我们可以先对字符串进行预处理：用huiwen[i,j]表示s[i,j]是否为回文串（奇怪的名字。。。）。如此一来，时间复杂度就降为O($n^2$)了。</p>
+<p>Code：</p>
+<pre><code>var
+    s: AnsiString;
+    n, _, i, j, l: integer;
+    huiwen: array [1..1000, 1..1000] of boolean; //s[i,j]是否为回文串
+    dp: array [0..1000] of integer; //一定从0开始，否则当整串为回文串时就考虑不到了。
+
+function min(x,y: integer): integer;
+begin
+    if x&lt;y then exit(x) else exit(y);
+end;
+
+procedure process(i,j: integer); //对回文串进行预处理
+var
+    mid: Integer;
+    x,y: integer;
+begin
+    if j = i then
+    begin
+        huiwen[i,j] := true;
+        exit;
+    end;
+    mid := i + (j-i+1) shr 1;
+    x := i;
+    y := j;
+    while (x &lt;= mid) and (s[x] = s[y]) do
+    begin
+        inc(x);
+        dec(y);
+    end;
+    huiwen[i, j] := x &gt; mid;
+end;
+
+begin
+    //assign(input, 'main.in'); reset(input);
+    //assign(output, 'main.out'); rewrite(output);
+    readln(n);
+    for _ := 1 to n do
+    begin
+        readln(s);
+        l := length(s);
+        //Pre-process
+        fillchar(huiwen, sizeof(huiwen), 0);
+        for i := 1 to l do
+            for j := i to l do //一定是从i开始，这个错卡了我很久。
+                process(i, j);
+        //DP
+        for i := 1 to l do
+        begin
+            dp[i] := i;
+            for j := 0 to i-1 do
+                if huiwen[j+1, i] then
+                    dp[i] := min(dp[i], dp[j]+1);
+        end;
+        write(dp[l]);
+        {if _ &lt;&gt;n then }writeln; //吐槽一下：一开始我还谨慎地加上这句以避免行末回车，没想到UVa居然报错了。。看来UVa的比较算法还有待改进啊。
+    end;
+
+    //close(input);close(output);
+end.
+</code></pre>
+
+        </section>
+    </article>
+  
+    <article class="post-content">
+        <header class="text-center">
+            <h1 class="post-title">
+                <a href="/uva437-the-tower-of-babylon/">UVa437 The Tower of Babylon</a>
+            </h1>
+            <p class="time">23 Sep 2014</p>
+        </header>
+        <section class="content">
+            <blockquote>
+<p>链接：<a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=6&amp;page=show_problem&amp;problem=378">The Tower of Babylon</a> 耗时：0.015s</p>
+</blockquote>
+<p>这是刘汝佳的紫书中“DAG中的动态规划”中的习题，我拿它用来熟悉DAG中的动态规划。</p>
+<p>我们不妨进行逆向考虑：现堆上面的方块，然后考虑在下面进行叠加。这样子一来，影响决策的就只是最下面方块的尺寸了。<br />
+对于这种出现了“大套小”这样的二元关系的题，我们可以将其视为一个有向无环图：<strong>其中每个节点为一个状态，状态的转移是有固定的方向的</strong>（在此题中，状态转移为从小的方块到大的方块）。<br />
+但是这道题又不同于平常的DAG动态规划：若将边长视为状态的话，则要开一个巨大的数组，这是不可以接受的。因此，我们要换一种思维方式：只记录方块的序号和摆放的方式（如现将边长从小到大进行排序，然后用一个标志k表示当前是以第k小的边长作为高）。<br />
+至此，思路已经清晰了。用dp(i, k)表示<strong>“第i个方块以第k条边为高进行摆放”</strong>，以下给出状态转移方程：</p>
+<blockquote>
+<p>dp(i, k) = max{dp(i, k), dp(j, k2)} j，k2遍历所有顶面矩形比dp(i, k)小的状态。</p>
+</blockquote>
+<p>代码实现首次尝试了Pascal中的object类型，使其更加工整，但不可避免地损耗了一些性能。</p>
+<p>Code：</p>
+<pre><code>type
+    Cube = object
+        a: array [1..3] of longint;
+        procedure init(x,y,z: longint);
+        function height(k: integer): longint;
+        function low(k: integer): longint;
+        function high(k: integer): longint;
+    end;
+
+function max(x,y: longint): longint;
+begin
+    if x&gt;y then max := x else max := y;
+end;
+
+procedure swap(var x,y: longint);
+var
+    t: longint;
+begin
+    t := x;
+    x := y;
+    y := t;
+end;
+
+function Cube.height(k: integer): longint;
+begin
+    height := self.a[k];
+end;
+
+function Cube.high(k: integer): longint;
+begin
+    case k of
+        1: high := a[3];
+        2: high := a[3];
+        3: high := a[2];
+    end;
+end;
+
+function Cube.low(k: integer): longint;
+begin
+    case k of
+        1: low := a[2];
+        2,3: low := a[1];
+    end;
+end;
+
+procedure Cube.init(x, y, z: longint);
+begin
+   if x&gt;y then swap(x,y);
+   if y&gt;z then swap(y,z);
+   if x&gt;y then swap(x,y);
+   a[1] := x;
+   a[2] := y;
+   a[3] := z;
+end;
+
+var
+    f: array [1..30, 1..3] of longint;
+    i,j,m,n,x,y,z: longint;
+    cnt: longint;
+    cubes: array [1..30] of Cube;
+
+function dp(id, k: integer): longint;
+var
+    l, h, hi: longint;
+    i, j: integer;
+begin
+    if f[id, k] &gt; 0 then
+        exit(f[id, k]);
+    l := cubes[id].low(k);
+    hi := cubes[id].height(k);
+    h := cubes[id].high(k);
+
+    f[id, k] := hi;
+
+    for i := 1 to n do
+    begin
+        //if i = id then continue;  //此处在一开始时忘记考虑了立方体有无穷多个这一条件。
+        for j := 1 to 3 do
+        begin
+            if not ((cubes[i].low(j) &lt; l) and (cubes[i].high(j) &lt; h)) then
+                continue;
+            f[id, k] := max(f[id, k], dp(i, j)+hi);
+        end;
+    end;
+
+    dp := f[id, k];
+end;
+
+begin
+    assign(input, 'main.in');reset(input);
+    assign(output, 'main.out');rewrite(output);
+    read(n);
+    cnt := 0;
+    while n &gt; 0 do
+    begin
+        inc(cnt);
+        for i := 1 to n do
+        begin
+            read(x,y,z);
+            cubes[i].init(x,y,z);
+        end;
+        fillchar(f, sizeof(f), 0);
+
+        m := 0;
+        for i := 1 to n do
+            for j := 1 to 3 do
+                m := max(m, dp(i, j));
+
+        writeln('Case ', cnt, ': maximum height = ', m);
+
+        read(n);
+    end;
+    close(input);close(output);
+end.
+</code></pre>
+
+        </section>
+    </article>
+  
+    <article class="post-content">
+        <header class="text-center">
+            <h1 class="post-title">
+                <a href="/noip2011-expression/">NOIP2011 表达式计算</a>
+            </h1>
+            <p class="time">22 Sep 2014</p>
+        </header>
+        <section class="content">
+            <blockquote>
+<p>记得11年的时候，觉得这道题爆难，根本无从下手。三年后再次回顾，终于AC了，就当是对表达式求值和动态规划的复习吧。</p>
+</blockquote>
+<h2>题目：<a href="http://codevs.cn/problem/1133/">Link</a></h2>
+<p>C++代码：</p>
+<pre><code>// Accepted. 
+#include &lt;iostream&gt;
+#define Mod 10007;
+using namespace std;
+
+typedef struct {
+    long long v0;  //当前值为0的个数
+    long long v1;  //当前值为1的个数
+    char ch;  //当前字符
+} vertex;
+
+vertex f[100000];
+
+void merge_sum(int p) {
+    int w0 = f[p-1].v0 * f[p].v0;
+    int w1 = f[p-1].v0*f[p].v1+f[p-1].v1*f[p].v0+f[p-1].v1*f[p].v1;
+    f[p-1].v0 = w0 % Mod;
+    f[p-1].v1 = w1 % Mod; 
+}
+
+inline void merge_product(int p)  //处理当前的值和前一个值取'*'的操作
+{
+       int w0=f[p-1].v0*f[p].v0+f[p-1].v0*f[p].v1+f[p-1].v1*f[p].v0;
+       int w1=f[p-1].v1*f[p].v1;
+       f[p-1].v0=w0%Mod;
+       f[p-1].v1=w1%Mod;
+}
+
+int main()
+{
+    int n;
+    cin&gt;&gt;n;
+    f[0].v0=f[0].v1=1;
+    while (n--)
+    {
+          now++;   //新建一个空位读入新符号
+          cin&gt;&gt;f[now].ch;
+          f[now].v0=f[now].v1=1;  //初始化当前符号的前面的值(虽然')'除外,但也不影响)
+          if (f[now].ch=='+')
+          {
+             if (f[now-1].ch=='*') //处理'*'
+             {
+                now--;
+                merge_product(now);
+                f[now]=f[now+1];
+             }
+             if (f[now-1].ch=='+') //处理'+'
+             {
+                now--;
+                merge_sum(now);
+                f[now]=f[now+1];
+             }
+          }
+          if (f[now].ch=='*')
+           if (f[now-1].ch=='*') //处理'*'
+           {
+              now--;
+              merge_product(now);
+              f[now]=f[now+1];
+           }
+          if (f[now].ch==')') //处理')'(比较麻烦)
+          {
+             now--;
+             if (f[now].ch=='*')
+             {
+                merge_product(now);
+                now--;
+             }
+             if (f[now].ch=='+')
+             {
+                merge_sum(now);
+                now--;
+             }
+             now--;
+             f[now].v0=f[now+1].v0;
+             f[now].v1=f[now+1].v1;
+             if (f[now].ch=='*')
+             {
+                merge_product(now);
+                now--;
+             }
+          }
+    }
+    if (f[now].ch=='*')  //处理完了以后,可能还有残留的'*'和'+'
+    {
+       merge_product(now);
+       now--;
+    }
+    if (f[now].ch=='+')
+    {
+       merge_sum(now);
+       now--;
+    }
+    cout&lt;&lt;f[0].v0;
+    return 0;
+}
+</code></pre>
+
+        </section>
+    </article>
+  
+    <article class="post-content">
+        <header class="text-center">
+            <h1 class="post-title">
+                <a href="/strange-extended-and-double-problem/">Extended和Double的奇怪问题</a>
+            </h1>
+            <p class="time">20 Aug 2014</p>
+        </header>
+        <section class="content">
+            <p>最近在做一个项目，其中有一段判断一个Extended浮点数是否为整数的代码。我用如下方式实现：</p>
+<pre><code>function IsInt(F: Extended): Boolean;
+begin
+  result := Trunc(F)-F = 0; //整数部分等于自身
+end;
+</code></pre>
+<p>测试了许多样例都过了，唯独这个没过：</p>
+<pre><code>IsInt(4.000000002*1000000000); //False
+</code></pre>
+<p>调试时发现： Trunc(F)居然等于4000000001！开始以为是精度的问题，找了许多资料也没能解决。后来将Extended换成了Double，就通过了。百思不得其解中。</p>
+
+        </section>
+    </article>
+  
+    <article class="post-content">
+        <header class="text-center">
+            <h1 class="post-title">
+                <a href="/mysqldump-without-lock/">MySQLDump导出时不加锁</a>
+            </h1>
+            <p class="time">19 Aug 2014</p>
+        </header>
+        <section class="content">
+            <p>在SAE上进行应用开发时，常常需要导入数据库，这时候就需要用MySQLDump工具进行本地数据库导出。</p>
+<p>首先MySQLDump最基本的语法是这样的 <code>mysqldump &lt;database_name&gt;</code>，执行之后可以在控制台上看到SQL源码。但我第一次尝试将导出的源码上传至SAE时SAE却报错，原因是SAE的数据库管理不支持LOCK和UNLOCK语句。曾有一段时间，我是手动一行行删除LOCK语句。。30多张表那叫一个蛋疼。。后来，我翻阅了mysqlDump的help文档，发现可以添加这么一个参数<code>--ADD-LOCKS=FALSE</code>。几经尝试后发现果然没有LOCK语句了。 在此记录下整句命令：</p>
+<pre><code>mysqldump --add-locks=FALSE -uroot -p &lt;database_name&gt; &gt;example.sql
+</code></pre>
+
+        </section>
+    </article>
+  
+</div>
+
+<ul class="pager">
+  
+  
+  <li class="next">
+    <a class="next" href="/page8/">Next &rarr;</a>
+  </li>
+  
+</ul>
+  </div>
+</div>
+
+
+      </div>
+
+    </div>
+
+    <div id="footer" class="row">
+      <div class="container">
+        <p class="text-center">
+          Powered by Jekyll. Hosted at Github. <br>
+          Copyright &copy; hsfzxjy. All rights reserved.
+        </p>
+      </div>
+    </div>
+
+    
+
+
+
+
+    <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/assets/themes/bootstrap-3/bootstrap/js/jquery.min.js"></script>
+    <script src="/assets/themes/bootstrap-3/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
+

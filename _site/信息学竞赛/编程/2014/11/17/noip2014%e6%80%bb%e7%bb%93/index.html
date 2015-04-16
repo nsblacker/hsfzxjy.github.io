@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>NOIP2014总结</title>
+    
+    <meta name="author" content="Jinyi Xie">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap styles -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional theme -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+    <!-- Sticky Footer -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bs-sticky-footer.css" rel="stylesheet">
+    
+    <!-- Custom styles -->
+    <link href="/assets/themes/bootstrap-3/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!-- Update these with your own images
+      <link rel="shortcut icon" href="images/favicon.ico">
+      <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+      <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+      <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+    -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+  </head>
+
+  <body>
+    <div id="wrap">
+      <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jb-navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Blog for hsfzxjy</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="jb-navbar-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+
+
+
+          </ul>
+          <form class="navbar-form navbar-right" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+
+      <div class="container">
+        
+<div class="page-header">
+  <h1>NOIP2014总结 </h1>
+</div>
+
+<div class="row post-full">
+  <div class="col-xs-12">
+    <div class="date">
+      <span>17 November 2014</span>
+    </div>
+    <div class="content">
+      <blockquote>
+<p>现在算起来，至少有<strong>220分</strong>是不应该丢的——已经接近我的得分了，都是由各种脑残的错误引起的。总之，经历了这一切，我都早已习惯了。过去的事只能让它过去了，重要的是：经历了这一切，我总要明白一些什么。</p>
+</blockquote>
+<h2><strong>生活大爆炸版剪刀石头布</strong></h2>
+<blockquote>
+<p>题目链接：<a href="http://www.luogu.org/problem/show?pid=1328">Link</a>  得分：<strong>100</strong></p>
+</blockquote>
+<p>这题是真正的大水题，当然也是我唯一一道满分的题（欲哭无泪）。不说了，模拟就是了。</p>
+<h2><strong>联合权值</strong></h2>
+<blockquote>
+<p>题目链接：<a href="http://www.luogu.org/problem/show?pid=1351">Link</a> 得分：<strong>40</strong></p>
+</blockquote>
+<p>这题不难，关键是要将无根树转化成为有根树，做一次DFS。事实上，两个距离为2的节点，要么一个是另一个的祖父节点，要么两个节点是兄弟关系。一方面，我们在DFS时先求当前节点与祖父节点产生的联合权值（如果有的话）；另一方面，遍历当前节点的子节点。对于一个子节点：只需将其的权值乘以已遍历过的节点中权值最大者即得最大权值，而只需将当前权值乘以已遍历的节点权值之和即可得到总联合权值。因此，该算法的时间复杂度为$O(n)$。<br />
+但关键之处往往就在细节的地方：我自作多情地以为求出的最大联合权值也要模10007，而事实上只需将综合取模即可。在这里丢了<strong>60分</strong>，真是不应该。</p>
+<h2><strong>飞扬的小鸟</strong></h2>
+<blockquote>
+<p>题目链接：<a href="http://www.luogu.org/problem/show?pid=1941">Link</a> 得分：<strong>0</strong></p>
+</blockquote>
+<p>这题我能够想到的办法就是爆搜，但因为做一个优化的时候开了10000*10000的longint数组导致MLE。现在算来，如果去掉那个该死的0，我可以拿到60分。同时，求正解。</p>
+<h2><strong>无线电网络发射选址</strong></h2>
+<blockquote>
+<p>题目链接：<a href="http://www.luogu.org/problem/show?pid=2038">Link</a> 得分：<strong>70</strong></p>
+</blockquote>
+<p>这题按理说应该是最不应该错的一道题了，但也只拿了70分。为此我还花了接近半个小时进行查错。结果发现，还是语文水平不过关——我自作主张地将题目脑补成<strong>“WIFI覆盖范围不得超出街道范围”</strong>。这导致了有一些边缘区域成了死角。在这里我丢了<strong>30分</strong>。下次一定要认真看题。</p>
+<h2><strong>道路寻找</strong></h2>
+<blockquote>
+<p>题目链接：<a href="http://www.luogu.org/problem/show?pid=2296">Link</a> 得分：<strong>30</strong></p>
+</blockquote>
+<p>这道题从一开始思路就是错误的：我先做了一遍DFS判断哪些点是可以经过的。而事实上：由于图中有环的存在，很多判断将具有后效性，从而导致错误。这一点我在距离考试结束还有半个小时的时候就发现了，但一直没有想到怎么更改，只能祈祷这样的数据点不要太多。<br />
+这是从别人那里听得的一个解法，花了10分钟来实现并且AC了，挺巧妙的：</p>
+<blockquote>
+<ol>
+<li>先将所有读进来的边反向存储，并删掉所有的自环。这样起点和中点就互换了位置。这是这个算法的核心。</li>
+<li>做一次DFS，将已走过的点做标记，在遍历子节点的时候，对于每个搜到的子节点都将其cnt加一。这样一来我们可以知道起点是否能走到终点；二来如果某个节点的cnt值等于其入度，则这个节点就可以通过。</li>
+<li>做一次SPFA，这就很简单了，只对可以经过的节点做松弛。</li>
+</ol>
+</blockquote>
+<p>这是一种逆向思维。</p>
+<h2><strong>解方程</strong></h2>
+<blockquote>
+<p>题目链接：<a href="http://www.luogu.org/problem/show?pid=2312">Link</a> 得分：<strong>30</strong></p>
+</blockquote>
+<p>这道题我能想到的方法只是直接做高精度，外加数论定理优化。听说可以用求导的办法求得单调区间，然后进行二分查找。个人感觉较为复杂，日后再研究一下。</p>
+<blockquote>
+<p>细节决定成败。如果做题时细心一点，而不是过于匆忙，或许，结果就不会这样了。<br />
+  而事实上在这次考试中，心态也很重要。高联的失利使我渐渐变得急功近利起来。没有了高一的淡然，没有了年少时的沉稳，一切都浮躁了起来。<br />
+  这一切，终于结束了。但，未来，未来究竟要怎么样呢？   —— 后记</p>
+</blockquote>
+
+    </div>
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-open"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/categories.html#信息学竞赛-ref">
+    		信息学竞赛 <span>24</span>
+    	</a></li>
+     
+    	<li><a href="/categories.html#编程-ref">
+    		编程 <span>31</span>
+    	</a></li>
+    
+  
+
+
+    </ul>
+    
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon glyphicon-tags"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/tags.html#NOIP2014-ref">NOIP2014 <span>1</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  
+    <hr>
+    <ul class="pagination">
+    
+      <li class="prev"><a href="/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B/%E7%BC%96%E7%A8%8B/2014/11/02/lca%25e4%25b9%258b%25e7%25a6%25bb%25e7%25ba%25bftarjan%25e7%25ae%2597%25e6%25b3%2595" title="LCA之离线Tarjan算法">&laquo; Previous</a></li>
+    
+      <li><a href="/archive.html">Archive</a></li>
+    
+      <li class="next"><a href="/%E6%95%B0%E5%AD%A6/2014/11/17/%25e3%2580%2590%25e8%25bd%25ac%25e8%25bd%25bd%25e3%2580%2591%25e5%258c%2597%25e5%25a4%25a7%25e9%2587%2591%25e7%25a7%258b%25e8%2590%25a5%25e9%25a2%2598%25e7%259b%25ae" title="【转载】北大金秋营题目">Next &raquo;</a></li>
+    
+    </ul>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    
+    var disqus_developer = 1;
+    var disqus_shortname = 'hsfzxjy'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+</div>
+
+
+      </div>
+
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p>&copy; 2015 Jinyi Xie
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </div>
+    </div>
+
+    
+
+
+
+
+    <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/assets/themes/bootstrap-3/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
+

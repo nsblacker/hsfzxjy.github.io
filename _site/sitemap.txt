@@ -1,13 +1,13 @@
 
-http://hsfzxjy.github.io/archive.html
+http://hsfzxjy.github.io/archieve.html
 http://hsfzxjy.github.io/atom.xml
 http://hsfzxjy.github.io/categories.html
-http://hsfzxjy.github.io/blog/index.html
 http://hsfzxjy.github.io/index.html
 http://hsfzxjy.github.io/pages.html
 http://hsfzxjy.github.io/rss.xml
 http://hsfzxjy.github.io/sitemap.txt
 http://hsfzxjy.github.io/tags.html
+http://hsfzxjy.github.io/about/
 http://hsfzxjy.github.io/page2/index.html
 http://hsfzxjy.github.io/page3/index.html
 http://hsfzxjy.github.io/page4/index.html

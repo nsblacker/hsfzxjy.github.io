@@ -10,7 +10,7 @@ paginate_path: "/page:num/"
 # Themes are encouraged to use these universal variables 
 # so be sure to set them if your theme uses them.
 #
-title : Blog for hsfzxjy
+title : hsfzxjy
 tagline: rm -rf /
 author :
   name : Jinyi Xie
@@ -82,13 +82,11 @@ JB :
   # Set 'provider' to false to turn commenting off globally.
   #
   comments :
-    provider : disqus
+    provider : duoshuo
     disqus :
       short_name : hsfzxjy
-    livefyre :
-      site_id : 123
-    intensedebate :
-      account : 123abc
+    duoshuo: 
+      short_name : hsfzxjy
 
   # Settings for analytics helper
   # Set 'provider' to the analytics provider you want to use.

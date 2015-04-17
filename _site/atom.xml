@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
  
- <title>Blog for hsfzxjy</title>
+ <title>hsfzxjy</title>
  <link href="http://hsfzxjy.github.io/" rel="self"/>
  <link href="http://hsfzxjy.github.io"/>
- <updated>2015-04-16T22:05:59+08:00</updated>
+ <updated>2015-04-17T20:14:01+08:00</updated>
  <id>http://hsfzxjy.github.io</id>
  <author>
    <name>Jinyi Xie</name>
@@ -53,7 +53,7 @@ $$={I^2T \over 2}$$&lt;/p&gt;
 &lt;p&gt;消息系统算是网站比较重要的一部分，它承担着将&lt;strong&gt;已发生的事件通知给相关用户&lt;/strong&gt;的责任。看似简单，但若想做到DRY，实现起来却很复杂——因为，通知的类型太多了。&lt;/p&gt;
 &lt;p&gt;这个系统，在三个项目中我实现了三次。三次都使用不同的方法，但三次都不怎么满意。这最后一次，算是比较成功的一次了。&lt;/p&gt;
 &lt;p&gt;在第一版模联网站中，我采用了一个堪称最糟糕的方案（如图所示）：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;assets/wboard_notifications.jpg&quot; alt=&quot;UML&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/wboard_notifications.jpg&quot; alt=&quot;UML&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;这个方案最大的缺点：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;耦合度太高&lt;/strong&gt;。如果有一天，又多了一种消息类型，那么就要多加一张表。&lt;/li&gt;
@@ -62,7 +62,7 @@ $$={I^2T \over 2}$$&lt;/p&gt;
 &lt;/ol&gt;
 &lt;p&gt;而在第二版模联网站中，我采用了&lt;a href=&quot;https://docs.djangoproject.com/en/1.7/ref/contrib/contenttypes/&quot;&gt;泛型&lt;/a&gt;（Generic Model Relations）这一技术来实现——这是Django另一大特色：&lt;strong&gt;通过记录对象的类型信息以及唯一标识符，实现了一种可以指向任何表的外键（GenericRelation）&lt;/strong&gt;。这种技术存在的目的就是为了&lt;strong&gt;解耦合&lt;/strong&gt;，使系统扩展更具灵活性——尽管要损失一些效率，但与架构的“健康”比起来那是微不足道的，无可厚非。&lt;/p&gt;
 &lt;p&gt;UML图如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;assets/hfmun_notices.jpg&quot; alt=&quot;UML&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/hfmun_notices.jpg&quot; alt=&quot;UML&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;这其中，&lt;code&gt;notice_type&lt;/code&gt;的取值决定了&lt;strong&gt;&lt;code&gt;url&lt;/code&gt;域的作用&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;&lt;code&gt;link&lt;/code&gt;&lt;/strong&gt;。该消息的&lt;code&gt;url&lt;/code&gt;域表示一个指向&lt;code&gt;related_object&lt;/code&gt;的地址，应该展示给用户看。&lt;/li&gt;
@@ -545,9 +545,9 @@ default-character-set=utf8
    <link href="http://hsfzxjy.github.io/2014-PKU-JinQiu/"/>
    <updated>2014-11-17T21:47:39+08:00</updated>
    <id>http://hsfzxjy.github.io/%e3%80%90%e8%bd%ac%e8%bd%bd%e3%80%91%e5%8c%97%e5%a4%a7%e9%87%91%e7%a7%8b%e8%90%a5%e9%a2%98%e7%9b%ae</id>
-   <content type="html">&lt;p&gt;&lt;img src=&quot;assets/b32914dfa9ec8a13aa6514b5f403918fa0ecc06a.jpg&quot; alt=&quot;enter image description here&quot; /&gt;&lt;/p&gt;
+   <content type="html">&lt;p&gt;&lt;img src=&quot;/assets/b32914dfa9ec8a13aa6514b5f403918fa0ecc06a.jpg&quot; alt=&quot;enter image description here&quot; /&gt;&lt;/p&gt;
 &lt;hr /&gt;
-&lt;p&gt;&lt;img src=&quot;assets/b663d5160924ab18e8f4a16236fae6cd7a890b8e.jpg&quot; alt=&quot;enter image description here&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/assets/b663d5160924ab18e8f4a16236fae6cd7a890b8e.jpg&quot; alt=&quot;enter image description here&quot; /&gt;&lt;/p&gt;
 </content>
  </entry>
  
@@ -851,7 +851,7 @@ end.
    <updated>2014-11-02T00:31:54+08:00</updated>
    <id>http://hsfzxjy.github.io/%e6%a0%91%e7%8a%b6%e6%95%b0%e7%bb%84</id>
    <content type="html">&lt;h2&gt;&lt;strong&gt;介绍&lt;/strong&gt;&lt;/h2&gt;
-&lt;p&gt;所谓树状数组，就是将线性的数组预处理成树状的结构以降低时间复杂度。先来看一幅经典的图： &lt;img src=&quot;assets/TArry1.jpg&quot; alt=&quot;enter image description here&quot; /&gt;&lt;br /&gt;
+&lt;p&gt;所谓树状数组，就是将线性的数组预处理成树状的结构以降低时间复杂度。先来看一幅经典的图： &lt;img src=&quot;/assets/TArry1.jpg&quot; alt=&quot;enter image description here&quot; /&gt;&lt;br /&gt;
 其中的a数组为原生数组，c数组为辅助数组，计算方式为： $$c_1=a_1——{(1)}&amp;#95;{10}={(1)}&amp;#95;2$$ $$c_2=a_2+c_1——{(2)}&amp;#95;{10}={(10)}&amp;#95;2$$ $$\ldots$$              不难发现，c[k]存储的实际上是从k开始向前数k的二进制表示中右边第一个1所代表的数字个元素的和。这样写的好处便是可以利用位运算轻松计算sum。上代码。&lt;/p&gt;
 &lt;h2&gt;&lt;strong&gt;Code&lt;/strong&gt;&lt;/h2&gt;
 &lt;pre&gt;&lt;code&gt;var

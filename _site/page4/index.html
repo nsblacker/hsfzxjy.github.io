@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Blog for hsfzxjy</title>
+    <title></title>
     
     <meta name="author" content="Jinyi Xie">
 
     <!-- Enable responsive viewport -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <!-- Bootstrap styles -->
     <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -34,20 +34,6 @@
       <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
     -->
 
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        extensions: ["tex2jax.js"],
-        jax: ["input/TeX", "output/HTML-CSS"],
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-          displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-          processEscapes: true
-        },
-        "HTML-CSS": { availableFonts: ["TeX"] }
-      });
-    </script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default" defer async="true"></script>
-
     <!-- atom & rss feed -->
     <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
     <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
@@ -56,7 +42,7 @@
 
   <body>
     <div id="wrap">
-      <nav class="navbar navbar-default" role="navigation">
+      <nav class="navbar navbar-default navbar-inverse" role="navigation">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jb-navbar-collapse">
@@ -65,7 +51,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">Blog for hsfzxjy</a>
+          <a class="navbar-brand" href="/">hsfzxjy</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -80,7 +66,7 @@
     
       
       	
-      	<li><a href="/archive.html">Archive</a></li>
+      	<li><a href="/archieve.html">归档</a></li>
       	
       
     
@@ -92,23 +78,17 @@
     
       
       	
-      	<li><a href="/categories.html">Categories</a></li>
+      	<li><a href="/categories.html">分类</a></li>
       	
       
     
   
     
-      
-    
-  
-    
-      
-    
   
     
       
       	
-      	<li><a href="/pages.html">Pages</a></li>
+      	<li><a href="/pages.html">页面</a></li>
       	
       
     
@@ -124,41 +104,33 @@
     
       
       	
-      	<li><a href="/tags.html">Tags</a></li>
+      	<li><a href="/tags.html">标签</a></li>
       	
       
     
   
     
       
-    
-  
-    
+      	
+      	<li><a href="/about/">联系我</a></li>
+      	
       
     
   
     
-      
+  
     
   
     
-      
+  
     
   
     
-      
+  
     
   
     
-      
-    
   
-    
-      
-    
-  
-    
-      
     
   
 
@@ -171,15 +143,14 @@
       <div class="container" id="main-container">
         
 <div class="page-header">
-  <h1>
-    <center>
-        Blog for hsfzxjy  <small>echo off</small>
-    </center>
+  <h1 class="post-title">
+         
+         <small>Free as wind.</small>
   </h1>
 </div>
 
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-xs-12 post-content">
     
 
 <div class="posts">
@@ -215,9 +186,9 @@ default-character-set=utf8
             <p class="time">17 Nov 2014</p>
         </header>
         <section class="content">
-            <p><img src="assets/b32914dfa9ec8a13aa6514b5f403918fa0ecc06a.jpg" alt="enter image description here" /></p>
+            <p><img src="/assets/b32914dfa9ec8a13aa6514b5f403918fa0ecc06a.jpg" alt="enter image description here" /></p>
 <hr />
-<p><img src="assets/b663d5160924ab18e8f4a16236fae6cd7a890b8e.jpg" alt="enter image description here" /></p>
+<p><img src="/assets/b663d5160924ab18e8f4a16236fae6cd7a890b8e.jpg" alt="enter image description here" /></p>
 
         </section>
     </article>
@@ -481,24 +452,46 @@ end.
 
     </div>
 
-    <div id="footer" class="row">
+    <div id="footer">
       <div class="container">
         <p class="text-center">
           Powered by Jekyll. Hosted at Github. <br>
-          Copyright &copy; hsfzxjy. All rights reserved.
+          Copyright &copy; hsfzxjy.
         </p>
       </div>
     </div>
 
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hsfzxjy"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script>
     
-
-
 
 
     <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="/assets/themes/bootstrap-3/bootstrap/js/jquery.min.js"></script>
     <script src="/assets/themes/bootstrap-3/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX", "output/HTML-CSS"],
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+          processEscapes: true
+        },
+        "HTML-CSS": { availableFonts: ["TeX"] }
+      });
+    </script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default" defer async="true"></script>
   </body>
 </html>
 

@@ -6,6 +6,9 @@
 @max-md: 1199px;
 @max-lg: 1200px;
 
+@post-bk-color: darken(#fff, 5%);
+@body-bk-color: darken(#eee, 10%);
+
 h1, h2, h3, h4 {
     color: #333;
 }
@@ -55,7 +58,7 @@ h1, h2, h3, h4 {
 .tag_box a {
     padding: 3px 6px;
     margin: 2px;
-    background: #eee;
+    background: @body-bk-color;
     color: #555;
     border-radius: 3px;
     text-decoration: none;
@@ -77,8 +80,27 @@ h1, h2, h3, h4 {
     color: #FFF; 
 }
 
-.content p {
-    text-indent: 2em;
+#footer {
+    .container {
+        background: @post-bk-color;
+        padding: 30px 0;
+        border-top: @body-bk-color 1px solid;
+    }
+}
+
+img {
+    max-width: 100%;
+    display: block;
+    margin: 0 auto;
+}
+
+.content {
+    * {
+        max-width: 100%;
+    }
+    p {
+        text-indent: 2em;
+    }
 }
 
 h1, h2, h3, h4, h5 {
@@ -93,16 +115,16 @@ h1, h2, h3, h4, h5 {
 
 .posts {
     article {
-        border-bottom: #eee solid 1px;
+        border-bottom: @body-bk-color solid 1px;
     }
 }
 
 html, body {
-    background: #eee;
+    background: @body-bk-color;
 }
 
 #main-container {
-    background: #fff;
+    background: @post-bk-color;
 }
 
 blockquote {

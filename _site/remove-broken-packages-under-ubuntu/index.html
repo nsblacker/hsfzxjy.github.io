@@ -10,7 +10,7 @@
     <meta name="author" content="Jinyi Xie">
 
     <!-- Enable responsive viewport -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <!-- Bootstrap styles -->
     <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -34,20 +34,6 @@
       <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
     -->
 
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        extensions: ["tex2jax.js"],
-        jax: ["input/TeX", "output/HTML-CSS"],
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-          displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-          processEscapes: true
-        },
-        "HTML-CSS": { availableFonts: ["TeX"] }
-      });
-    </script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default" defer async="true"></script>
-
     <!-- atom & rss feed -->
     <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
     <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
@@ -56,7 +42,7 @@
 
   <body>
     <div id="wrap">
-      <nav class="navbar navbar-default" role="navigation">
+      <nav class="navbar navbar-default navbar-inverse" role="navigation">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jb-navbar-collapse">
@@ -65,7 +51,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">Blog for hsfzxjy</a>
+          <a class="navbar-brand" href="/">hsfzxjy</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -80,7 +66,7 @@
     
       
       	
-      	<li><a href="/archive.html">Archive</a></li>
+      	<li><a href="/archieve.html">归档</a></li>
       	
       
     
@@ -92,23 +78,17 @@
     
       
       	
-      	<li><a href="/categories.html">Categories</a></li>
+      	<li><a href="/categories.html">分类</a></li>
       	
       
     
   
     
-      
-    
-  
-    
-      
-    
   
     
       
       	
-      	<li><a href="/pages.html">Pages</a></li>
+      	<li><a href="/pages.html">页面</a></li>
       	
       
     
@@ -124,41 +104,33 @@
     
       
       	
-      	<li><a href="/tags.html">Tags</a></li>
+      	<li><a href="/tags.html">标签</a></li>
       	
       
     
   
     
       
-    
-  
-    
+      	
+      	<li><a href="/about/">联系我</a></li>
+      	
       
     
   
     
-      
+  
     
   
     
-      
+  
     
   
     
-      
+  
     
   
     
-      
-    
   
-    
-      
-    
-  
-    
-      
     
   
 
@@ -170,19 +142,15 @@
 
       <div class="container" id="main-container">
         
-<div class="page-header">
+<div class="page-header text-center">
   <h1 class="post-title">
-    <center>
         Ubuntu下删除不完整的包 
-    </center>
   </h1>
+  <p class="time">13 December 2014</p>
 </div>
 
 <div class="row post-full post-content">
   <div class="col-xs-12">
-    <div class="date">
-      <span>13 December 2014</span>
-    </div>
     <div class="content">
       <p>答案来自<a href="http://stackoverflow.com/questions/27455626/how-to-remove-an-incomplete-package-by-using-apt-get">StackOverflow</a>: <code>sudo dpkg --remove --force-remove-reinstreq &lt;your package name&gt;</code></p>
 
@@ -228,33 +196,22 @@
     <hr>
     <ul class="pagination">
     
-      <li class="prev"><a href="/chemistry-chapter2-section1/" title="化学 【第二章-第一节】归纳">&laquo; Previous</a></li>
+      <li class="prev"><a href="/chemistry-chapter2-section1/" title="化学 【第二章-第一节】归纳">&laquo; 化学 【第二章-第一节】归纳</a></li>
     
       <li><a href="/archive.html">Archive</a></li>
     
-      <li class="next"><a href="/add-custom-fonts-under-ubuntu/" title="Ubuntu加入自己的字体">Next &raquo;</a></li>
+      <li class="next"><a href="/add-custom-fonts-under-ubuntu/" title="Ubuntu加入自己的字体">Ubuntu加入自己的字体 &raquo;</a></li>
     
     </ul>
     <hr>
     
 
 
-  <div id="disqus_thread"></div>
-<script type="text/javascript">
-    
-    var disqus_developer = 1;
-    var disqus_shortname = 'hsfzxjy'; // required: replace example with your forum shortname
-    
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
-
+  <!-- Duoshuo Comment BEGIN -->
+    <div id="comments">
+        <div class="ds-thread" data-thread-key="/ubuntu%e4%b8%8b%e5%88%a0%e9%99%a4%e4%b8%8d%e5%ae%8c%e6%95%b4%e7%9a%84%e5%8c%85"  data-title="Ubuntu下删除不完整的包 - hsfzxjy"></div>
+    </div>
+<!-- Duoshuo Comment END -->
 
 
 
@@ -266,24 +223,46 @@
 
     </div>
 
-    <div id="footer" class="row">
+    <div id="footer">
       <div class="container">
         <p class="text-center">
           Powered by Jekyll. Hosted at Github. <br>
-          Copyright &copy; hsfzxjy. All rights reserved.
+          Copyright &copy; hsfzxjy.
         </p>
       </div>
     </div>
 
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hsfzxjy"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script>
     
-
-
 
 
     <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="/assets/themes/bootstrap-3/bootstrap/js/jquery.min.js"></script>
     <script src="/assets/themes/bootstrap-3/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX", "output/HTML-CSS"],
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+          processEscapes: true
+        },
+        "HTML-CSS": { availableFonts: ["TeX"] }
+      });
+    </script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default" defer async="true"></script>
   </body>
 </html>
 

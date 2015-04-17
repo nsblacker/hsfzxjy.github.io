@@ -23,7 +23,7 @@ excerpt: !ruby/object:Hpricot::Doc
   options: {}
 ---
 <h2><strong>介绍</strong></h2>
-<p>所谓树状数组，就是将线性的数组预处理成树状的结构以降低时间复杂度。先来看一幅经典的图： <img src="assets/TArry1.jpg" alt="enter image description here" /><br />
+<p>所谓树状数组，就是将线性的数组预处理成树状的结构以降低时间复杂度。先来看一幅经典的图： <img src="/assets/TArry1.jpg" alt="enter image description here" /><br />
 其中的a数组为原生数组，c数组为辅助数组，计算方式为： $$c_1=a_1——{(1)}&#95;{10}={(1)}&#95;2$$ $$c_2=a_2+c_1——{(2)}&#95;{10}={(10)}&#95;2$$ $$\ldots$$              不难发现，c[k]存储的实际上是从k开始向前数k的二进制表示中右边第一个1所代表的数字个元素的和。这样写的好处便是可以利用位运算轻松计算sum。上代码。</p>
 <h2><strong>Code</strong></h2>
 <pre><code>var

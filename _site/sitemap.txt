@@ -16,7 +16,9 @@ http://hsfzxjy.github.io/page6/index.html
 http://hsfzxjy.github.io/page7/index.html
 http://hsfzxjy.github.io/page8/index.html
 http://hsfzxjy.github.io/page9/index.html
+http://hsfzxjy.github.io/page10/index.html
 
+http://hsfzxjy.github.io/migrate-to-github/
 http://hsfzxjy.github.io/solution-of-network-broken-down-per-20s-under-ubuntu/
 http://hsfzxjy.github.io/provement-of-Sinusoidal-AC-RMS-calculation-formula/
 http://hsfzxjy.github.io/HFMUN-reconstruction-3/

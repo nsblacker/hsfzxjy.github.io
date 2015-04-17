@@ -133,6 +133,8 @@
   
     
   
+    
+  
 
 
 
@@ -154,6 +156,22 @@
     
 
 <div class="posts">
+  
+    <article class="post-content">
+        <header class="text-center">
+            <h1 class="post-title">
+                <a href="/solution-of-apt-get-error-hash-checksum-incorrect/">Ubuntu下解决apt-get “Hash校验和不符的方案”</a>
+            </h1>
+            <p class="time">29 Nov 2014</p>
+        </header>
+        <section class="content">
+            <p>各种坑爹，我也不知道为什么：</p>
+<pre><code>sudo gedit etc/apt/apt.conf.d/00aptitude
+</code></pre>
+<p>最后加一行：<code>Acquire::CompressionTypes::Order "gz";</code></p>
+
+        </section>
+    </article>
   
     <article class="post-content">
         <header class="text-center">
@@ -328,100 +346,6 @@ begin
     dfs(root);
     for i := 1 to qn do
         writeln(questions[i].ans);
-
-    close(input); close(output);
-end.
-</code></pre>
-
-        </section>
-    </article>
-  
-    <article class="post-content">
-        <header class="text-center">
-            <h1 class="post-title">
-                <a href="/lca-tree-multiplier/">LCA树上倍增</a>
-            </h1>
-            <p class="time">02 Nov 2014</p>
-        </header>
-        <section class="content">
-            <pre><code>var
-    a: array [1..100, 1..100] of boolean;
-    depth: array [1..100] of longint;
-    father: array [1..100, 0..16] of longint;
-    n, m, i, x, y: longint;
-    root: longint;
-
-procedure dfs(x: longint);
-var
-    i: longint;
-    j: longint;
-begin
-    depth[x] := depth[father[x][0]]+1;
-    j := 1;
-    while 1&lt;&lt;j&lt;=depth[x]-1 do
-    begin
-        father[x][j] := father[father[x][j-1]][j-1];
-        inc(j);
-    end;
-    for i := 1 to n do
-    begin
-        if not a[x][i] or (father[x][0] = i) then continue;
-        father[i][0] := x;
-        dfs(i);
-    end;
-end;
-
-procedure swap(var x, y: longint);
-var
-    t: longint;
-begin
-    t := x;
-    x := y;
-    y := t;
-end;
-
-function lca(x, y: longint): longint;
-var
-    t, j: longint;
-begin
-    if depth[x] &lt; depth[y] then
-        swap(x, y);
-
-    t := depth[x] - depth[y];
-    for j := 0 to 15 do
-        if t and (1&lt;&lt;j) &lt;&gt; 0 then
-            x := father[x][j];
-    if x = y then
-        exit(x);
-    for j := 15 downto 0 do
-        if father[x][j] &lt;&gt; father[y][j] then
-        begin
-            x := father[x][j];
-            y := father[y][j];
-        end;
-    lca := father[x][0];
-end;
-
-begin
-    assign(input, 'main.in'); reset(input);
-    assign(output, 'main.out'); rewrite(output);
-
-    read(n, m);
-    for i := 1 to m do
-    begin
-        read(x, y);
-        a[x, y] := true;
-        a[y, x] := true;
-    end;
-    read(root);
-    father[root][0] := root;
-    dfs(root);
-    while not eof do
-    begin
-        read(x, y);
-        writeln(lca(x, y));
-    end;
-
 
     close(input); close(output);
 end.

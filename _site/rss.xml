@@ -5,24 +5,25 @@
         <description>hsfzxjy - Jinyi Xie</description>
         <link>http://hsfzxjy.github.io</link>
         <link>http://hsfzxjy.github.io</link>
-        <lastBuildDate>2015-04-17T21:53:59+08:00</lastBuildDate>
-        <pubDate>2015-04-17T21:53:59+08:00</pubDate>
+        <lastBuildDate>2015-04-17T22:00:29+08:00</lastBuildDate>
+        <pubDate>2015-04-17T22:00:29+08:00</pubDate>
         <ttl>1800</ttl>
 
 
         <item>
                 <title>博客迁移至Github.io</title>
-                <description>&lt;h3 id=&quot;section&quot;&gt;为什么迁出？&lt;/h3&gt;
+                <description>&lt;h3&gt;为什么迁出？&lt;/h3&gt;
 
 &lt;p&gt;话说&lt;strong&gt;SinaAppEngine&lt;/strong&gt;真是越来越不像话了：在没有征得我们开发者的同意的情况下擅自把应用总数限制调整为5个（整整少了一半！），还口口声声说是作过调查——&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;“大约90%开发者只用5个应用就足够了。”&lt;/p&gt;
+&lt;p&gt;“大约90%开发者只用5个应用就足够了。”&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;同时，增加配额的钱还那么贵，实在担负不起的我只好精简应用数目，以防未来某天应用数不够用。&lt;/p&gt;
 
-&lt;h3 id=&quot;github-pages&quot;&gt;为什么选择Github Pages？&lt;/h3&gt;
+&lt;h3&gt;为什么选择Github Pages？&lt;/h3&gt;
+
 &lt;p&gt;本人爱好程序，习惯以代码的方式来做事——写文章时也不例外。因此，我需要找到一个支持Markdown的博客平台进行迁移。为此，我经历了很长时间的思想斗争——&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;新浪、网易 等国内博客平台？&lt;/strong&gt;&lt;/p&gt;
@@ -37,40 +38,41 @@
 
 &lt;p&gt;这么一来，似乎就只剩下Github Pages了。&lt;/p&gt;
 
-&lt;h3 id=&quot;github-pages-1&quot;&gt;那么，如何在Github Pages上进行写作？&lt;/h3&gt;
+&lt;h3&gt;那么，如何在Github Pages上进行写作？&lt;/h3&gt;
 
 &lt;p&gt;首先要介绍一下 Github Pages 的架构。先看看 &lt;a href=&quot;https://help.github.com/articles/using-jekyll-with-pages/#using-jekyll&quot;&gt;Github的介绍&lt;/a&gt;：&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;h4 id=&quot;using-jekyll&quot;&gt;Using Jekyll&lt;/h4&gt;
-  &lt;p&gt;Every GitHub Page is run through Jekyll when you push content to a specially named branch within your repository. For User Pages, use the master branch in your username.github.io repository. For Project Pages, use the gh-pages branch in your project’s repository. Because a normal HTML site is also a valid Jekyll site, you don’t have to do anything special to keep your standard HTML files unchanged. Jekyll has thorough documentation that covers its features and usage. Simply start committing Jekyll formatted files and you’ll be using Jekyll in no time.&lt;/p&gt;
+&lt;h4&gt;Using Jekyll&lt;/h4&gt;
+
+&lt;p&gt;Every GitHub Page is run through Jekyll when you push content to a specially named branch within your repository. For User Pages, use the master branch in your username.github.io repository. For Project Pages, use the gh-pages branch in your project&amp;#39;s repository. Because a normal HTML site is also a valid Jekyll site, you don&amp;#39;t have to do anything special to keep your standard HTML files unchanged. Jekyll has thorough documentation that covers its features and usage. Simply start committing Jekyll formatted files and you&amp;#39;ll be using Jekyll in no time.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;可以看得出来，Github Pages使用Jekyll作为后端引擎——这是一个用Ruby写的博客框架。但用户不需要写一行Ruby的代码，只需在名为**&lt;username&gt;.github.io**的项目下面以一定的目录结构放置markdown文件，Jekyll便会自动生成整个站点。&lt;/username&gt;&lt;/p&gt;
+&lt;p&gt;可以看得出来，Github Pages使用Jekyll作为后端引擎——这是一个用Ruby写的博客框架。但用户不需要写一行Ruby的代码，只需在名为&lt;strong&gt;&lt;username&gt;.github.io&lt;/strong&gt;的项目下面以一定的目录结构放置markdown文件，Jekyll便会自动生成整个站点。&lt;/p&gt;
 
 &lt;p&gt;这里需要注意的是，Jekyll生成的站点是&lt;strong&gt;静态的&lt;/strong&gt;，也就是说站点的文件是Jekyll编译好之后存放在服务器端的，而不是接到请求之后才去编译站点，因此站点的访问速度是相当快的——这也是它的优点。&lt;/p&gt;
 
-&lt;hr /&gt;
-&lt;p&gt;我被这种机制深深地震惊了：这是一种我从来没见过的写作方式，无论是从方式上，抑或是从形式上。Jekyll 能让你真正专注于写作，而不是其他一些无谓的东西。&lt;/p&gt;
+&lt;hr&gt;
+
+&lt;p&gt;我被这种机制深深地震惊了：这是一种我从来没见过的写作方式，无论是从方式上，抑或是从形式上。Jekyll 能让你真正专注于写作，而不是其他一些无谓的东西。     &lt;/p&gt;
 
 &lt;p&gt;它把一切无关的东西都摒弃了，这才是真正的极简主义。&lt;/p&gt;
 
-&lt;hr /&gt;
+&lt;hr&gt;
+
 &lt;p&gt;最初的Jekyll站点是没有样式的。为了不重复发明轮子，我决定使用现成的主题。在网上略一搜索便有了收获：&lt;a href=&quot;http://jekyllbootstrap.com/&quot;&gt;Jekyll Bootstrap&lt;/a&gt;。&lt;/p&gt;
 
-&lt;p&gt;Bootstrap是我最常用，也是最欣赏的一个前端框架。因此尽管这个主题仍在开发当中，我还是毫不犹豫地选中了它。&lt;/p&gt;
+&lt;p&gt;Bootstrap是我最常用，也是最欣赏的一个前端框架。因此尽管这个主题仍在开发当中，我还是毫不犹豫地选中了它。    &lt;/p&gt;
 
-&lt;p&gt;从 &lt;a href=&quot;https://github.com/plusjade/jekyll-bootstrap.git&quot;&gt;Github&lt;/a&gt; 上将这个项目 clone 下来，覆盖到hsfzxjy.github.io项目下，理论上，站点就可以运行了。接下来，进行一些样式上的微调就可以了。&lt;/p&gt;
+&lt;p&gt;从 &lt;a href=&quot;https://github.com/plusjade/jekyll-bootstrap.git&quot;&gt;Github&lt;/a&gt; 上将这个项目 clone 下来，覆盖到hsfzxjy.github.io项目下，理论上，站点就可以运行了。接下来，进行一些样式上的微调就可以了。   &lt;/p&gt;
 
 &lt;p&gt;至于评论系统，由于 Github Pages 是静态站点，因此只能使用第三方评论服务。Jekyll 默认的评论服务是Disqus ——一个国外的评论服务站点，但考虑到我在国内，许多人无法使用Facebook，Twitter等社交平台登录评论，我将它替换为了&lt;strong&gt;多说&lt;/strong&gt;。具体操作，可以参考 &lt;a href=&quot;http://havee.me/internet/2013-07/add-duoshuo-commemt-system-into-jekyll.html&quot;&gt;这里&lt;/a&gt;。&lt;/p&gt;
 
 &lt;p&gt;Github Pages上的文章只能在本地编辑，因而需要一个趁手的 Markdown 编辑器。在 Ubuntu 环境下我使用的是 &lt;strong&gt;ReText&lt;/strong&gt;：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;```ruby
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;```ruby
 sudo apt-get install retext 
 ```
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
                 <link>http://hsfzxjy.github.io/migrate-to-github/</link>
                 <guid>http://hsfzxjy.github.io/migrate-to-github.io</guid>
                 <pubDate>2015-04-17T00:00:00+08:00</pubDate>

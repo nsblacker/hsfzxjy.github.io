@@ -5,8 +5,8 @@
         <description>hsfzxjy - Jinyi Xie</description>
         <link>http://hsfzxjy.github.io</link>
         <link>http://hsfzxjy.github.io</link>
-        <lastBuildDate>2015-04-17T22:04:04+08:00</lastBuildDate>
-        <pubDate>2015-04-17T22:04:04+08:00</pubDate>
+        <lastBuildDate>2015-04-17T22:07:06+08:00</lastBuildDate>
+        <pubDate>2015-04-17T22:07:06+08:00</pubDate>
         <ttl>1800</ttl>
 
 
@@ -69,10 +69,9 @@
 &lt;p&gt;至于评论系统，由于 Github Pages 是静态站点，因此只能使用第三方评论服务。Jekyll 默认的评论服务是Disqus ——一个国外的评论服务站点，但考虑到我在国内，许多人无法使用Facebook，Twitter等社交平台登录评论，我将它替换为了&lt;strong&gt;多说&lt;/strong&gt;。具体操作，可以参考 &lt;a href=&quot;http://havee.me/internet/2013-07/add-duoshuo-commemt-system-into-jekyll.html&quot;&gt;这里&lt;/a&gt;。&lt;/p&gt;
 
 &lt;p&gt;Github Pages上的文章只能在本地编辑，因而需要一个趁手的 Markdown 编辑器。在 Ubuntu 环境下我使用的是 &lt;strong&gt;ReText&lt;/strong&gt;：&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;```ruby
-sudo apt-get install retext 
-```
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;n&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;apt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;retext&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+</description>
                 <link>http://hsfzxjy.github.io/migrate-to-github/</link>
                 <guid>http://hsfzxjy.github.io/migrate-to-github.io</guid>
                 <pubDate>2015-04-17T00:00:00+08:00</pubDate>

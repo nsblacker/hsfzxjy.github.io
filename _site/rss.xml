@@ -5,10 +5,56 @@
         <description>hsfzxjy - Jinyi Xie</description>
         <link>http://hsfzxjy.github.io</link>
         <link>http://hsfzxjy.github.io</link>
-        <lastBuildDate>2015-04-17T22:07:06+08:00</lastBuildDate>
-        <pubDate>2015-04-17T22:07:06+08:00</pubDate>
+        <lastBuildDate>2015-04-19T18:27:58+08:00</lastBuildDate>
+        <pubDate>2015-04-19T18:27:58+08:00</pubDate>
         <ttl>1800</ttl>
 
+
+        <item>
+                <title>HTML5 多媒体测试</title>
+                <description>&lt;h3&gt;音频测试： 后青春期的诗.mp3&lt;/h3&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;video&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;controls&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;source&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;/assets/media/m1.mp3&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/video&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;video controls&gt;
+    &lt;source src=&quot;/assets/media/m1.mp3&quot; &gt;
+&lt;/video&gt;
+</description>
+                <link>http://hsfzxjy.github.io/html5-media-test/</link>
+                <guid>http://hsfzxjy.github.io/html5-media-test</guid>
+                <pubDate>2015-04-19T00:00:00+08:00</pubDate>
+        </item>
+
+        <item>
+                <title>如何备份apt-get已安装的软件列表？</title>
+                <description>&lt;p&gt;&lt;code&gt;apt-get&lt;/code&gt;是 ubuntu 下管理软件包的一个工具，实用简单，功能强大。平时若要安装或卸载软件包，只需轻敲一条指令即可。每一台ubuntu上，都安装着数以千百计的软件包——或是内核模块，或是工作、娱乐所需的软件，在它们的支持下，工作着这个开放的操作系统。&lt;/p&gt;
+
+&lt;p&gt;但，如果有一天，系统需要被重装——或是无可救药了，抑或是购置了新的设备，问题来了：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;如何将现有电脑上的软件包迁移至新的系统呢？&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;很简单。&lt;/p&gt;
+
+&lt;p&gt;首先，将原有的软件列表导出：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;sudo dpkg --get-selections  &amp;gt; app-backup-list.lst
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;最好是设置一个定时任务，每隔一段时间就保存一次列表，并且要保存到一个独立的分区。以免某天系统真的坏了。&lt;/p&gt;
+
+&lt;p&gt;接下来便是导入了：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;sudo dpkg --set-selections &amp;lt; app-backup-list.lst
+sudo apt-get -y update
+sudo apt-get dselect-upgrade
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;至于软件源的备份，只需将&lt;code&gt;/etc/apt/sources.list&lt;/code&gt;文件复制过去即可。&lt;/p&gt;
+</description>
+                <link>http://hsfzxjy.github.io/backup-apt-get/</link>
+                <guid>http://hsfzxjy.github.io/backup-apt-get</guid>
+                <pubDate>2015-04-19T00:00:00+08:00</pubDate>
+        </item>
 
         <item>
                 <title>博客迁移至Github.io</title>

@@ -18,6 +18,8 @@ http://hsfzxjy.github.io/page8/index.html
 http://hsfzxjy.github.io/page9/index.html
 http://hsfzxjy.github.io/page10/index.html
 
+http://hsfzxjy.github.io/html5-media-test/
+http://hsfzxjy.github.io/backup-apt-get/
 http://hsfzxjy.github.io/migrate-to-github/
 http://hsfzxjy.github.io/solution-of-network-broken-down-per-20s-under-ubuntu/
 http://hsfzxjy.github.io/provement-of-Sinusoidal-AC-RMS-calculation-formula/

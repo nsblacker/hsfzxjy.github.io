@@ -161,6 +161,146 @@
     <article class="post-content">
         <header class="text-center">
             <h1 class="post-title">
+                <a href="/HFMUN-reconstruction-3/">【HFMUN重构系列】3. 消息系统</a>
+            </h1>
+            <p class="time">03 Mar 2015</p>
+        </header>
+        <section class="content">
+            <blockquote>
+<p>一个真正优秀的系统，值得你无数次地去重构。</p>
+</blockquote>
+<p>消息系统算是网站比较重要的一部分，它承担着将<strong>已发生的事件通知给相关用户</strong>的责任。看似简单，但若想做到DRY，实现起来却很复杂——因为，通知的类型太多了。</p>
+<p>这个系统，在三个项目中我实现了三次。三次都使用不同的方法，但三次都不怎么满意。这最后一次，算是比较成功的一次了。</p>
+<p>在第一版模联网站中，我采用了一个堪称最糟糕的方案（如图所示）：</p>
+<p><img src="/assets/wboard_notifications.jpg" alt="UML" /></p>
+<p>这个方案最大的缺点：</p>
+<ol>
+<li><strong>耦合度太高</strong>。如果有一天，又多了一种消息类型，那么就要多加一张表。</li>
+<li><strong>查询的难度大</strong>。通常来说我们需要显示所有的消息，从而需要使用JOIN语句进行多表联查——这效率是很低的。</li>
+<li><strong>SQL本身就不是面向对象的</strong>。虽说<code>CommentNotification</code>是<code>Notification</code>的子类，可查询时却并不能使用类似<code>Notification.objects.all()</code>一类的语句。在一定程度上可以说：SQL本身就不是面向对象的。</li>
+</ol>
+<p>而在第二版模联网站中，我采用了<a href="https://docs.djangoproject.com/en/1.7/ref/contrib/contenttypes/">泛型</a>（Generic Model Relations）这一技术来实现——这是Django另一大特色：<strong>通过记录对象的类型信息以及唯一标识符，实现了一种可以指向任何表的外键（GenericRelation）</strong>。这种技术存在的目的就是为了<strong>解耦合</strong>，使系统扩展更具灵活性——尽管要损失一些效率，但与架构的“健康”比起来那是微不足道的，无可厚非。</p>
+<p>UML图如下：</p>
+<p><img src="/assets/hfmun_notices.jpg" alt="UML" /></p>
+<p>这其中，<code>notice_type</code>的取值决定了<strong><code>url</code>域的作用</strong>：</p>
+<ul>
+<li><strong><code>link</code></strong>。该消息的<code>url</code>域表示一个指向<code>related_object</code>的地址，应该展示给用户看。</li>
+<li><strong><code>invoke</code></strong>。该消息需要在用户确认后执行一个动作。其<code>url</code>域表示需要执行的动作的地址——这里有些TaskQueue的意味。</li>
+</ul>
+<p>然而，发消息时又应该怎么做呢？如果在所有的地方都来一句：<code>Notice.create(......)</code>，那也太不DRY了吧？</p>
+<p>有人说：“懒惰是程序员的天性。”</p>
+<p>我赞同，但我还想补充一句：“懒惰更是程序员精简代码的动力。”</p>
+<p>于是，我创立了一个类<code>NoticeDispatcher</code>，用于分发消息——其实这一类工具代码在之前的系统中也存在过，只不过这一版本的令我更为满意。</p>
+<pre><code>class NoticeDispatcher(object):
+
+    def __init__(self, model, default = {}):
+        if not issubclass(model, SendNoticeModelMixin):
+            raise TypeError('The `model` must be a subclass of  `SendNoticeModelMixin`.')
+        self.__model = model
+        self.__default = {}
+        self.__default.update(default)
+
+    def send(self, *args, **kwargs):
+        klass = Notice
+
+        title = self.__model.generate_title(*args, **kwargs) 
+        content = self.__model.generate_content(*args, **kwargs) 
+        url = self.__model.generate_url(*args, **kwargs)
+        user = self.__model.generate_user(*args, **kwargs)
+
+        valid_keys_set = set(kwargs.iterkeys()) &amp; \
+            set(field.name for field in klass._meta.fields)
+
+        params = deepcopy(self.__default)
+        params.update({key: kwargs[key] for key in valid_keys_set})
+        params.update({
+            'title': title,
+            'content': content,
+            'url': url,
+        })
+
+        results = []
+        try:
+            iter(user)
+        except:
+            user = (user,)
+
+        for _user in user:
+            params['user'] = _user
+            notice = klass(*args, **params)
+            notice.save()
+            results.append(notice)
+
+        return results
+</code></pre>
+<p>我们可以传入一个模型类作为参数从而获得一个<code>NoticeDispatcher</code>对象。这个模型类被要求继承于<code>notices.mixins.SendNoticeModelMixin</code>，以完成一些默认的配置——这是一个抽象基类：</p>
+<pre><code>class SendNoticeModelMixin(object):
+
+    @classmethod
+    def generate_title(klass, *args, **kwargs):
+        return ''
+
+    @classmethod
+    def generate_content(klass, *args, **kwargs):
+        return ''
+
+    @classmethod
+    def generate_url(klass, *args, **kwargs):
+        return ''
+
+    @classmethod
+    def generate_user(klass, *args, **kwargs):
+        return []
+</code></pre>
+<p>做完这一切之后，每当调用<code>notice_dispatcher.send()</code>方法时，<code>NoticeDispatcher</code>会自动调用模型类中的<code>generate_*</code>方法以获取构建消息对象的默认参数。像一些基本不变的内容——如<code>url</code>、<code>title</code>就可以用代码自动生成，进而提高代码复用率。</p>
+<p>当然，这个系统仍有一些不够完善的地方，如：</p>
+<ul>
+<li><code>notice_type</code>为<code>invoke</code>时的逻辑至今尚未实现。</li>
+<li>当消息的构建不需要<code>related_object</code>参数时，仍需调用原生的<code>create</code>方法，非常麻烦。</li>
+<li><code>related_object</code>参数仍需手动传入，有些不干净——最好就是能在<code>SendNoticeModelMixin</code>上实现<code>send</code>方法，很多啰嗦的代码便又可以省略掉了。</li>
+</ul>
+<p>以上问题，或是由于没有需求，或是由于懒惰（- -!），没有来得及去实现。但愿能在下一次改进时解决。</p>
+<p>总而言之呢，事情正在似乎在朝着好的方面发展。</p>
+
+        </section>
+    </article>
+  
+    <article class="post-content">
+        <header class="text-center">
+            <h1 class="post-title">
+                <a href="/ten-years/">十年</a>
+            </h1>
+            <p class="time">03 Mar 2015</p>
+        </header>
+        <section class="content">
+            <p>再一次站在这里，我却发现早已没有了熟悉的感觉。一切都是那样陌生：长年累月的雨水冲刷，使原本灰色的墙面变得愈加晦暗，有几处墙皮脱落了，酷似一张布满皱纹的老脸；门前，野草肆意地疯长着，没过了缩在墙角的那根水管——记忆中它一直在渗水，却不知何时被修好了，只留下了一圈丑陋的青苔，像是对这十年光阴的一个标注。</p>
+<p>这里的一切，就像是被人遗弃了。四周站着的那一圈高楼，无时无刻不在表达着对这角隅的不屑——就像长辈们对待无知的孩童一样。<br />
+而事实上，这里比周围的一切都要年长。</p>
+<p>时光上溯十年，那时，我居住于此。那时，还没有周围这一切。</p>
+<p>曾记得，在不远处的那块菜地，我和小伙伴趟过泥水，猫着腰在捕捉小鱼小虾。柔软的泥土记录这我们的足迹，竹架上的蔬果聆听着我们的欢笑，就连那不知名的虫儿，也哼起歌为我们助兴。</p>
+<p>曾记得，在屋后的那片小树林，上演过一次又一次的“探险之旅”。不畏阴暗，不惧神秘，只求抵达尽头时那种大汗淋漓的快意。</p>
+<p>曾记得，在楼顶的天台，我第一次仰望星空。夏夜的风吹起架子上的藤蔓，吹拂着我的脸庞。和着如水的月光，四周的一切就像仙境般梦幻。</p>
+<p>这里，有着我童年的所有回忆。</p>
+<p>可如今，这一切都像是未曾发生过。这里，也未曾记得。</p>
+<p>十年，很长，长得足以让一个人，去遗忘一个地方。</p>
+<p>再一次遇见他，没有太多的喜悦，只是相视一笑，随即，便陷入了沉默。</p>
+<p>比起上一次相遇，他又有了一些变化，整个人显得更加成熟了。但与此同时，一种未知的像雾一样的却在我们中间弥散开来，凝固着空气，窒息着心灵。</p>
+<p>我竭力搜寻着话题，想要打破这恼人的尴尬，但却徒劳无功——真的没有共同语言了，毕竟在新的环境里，我们都有了新的爱好。</p>
+<p>真是一个让人迷惑的时代——在这里，共有着美好的回忆，却也无法维系十年的友情。</p>
+<p>在那人生的上古时期，他，是我最好的朋友，一起逃过课，在小学边上的山坡尽情地疯玩；一起偷过钱，忐忑地在小商店购买垂涎已久的零食。那些年和他，一玩能玩一天，一聊能聊一宿。我们有过争吵，而更多时候，我们亲如弟兄。</p>
+<p>记忆中的那些画面，每一张笑脸，每一滴眼泪，都是那样真诚。</p>
+<p>只是，曾经的旧知己，最终还是变不到老友。</p>
+<p>十年，很长，长得足以让一个人，去疏远另一个人。</p>
+<p>十年，真的很长。承载着过去的回忆，有欢笑，有泪水——就像是人那短暂一生的缩影。</p>
+<p>人生又能有几个十年？无从得知。</p>
+<p>因此，每一个十年都弥足珍贵；每一个十年，都要用心去珍惜。</p>
+
+        </section>
+    </article>
+  
+    <article class="post-content">
+        <header class="text-center">
+            <h1 class="post-title">
                 <a href="/kill-processes-under-ubuntu/">ubuntu杀死进程</a>
             </h1>
             <p class="time">02 Mar 2015</p>
@@ -364,50 +504,6 @@ sys.modules['django'] = django
 <p>由于<code>index.wsgi</code>是第一个被执行的文件，在此处把Django先导入可以保证之后每次使用的Django都是自己上传的那个版本。<br />
 至此，新版本Django就可以使用了。</p>
 <p><em>ps：据测试，这样配置的网站大约会比普通的网站慢几十毫秒，大概是自己的Django需要启动时间。不过比起新功能，这点损耗是微不足道的。</em></p>
-
-        </section>
-    </article>
-  
-    <article class="post-content">
-        <header class="text-center">
-            <h1 class="post-title">
-                <a href="/HFMUN-reconstruction-0/">【HFMUN重构系列】0. 前言</a>
-            </h1>
-            <p class="time">27 Jan 2015</p>
-        </header>
-        <section class="content">
-            <p>这是2014年初我接到的一个项目：给模拟联合国建立一个网站，实现文章发布以及在线聊天的功能，供在3月初的华附模联大会使用。</p>
-<p>这是我人生中做的第一个网站，也是在这时，我组建了第一支自己的开发团队——尽管，只有两个人；尽管，我们都才高一。至于他们是怎么找到我的，那一刻，我记得十分清楚——那是2013年12月的某天，一个晚自习的课间，阿三突然走进来大喊了一声：“我们班有谁会做网站的？”那时候的我，刚刚接触web编程。我记得，我毫不犹豫地就答应了。这一句回答，改变了我之后一年多的生活。其中，有收获，同时也失去了一些东西——但我不后悔。这一年多的生活，在别人看来我似乎是在固执地溯流行船，逆着大家公认的“好的方向”前进，可我觉得这一切都是值得的。一年来，我收获的不只是技术，还有团队协作能力、与客户交涉的能力、许多解决未知问题的方法，以及最重要的一点——快乐。现在回想起来：如果当初我没有选择这一条路，也许我会通过一些“传统”的努力获得一些“传统”的荣誉，甚至没有了高考的负担，这固然不错，但同时我也会失去上一句话中提到的那些东西——一些在书本中学不到的珍宝，这些都是要通过实践来感知。更何况——每个人都应该拥有属于自己的生活。</p>
-<p>我又想起了黄老师那句话：</p>
-<blockquote>
-<p>“希望你不要随波逐流。”</p>
-</blockquote>
-<p>言归正传。我先简单概括一下这个系统的情况。这是搭建在SinaAppEngine上的一个网站，使用Python+Django1.7+MySQL+Bootstrap3进行开发。去年的版本做的实在是有些匆忙，在投入使用前一天才草草收尾，没有经过QA测试就投入使用了——或者说我们请客户当了QA(T_T)。幸好客户比较温柔，不像传说中段子里提到的<strong>可怕的甲方</strong>，或许是因为这是第一版，又或许是碍于同学情面。</p>
-<p>那次的前端做得实在是太挫了：每一个界面元素都是照搬Bootstrap的组件，Bootstrap没有的便用其中一种或几种组合（Panel搭建的超大评论框就这么诞生了...），我们自己只写了少得可怜的几行css——事实上就凭着当年那菜鸟级别的css水平，我们也不敢乱改。另外一个令我们头疼的是IE兼容性问题（EVIL！）——这还是一个用户发现的：bootstrap在IE8-下全乱了。我只得陪着笑乞求他们换用Chrome，别提有多尴尬了。</p>
-<p>问题还不止这些。2013年初，正是新浪云的Channel服务进行公测的时候。Channel服务是新浪云自主开发的一个提供客户端实时推送的服务，可应用于网络聊天室等实时性要求较高的网站中。有了这一技术，我才有能力搭建会议聊天系统。但这毕竟是Alpha版本，难免有些Bug。在调试时，光是和新浪客服交涉就花了我不少的时间。可在实际应用时它还是出了一些毛病，甚至在会议最后半天时它干脆直接无法使用了（π.π）。</p>
-<blockquote>
-<p>凡事都是要走出第一步的，无论是成功或是失败。</p>
-</blockquote>
-<p>时光荏苒，转眼间一年又过去了。从14年12月开始我又重新启动了这一项目。比起上一次，尽管上次的网站做基础，尽管我有了更多的时间，可用户的需求也更加苛刻了。截至目前，1月27日，重构已经几乎完成了。在这里，我将记下这两个月的重构工程中发生的点点滴滴。</p>
-<p>附：<a href="http://hfmun.sinaapp.com/">华附模拟联合国官网</a></p>
-
-        </section>
-    </article>
-  
-    <article class="post-content">
-        <header class="text-center">
-            <h1 class="post-title">
-                <a href="/sublime-text-2-installation-under-ubuntu/">Ubuntu安装Sublime 2</a>
-            </h1>
-            <p class="time">29 Dec 2014</p>
-        </header>
-        <section class="content">
-            <pre><code>sudo add-apt-repository ppa:webupd8team/sublime-text-2
-
-sudo apt-get update
-
-sudo apt-get install sublime-text-2
-</code></pre>
 
         </section>
     </article>

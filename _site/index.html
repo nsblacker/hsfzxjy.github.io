@@ -7,6 +7,7 @@
 
     <title></title>
     
+    <script src="/assets/themes/bootstrap-3/bootstrap/js/jquery.min.js"></script>
     <meta name="author" content="Jinyi Xie">
 
     <!-- Enable responsive viewport -->
@@ -168,7 +169,7 @@
             <p class="time">19 Apr 2015</p>
         </header>
         <section class="content">
-            <h3>audio &amp; video</h3>
+            <h2>audio &amp; video</h2>
 <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;video</span> <span class="na">src=</span><span class="s">&quot;http://www.w3school.com.cn/i/movie.ogg&quot;</span> <span class="na">controls=</span><span class="s">&quot;controls&quot;</span><span class="nt">&gt;</span>
 您的浏览器不支持 video 标签。
 <span class="nt">&lt;/video&gt;</span>
@@ -176,7 +177,7 @@
 Your browser does not support the audio element.
 <span class="nt">&lt;/audio&gt;</span>
 </code></pre></div>
-<div class="align-center">
+<div class="center-example">
     <video src="http://www.w3school.com.cn/i/movie.ogg" controls="controls">
     您的浏览器不支持 video 标签。
     </video>
@@ -185,7 +186,7 @@ Your browser does not support the audio element.
     </audio>
 </div>
 
-<h3>Canvas</h3>
+<h2>canvas</h2>
 <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;canvas</span> <span class="na">id=</span><span class="s">&quot;myCanvas&quot;</span><span class="nt">&gt;</span>
     your browser does not support the canvas tag 
 <span class="nt">&lt;/canvas&gt;</span>
@@ -202,9 +203,11 @@ Your browser does not support the audio element.
     <span class="nx">ctx</span><span class="p">.</span><span class="nx">fillRect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">175</span><span class="p">,</span><span class="mi">50</span><span class="p">);</span>
 <span class="nt">&lt;/script&gt;</span>
 </code></pre></div>
-<canvas id="myCanvas" class="align-center">
-    your browser does not support the canvas tag 
-</canvas>
+<div class="center-example">
+    <canvas id="myCanvas" class="align-center">
+        your browser does not support the canvas tag 
+    </canvas>
+</div>
 
 <script type="text/javascript">
     var canvas=document.getElementById('myCanvas');
@@ -216,6 +219,28 @@ Your browser does not support the audio element.
     grd.addColorStop(1,"#00FF00");
     ctx.fillStyle=grd;
     ctx.fillRect(0,100,175,50);
+</script>
+
+<h2>LocalStorage</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">$input</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#localstorage-input&quot;</span><span class="p">),</span> <span class="nx">key</span> <span class="o">=</span> <span class="s1">&#39;my-key&#39;</span><span class="p">;</span>
+<span class="nx">$input</span><span class="p">.</span><span class="nx">val</span><span class="p">(</span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="nx">key</span><span class="p">));</span>
+<span class="nx">$input</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;change, keyup&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">$input</span><span class="p">.</span><span class="nx">val</span><span class="p">());</span>
+<span class="p">})</span>
+</code></pre></div>
+<div class="example">
+    <div class="form-group">
+        <label class="control-label">这个文本框中的内容不会改变：</label>
+        <input id="localstorage-input" type="text" class="form-control">
+    </div>
+</div>
+
+<script type="text/javascript">
+    var $input = $("#localstorage-input"), key = 'my-key';
+    $input.val(localStorage.getItem(key));
+    $input.on('change, keyup', function () {
+        localStorage.setItem(key, $input.val());
+    })
 </script>
 
         </section>
@@ -405,7 +430,6 @@ $$={I^2T \over 2}$$</p>
 
     <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/assets/themes/bootstrap-3/bootstrap/js/jquery.min.js"></script>
     <script src="/assets/themes/bootstrap-3/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({

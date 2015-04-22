@@ -4,7 +4,7 @@ layout: post
 categories: HTML5
 ---
 
-### audio & video
+## audio & video
     
 ```html
 <video src="http://www.w3school.com.cn/i/movie.ogg" controls="controls">
@@ -15,7 +15,7 @@ Your browser does not support the audio element.
 </audio>
 ``` 
 
-<div class="align-center">
+<div class="center-example">
     <video src="http://www.w3school.com.cn/i/movie.ogg" controls="controls">
     您的浏览器不支持 video 标签。
     </video>
@@ -24,7 +24,7 @@ Your browser does not support the audio element.
     </audio>
 </div>
 
-### Canvas
+## canvas
 
 ```html
 <canvas id="myCanvas">
@@ -44,9 +44,11 @@ Your browser does not support the audio element.
 </script>
 ```
 
-<canvas id="myCanvas" class="align-center">
-    your browser does not support the canvas tag 
-</canvas>
+<div class="center-example">
+    <canvas id="myCanvas" class="align-center">
+        your browser does not support the canvas tag 
+    </canvas>
+</div>
 
 <script type="text/javascript">
     var canvas=document.getElementById('myCanvas');
@@ -58,4 +60,28 @@ Your browser does not support the audio element.
     grd.addColorStop(1,"#00FF00");
     ctx.fillStyle=grd;
     ctx.fillRect(0,100,175,50);
+</script>
+
+## LocalStorage
+
+```js
+var $input = $("#localstorage-input"), key = 'my-key';
+$input.val(localStorage.getItem(key));
+$input.on('change, keyup', function () {
+    localStorage.setItem(key, $input.val());
+})
+```
+
+<div class="example">
+    <div class="form-group">
+        <label class="control-label">这个文本框中的内容不会改变：</label>
+        <input id="localstorage-input" type="text" class="form-control">
+    </div>
+</div>
+<script type="text/javascript">
+    var $input = $("#localstorage-input"), key = 'my-key';
+    $input.val(localStorage.getItem(key));
+    $input.on('change, keyup', function () {
+        localStorage.setItem(key, $input.val());
+    })
 </script>

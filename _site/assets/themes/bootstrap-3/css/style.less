@@ -15,6 +15,31 @@
     text-align: center!important;
 }
 
+.example {
+    margin: 20px 0;
+    padding: 5px;
+    padding-top: 0;
+    border-radius: 5px;
+    border: @body-bk-color solid 1px;
+}
+
+.center-example {
+    .example;
+    text-align: center!important;
+}
+
+.example, .center-example {
+    &:before {
+        content: '示例';
+        display: block;
+        font-weight: 800;
+        padding: 5px;
+        margin-bottom: 5px;
+        text-align: center;
+        border-bottom: @body-bk-color solid 1px;
+    }
+}
+
 h1, h2, h3, h4 {
     color: #333;
 }

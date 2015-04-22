@@ -17,6 +17,21 @@ tagline: Free as wind.
         <section class="content">
             {{post.content}}
         </section>
+        {% unless post.categories == empty %}
+          <ul class="tag_box inline">
+            <li><i class="glyphicon glyphicon-open"></i></li>
+            {% assign categories_list = post.categories %}
+            {% include JB/categories_list %}
+          </ul>
+        {% endunless %}  
+
+        {% unless post.tags == empty %}
+          <ul class="tag_box inline">
+            <li><i class="glyphicon glyphicon-tags"></i></li>
+            {% assign tags_list = post.tags %}
+            {% include JB/tags_list %}
+          </ul>
+        {% endunless %} 
     </article>
   {% endfor %}
 </div>

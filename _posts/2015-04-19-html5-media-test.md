@@ -4,14 +4,22 @@ layout: post
 categories: HTML5 media
 ---
 
-### 音频测试： 后青春期的诗.mp3
+### 音频测试
     
-{% highlight html %}
-<video controls>
-    <source src="/assets/media/m1.mp3" >
+```html
+<video src="http://www.w3school.com.cn/i/movie.ogg" controls="controls">
+您的浏览器不支持 video 标签。
 </video>
-{% endhighlight %}
+<audio src="http://www.w3school.com.cn/i/horse.ogg" controls="controls">
+Your browser does not support the audio element.
+</audio>
+``` 
     
-<video controls>
-    <source src="/assets/media/m1.mp3" >
-</video>
+<center>
+    <video src="http://www.w3school.com.cn/i/movie.ogg" controls="controls">
+    您的浏览器不支持 video 标签。
+    </video>
+    <audio src="http://www.w3school.com.cn/i/horse.ogg" controls="controls">
+        Your browser does not support the audio element.
+    </audio>
+</center>

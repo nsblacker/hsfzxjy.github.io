@@ -136,6 +136,8 @@
   
     
   
+    
+  
 
 
 
@@ -166,15 +168,22 @@
             <p class="time">19 Apr 2015</p>
         </header>
         <section class="content">
-            <h3>音频测试： 后青春期的诗.mp3</h3>
-
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;video</span> <span class="na">controls</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;source</span> <span class="na">src=</span><span class="s">&quot;/assets/media/m1.mp3&quot;</span> <span class="nt">&gt;</span>
-<span class="nt">&lt;/video&gt;</span></code></pre></div>
-
-<video controls>
-    <source src="/assets/media/m1.mp3" >
-</video>
+            <h3>音频测试</h3>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;video</span> <span class="na">src=</span><span class="s">&quot;http://www.w3school.com.cn/i/movie.ogg&quot;</span> <span class="na">controls=</span><span class="s">&quot;controls&quot;</span><span class="nt">&gt;</span>
+您的浏览器不支持 video 标签。
+<span class="nt">&lt;/video&gt;</span>
+<span class="nt">&lt;audio</span> <span class="na">src=</span><span class="s">&quot;http://www.w3school.com.cn/i/horse.ogg&quot;</span> <span class="na">controls=</span><span class="s">&quot;controls&quot;</span><span class="nt">&gt;</span>
+Your browser does not support the audio element.
+<span class="nt">&lt;/audio&gt;</span>
+</code></pre></div>
+<p><center>
+    <video src="http://www.w3school.com.cn/i/movie.ogg" controls="controls">
+    您的浏览器不支持 video 标签。
+    </video>
+    <audio src="http://www.w3school.com.cn/i/horse.ogg" controls="controls">
+        Your browser does not support the audio element.
+    </audio>
+</center></p>
 
         </section>
     </article>
@@ -198,12 +207,12 @@
 <p>很简单。</p>
 
 <p>首先，将原有的软件列表导出：</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">sudo dpkg --get-selections  &gt; app-backup-list.lst
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo dpkg --get-selections  &gt; app-backup-list.lst
 </code></pre></div>
 <p>最好是设置一个定时任务，每隔一段时间就保存一次列表，并且要保存到一个独立的分区。以免某天系统真的坏了。</p>
 
 <p>接下来便是导入了：</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">sudo dpkg --set-selections &lt; app-backup-list.lst
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo dpkg --set-selections &lt; app-backup-list.lst
 sudo apt-get -y update
 sudo apt-get dselect-upgrade
 </code></pre></div>
@@ -277,9 +286,8 @@ sudo apt-get dselect-upgrade
 <p>至于评论系统，由于 Github Pages 是静态站点，因此只能使用第三方评论服务。Jekyll 默认的评论服务是Disqus ——一个国外的评论服务站点，但考虑到我在国内，许多人无法使用Facebook，Twitter等社交平台登录评论，我将它替换为了<strong>多说</strong>。具体操作，可以参考 <a href="http://havee.me/internet/2013-07/add-duoshuo-commemt-system-into-jekyll.html">这里</a>。</p>
 
 <p>Github Pages上的文章只能在本地编辑，因而需要一个趁手的 Markdown 编辑器。在 Ubuntu 环境下我使用的是 <strong>ReText</strong>：</p>
-
-<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">retext</span></code></pre></div>
-
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get install retext 
+</code></pre></div>
         </section>
     </article>
   

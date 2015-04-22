@@ -17,6 +17,7 @@ http://hsfzxjy.github.io/page7/index.html
 http://hsfzxjy.github.io/page8/index.html
 http://hsfzxjy.github.io/page9/index.html
 http://hsfzxjy.github.io/page10/index.html
+http://hsfzxjy.github.io/page11/index.html
 
 http://hsfzxjy.github.io/html5-media-test/
 http://hsfzxjy.github.io/backup-apt-get/
@@ -66,3 +67,9 @@ http://hsfzxjy.github.io/uva437-the-tower-of-babylon/
 http://hsfzxjy.github.io/noip2011-expression/
 http://hsfzxjy.github.io/strange-extended-and-double-problem/
 http://hsfzxjy.github.io/mysqldump-without-lock/
+http://hsfzxjy.github.io/peeking-hongkong/
+http://hsfzxjy.github.io/the-last-dinner/
+http://hsfzxjy.github.io/passer-by/
+http://hsfzxjy.github.io/sigh-for-house-moving/
+http://hsfzxjy.github.io/sharing-a-keyboard-hook-in-delphi/
+http://hsfzxjy.github.io/impression-for-delphi-OOP/

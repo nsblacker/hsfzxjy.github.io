@@ -54,6 +54,6 @@ Bootstrap是我最常用，也是最欣赏的一个前端框架。因此尽管�
 
 Github Pages上的文章只能在本地编辑，因而需要一个趁手的 Markdown 编辑器。在 Ubuntu 环境下我使用的是 **ReText**：
 
-    {% highlight c %}
-    sudo apt-get install retext 
-    {% endhighlight %}
+```bash
+sudo apt-get install retext 
+ ```

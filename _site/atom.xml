@@ -4,7 +4,7 @@
  <title>hsfzxjy</title>
  <link href="http://hsfzxjy.github.io/" rel="self"/>
  <link href="http://hsfzxjy.github.io"/>
- <updated>2015-04-19T18:27:58+08:00</updated>
+ <updated>2015-04-22T19:42:22+08:00</updated>
  <id>http://hsfzxjy.github.io</id>
  <author>
    <name>Jinyi Xie</name>
@@ -17,15 +17,22 @@
    <link href="http://hsfzxjy.github.io/html5-media-test/"/>
    <updated>2015-04-19T00:00:00+08:00</updated>
    <id>http://hsfzxjy.github.io/html5-media-test</id>
-   <content type="html">&lt;h3&gt;音频测试： 后青春期的诗.mp3&lt;/h3&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;video&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;controls&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;source&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;/assets/media/m1.mp3&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/video&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;video controls&gt;
-    &lt;source src=&quot;/assets/media/m1.mp3&quot; &gt;
-&lt;/video&gt;
+   <content type="html">&lt;h3&gt;音频测试&lt;/h3&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;video&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;http://www.w3school.com.cn/i/movie.ogg&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;controls=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;controls&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+您的浏览器不支持 video 标签。
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/video&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;audio&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;http://www.w3school.com.cn/i/horse.ogg&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;controls=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;controls&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+Your browser does not support the audio element.
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/audio&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;center&gt;
+    &lt;video src=&quot;http://www.w3school.com.cn/i/movie.ogg&quot; controls=&quot;controls&quot;&gt;
+    您的浏览器不支持 video 标签。
+    &lt;/video&gt;
+    &lt;audio src=&quot;http://www.w3school.com.cn/i/horse.ogg&quot; controls=&quot;controls&quot;&gt;
+        Your browser does not support the audio element.
+    &lt;/audio&gt;
+&lt;/center&gt;&lt;/p&gt;
 </content>
  </entry>
  
@@ -45,12 +52,12 @@
 &lt;p&gt;很简单。&lt;/p&gt;
 
 &lt;p&gt;首先，将原有的软件列表导出：&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;sudo dpkg --get-selections  &amp;gt; app-backup-list.lst
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sudo dpkg --get-selections  &amp;gt; app-backup-list.lst
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;最好是设置一个定时任务，每隔一段时间就保存一次列表，并且要保存到一个独立的分区。以免某天系统真的坏了。&lt;/p&gt;
 
 &lt;p&gt;接下来便是导入了：&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;sudo dpkg --set-selections &amp;lt; app-backup-list.lst
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sudo dpkg --set-selections &amp;lt; app-backup-list.lst
 sudo apt-get -y update
 sudo apt-get dselect-upgrade
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -120,9 +127,8 @@ sudo apt-get dselect-upgrade
 &lt;p&gt;至于评论系统，由于 Github Pages 是静态站点，因此只能使用第三方评论服务。Jekyll 默认的评论服务是Disqus ——一个国外的评论服务站点，但考虑到我在国内，许多人无法使用Facebook，Twitter等社交平台登录评论，我将它替换为了&lt;strong&gt;多说&lt;/strong&gt;。具体操作，可以参考 &lt;a href=&quot;http://havee.me/internet/2013-07/add-duoshuo-commemt-system-into-jekyll.html&quot;&gt;这里&lt;/a&gt;。&lt;/p&gt;
 
 &lt;p&gt;Github Pages上的文章只能在本地编辑，因而需要一个趁手的 Markdown 编辑器。在 Ubuntu 环境下我使用的是 &lt;strong&gt;ReText&lt;/strong&gt;：&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;n&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;apt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;retext&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-</content>
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sudo apt-get install retext 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content>
  </entry>
  
  <entry>
@@ -3102,6 +3108,352 @@ end;
 &lt;p&gt;首先MySQLDump最基本的语法是这样的 &lt;code&gt;mysqldump &amp;lt;database_name&amp;gt;&lt;/code&gt;，执行之后可以在控制台上看到SQL源码。但我第一次尝试将导出的源码上传至SAE时SAE却报错，原因是SAE的数据库管理不支持LOCK和UNLOCK语句。曾有一段时间，我是手动一行行删除LOCK语句。。30多张表那叫一个蛋疼。。后来，我翻阅了mysqlDump的help文档，发现可以添加这么一个参数&lt;code&gt;--ADD-LOCKS=FALSE&lt;/code&gt;。几经尝试后发现果然没有LOCK语句了。 在此记录下整句命令：&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;mysqldump --add-locks=FALSE -uroot -p &amp;lt;database_name&amp;gt; &amp;gt;example.sql
 &lt;/code&gt;&lt;/pre&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>窥视香港</title>
+   <link href="http://hsfzxjy.github.io/peeking-hongkong/"/>
+   <updated>2013-07-10T00:00:00+08:00</updated>
+   <id>http://hsfzxjy.github.io/peeking-hongkong</id>
+   <content type="html">&lt;blockquote&gt;
+&lt;p&gt;用心灵窥视，用良知感悟，寻觅精神世界的失落。 ——题记&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2&gt;地铁票&lt;/h2&gt;
+
+&lt;p&gt;才刚到晚上八点，地铁站便已“门可罗雀”，偶尔一两个人从眼前晃过。偌大的站台，空虚着，萧索着——这并不像一个大城市的作风。&lt;/p&gt;
+
+&lt;p&gt;紧攥着手中的地铁票，生怕它被风吹走了——香港真能信任人呵，地铁票制作得如此薄，如此简陋，一点也不“高科技”，难道就不怕有人造假？对于见惯了内地地铁票的我来说，实在值得琢磨。&lt;/p&gt;
+
+&lt;h2&gt;电梯&lt;/h2&gt;
+
+&lt;p&gt;“嘿，”同伴拍了拍我肩膀，轻声说，“你看……”&lt;/p&gt;
+
+&lt;p&gt;我回头一看——顿时觉得糗大了。&lt;/p&gt;
+
+&lt;p&gt;后面一排人都靠在扶梯右边有秩序地站着，整齐而不乱；而我——像往常一样靠在左边的扶手上，入迷地玩着手机……我“刷”地脸红了，立刻向右边挪了一步。&lt;/p&gt;
+
+&lt;p&gt;“上下楼梯靠右边”，这是幼儿园就应该了解的常识。但我，作为一个中学生，却忘得一干二净，真是惭愧。但愿后面站着的人没有把我的做法放在心上。&lt;/p&gt;
+
+&lt;p&gt;不过，既然手扶梯是单向的，为什么要让出左边的一半呢？两边都站满利用率不是更高吗？&lt;/p&gt;
+
+&lt;p&gt;突然，身后传来一阵急促的脚步声——原来是一位“上班族”。只见他一手拎着包，一手扶着电梯扶手，气喘吁吁地从左边的通道跑下，很快，便消失在月台深处。&lt;/p&gt;
+
+&lt;p&gt;原来如此，香港人的守秩序是为了有需要的人。&lt;/p&gt;
+
+&lt;p&gt;电梯虽小，却折射出人生百相。&lt;/p&gt;
+
+&lt;h2&gt;换乘&lt;/h2&gt;
+
+&lt;p&gt;“金钟站到了。”&lt;/p&gt;
+
+&lt;p&gt;透过车窗望去，外面黑压压地挤了一群人——想必这里应该是繁华地段吧。&lt;/p&gt;
+
+&lt;p&gt;车门开了，车厢里的人涌了出去。但奇怪的是，他们并没有跑向楼梯或电梯，而是跑向了对面的一辆列车。&lt;/p&gt;
+
+&lt;p&gt;按照内地人的思路，两辆相对的列车理应是开往相反方向的。难道很多人都坐错车了？要不怎么都想往回走。我顿生狐疑。&lt;/p&gt;
+
+&lt;p&gt;仔细端详对面的那辆列车，无意间，我发现了一个奇怪之处：那辆车和我乘坐的这一辆根本就不是同一条线路的！这也太奇怪了！&lt;/p&gt;
+
+&lt;p&gt;但仔细想想，这样的安排似乎也有他的合理之处。&lt;/p&gt;
+
+&lt;p&gt;这里是靠近市中心的地方，客流量大，每天都有几百万人次的换乘量。把两条人们常坐的线路靠的近一点，从一定程度上可以减小换乘带来的麻烦。况且，坐错车的人只是极少数，的确没有必要把两条相反方向的线路靠在一起。&lt;/p&gt;
+
+&lt;p&gt;繁华的都市，竟然也粗中有细，实为可贵。&lt;/p&gt;
+
+&lt;h2&gt;路人&lt;/h2&gt;
+
+&lt;p&gt;“劳驾……请问皇后大道东怎么走？”&lt;/p&gt;
+
+&lt;p&gt;香港小巷密集，巷与巷之间又没有什么突出的不同之处，因此一不小心就会迷路。&lt;/p&gt;
+
+&lt;p&gt;听说香港人有些排斥说普通话的游客，因此不会说粤语的我一直都不敢问路。但走到这个十字路口，我再也坚持不住了，只靠硬着头皮去问路。&lt;/p&gt;
+
+&lt;p&gt;眼前的这位阿姨大概三十岁出头，拎着包，好像是一位刚下班的白领。她先是用奇怪的眼光打量我，看得我暗暗不安。几秒后，她终于开口了，用的是不很熟练的国语：“皇后大道东这么长，你具体要去哪？”&lt;/p&gt;
+
+&lt;p&gt;这可把我问住了。“嗯……只要到那就行了……我只是想去走走。”&lt;/p&gt;
+
+&lt;p&gt;这时，路对面的信号灯变绿了。我心里“咯噔”一下：不好，“救命稻草”可能要走了。可幸运的是，阿姨并没有要走的意思。她先问我有没有地图，在昏暗的路灯下，她艰难地从地图上找出了我们现在所处的位置。接着，她开始详细地讲解路线：需要乘哪些地铁，出了站后应该怎么走等等。经过了近5分钟的讲解，我终于把路线弄清了。&lt;/p&gt;
+
+&lt;p&gt;“你会不会坐地铁啊？”临走前，阿姨还问我。&lt;/p&gt;
+
+&lt;p&gt;“嗯，会的。我就是搭地铁来的。谢谢！”&lt;/p&gt;
+
+&lt;p&gt;这时我才发现，对面的红绿灯已经变绿了两三次了。这要是在内地，对方非咒死你不可。&lt;/p&gt;
+
+&lt;p&gt;还好，我在香港迷路了。&lt;/p&gt;
+
+&lt;h2&gt;反思&lt;/h2&gt;
+
+&lt;p&gt;都说社会主义社会比资本主义社会优越，但我一路走下来，却并不这么认为。&lt;/p&gt;
+
+&lt;p&gt;看来，经济高速发展带来了很多问题。古老的中国，年轻的中国，还有许多地方需要学习。&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>最后的晚餐</title>
+   <link href="http://hsfzxjy.github.io/the-last-dinner/"/>
+   <updated>2013-03-26T00:00:00+08:00</updated>
+   <id>http://hsfzxjy.github.io/the-last-dinner</id>
+   <content type="html">&lt;p&gt;又到了周日了，短暂的“回家之旅”也接近了尾声。每当这时，我心中总会泛起莫名的惆怅，有些焦虑，也有些恐慌。&lt;/p&gt;
+
+&lt;p&gt;周日下午，每次，我都会睡到接近四点。没办法，家里的床，家里的阳光太舒服了。闹钟怎么叫都叫不醒。几次醒来，几次又昏昏沉沉地睡去。直到看到钟表的指针懒懒地爬向4，又想到还有许多作业没做，我这才不情愿地，懒懒地起床。&lt;/p&gt;
+
+&lt;p&gt;或许是睡太久的缘故罢，起床后的一段时光中人还是晕乎乎的 。甚至洗把脸，静坐许久后，头仍是沉重的。但，没办法，作业还是要做的，我只得硬着头皮坐到书桌前。&lt;/p&gt;
+
+&lt;p&gt;而大概这时，妈妈就开始张罗晚饭了。一周最后的晚饭。&lt;/p&gt;
+
+&lt;p&gt;一般来说，她不问我想吃什么。或许是不想打扰疲惫的我，或许认为我吃什么都好，又或许是，她已经知道我想吃什么。但不管怎么样，每次的晚餐都是我想吃的。&lt;/p&gt;
+
+&lt;p&gt;她想要的食材家里总是没有，因此每当这时，她总要去菜市场逛一圈。待回来时已经五点多了。在厨房里叮叮当当地忙活上一阵，六点出头，晚饭就上桌了。&lt;/p&gt;
+
+&lt;p&gt;初三了，每个星期都有不同的烦恼。因此，周六总是快乐的，因为一周的烦恼已终结；而周日又总是心烦的，因为一周的新烦恼又开始了。&lt;/p&gt;
+
+&lt;p&gt;但，带着烦恼吃饭，总是不太妥。毕竟，这是妈妈忙活了一个下午的杰作。&lt;/p&gt;
+
+&lt;p&gt;面对一桌子好菜，我吃得很慢，很慢。&lt;/p&gt;
+
+&lt;p&gt;电视在一旁嗡嗡地响着，放着妈妈喜欢看的八卦娱乐节目。我也陪着看。这样一来，吃饭速度就更慢了。一碗饭，一堆菜，好像怎么也吃不完。&lt;/p&gt;
+
+&lt;p&gt;或许，不是我吃不完——&lt;/p&gt;
+
+&lt;p&gt;毕竟，这是最后的晚餐了。&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>过路人</title>
+   <link href="http://hsfzxjy.github.io/passer-by/"/>
+   <updated>2013-02-01T00:00:00+08:00</updated>
+   <id>http://hsfzxjy.github.io/passer-by</id>
+   <content type="html">&lt;p&gt;匆匆地走过街口，我只是一个过路人。&lt;/p&gt;
+
+&lt;p&gt;×××，又快迟到了。我心里暗想，不禁加快了脚步。&lt;/p&gt;
+
+&lt;p&gt;不远处有两个小女孩在玩耍——玩一把破扫把。其中一个骑在扫把上，像巫师一样跑来跑去。另一个却说：“不，应该这样！”一把抢过扫把抱在胸前，作弹吉他状。两个人不约而同地笑了起来。
+周围行人匆匆——像我一样。但她们并不在乎，似乎这场演出不需要看客，又或者——她们自己便是看客。&lt;/p&gt;
+
+&lt;p&gt;我不禁放慢了脚步。&lt;/p&gt;
+
+&lt;p&gt;好久没看到这么天真的笑容了，有些欣喜，也有些惆怅。&lt;/p&gt;
+
+&lt;p&gt;思绪一下又回到了多年以前， 当世界的一切都是我的玩具时。&lt;/p&gt;
+
+&lt;p&gt;记得一年级时，我对电脑充满了好奇，但有没有机会见识一下真正的电脑，高科技只能存在于脑海里。那时，我经常和朋友在一起，用手上一切可获得的材料——纸板，绳子以及笔，再加上自己的想象来制作“电脑”。“电脑”功能和齐全，不仅有键盘、屏幕、时钟，甚至还有雷达、指南针等——当然，都是画的，但画得很认真。“电脑”是纸板做的，因此一折就断。但我们不在乎，仍乐此不疲地做着。尽管没人用，尽管只有我们俩在用。&lt;/p&gt;
+
+&lt;p&gt;如今，电脑有了，可童年时的那种欢乐却远了。&lt;/p&gt;
+
+&lt;p&gt;好想再回到那些年的时光，但时光一去不复返了。&lt;/p&gt;
+
+&lt;p&gt;突然发现，这么多年我好像是匆匆走过。童年已远但我却仍在憧憬，是不是走得太麻木了呢？&lt;/p&gt;
+
+&lt;p&gt;两个小女孩走远了，但她们银铃般的笑声却仍在回响着，回响着……&lt;/p&gt;
+
+&lt;p&gt;作为生命的过路人，我不甘只当看客，我也要做演绎者。 &lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>搬家有感</title>
+   <link href="http://hsfzxjy.github.io/sigh-for-house-moving/"/>
+   <updated>2013-01-13T00:00:00+08:00</updated>
+   <id>http://hsfzxjy.github.io/sigh-for-house-moving</id>
+   <content type="html">&lt;p&gt;要搬家了，有喜，有忧。&lt;/p&gt;
+
+&lt;p&gt;黄埔的老房子住了十几年了，说走就走，还真有点舍不得。毕竟，我在这度过了童年，度过了最难忘的时光。&lt;/p&gt;
+
+&lt;p&gt;老房子冬暖夏凉，不是吹牛。十几年来，我在家没开过一次空调，一次暖气，可我仍健康。楼顶还有个天台，大晴时可以晒被子。这么得天独厚的地方，在市里不是随便能找到的。&lt;/p&gt;
+
+&lt;p&gt;门前的体育馆修了补，补了修，终于还是被拆除了，准备建成商贸中心；屋后的大草地剃了长，长了剃，终于还是被拆除了，建起了20多层的居民楼。远处的“荒地”被开垦了，取而代之的是雄伟的图书馆；周围的“跳跳路”消失了，取而代之的是锃亮的柏油。一切都在变，但看久了也就有了感情，甩也甩不掉。&lt;/p&gt;
+
+&lt;p&gt;三年前，邻居也是基友搬到了华景，我们的感情也冲淡了。如今三年后，我也要去华景，又要做邻居了。&lt;/p&gt;
+
+&lt;p&gt;记得好多年以前，黄埔还有田，而且不只一两处，绿油油的一大片。一天中午和他一起溜出去乱逛，穿到别人田里捞鱼，顺手牵羊了几个番茄，结果被发现了…至今想起仍想发笑。可惜，田早己不在了，记忆中很“野”的黄埔也只能留在记忆中了。&lt;/p&gt;
+
+&lt;p&gt;想想爸妈花了十多年的积蓄买了套比十年前还小的房子，心里总有些不爽。可经济在“发展”，也只能这样了。&lt;/p&gt;
+
+&lt;p&gt;城市在变迁，我也将走出郊区，住进城里。多了几分便利，却也少了几分清静。&lt;/p&gt;
+
+&lt;p&gt;梦中的自然呵，越来越远了……&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>一个键盘钩子的写法，很实用</title>
+   <link href="http://hsfzxjy.github.io/sharing-a-keyboard-hook-in-delphi/"/>
+   <updated>2012-09-29T00:00:00+08:00</updated>
+   <id>http://hsfzxjy.github.io/sharing-a-keyboard-hook-in-delphi</id>
+   <content type="html">&lt;h2&gt;0x00 前言&lt;/h2&gt;
+
+&lt;p&gt;早就想写一个键盘监听器了，学校的电子阅览室设了Administrator屏障，想装软件什么的很麻烦，因此想截获管理员密码。。    &lt;/p&gt;
+
+&lt;p&gt;花了大概一个星期编写了一个，效果还不错，因此来分享一下。。&lt;/p&gt;
+
+&lt;h2&gt;0x01 基本概念&lt;/h2&gt;
+
+&lt;p&gt;首先解释一下什么是键盘钩子：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;钩子（Hook）是Windows消息处理机制中的一个监视点，应用程序可以在这里安装一个子程序（钩子函数）以监视指定窗口某种类型的消息，所监视的窗口可以是其他进程创建的。当消息到达后，在目标窗口处理函数处理之前，钩子机制允许应用程序截获它进行处理。     &lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;SetWindowsHookEx函数可以把应用程序定义的钩子函数安装到系统中：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-pascal&quot; data-lang=&quot;pascal&quot;&gt;&lt;span class=&quot;n&quot;&gt;HHOOK&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SetWindowsHookEx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;Int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;idHook&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;       &lt;span class=&quot;c1&quot;&gt;// 指定钩子的类型&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;HOOKPROC&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lpfn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;//钩子函数的地址。如果使用的是远程钩子，钩子函数必须放在一个DLL中。&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;HINSTANCE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hMod&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//钩子函数所在DLL的实例句柄。如果是一个局部的钩子，该参数为NULL。&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;DWORD&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;dwThreadID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//指定要为哪个线程安装钩子。若该值为0被解释成系统范围内的。&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;IdHook参数指定了要安装的钩子的类型，可以是下列取值之一：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;WH_CALLWNDPROC      当目标线程调用SendMessage函数发送消息时，钩子函数被调用。&lt;/li&gt;
+&lt;li&gt;WH_CALLWNDPROCRET                  当SendMessage发送的消息返回时，钩子函数被调用。&lt;/li&gt;
+&lt;li&gt;WH_GETMESSAGE          当目标线程调用GetMessage或者PeekMessage时。&lt;/li&gt;
+&lt;li&gt;WH&lt;em&gt;KEYBOARD              当从消息队列中查询WM&lt;/em&gt;KEYUP或WM_KEYDOWN消息时&lt;/li&gt;
+&lt;li&gt;WH_MOUSE                      当调用从消息队列中查询鼠标事件消息&lt;/li&gt;
+&lt;li&gt;WH_MSGFILTER              当对话框，菜单或滚动条要处理一个消息时，钩子函数被调用。该钩子是局部的，它是为哪些有自己消息处理过程的控件对象设计的。&lt;/li&gt;
+&lt;li&gt;WH&lt;em&gt;SYSMSGFILTER       和WH&lt;/em&gt;MSGFILTER一样，只不过是系统范围的。&lt;/li&gt;
+&lt;li&gt;WH_JOURNALRECORD 当Windows从硬件队列中获取消息时。&lt;/li&gt;
+&lt;li&gt;WH_JOURNALPLAYBACK      当一个事件从系统的硬件输入队列中别请求时&lt;/li&gt;
+&lt;li&gt;WH_SHELL                        当关于Windows外壳事件发生时，比如任务条需要重画它的按钮&lt;/li&gt;
+&lt;li&gt;WH_CBT                            当基于计算机的训练（CBT）事件发生时。&lt;/li&gt;
+&lt;li&gt;WH_FOREGROUNDIDLE Windows自己使用，一般应用程序很少使用。&lt;/li&gt;
+&lt;li&gt;WH_DEBUG                      用来给钩子函数除错。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Lpfn参数是钩子函数的地址。钩子安装后如果有消息发生，Windows将调用此参数所指向的函数。&lt;/p&gt;
+
+&lt;p&gt;如果dwThreadId参数是0，或者指定一个由其他进程创建的线程ID，lpfn参数指向的钩子函数必须位于一个DLL中。这是因为进程的地址空间是相互隔离的，发生事件的进程不能调用其他进程地址空间的钩子函数。如果钩子函数的实现代码在DLL中，在相关事件发生时，系统会把这个DLL插入到发生事件的进程的地址空间，使它能够调用钩子函数。这种需要将钩子函数写入DLL以便挂钩其他进程事件的钩子称为&lt;strong&gt;远程钩子&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;如果dwThreadId参数指定一个由自身进程创建的线程ID，lpfn参数指向的钩子函数只要在当前进程中即可，不必非要写入DLL。这种挂钩属于自身进程事件的钩子称为局部钩子。&lt;/p&gt;
+
+&lt;p&gt;hMod参数是钩子函数所在DLL的实例句柄，如果钩子函数不再DLL中，应将hMod设置为NULL。&lt;/p&gt;
+
+&lt;p&gt;dwThreadId参数指定要与钩子函数相关联的线程ID号。如果设为0，那么钩子就是系统范围内的，即钩子函数将关联到系统内所有线程。&lt;/p&gt;
+
+&lt;p&gt;要卸载钩子，可以调用UnhookWindowsHookEx函数。
+ BOOL UnhookWindowsHookEx(HHOOK hhk); // hhk 为要卸载的钩子的句柄&lt;/p&gt;
+
+&lt;p&gt;注意：安装钩子的代码可以在DLL模块中，也可以在主模块中，但是一般在DLL里实现它，主要是为了使程序更加模块化。&lt;/p&gt;
+
+&lt;p&gt;既然我们要截获的是全局的按键消息，那么就应该将钩子放在DLL中。&lt;/p&gt;
+
+&lt;p&gt;Windows钩子都有一个回调函数：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;n&quot;&gt;LRESULT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CALLBACK&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;HookProc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nCode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;WPARAM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wParam&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LPARAM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lParam&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+         &lt;span class=&quot;c1&quot;&gt;// 处理该消息的代码 …..&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;Return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CallNextHookEx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hHook&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nCode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;wParam&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lParam&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;HookProc是应用程序的名称。nCode参数是Hook代码，钩子函数使用这个参数来确定任务，它的值依赖于Hook的类型。wParam和lParam参数的值依赖于Hook代码，但是它们典型的值是一些关于发送或者接收消息的信息。&lt;/p&gt;
+
+&lt;p&gt;因为系统中可能会有多个钩子的存在，所以要调用那个CallNextHookEx函数把消息传到链中下一个钩子函数。hHook参数是安装钩子时得到的钩子句柄（SetWindowsHookEx的返回值）。&lt;/p&gt;
+
+&lt;h2&gt;0x02 实现&lt;/h2&gt;
+
+&lt;p&gt;有了这些知识，我们就可以开始编写：&lt;/p&gt;
+
+&lt;p&gt;首先，先创建一个DLL Wizard，为了在主程序中创建钩子，我们需要键入以下代码：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-pascal&quot; data-lang=&quot;pascal&quot;&gt;&lt;span class=&quot;k&quot;&gt;procedure&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;InstallHook&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hwnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;THandle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;stdcall&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;export&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;begin&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;hook&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SetWindowsHookEx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;WH_JOURNALRECORD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HookProc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hInstance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//其中hook是一个HHOOK类型的全局变量，用来保存钩子句柄&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;hWindow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hwnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//hWindow也是一个HWND类型的全局变量，用来保存主程序的窗口句柄，在后面要用到&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;由于DLL与主程序是独立的，所以DLL截获的消息需要发送到主窗口，这里采用的是发送消息，因此要保留主窗体句柄&lt;/p&gt;
+
+&lt;p&gt;下面是卸载钩子代码：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-pascal&quot; data-lang=&quot;pascal&quot;&gt;&lt;span class=&quot;k&quot;&gt;procedure&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;UnInstallHook&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;stdcall&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;export&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;begin&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;UnhookWindowshookEx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hook&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;还有回调函数：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-pascal&quot; data-lang=&quot;pascal&quot;&gt;&lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;HookProc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iCode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;longint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+         &lt;span class=&quot;n&quot;&gt;wParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;WPARAM&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;LPARAM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;LRESULT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;stdcall&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;var&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TEventMsg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;keyState&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TKeyState&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;begin&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;iCode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HC_ACTION&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;begin&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PEventMsg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lParam&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;WM_KEYDOWN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;WM_SYSKEYDOWN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;begin&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;keystate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vKey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;LoByte&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;paramL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//得到键的虚拟键码&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;keystate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bCapsLock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetKeyState&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;VK_CAPITAL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//得到CapsLock键状态&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;keyState&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bNumLock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetKeyState&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;VK_NUMLOCK&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//得到Num Lock的状态&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;keyState&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bCtrl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetKeyState&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;VK_CONTROL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;$80000000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;$80000000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//得到Ctrl键的状态&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;keyState&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bAlt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetKeyState&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;VK_MENU&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;$80000000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;$80000000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//得到Alt键的状态&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;keyState&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bShift&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetKeyState&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;VK_SHIFT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;$80000000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mh&quot;&gt;$80000000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//得到Shift键的状态&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;keystate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Sender&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetActiveWindow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//得到当前活动的窗口句柄&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;keystate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;Now&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//得到当前时间&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;SendMessage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hWindow&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;WM_MYMSG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;KeyState&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//发给主窗口，WM_MYMSG为一个自定义消息，用于区别于其他消息&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;bp&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;iCode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;begin&lt;/span&gt;
+    &lt;span class=&quot;bp&quot;&gt;Result&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CallNextHookEx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hook&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iCode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;wParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lParam&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//挂上下一个钩子&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;其中TKeyState定义为：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-pascal&quot; data-lang=&quot;pascal&quot;&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;TKeyState&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;record&lt;/span&gt;
+               &lt;span class=&quot;n&quot;&gt;vKey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;longint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+               &lt;span class=&quot;n&quot;&gt;bCapsLock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bNumLock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bShift&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bCtrl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bAlt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+               &lt;span class=&quot;n&quot;&gt;Sender&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HWND&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+               &lt;span class=&quot;nb&quot;&gt;Time&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;TDateTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+             &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;用于记录按键消息。&lt;/p&gt;
+
+&lt;p&gt;最后将他们输出：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-pascal&quot; data-lang=&quot;pascal&quot;&gt;&lt;span class=&quot;k&quot;&gt;exports&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;InstallHook&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UnInstallHook&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HookProc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;在主窗体Main.pas中写入：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-pascal&quot; data-lang=&quot;pascal&quot;&gt;&lt;span class=&quot;k&quot;&gt;procedure&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;InstallHook&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hwnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;THandle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;stdcall&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;external&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;Hookdll&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;procedure&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;UnInstallHook&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;stdcall&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;external&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;hookdll&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//静态链接函数&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;然后调用时用&lt;code&gt;InstallHook(self.Handle);&lt;/code&gt;就可以安装钩子了。&lt;/p&gt;
+
+&lt;p&gt;至此一个键盘监听器就写好了（详细参考CSDN资源：4428899）&lt;/p&gt;
+
+&lt;h2&gt;0x03 后记&lt;/h2&gt;
+
+&lt;p&gt;但是，这个程序还有一点缺陷，就是不能跨用户监听，即如果一台电脑中有多个用户，则用户A的监听器监听不到用户B的按键消息。&lt;/p&gt;
+
+&lt;p&gt;我研究过，用户的实质是多个Desktop（即窗口工作站）同时运行（这也是虚拟桌面的工作原理）。我曾试图用CreateProcess()这个API将一个进程跨用户注入到另一个用户的空间中，虽说成功了，但一旦用户切换用户，所有的钩子都将停止，这也令我很苦恼，如果有兴趣的也可以研究一下。&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>学习Delphi面向对象编程的一点心得</title>
+   <link href="http://hsfzxjy.github.io/impression-for-delphi-OOP/"/>
+   <updated>2012-09-29T00:00:00+08:00</updated>
+   <id>http://hsfzxjy.github.io/impression-for-delphi-OOP</id>
+   <content type="html">&lt;p&gt;以前我是完全不理解类的概念的，我只是把它当成一个Record来看，只不过它里面可以包含函数和过程罢了。但深入VCL学习后我才发现，原来面向对象的世界是这么精彩。&lt;/p&gt;
+
+&lt;p&gt;大家都应该见过闹钟吧？随便给一个人一个闹钟，他都会用，不管是电子钟还是机械钟。但如果给一个人一堆零件，有谁能够将他们组装成一个闹钟呢？如果没有专业的知识，恐怕没有人会。为什么呢？为什么人人都会用但很少人懂得其内部结构呢？因为闹钟这一类事物提供一个标准的操作接口，如发条、钟表盘等。不管是液晶屏还是钟表盘，虽然他们形式不同，但他们都是用来显示时间的；同时，闹钟有隐藏了其内部实现的细节，用一层外壳将他们“封装”起来，使外界无法接触其内部，保持了内部的稳定性以及保证了机械运作的安全。这，便是类在生活中的一个真实缩影。&lt;/p&gt;
+
+&lt;p&gt;类有三个特性：封装，继承，多态。&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;“封装”就是隐藏内部实现细节。就像一个人，有为人知的一面，像外表，性格，衣着等；也有不为人知的一面，如其的心理状态以及复杂的内心世界及想法。在面向对象中，为人知的一面称为“接口”，即public段和published段的成员；不为人知的一面称为“私有成员”，即private和protected段（其实protected段也不完全是）。人们可以通过接口获得一些数据或完成一些操作，但不会影响类自己的数据的安全性、合法性和稳定性（当然，要保证类封装的合法性和合理性，像一辆只剩下骨架的汽车，连发动机都露出来了，有人敢去开吗？能保证发动机运行的稳定吗？）。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;“继承”就是“子承父业”。一个类可以继承另一个类的所有成员（不包括private段），并在其基础上增加属于自己的成员。这样做的好处是提高代码的可重用性。就像金属和铝的关系一样，铝是一种金属并且拥有金属的一切性质。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;“多态”就是“多种状态”，即一个method，可以在本类中实现（static），也可以实现一部分，另一部分让子类去实现（dynamic或virtual），还可以不实现，让子类自己去发挥（abstract）。这极大地提升了类的灵活性，同时也真实地反应了现实生活：一个人不是万能的，他不能干所有的事，但或许他的后代可以，即“青出于蓝而胜于蓝”。&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;类似乎是生活中的一个真实写照，世界上任何一个物体都满足这三个特性，无论是抽象的（如水果）还是具体的（如苹果）。这不仅仅是一种编程思想，还是对生活的一种总结，对生命的一种感悟，对世界的一种新认识。&lt;/p&gt;
+
+&lt;p&gt;程序基于数，而数皆万物也。&lt;/p&gt;
 </content>
  </entry>
  

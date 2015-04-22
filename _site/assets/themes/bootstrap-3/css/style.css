@@ -15,6 +15,7 @@ h1,h2,h3,h4{color:#333}
 img{max-width:100%;display:block;margin:0 auto}
 .content *{max-width:100%}
 .content p{text-indent:2em}
+.content li>p{text-indent:0}
 h1 a,h2 a,h3 a,h4 a,h5 a{color:#000}
 h1 a:hover,h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover{color:#000}
 .posts article{border-bottom:#d5d5d5 solid 1px}

@@ -16,14 +16,18 @@ tags: ubuntu apt-get
 
 首先，将原有的软件列表导出：
 
-    sudo dpkg --get-selections  > app-backup-list.lst
+```bash
+sudo dpkg --get-selections  > app-backup-list.lst
+ ```
     
 最好是设置一个定时任务，每隔一段时间就保存一次列表，并且要保存到一个独立的分区。以免某天系统真的坏了。
 
 接下来便是导入了：
 
-    sudo dpkg --set-selections < app-backup-list.lst
-    sudo apt-get -y update
-    sudo apt-get dselect-upgrade
-    
+```bash
+sudo dpkg --set-selections < app-backup-list.lst
+sudo apt-get -y update
+sudo apt-get dselect-upgrade
+```
+
 至于软件源的备份，只需将`/etc/apt/sources.list`文件复制过去即可。

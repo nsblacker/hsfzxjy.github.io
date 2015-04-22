@@ -1,7 +1,7 @@
 ---
 title: 初试HTML5
 layout: post
-categories: HTML5
+categories: 编程 HTML5
 ---
 
 ## audio & video

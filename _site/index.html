@@ -163,12 +163,12 @@
     <article class="post-content">
         <header class="text-center">
             <h1 class="post-title">
-                <a href="/html5-media-test/">HTML5 多媒体测试</a>
+                <a href="/html5-media-test/">初试HTML5</a>
             </h1>
             <p class="time">19 Apr 2015</p>
         </header>
         <section class="content">
-            <h3>音频测试</h3>
+            <h3>audio &amp; video</h3>
 <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;video</span> <span class="na">src=</span><span class="s">&quot;http://www.w3school.com.cn/i/movie.ogg&quot;</span> <span class="na">controls=</span><span class="s">&quot;controls&quot;</span><span class="nt">&gt;</span>
 您的浏览器不支持 video 标签。
 <span class="nt">&lt;/video&gt;</span>
@@ -176,14 +176,47 @@
 Your browser does not support the audio element.
 <span class="nt">&lt;/audio&gt;</span>
 </code></pre></div>
-<p><center>
+<div class="align-center">
     <video src="http://www.w3school.com.cn/i/movie.ogg" controls="controls">
     您的浏览器不支持 video 标签。
     </video>
     <audio src="http://www.w3school.com.cn/i/horse.ogg" controls="controls">
-        Your browser does not support the audio element.
+    Your browser does not support the audio element.
     </audio>
-</center></p>
+</div>
+
+<h3>Canvas</h3>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;canvas</span> <span class="na">id=</span><span class="s">&quot;myCanvas&quot;</span><span class="nt">&gt;</span>
+    your browser does not support the canvas tag 
+<span class="nt">&lt;/canvas&gt;</span>
+
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+    <span class="kd">var</span> <span class="nx">canvas</span><span class="o">=</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;myCanvas&#39;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">ctx</span><span class="o">=</span><span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s1">&#39;2d&#39;</span><span class="p">);</span>
+    <span class="nx">ctx</span><span class="p">.</span><span class="nx">fillStyle</span><span class="o">=</span><span class="s1">&#39;#FF0000&#39;</span><span class="p">;</span>
+    <span class="nx">ctx</span><span class="p">.</span><span class="nx">fillRect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">80</span><span class="p">,</span><span class="mi">100</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">grd</span><span class="o">=</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">createLinearGradient</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">175</span><span class="p">,</span><span class="mi">50</span><span class="p">);</span>
+    <span class="nx">grd</span><span class="p">.</span><span class="nx">addColorStop</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s2">&quot;#FF0000&quot;</span><span class="p">);</span>
+    <span class="nx">grd</span><span class="p">.</span><span class="nx">addColorStop</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;#00FF00&quot;</span><span class="p">);</span>
+    <span class="nx">ctx</span><span class="p">.</span><span class="nx">fillStyle</span><span class="o">=</span><span class="nx">grd</span><span class="p">;</span>
+    <span class="nx">ctx</span><span class="p">.</span><span class="nx">fillRect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">175</span><span class="p">,</span><span class="mi">50</span><span class="p">);</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div>
+<canvas id="myCanvas" class="align-center">
+    your browser does not support the canvas tag 
+</canvas>
+
+<script type="text/javascript">
+    var canvas=document.getElementById('myCanvas');
+    var ctx=canvas.getContext('2d');
+    ctx.fillStyle='#FF0000';
+    ctx.fillRect(0,0,80,100);
+    var grd=ctx.createLinearGradient(0,0,175,50);
+    grd.addColorStop(0,"#FF0000");
+    grd.addColorStop(1,"#00FF00");
+    ctx.fillStyle=grd;
+    ctx.fillRect(0,100,175,50);
+</script>
 
         </section>
     </article>

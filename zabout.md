@@ -6,20 +6,9 @@ date: 2014-08-19 14:41:23.000000000 +08:00
 permalink: /about/
 group: navigation
 ---
-{% comment %}
  * [新浪微博](http://weibo.com/hsfzxjy) 
  * [QQ: 956357208](javascript:void(0);)  
  * [CSDN](http://my.csdn.net/hsfzxjy)  
  * [Github](http://github.com/hsfzxjy/)  
  * [GitOSChina](http://git.oschina.net/hsfzxjy)  
  * [StackExchange](http://stackoverflow.com/users/3278171/hsfzxjy)  
-{% endcomment %}
-
-<ul>
-<li><a href="http://weibo.com/hsfzxjy">新浪微博</a></li>
-<li>QQ：956357208</li>
-<li><a href="http://my.csdn.net/hsfzxjy">CSDN</a></li>
-<li><a href="http://github.com/hsfzxjy/">Github</a></li>
-<li><a href="http://git.oschina.net/hsfzxjy">GitOSC</a></li>
-<li><a href="http://stackoverflow.com/users/3278171/hsfzxjy">StackOverflow</a></li>
-</ul>

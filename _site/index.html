@@ -137,6 +137,8 @@
   
     
   
+    
+  
 
 
 
@@ -157,6 +159,215 @@
   <div class="col-xs-12 post-content">
     
 <div class="posts">
+  
+    <article class="post-content">
+        <header class="text-center">
+            <h1 class="post-title">
+                <a href="/hfmun-reconstruction-4/">【HFMUN重构系列】4. Restful API 框架</a>
+            </h1>
+            <p class="time">23 Apr 2015</p>
+        </header>
+        <section class="content">
+            <h2>0x01 什么是REST</h2>
+
+<p>“REST”这个词，也许会在许多场合上出现，但并不是每个人都理解它的意思。在维基百科中，它被定义为：</p>
+
+<blockquote>
+<p><strong>Representational State Transfer (REST)</strong> is a software architecture style consisting of guidelines and best practices for creating scalable web services. REST is a coordinated set of constraints applied to the design of components in a distributed hypermedia system that can lead to a more performant and maintainable architecture.    —— From <a href="http://en.wikipedia.org/wiki/Representational_state_transfer">Wikipedia</a></p>
+</blockquote>
+
+<p>也就是说：<strong>REST，它不是一种技术，也不是一种标准，而是一种网络资源访问模式，一种编程哲学</strong>。狭义上来说，REST指的是这样的设计思想：</p>
+
+<ol>
+<li>每一个 URI 代表一种资源</li>
+<li>客户端和服务器之间，传递这种资源的某种表现层</li>
+<li>客户端通过五个 HTTP 动词（GET，POST，PUT，PATCH，DELETE），对服务器端资源进行操作，实现&quot;表现层状态转化&quot;（State Transfer）</li>
+</ol>
+
+<p>狭义的 REST 范式是基于 B/S 架构，并使用 HTTP 协议进行数据交互。比起古老而笨重的 SOAP 等架构，这种模式更加轻便、直观，使网络资源的访问变得简洁、优雅，也更加符合当今 Web 开发的需求。</p>
+
+<h2>0x02 如何正确使用 REST</h2>
+
+<p>正如上面所说，REST 是基于 HTTP 协议的。它用 URI 来定义资源，并用 HTTP 请求来操作资源。然而，并不是说使用了 HTTP 协议即可称之为 REST——真正意义上的 REST，有自己的一套准则。也正是这套准则，才使得 REST 简洁、优雅。</p>
+
+<h3>REST 是语义的</h3>
+
+<p>语义的（Semantic）是指：<strong>资源的 URI 或是资源的访问必须是有意义的，符合或尽量符合自然语言的规范</strong>。</p>
+
+<p>举个例子：如果我要访问订单的列表，那么一个良好的 URI 定义应该是这样的：</p>
+<div class="highlight"><pre><code class="language-http" data-lang="http"><span class="nf">GET</span> <span class="nn">/orders/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</code></pre></div>
+<p>资源的 URI 通常由名词组成，这也正符合自然语言的规范——表达一个物体，人们使用名词。</p>
+
+<p>如果要精确定位某一个资源，通常需要进一步限制资源：</p>
+<div class="highlight"><pre><code class="language-http" data-lang="http"><span class="nf">GET</span> <span class="nn">/orders/1/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</code></pre></div>
+<p>或是：</p>
+<div class="highlight"><pre><code class="language-http" data-lang="http"><span class="nf">GET</span> <span class="nn">/orders/current/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</code></pre></div>
+<p>甚至，可以表示资源的从属关系：</p>
+<div class="highlight"><pre><code class="language-http" data-lang="http"><span class="nf">GET</span> <span class="nn">/users/current/orders/1/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</code></pre></div>
+<p>这就像在和服务器对话一样：<strong>“请给我当前用户的第一份订单”</strong>。</p>
+
+<p>而一些与资源本身无关的信息，比如列表的最大数目，可以放到 URI Params 中：</p>
+<div class="highlight"><pre><code class="language-HTTP" data-lang="HTTP"><span class="nf">GET</span> <span class="nn">/orders/?limit=20</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</code></pre></div>
+<p>HTTP协议中的动词（Verbs），通常用来描述对资源的操作。每一种动词都有它自己的意义：</p>
+
+<ul>
+<li><strong>GET</strong>——获取资源</li>
+<li><strong>POST</strong>——建立一个新的资源</li>
+<li><strong>PUT</strong>——修改一个资源，必须提交该资源的所有内容</li>
+<li><strong>PATCH</strong>——修改一个资源，可以只提交该资源的一部分内容</li>
+<li><strong>DELETE</strong>——删除一个资源</li>
+</ul>
+
+<h3>REST 是多样的</h3>
+
+<p>至于返回的数据，服务器端可以提供多种格式供客户端选择，如 JSON、XML、YAML等等，通常用格式的缩写作为尾缀：</p>
+<div class="highlight"><pre><code class="language-http" data-lang="http"><span class="nf">GET</span> <span class="nn">/orders.json/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</code></pre></div>
+<h3>REST 是健壮的</h3>
+
+<p>倘若用户请求的资源不存在或是提交的数据不合规范，服务器必须以<strong>HTTP状态码</strong>的方式通知客户端。常用的状态码有：</p>
+
+<ul>
+<li><strong>400</strong> 请求参数有误</li>
+<li><strong>401</strong> 用户未登录</li>
+<li><strong>403</strong> 没有权限</li>
+<li><strong>404</strong> 资源找不到</li>
+</ul>
+
+<h2>0x03 django 中的 REST</h2>
+
+<p>像 REST 这么高大上的东西，早就有人对它进行了实现，这便是：<a href="http://www.django-rest-framework.org/">Django Rest Framework</a>。基本的用法可以参见官网。</p>
+
+<p>成熟的框架并不是最好的，只有适合自己的才是。在使用过程中我遇到了一系列的问题，并以自己的方式解决了他们。</p>
+
+<h3>ViewSet 的路由不够 D.R.Y.</h3>
+
+<p><code>ViewSet</code> 是 <code>rest_framework</code>中一个十分有创意的地方。它将 CRUD 操作集中到了一个类中，提高了代码的复用性。然而，每一个 <code>ViewSet</code> 都需要 定义一个 <code>Router</code> 进行 URL 路由，这很麻烦。于是乎我便想：</p>
+
+<blockquote>
+<p>要是能让它自动感知<code>ViewSet</code>的存在并自动为其定义路由，就像<code>django</code>中的<code>Models</code>一样，那该多好啊</p>
+</blockquote>
+
+<p>于是，我仿照<code>django.apps.registry</code>，写了一个能在启东时探知一个 app 中固定内容的 <code>app_cache</code> 模块：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># app_cache/core.py</span>
+
+<span class="kn">from</span> <span class="nn">django.utils.importlib</span> <span class="kn">import</span> <span class="n">import_module</span>
+<span class="kn">from</span> <span class="nn">django.utils.module_loading</span> <span class="kn">import</span> <span class="n">module_has_submodule</span>
+<span class="kn">from</span> <span class="nn">django.apps</span> <span class="kn">import</span> <span class="n">apps</span>
+
+<span class="k">class</span> <span class="nc">AppCache</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Inherit this class and override the fields below, then import and instantiate</span>
+<span class="sd">    the subclass at AppConfig.ready method.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">module_name</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="n">object_name</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="n">default_object</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__module_name</span> <span class="o">=</span> <span class="s">&#39;.</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">module_name</span>
+
+    <span class="k">def</span> <span class="nf">get_objects</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">mod</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_modules</span><span class="p">():</span>
+            <span class="k">yield</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">object_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_object</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_modules</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">for</span> <span class="n">app_config</span> <span class="ow">in</span> <span class="n">apps</span><span class="o">.</span><span class="n">get_app_configs</span><span class="p">():</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">module_has_submodule</span><span class="p">(</span><span class="n">app_config</span><span class="o">.</span><span class="n">module</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">module_name</span><span class="p">):</span>
+                <span class="k">continue</span>
+
+            <span class="k">yield</span> <span class="n">import_module</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__module_name</span><span class="p">,</span> <span class="n">app_config</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</code></pre></div>
+<p>同时新建一个叫<code>api</code>的 app，在<code>api/core.py</code>中实现自动寻找<code>ViewSet</code>：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">app_cache</span> <span class="kn">import</span> <span class="n">AppCache</span>
+
+<span class="k">class</span> <span class="nc">APICache</span><span class="p">(</span><span class="n">AppCache</span><span class="p">):</span>
+
+    <span class="n">default_object</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="n">object_name</span> <span class="o">=</span> <span class="s">&#39;routers&#39;</span>
+    <span class="n">module_name</span> <span class="o">=</span> <span class="s">&#39;routers&#39;</span>
+
+    <span class="k">def</span> <span class="nf">get_routers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_objects</span><span class="p">():</span>
+            <span class="n">results</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">results</span>
+
+<span class="n">cache</span> <span class="o">=</span> <span class="n">APICache</span><span class="p">()</span>
+</code></pre></div>
+<p>在<code>api/urls.py</code>中实现自动路由：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># api/urls.py</span>
+
+<span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">url</span><span class="p">,</span> <span class="n">patterns</span><span class="p">,</span> <span class="n">include</span>
+
+<span class="kn">from</span> <span class="nn">rest_framework.routers</span> <span class="kn">import</span> <span class="n">DefaultRouter</span>
+<span class="kn">from</span> <span class="nn">rest_framework.viewsets</span> <span class="kn">import</span> <span class="n">ViewSetMixin</span>
+<span class="kn">from</span> <span class="nn">rest_framework.views</span> <span class="kn">import</span> <span class="n">APIView</span>
+
+<span class="kn">from</span> <span class="nn">.core</span> <span class="kn">import</span> <span class="n">cache</span>
+
+<span class="n">extra_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">router</span> <span class="o">=</span> <span class="n">DefaultRouter</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">cache</span><span class="o">.</span><span class="n">get_routers</span><span class="p">():</span>
+    <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">):</span>
+        <span class="n">extra_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">url</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">obj</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">ViewSetMixin</span><span class="p">):</span>
+        <span class="n">router</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">APIView</span><span class="p">):</span>
+        <span class="n">extra_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">url</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">as_view</span><span class="p">()))</span>
+
+<span class="n">extra_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">url</span><span class="p">(</span><span class="s">r&#39;^&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="n">router</span><span class="o">.</span><span class="n">urls</span><span class="p">)))</span>
+
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="n">patterns</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span>
+    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^auth/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s">&#39;rest_framework.urls&#39;</span><span class="p">,</span> <span class="n">namespace</span> <span class="o">=</span> <span class="s">&#39;rest_framework&#39;</span><span class="p">)),</span>
+    <span class="n">url</span><span class="p">(</span><span class="s">r&#39;^root/$&#39;</span><span class="p">,</span> <span class="s">&#39;api.views.root&#39;</span><span class="p">,),</span>
+    <span class="o">*</span><span class="n">extra_list</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>之后，只需在每个 app 中定义一个<code>routers.py</code>，并定义<code>routers</code>变量即可实现 <code>ViewSet</code> 的自动路由，例如：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">.views</span> <span class="kn">import</span> <span class="n">UserAPIViewSet</span>
+
+<span class="n">routers</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="s">r&#39;users&#39;</span><span class="p">,</span> <span class="n">UserAPIViewSet</span><span class="p">),</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>非常方便。</p>
+
+<h3>翻页机制的进一步改进</h3>
+
+<blockquote>
+<h1>未完待续。。。</h1>
+</blockquote>
+
+        </section>
+        
+          <ul class="tag_box inline">
+            <li><i class="glyphicon glyphicon-open"></i></li>
+            
+            
+
+
+  
+     
+    	<li><a href="/categories.html#hfmun重构系列-ref">
+    		hfmun重构系列 <span>5</span>
+    	</a></li>
+    
+  
+
+
+          </ul>
+          
+
+         
+    </article>
   
     <article class="post-content">
         <header class="text-center">
@@ -506,42 +717,6 @@ sudo apt-get dselect-upgrade
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get install retext 
 </code></pre></div>
         </section>
-          
-
-         
-    </article>
-  
-    <article class="post-content">
-        <header class="text-center">
-            <h1 class="post-title">
-                <a href="/solution-of-network-broken-down-per-20s-under-ubuntu/">Ubuntu 网络每20秒断开重连一次的解决方案</a>
-            </h1>
-            <p class="time">31 Mar 2015</p>
-        </header>
-        <section class="content">
-            <p>从昨天到现在一直都有这个问题，刚刚突然就解决了，至今不明白原理，在此记录一下：</p>
-<blockquote>
-<p>在网络设置中取消<strong>需要IPv6完成这个链接</strong>的选项</p>
-</blockquote>
-
-        </section>
-        
-          <ul class="tag_box inline">
-            <li><i class="glyphicon glyphicon-open"></i></li>
-            
-            
-
-
-  
-     
-    	<li><a href="/categories.html#ubuntu-ref">
-    		ubuntu <span>9</span>
-    	</a></li>
-    
-  
-
-
-          </ul>
           
 
          

@@ -137,6 +137,8 @@
   
     
   
+    
+  
 
 
 
@@ -157,6 +159,116 @@
   <div class="col-xs-12 post-content">
     
 <div class="posts">
+  
+    <article class="post-content">
+        <header class="text-center">
+            <h1 class="post-title">
+                <a href="/uva-11584-partitioning-by-palindromes/">UVa11584 Partitioning by Palindromes</a>
+            </h1>
+            <p class="time">24 Sep 2014</p>
+        </header>
+        <section class="content">
+            <blockquote>
+<p>这是一道区间型DP，转移方程很简单，但在实现的过程中却遇见了很多坑，在此记录一下。 链接：<a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;category=27&amp;problem=2631&amp;mosmsg=Submission%20received%20with%20ID%2014256745">Link</a> 耗时：0.368s</p>
+</blockquote>
+<p>容易想到，前i个数的划分情况可以由1,2,3...,i-1的划分情况来决定。因此很容易得到状态转移方程：</p>
+<blockquote>
+<p>d[i] = min(d[i], d[j]+1) //j = 0, 1, 2...n-1 并且 s[j+1, i]为回文串，初始条件：d[i] = i。</p>
+</blockquote>
+<p>d[i]表示前i项的最小划分。这样一来状态转移的复杂度就为O($n^2$)。<br />
+但状态转移的判断呢？“回文串”是一个复杂的条件，判断一个串是否为回文串需要将该串至少遍历一遍。这样一来时间复杂度就上升为O($n^3$)了。而事实上在这种算法中有许多无谓的计算，因此我们可以先对字符串进行预处理：用huiwen[i,j]表示s[i,j]是否为回文串（奇怪的名字。。。）。如此一来，时间复杂度就降为O($n^2$)了。</p>
+<p>Code：</p>
+<pre><code>var
+    s: AnsiString;
+    n, _, i, j, l: integer;
+    huiwen: array [1..1000, 1..1000] of boolean; //s[i,j]是否为回文串
+    dp: array [0..1000] of integer; //一定从0开始，否则当整串为回文串时就考虑不到了。
+
+function min(x,y: integer): integer;
+begin
+    if x&lt;y then exit(x) else exit(y);
+end;
+
+procedure process(i,j: integer); //对回文串进行预处理
+var
+    mid: Integer;
+    x,y: integer;
+begin
+    if j = i then
+    begin
+        huiwen[i,j] := true;
+        exit;
+    end;
+    mid := i + (j-i+1) shr 1;
+    x := i;
+    y := j;
+    while (x &lt;= mid) and (s[x] = s[y]) do
+    begin
+        inc(x);
+        dec(y);
+    end;
+    huiwen[i, j] := x &gt; mid;
+end;
+
+begin
+    //assign(input, 'main.in'); reset(input);
+    //assign(output, 'main.out'); rewrite(output);
+    readln(n);
+    for _ := 1 to n do
+    begin
+        readln(s);
+        l := length(s);
+        //Pre-process
+        fillchar(huiwen, sizeof(huiwen), 0);
+        for i := 1 to l do
+            for j := i to l do //一定是从i开始，这个错卡了我很久。
+                process(i, j);
+        //DP
+        for i := 1 to l do
+        begin
+            dp[i] := i;
+            for j := 0 to i-1 do
+                if huiwen[j+1, i] then
+                    dp[i] := min(dp[i], dp[j]+1);
+        end;
+        write(dp[l]);
+        {if _ &lt;&gt;n then }writeln; //吐槽一下：一开始我还谨慎地加上这句以避免行末回车，没想到UVa居然报错了。。看来UVa的比较算法还有待改进啊。
+    end;
+
+    //close(input);close(output);
+end.
+</code></pre>
+
+        </section>
+        
+          <ul class="tag_box inline">
+            <li><i class="glyphicon glyphicon-open"></i></li>
+            
+            
+
+
+  
+     
+    	<li><a href="/categories.html#uva-ref">
+    		uva <span>12</span>
+    	</a></li>
+     
+    	<li><a href="/categories.html#信息学竞赛-ref">
+    		信息学竞赛 <span>24</span>
+    	</a></li>
+     
+    	<li><a href="/categories.html#编程-ref">
+    		编程 <span>32</span>
+    	</a></li>
+    
+  
+
+
+          </ul>
+          
+
+         
+    </article>
   
     <article class="post-content">
         <header class="text-center">
@@ -575,131 +687,6 @@ end;
   
      
     	<li><a href="/tags.html#mysql-ref">mysql <span>1</span></a></li>
-    
-  
-
-
-
-          </ul>
-         
-    </article>
-  
-    <article class="post-content">
-        <header class="text-center">
-            <h1 class="post-title">
-                <a href="/peeking-hongkong/">窥视香港</a>
-            </h1>
-            <p class="time">10 Jul 2013</p>
-        </header>
-        <section class="content">
-            <blockquote>
-<p>用心灵窥视，用良知感悟，寻觅精神世界的失落。 ——题记</p>
-</blockquote>
-
-<h2>地铁票</h2>
-
-<p>才刚到晚上八点，地铁站便已“门可罗雀”，偶尔一两个人从眼前晃过。偌大的站台，空虚着，萧索着——这并不像一个大城市的作风。</p>
-
-<p>紧攥着手中的地铁票，生怕它被风吹走了——香港真能信任人呵，地铁票制作得如此薄，如此简陋，一点也不“高科技”，难道就不怕有人造假？对于见惯了内地地铁票的我来说，实在值得琢磨。</p>
-
-<h2>电梯</h2>
-
-<p>“嘿，”同伴拍了拍我肩膀，轻声说，“你看……”</p>
-
-<p>我回头一看——顿时觉得糗大了。</p>
-
-<p>后面一排人都靠在扶梯右边有秩序地站着，整齐而不乱；而我——像往常一样靠在左边的扶手上，入迷地玩着手机……我“刷”地脸红了，立刻向右边挪了一步。</p>
-
-<p>“上下楼梯靠右边”，这是幼儿园就应该了解的常识。但我，作为一个中学生，却忘得一干二净，真是惭愧。但愿后面站着的人没有把我的做法放在心上。</p>
-
-<p>不过，既然手扶梯是单向的，为什么要让出左边的一半呢？两边都站满利用率不是更高吗？</p>
-
-<p>突然，身后传来一阵急促的脚步声——原来是一位“上班族”。只见他一手拎着包，一手扶着电梯扶手，气喘吁吁地从左边的通道跑下，很快，便消失在月台深处。</p>
-
-<p>原来如此，香港人的守秩序是为了有需要的人。</p>
-
-<p>电梯虽小，却折射出人生百相。</p>
-
-<h2>换乘</h2>
-
-<p>“金钟站到了。”</p>
-
-<p>透过车窗望去，外面黑压压地挤了一群人——想必这里应该是繁华地段吧。</p>
-
-<p>车门开了，车厢里的人涌了出去。但奇怪的是，他们并没有跑向楼梯或电梯，而是跑向了对面的一辆列车。</p>
-
-<p>按照内地人的思路，两辆相对的列车理应是开往相反方向的。难道很多人都坐错车了？要不怎么都想往回走。我顿生狐疑。</p>
-
-<p>仔细端详对面的那辆列车，无意间，我发现了一个奇怪之处：那辆车和我乘坐的这一辆根本就不是同一条线路的！这也太奇怪了！</p>
-
-<p>但仔细想想，这样的安排似乎也有他的合理之处。</p>
-
-<p>这里是靠近市中心的地方，客流量大，每天都有几百万人次的换乘量。把两条人们常坐的线路靠的近一点，从一定程度上可以减小换乘带来的麻烦。况且，坐错车的人只是极少数，的确没有必要把两条相反方向的线路靠在一起。</p>
-
-<p>繁华的都市，竟然也粗中有细，实为可贵。</p>
-
-<h2>路人</h2>
-
-<p>“劳驾……请问皇后大道东怎么走？”</p>
-
-<p>香港小巷密集，巷与巷之间又没有什么突出的不同之处，因此一不小心就会迷路。</p>
-
-<p>听说香港人有些排斥说普通话的游客，因此不会说粤语的我一直都不敢问路。但走到这个十字路口，我再也坚持不住了，只靠硬着头皮去问路。</p>
-
-<p>眼前的这位阿姨大概三十岁出头，拎着包，好像是一位刚下班的白领。她先是用奇怪的眼光打量我，看得我暗暗不安。几秒后，她终于开口了，用的是不很熟练的国语：“皇后大道东这么长，你具体要去哪？”</p>
-
-<p>这可把我问住了。“嗯……只要到那就行了……我只是想去走走。”</p>
-
-<p>这时，路对面的信号灯变绿了。我心里“咯噔”一下：不好，“救命稻草”可能要走了。可幸运的是，阿姨并没有要走的意思。她先问我有没有地图，在昏暗的路灯下，她艰难地从地图上找出了我们现在所处的位置。接着，她开始详细地讲解路线：需要乘哪些地铁，出了站后应该怎么走等等。经过了近5分钟的讲解，我终于把路线弄清了。</p>
-
-<p>“你会不会坐地铁啊？”临走前，阿姨还问我。</p>
-
-<p>“嗯，会的。我就是搭地铁来的。谢谢！”</p>
-
-<p>这时我才发现，对面的红绿灯已经变绿了两三次了。这要是在内地，对方非咒死你不可。</p>
-
-<p>还好，我在香港迷路了。</p>
-
-<h2>反思</h2>
-
-<p>都说社会主义社会比资本主义社会优越，但我一路走下来，却并不这么认为。</p>
-
-<p>看来，经济高速发展带来了很多问题。古老的中国，年轻的中国，还有许多地方需要学习。</p>
-
-        </section>
-        
-          <ul class="tag_box inline">
-            <li><i class="glyphicon glyphicon-open"></i></li>
-            
-            
-
-
-  
-     
-    	<li><a href="/categories.html#杂感-ref">
-    		杂感 <span>6</span>
-    	</a></li>
-     
-    	<li><a href="/categories.html#游记-ref">
-    		游记 <span>1</span>
-    	</a></li>
-    
-  
-
-
-          </ul>
-          
-
-        
-          <ul class="tag_box inline">
-            <li><i class="glyphicon glyphicon-tags"></i></li>
-            
-            
-
-
-  
-     
-    	<li><a href="/tags.html#不经意间的感动-ref">不经意间的感动 <span>3</span></a></li>
     
   
 

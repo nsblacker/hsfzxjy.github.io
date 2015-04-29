@@ -76,6 +76,7 @@ JB :
   archive_path: /archive.html
   categories_path : /categories.html
   tags_path : /tags.html
+  app_cache : /manifest.appcache
   atom_path : /atom.xml
   rss_path : /rss.xml
   encoding : UTF-8

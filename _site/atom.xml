@@ -4,7 +4,7 @@
  <title>hsfzxjy</title>
  <link href="http://hsfzxjy.github.io/" rel="self"/>
  <link href="http://hsfzxjy.github.io"/>
- <updated>2015-04-23T21:23:54+08:00</updated>
+ <updated>2015-04-29T20:25:49+08:00</updated>
  <id>http://hsfzxjy.github.io</id>
  <author>
    <name>Jinyi Xie</name>
@@ -191,9 +191,7 @@
 
 &lt;h3&gt;翻页机制的进一步改进&lt;/h3&gt;
 
-&lt;blockquote&gt;
-&lt;h1&gt;未完待续。。。&lt;/h1&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;rest_framework&lt;/code&gt;提供了一个数据翻页的机制，&lt;/p&gt;
 </content>
  </entry>
  

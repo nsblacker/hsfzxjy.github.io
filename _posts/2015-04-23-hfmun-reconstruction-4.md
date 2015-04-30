@@ -5,7 +5,7 @@ title: 【HFMUN重构系列】4. Restful API 框架
 categories: HFMUN重构系列
 ---
 
-## 0x01 什么是REST
+## **0x01 什么是REST**
 
 “REST”这个词，也许会在许多场合上出现，但并不是每个人都理解它的意思。在维基百科中，它被定义为：
 
@@ -19,7 +19,7 @@ categories: HFMUN重构系列
 
 狭义的 REST 范式是基于 B/S 架构，并使用 HTTP 协议进行数据交互。比起古老而笨重的 SOAP 等架构，这种模式更加轻便、直观，使网络资源的访问变得简洁、优雅，也更加符合当今 Web 开发的需求。
 
-## 0x02 如何正确使用 REST
+## **0x02 如何正确使用 REST**
 
 正如上面所说，REST 是基于 HTTP 协议的。它用 URI 来定义资源，并用 HTTP 请求来操作资源。然而，并不是说使用了 HTTP 协议即可称之为 REST——真正意义上的 REST，有自己的一套准则。也正是这套准则，才使得 REST 简洁、优雅。
 
@@ -86,7 +86,7 @@ GET /orders.json/ HTTP/1.1
  + **403** 没有权限
  + **404** 资源找不到
 
-## 0x03 django 中的 REST
+## **0x03 django 中的 REST**
 
 像 REST 这么高大上的东西，早就有人对它进行了实现，这便是：[Django Rest Framework](http://www.django-rest-framework.org/)。基本的用法可以参见官网。
 
@@ -330,6 +330,6 @@ class PaginationSerializer(BasePaginationSerializer):
 
 完成了——在没有修改一处业务逻辑代码的前提下，我增强了分页机制。
 
-## 0x04 前端接口
+## **0x04 前端接口**
 
 > #未完待续。。。

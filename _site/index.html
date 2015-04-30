@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en" manifest="manifest.appcache">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -151,13 +151,14 @@
 <div class="page-header">
   <h1 class="post-title">
          
-         <small>Free as wind.</small>
+         <small class="tagline">What I expect, is that lonely starry night.</small>
   </h1>
 </div>
 
 <div class="row">
   <div class="col-xs-12 post-content">
     
+<link rel="stylesheet" type="text/css" href="/assets/themes//bootstrap-3/css/index.css?body=1">
 <div class="posts">
   
     <article class="post-content">
@@ -340,9 +341,140 @@
 </code></pre></div>
 <p>非常方便。</p>
 
-<h3>翻页机制的进一步改进</h3>
+<h3>分页机制的进一步改进</h3>
 
-<p><code>rest_framework</code>提供了一个数据翻页的机制，</p>
+<p><code>rest_framework</code>提供了一个数据分页的机制：透过<code>limit</code>和<code>page</code>这两个 URL 参数可以实现数据的分页以及页码索引。</p>
+
+<p>但这个功能在客户要求的应用场景中似乎并不太实用。毕竟，模联大会是一次节奏紧张的活动，网站并发量大，内容更新频繁，若应用传统分页的构想，可能会出现翻页时浏览到重复内容的情况。除此之外，这样的架构不利于实现<strong>瀑布流式</strong>的界面，因为瀑布流式要求待加载的数据与已加载的数据完美地无缝接合，而这一点对于传统分页架构来说也是力不从心。</p>
+
+<p>曾记得，<a href="http://open.weibo.com/wiki/2/statuses/public_timeline">新浪微博 API </a>中好像有类似的实现：凡是返回一个列表的 API ，返回数据中都会有<code>previous_cursor</code>和<code>next_cursor</code>两个参数，通过这两个参数，开发者可以获取上一份或下一份的数据。受此启发，我决定增强一下<code>rest_framework</code>的分页机制。</p>
+
+<blockquote>
+<h4>想法</h4>
+
+<ol>
+<li>可在 API 的请求中传入参数 <code>sinceid</code> 或是 <code>beforeid</code>，表示获取<code>id</code>紧跟着<code>&lt;sinceid&gt;</code>或是<code>&lt;beforeid&gt;</code>的一批数据。</li>
+<li>当 API 返回值是一个列表时，返回数据中增加两个域<code>since</code>和<code>before</code>，分别是指向上一批数据及下一批数据的 URL。</li>
+</ol>
+</blockquote>
+
+<p>改动得不多，于是我便直接在别人的代码里开刀了。</p>
+
+<p>首先在<code>rest_framework/</code>中增加一个<code>custom_filters.py</code>，用于存放自定义的过滤器：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">django_filters</span> <span class="kn">import</span> <span class="n">FilterSet</span><span class="p">,</span> <span class="n">NumberFilter</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;get_timeline_filter&#39;</span><span class="p">,</span> <span class="s">&#39;is_timeline_filter&#39;</span><span class="p">]</span>
+
+<span class="k">class</span> <span class="nc">TimelineFilter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">is_timeline_filter</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">__class__</span><span class="p">,</span> <span class="n">TimelineFilter</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_timeline_filter</span><span class="p">(</span><span class="n">model_class</span><span class="p">,</span> <span class="n">base_filter_class</span> <span class="o">=</span> <span class="n">FilterSet</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    工厂方法，给不同的模型类指派不同的过滤器</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">base_filter_class</span><span class="p">:</span>
+        <span class="n">base_filter_class</span> <span class="o">=</span> <span class="n">FilterSet</span>
+
+    <span class="k">class</span> <span class="nc">_TimelineFilter</span><span class="p">(</span><span class="n">base_filter_class</span><span class="p">,</span> <span class="n">TimelineFilter</span><span class="p">):</span>
+
+        <span class="n">sinceid</span> <span class="o">=</span> <span class="n">NumberFilter</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#39;pk&#39;</span><span class="p">,</span> <span class="n">lookup_type</span> <span class="o">=</span> <span class="s">&#39;gt&#39;</span><span class="p">)</span>
+        <span class="n">beforeid</span> <span class="o">=</span> <span class="n">NumberFilter</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#39;pk&#39;</span><span class="p">,</span> <span class="n">lookup_type</span> <span class="o">=</span> <span class="s">&#39;lt&#39;</span><span class="p">)</span>
+
+        <span class="k">class</span> <span class="nc">Meta</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">base_filter_class</span><span class="p">,</span><span class="s">&#39;Meta&#39;</span><span class="p">,</span><span class="nb">object</span><span class="p">)):</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="n">model_class</span>
+
+    <span class="k">return</span> <span class="n">_TimelineFilter</span>
+</code></pre></div>
+<p>修改<code>rest_framework/generics.py</code>，为<code>GenericAPIView</code>加入<code>hack_filter_class()</code>方法，放入上面定义的过滤器；再修改<code>get_filter_backends()</code>方法，使其生效：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">.custom_filters</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c">#...</span>
+
+<span class="k">class</span> <span class="nc">GenericAPIView</span><span class="p">(</span><span class="n">views</span><span class="o">.</span><span class="n">APIView</span><span class="p">):</span>
+
+    <span class="c">#...</span>
+
+    <span class="k">def</span> <span class="nf">hack_filter_class</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">filter_class</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;filter_class&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_timeline_filter</span><span class="p">(</span><span class="n">filter_class</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">filter_class</span> <span class="o">=</span> <span class="n">get_timeline_filter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">filter_class</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_filter_backends</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the list of filter backends that this view requires.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_timeline</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hack_filter_class</span><span class="p">()</span>
+
+        <span class="n">filter_backends</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_backends</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">filter_backends</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_backend</span><span class="p">:</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+                <span class="s">&#39;The `filter_backend` attribute and `FILTER_BACKEND` setting &#39;</span>
+                <span class="s">&#39;are due to be deprecated in favor of a `filter_backends` &#39;</span>
+                <span class="s">&#39;attribute and `DEFAULT_FILTER_BACKENDS` setting, that take &#39;</span>
+                <span class="s">&#39;a *list* of filter backend classes.&#39;</span><span class="p">,</span>
+                <span class="ne">PendingDeprecationWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span>
+            <span class="p">)</span>
+            <span class="n">filter_backends</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">filter_backend</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">filter_backends</span>
+</code></pre></div>
+<p>最后再修改<code>rest_framework/pagination.py</code>，这个模块的功能是给<code>Serializer</code>加入分页机制中一些必要的域，如<code>next</code>和<code>previous</code>：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># ...</span>
+<span class="n">sinceid_field</span> <span class="o">=</span> <span class="s">&#39;sinceid&#39;</span>
+<span class="n">beforeid_field</span> <span class="o">=</span> <span class="s">&#39;beforeid&#39;</span>
+
+<span class="k">class</span> <span class="nc">SinceIdField</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">Field</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">to_native</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">value</span><span class="o">.</span><span class="n">object_list</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">object_list</span><span class="p">[:]</span>
+            <span class="n">sinceid</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">value</span><span class="o">.</span><span class="n">object_list</span><span class="p">)</span> 
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+
+        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;request&#39;</span><span class="p">)</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">request</span> <span class="ow">and</span> <span class="n">request</span><span class="o">.</span><span class="n">build_absolute_uri</span><span class="p">()</span> <span class="ow">or</span> <span class="s">&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">replace_query_params</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span>
+            <span class="n">sinceid_field</span><span class="p">:</span> <span class="n">sinceid</span><span class="p">,</span>
+            <span class="n">beforeid_field</span><span class="p">:</span> <span class="s">&#39;&#39;</span>
+        <span class="p">})</span>
+
+<span class="k">class</span> <span class="nc">BeforeIdField</span><span class="p">(</span><span class="n">serializers</span><span class="o">.</span><span class="n">Field</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">to_native</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">value</span><span class="o">.</span><span class="n">object_list</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">object_list</span><span class="p">[:]</span>
+            <span class="n">beforeid</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">value</span><span class="o">.</span><span class="n">object_list</span><span class="p">)</span> 
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+
+        <span class="n">request</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;request&#39;</span><span class="p">)</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">request</span> <span class="ow">and</span> <span class="n">request</span><span class="o">.</span><span class="n">build_absolute_uri</span><span class="p">()</span> <span class="ow">or</span> <span class="s">&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">replace_query_params</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span>
+            <span class="n">beforeid_field</span><span class="p">:</span> <span class="n">beforeid</span><span class="p">,</span>
+            <span class="n">sinceid_field</span><span class="p">:</span> <span class="s">&#39;&#39;</span>
+        <span class="p">})</span>
+
+<span class="c"># ...</span>
+
+<span class="k">class</span> <span class="nc">PaginationSerializer</span><span class="p">(</span><span class="n">BasePaginationSerializer</span><span class="p">):</span>
+
+    <span class="n">count</span> <span class="o">=</span> <span class="n">serializers</span><span class="o">.</span><span class="n">Field</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s">&#39;paginator.count&#39;</span><span class="p">)</span>
+    <span class="nb">next</span> <span class="o">=</span> <span class="n">NextPageField</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s">&#39;*&#39;</span><span class="p">)</span>
+    <span class="n">previous</span> <span class="o">=</span> <span class="n">PreviousPageField</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s">&#39;*&#39;</span><span class="p">)</span>
+    <span class="n">before</span> <span class="o">=</span> <span class="n">BeforeIdField</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s">&#39;*&#39;</span><span class="p">)</span>
+    <span class="n">since</span> <span class="o">=</span> <span class="n">SinceIdField</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="s">&#39;*&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>完成了——在没有修改一处业务逻辑代码的前提下，我增强了分页机制。</p>
+
+<h2>0x04 前端接口</h2>
+
+<blockquote>
+<h1>未完待续。。。</h1>
+</blockquote>
 
         </section>
         

@@ -175,7 +175,7 @@ for pattern, obj in cache.get_routers():
         router.register(pattern, obj)
     elif issubclass(obj, APIView):
         extra_list.append(url(pattern, obj.as_view()))
-                
+
 extra_list.append(url(r'^', include(router.urls)))
 
 urlpatterns = patterns('',
@@ -197,6 +197,139 @@ routers = (
 
 非常方便。
 
-### 翻页机制的进一步改进
+### 分页机制的进一步改进
 
-`rest_framework`提供了一个数据翻页的机制，
+`rest_framework`提供了一个数据分页的机制：透过`limit`和`page`这两个 URL 参数可以实现数据的分页以及页码索引。
+
+但这个功能在客户要求的应用场景中似乎并不太实用。毕竟，模联大会是一次节奏紧张的活动，网站并发量大，内容更新频繁，若应用传统分页的构想，可能会出现翻页时浏览到重复内容的情况。除此之外，这样的架构不利于实现**瀑布流式**的界面，因为瀑布流式要求待加载的数据与已加载的数据完美地无缝接合，而这一点对于传统分页架构来说也是力不从心。
+
+曾记得，[新浪微博 API ](http://open.weibo.com/wiki/2/statuses/public_timeline)中好像有类似的实现：凡是返回一个列表的 API ，返回数据中都会有`previous_cursor`和`next_cursor`两个参数，通过这两个参数，开发者可以获取上一份或下一份的数据。受此启发，我决定增强一下`rest_framework`的分页机制。
+
+> ####想法
+> 1. 可在 API 的请求中传入参数 `sinceid` 或是 `beforeid`，表示获取`id`紧跟着`<sinceid>`或是`<beforeid>`的一批数据。
+> 2. 当 API 返回值是一个列表时，返回数据中增加两个域`since`和`before`，分别是指向上一批数据及下一批数据的 URL。
+
+改动得不多，于是我便直接在别人的代码里开刀了。
+
+首先在`rest_framework/`中增加一个`custom_filters.py`，用于存放自定义的过滤器：
+
+```python
+from django_filters import FilterSet, NumberFilter
+
+__all__ = ['get_timeline_filter', 'is_timeline_filter']
+
+class TimelineFilter(object):
+    pass
+
+def is_timeline_filter(obj):
+    return issubclass(obj.__class__, TimelineFilter)
+
+def get_timeline_filter(model_class, base_filter_class = FilterSet):
+    """
+    工厂方法，给不同的模型类指派不同的过滤器
+    """
+    if not base_filter_class:
+        base_filter_class = FilterSet
+
+    class _TimelineFilter(base_filter_class, TimelineFilter):
+
+        sinceid = NumberFilter(name = 'pk', lookup_type = 'gt')
+        beforeid = NumberFilter(name = 'pk', lookup_type = 'lt')
+
+        class Meta(getattr(base_filter_class,'Meta',object)):
+            model = model_class
+
+    return _TimelineFilter
+```
+
+修改`rest_framework/generics.py`，为`GenericAPIView`加入`hack_filter_class()`方法，放入上面定义的过滤器；再修改`get_filter_backends()`方法，使其生效：
+
+```python
+from .custom_filters import *
+
+#...
+
+class GenericAPIView(views.APIView):
+
+    #...
+
+    def hack_filter_class(self):
+        filter_class = getattr(self, 'filter_class', None)
+        if not is_timeline_filter(filter_class):
+            self.filter_class = get_timeline_filter(self.model, filter_class)
+
+    def get_filter_backends(self):
+        """
+        Returns the list of filter backends that this view requires.
+        """
+        if self.is_timeline:
+            self.hack_filter_class()
+
+        filter_backends = self.filter_backends or []
+        if not filter_backends and self.filter_backend:
+            warnings.warn(
+                'The `filter_backend` attribute and `FILTER_BACKEND` setting '
+                'are due to be deprecated in favor of a `filter_backends` '
+                'attribute and `DEFAULT_FILTER_BACKENDS` setting, that take '
+                'a *list* of filter backend classes.',
+                PendingDeprecationWarning, stacklevel=2
+            )
+            filter_backends = [self.filter_backend]
+        return filter_backends
+```
+
+最后再修改`rest_framework/pagination.py`，这个模块的功能是给`Serializer`加入分页机制中一些必要的域，如`next`和`previous`：
+
+```python
+# ...
+sinceid_field = 'sinceid'
+beforeid_field = 'beforeid'
+
+class SinceIdField(serializers.Field):
+
+    def to_native(self, value):
+        try:
+            value.object_list = value.object_list[:]
+            sinceid = max(obj.id for obj in value.object_list) 
+        except ValueError:
+            return None
+
+        request = self.context.get('request')
+        url = request and request.build_absolute_uri() or ''
+        return replace_query_params(url, **{
+            sinceid_field: sinceid,
+            beforeid_field: ''
+        })
+
+class BeforeIdField(serializers.Field):
+
+    def to_native(self, value):
+        try:
+            value.object_list = value.object_list[:]
+            beforeid = min(obj.id for obj in value.object_list) 
+        except ValueError:
+            return None
+
+        request = self.context.get('request')
+        url = request and request.build_absolute_uri() or ''
+        return replace_query_params(url, **{
+            beforeid_field: beforeid,
+            sinceid_field: ''
+        })
+
+# ...
+
+class PaginationSerializer(BasePaginationSerializer):
+
+    count = serializers.Field(source='paginator.count')
+    next = NextPageField(source='*')
+    previous = PreviousPageField(source='*')
+    before = BeforeIdField(source='*')
+    since = SinceIdField(source='*')
+```
+
+完成了——在没有修改一处业务逻辑代码的前提下，我增强了分页机制。
+
+## 0x04 前端接口
+
+> #未完待续。。。

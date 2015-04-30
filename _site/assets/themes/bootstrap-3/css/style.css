@@ -31,3 +31,4 @@ blockquote{color:#999;font-size:16px}blockquote p{font-size:16px}
 .post-title{font-size:35px}
 @media (min-width:768px){.post-content{padding:60px 60px} .post-title{font-size:40px}}@media (min-width:992px){.post-content{padding:80px 90px} .post-title{font-size:50px}}.time{color:#117964}
 a:hover{text-decoration:none}
+.posts :first-child{padding-top:0 !important}

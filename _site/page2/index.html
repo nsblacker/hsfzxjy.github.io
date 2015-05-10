@@ -164,6 +164,81 @@
     <article class="post-content">
         <header class="text-center">
             <h1 class="post-title">
+                <a href="/backup-apt-get/">如何备份apt-get已安装的软件列表？</a>
+            </h1>
+            <p class="time">19 Apr 2015</p>
+        </header>
+        <section class="content">
+            <p><code>apt-get</code>是 ubuntu 下管理软件包的一个工具，实用简单，功能强大。平时若要安装或卸载软件包，只需轻敲一条指令即可。每一台ubuntu上，都安装着数以千百计的软件包——或是内核模块，或是工作、娱乐所需的软件，在它们的支持下，工作着这个开放的操作系统。</p>
+
+<p>但，如果有一天，系统需要被重装——或是无可救药了，抑或是购置了新的设备，问题来了：</p>
+
+<blockquote>
+<p>如何将现有电脑上的软件包迁移至新的系统呢？</p>
+</blockquote>
+
+<p>很简单。</p>
+
+<p>首先，将原有的软件列表导出：</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo dpkg --get-selections  &gt; app-backup-list.lst
+</code></pre></div>
+<p>最好是设置一个定时任务，每隔一段时间就保存一次列表，并且要保存到一个独立的分区。以免某天系统真的坏了。</p>
+
+<p>接下来便是导入了：</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo dpkg --set-selections &lt; app-backup-list.lst
+sudo apt-get -y update
+sudo apt-get dselect-upgrade
+</code></pre></div>
+<p>至于软件源的备份，只需将<code>/etc/apt/sources.list</code>文件复制过去即可。</p>
+
+        </section>
+        
+          <ul class="tag_box inline">
+            <li><i class="glyphicon glyphicon-open"></i></li>
+            
+            
+
+
+  
+     
+    	<li><a href="/categories.html#ubuntu-ref">
+    		ubuntu <span>9</span>
+    	</a></li>
+     
+    	<li><a href="/categories.html#apt-get-ref">
+    		apt-get <span>1</span>
+    	</a></li>
+    
+  
+
+
+          </ul>
+          
+
+        
+          <ul class="tag_box inline">
+            <li><i class="glyphicon glyphicon-tags"></i></li>
+            
+            
+
+
+  
+     
+    	<li><a href="/tags.html#ubuntu-ref">ubuntu <span>3</span></a></li>
+     
+    	<li><a href="/tags.html#apt-get-ref">apt-get <span>1</span></a></li>
+    
+  
+
+
+
+          </ul>
+         
+    </article>
+  
+    <article class="post-content">
+        <header class="text-center">
+            <h1 class="post-title">
                 <a href="/migrate-to-github/">博客迁移至Github.io</a>
             </h1>
             <p class="time">17 Apr 2015</p>
@@ -444,75 +519,6 @@ $$={I^2T \over 2}$$</p>
           </ul>
           
 
-         
-    </article>
-  
-    <article class="post-content">
-        <header class="text-center">
-            <h1 class="post-title">
-                <a href="/ten-years/">十年</a>
-            </h1>
-            <p class="time">03 Mar 2015</p>
-        </header>
-        <section class="content">
-            <p>再一次站在这里，我却发现早已没有了熟悉的感觉。一切都是那样陌生：长年累月的雨水冲刷，使原本灰色的墙面变得愈加晦暗，有几处墙皮脱落了，酷似一张布满皱纹的老脸；门前，野草肆意地疯长着，没过了缩在墙角的那根水管——记忆中它一直在渗水，却不知何时被修好了，只留下了一圈丑陋的青苔，像是对这十年光阴的一个标注。</p>
-<p>这里的一切，就像是被人遗弃了。四周站着的那一圈高楼，无时无刻不在表达着对这角隅的不屑——就像长辈们对待无知的孩童一样。<br />
-而事实上，这里比周围的一切都要年长。</p>
-<p>时光上溯十年，那时，我居住于此。那时，还没有周围这一切。</p>
-<p>曾记得，在不远处的那块菜地，我和小伙伴趟过泥水，猫着腰在捕捉小鱼小虾。柔软的泥土记录这我们的足迹，竹架上的蔬果聆听着我们的欢笑，就连那不知名的虫儿，也哼起歌为我们助兴。</p>
-<p>曾记得，在屋后的那片小树林，上演过一次又一次的“探险之旅”。不畏阴暗，不惧神秘，只求抵达尽头时那种大汗淋漓的快意。</p>
-<p>曾记得，在楼顶的天台，我第一次仰望星空。夏夜的风吹起架子上的藤蔓，吹拂着我的脸庞。和着如水的月光，四周的一切就像仙境般梦幻。</p>
-<p>这里，有着我童年的所有回忆。</p>
-<p>可如今，这一切都像是未曾发生过。这里，也未曾记得。</p>
-<p>十年，很长，长得足以让一个人，去遗忘一个地方。</p>
-<p>再一次遇见他，没有太多的喜悦，只是相视一笑，随即，便陷入了沉默。</p>
-<p>比起上一次相遇，他又有了一些变化，整个人显得更加成熟了。但与此同时，一种未知的像雾一样的却在我们中间弥散开来，凝固着空气，窒息着心灵。</p>
-<p>我竭力搜寻着话题，想要打破这恼人的尴尬，但却徒劳无功——真的没有共同语言了，毕竟在新的环境里，我们都有了新的爱好。</p>
-<p>真是一个让人迷惑的时代——在这里，共有着美好的回忆，却也无法维系十年的友情。</p>
-<p>在那人生的上古时期，他，是我最好的朋友，一起逃过课，在小学边上的山坡尽情地疯玩；一起偷过钱，忐忑地在小商店购买垂涎已久的零食。那些年和他，一玩能玩一天，一聊能聊一宿。我们有过争吵，而更多时候，我们亲如弟兄。</p>
-<p>记忆中的那些画面，每一张笑脸，每一滴眼泪，都是那样真诚。</p>
-<p>只是，曾经的旧知己，最终还是变不到老友。</p>
-<p>十年，很长，长得足以让一个人，去疏远另一个人。</p>
-<p>十年，真的很长。承载着过去的回忆，有欢笑，有泪水——就像是人那短暂一生的缩影。</p>
-<p>人生又能有几个十年？无从得知。</p>
-<p>因此，每一个十年都弥足珍贵；每一个十年，都要用心去珍惜。</p>
-
-        </section>
-        
-          <ul class="tag_box inline">
-            <li><i class="glyphicon glyphicon-open"></i></li>
-            
-            
-
-
-  
-     
-    	<li><a href="/categories.html#杂感-ref">
-    		杂感 <span>7</span>
-    	</a></li>
-    
-  
-
-
-          </ul>
-          
-
-        
-          <ul class="tag_box inline">
-            <li><i class="glyphicon glyphicon-tags"></i></li>
-            
-            
-
-
-  
-     
-    	<li><a href="/tags.html#创新作文大赛-ref">创新作文大赛 <span>1</span></a></li>
-    
-  
-
-
-
-          </ul>
          
     </article>
   

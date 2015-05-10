@@ -4,7 +4,7 @@
  <title>hsfzxjy</title>
  <link href="http://hsfzxjy.github.io/" rel="self"/>
  <link href="http://hsfzxjy.github.io"/>
- <updated>2015-05-10T13:23:36+08:00</updated>
+ <updated>2015-05-10T13:26:34+08:00</updated>
  <id>http://hsfzxjy.github.io</id>
  <author>
    <name>Jinyi Xie</name>
@@ -153,7 +153,7 @@
                 word-wrap: break-word;
                 left: 10%;
                 top: 25%;
-                font-size: 5em;
+                font-size: 3em;
                 text-align: center;
                 line-height: 0.8em;
                 letter-spacing: -0.05em;
@@ -161,10 +161,10 @@
                 opacity: 0;
                 z-index: 1;
                 -webkit-animation: logo 8s ease-out 160s;
-                -moz-animation: logo 5s ease-out 2.5s;
-                -ms-animation: logo 5s ease-out 2.5s;
-                -o-animation: logo 5s ease-out 2.5s;
-                animation: logo 5s ease-out 2.5s;
+                -moz-animation: logo 8s ease-out 160s;
+                -ms-animation: logo 8s ease-out 160s;
+                -o-animation: logo 8s ease-out 160s;
+                animation: logo 8s ease-out 160s;
             }
 
             @-webkit-keyframes logo {

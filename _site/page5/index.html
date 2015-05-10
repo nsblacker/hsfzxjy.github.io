@@ -164,96 +164,6 @@
     <article class="post-content">
         <header class="text-center">
             <h1 class="post-title">
-                <a href="/chemistry-chapter2-section1/">化学 【第二章-第一节】归纳</a>
-            </h1>
-            <p class="time">01 Dec 2014</p>
-        </header>
-        <section class="content">
-            <h3><strong>电解质</strong></h3>
-<ul>
-<li>定义：<strong>电解质是溶于水溶液中或在熔融状态下就能够导电（自身电离成阳离子与阴离子）的化合物</strong>。</li>
-<li>分类：</li>
-</ul>
-<ol>
-<li>强电解质：<strong>在水溶液中或熔融状态中几乎完全发生电离的电解质</strong>。一般有：强酸强碱，活泼金属氧化物，大多数的盐。</li>
-<li>弱电解质：<strong>在水溶液中或熔融状态下不完全发生电离的电解质</strong>。一般有：弱酸弱碱，少数的盐，水。</li>
-</ol>
-<h3><strong>同系物</strong></h3>
-<ul>
-<li>定义：<strong>结构相似、分子组成相差若干个“CH2”原子团的有机化合物互相称为同系物。</strong></li>
-<li>一般来说，同系物的名字都有相同的结尾，如：烷、醇等。</li>
-</ul>
-<h3><strong>分散系</strong></h3>
-<ul>
-<li>定义：<strong>一种或几种物质分散在另一种（或多种）物质中所形成的体系称为分散体系。</strong>分散系的分类由<strong>分散质的直径大小</strong>决定。</li>
-<li>具体分类：</li>
-</ul>
-<ol>
-<li>溶液，无丁达尔效应。</li>
-<li>胶体，由丁达尔效应，通常也是透明的。</li>
-<li>浊液，又分为悬浊液（固体小颗粒）和乳浊液（小液滴，不可用过滤分离）。透光的可以有丁达尔效应。</li>
-</ol>
-<h3><strong>酸性氧化物&amp;碱性氧化物</strong></h3>
-<ul>
-<li>酸性氧化物：<strong>能与水作用生成相应价态的酸，或与碱作用生成盐和水（且生成物只能有一种盐和水，不可以有任何其它物质生成），或与碱性氧化物反应生成盐的氧化物</strong>。</li>
-<li>碱性氧化物：<strong>能跟酸起反应，生成一种盐和水的氧化物叫碱性氧化物(且生成物只能有盐和水,不可以有任何其它物质生成)</strong>。</li>
-<li>酸性氧化物不一定是非金属氧化物（如$Mn_2O_7$），而碱性氧化物一定为金属氧化物。</li>
-</ul>
-<h3><strong>离子化合物</strong></h3>
-<ul>
-<li><strong>由阳离子（通常为金属离子和铵根离子）和阴离子构成的化合物。</strong>注意 <em>HCl不是，它是共价化合物</em>。</li>
-</ul>
-
-        </section>
-        
-          <ul class="tag_box inline">
-            <li><i class="glyphicon glyphicon-open"></i></li>
-            
-            
-
-
-  
-     
-    	<li><a href="/categories.html#化学-ref">
-    		化学 <span>2</span>
-    	</a></li>
-     
-    	<li><a href="/categories.html#百题大过关-ref">
-    		百题大过关 <span>1</span>
-    	</a></li>
-    
-  
-
-
-          </ul>
-          
-
-        
-          <ul class="tag_box inline">
-            <li><i class="glyphicon glyphicon-tags"></i></li>
-            
-            
-
-
-  
-     
-    	<li><a href="/tags.html#化学-ref">化学 <span>1</span></a></li>
-     
-    	<li><a href="/tags.html#百题大过关-ref">百题大过关 <span>1</span></a></li>
-     
-    	<li><a href="/tags.html#逆袭-ref">逆袭 <span>1</span></a></li>
-    
-  
-
-
-
-          </ul>
-         
-    </article>
-  
-    <article class="post-content">
-        <header class="text-center">
-            <h1 class="post-title">
                 <a href="/solution-of-apt-get-error-hash-checksum-incorrect/">Ubuntu下解决apt-get “Hash校验和不符的方案”</a>
             </h1>
             <p class="time">29 Nov 2014</p>
@@ -480,6 +390,129 @@ default-character-set=utf8
   
      
     	<li><a href="/tags.html#NOIP2014-ref">NOIP2014 <span>1</span></a></li>
+    
+  
+
+
+
+          </ul>
+         
+    </article>
+  
+    <article class="post-content">
+        <header class="text-center">
+            <h1 class="post-title">
+                <a href="/lca-Tarjan/">LCA之离线Tarjan算法</a>
+            </h1>
+            <p class="time">02 Nov 2014</p>
+        </header>
+        <section class="content">
+            <blockquote>
+<p>真是巧妙的算法！</p>
+</blockquote>
+<p>比起树上倍增，Tarjan算法实现起来更为简单，一个DFS加并查集即可。缺点便是：<strong>需要先把所有的查询都读进来，并且要储存结果</strong>。复杂度为O(n+q)。</p>
+<h2><strong>Code</strong></h2>
+<pre><code>var
+    sets: array [1..100] of longint;
+    visited: array [1..100] of Boolean;
+    a: array [1..100, 1..100] of Boolean;
+    questions: array [1..1000] of record
+        x, y: longint;
+        ans: longint;
+    end;
+    qn, n, i, m, x, y, root: longint;
+
+function find(x: longint): longint;
+begin
+    if x = sets[x] then exit(x);
+    sets[x] := find(sets[x]);
+    exit(sets[x]);
+end;
+
+procedure dfs(x: longint);
+var
+    i: longint;
+begin
+    visited[x] := true;
+    //对于两个节点都已访问到的询问，其结果已经出来了
+    for i := 1 to qn do
+    begin
+        if visited[questions[i].x] and visited[questions[i].y] then
+            if questions[i].x = x then
+                questions[i].ans := find(questions[i].y)
+            else if questions[i].y = x then
+                questions[i].ans := find(questions[i].x);
+    end;
+    for i := 1 to n do
+    begin
+        if not a[i, x] or visited[i] then continue;
+        dfs(i);
+        sets[find(i)] := x;
+    end;
+end;
+
+begin
+    assign(input, 'main.in'); reset(input);
+    assign(output, 'main.out'); rewrite(output);
+
+    read(n, m);
+    for i := 1 to n do
+        sets[i] := i;
+    for i := 1 to m do
+    begin
+        read(x, y);
+        a[x, y] := true;
+        a[y, x] := True;
+    end;
+    read(root);
+    qn := 0;
+    while not eof do
+    begin
+        inc(qn);
+        read(questions[qn].x, questions[qn].y);
+    end;
+    dfs(root);
+    for i := 1 to qn do
+        writeln(questions[i].ans);
+
+    close(input); close(output);
+end.
+</code></pre>
+
+        </section>
+        
+          <ul class="tag_box inline">
+            <li><i class="glyphicon glyphicon-open"></i></li>
+            
+            
+
+
+  
+     
+    	<li><a href="/categories.html#信息学竞赛-ref">
+    		信息学竞赛 <span>24</span>
+    	</a></li>
+     
+    	<li><a href="/categories.html#编程-ref">
+    		编程 <span>32</span>
+    	</a></li>
+    
+  
+
+
+          </ul>
+          
+
+        
+          <ul class="tag_box inline">
+            <li><i class="glyphicon glyphicon-tags"></i></li>
+            
+            
+
+
+  
+     
+    	<li><a href="/tags.html#LCA-ref">LCA <span>1</span></a></li>
     
   
 

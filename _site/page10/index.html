@@ -164,45 +164,6 @@
     <article class="post-content">
         <header class="text-center">
             <h1 class="post-title">
-                <a href="/ubuntu-offline-solution/">关于Ubuntu突然无法连接Wifi的解决方案</a>
-            </h1>
-            <p class="time">27 Sep 2014</p>
-        </header>
-        <section class="content">
-            <blockquote>
-<p>事实上我也不知道发生了什么，大概是几天前插了“小度Wifi”的缘故。没有任何征兆地，Wifi就用不了了。 其实我也不知道原理，大概是某个驱动被刷掉了。</p>
-</blockquote>
-<p>下面是从网上找来的答案：</p>
-<pre><code>sudo apt-get install wicd-daemon
-</code></pre>
-<p>做个记录。</p>
-
-        </section>
-        
-          <ul class="tag_box inline">
-            <li><i class="glyphicon glyphicon-open"></i></li>
-            
-            
-
-
-  
-     
-    	<li><a href="/categories.html#ubuntu-ref">
-    		ubuntu <span>9</span>
-    	</a></li>
-    
-  
-
-
-          </ul>
-          
-
-         
-    </article>
-  
-    <article class="post-content">
-        <header class="text-center">
-            <h1 class="post-title">
                 <a href="/uva12186-another-crisis-dynamic-arrays-in-pascal/">UVa12186 Another Crisis && [Dynamic Arrays in Pascal]</a>
             </h1>
             <p class="time">27 Sep 2014</p>
@@ -757,6 +718,70 @@ int main()
           </ul>
           
 
+         
+    </article>
+  
+    <article class="post-content">
+        <header class="text-center">
+            <h1 class="post-title">
+                <a href="/strange-extended-and-double-problem/">Extended和Double的奇怪问题</a>
+            </h1>
+            <p class="time">20 Aug 2014</p>
+        </header>
+        <section class="content">
+            <p>最近在做一个项目，其中有一段判断一个Extended浮点数是否为整数的代码。我用如下方式实现：</p>
+<pre><code>function IsInt(F: Extended): Boolean;
+begin
+  result := Trunc(F)-F = 0; //整数部分等于自身
+end;
+</code></pre>
+<p>测试了许多样例都过了，唯独这个没过：</p>
+<pre><code>IsInt(4.000000002*1000000000); //False
+</code></pre>
+<p>调试时发现： Trunc(F)居然等于4000000001！开始以为是精度的问题，找了许多资料也没能解决。后来将Extended换成了Double，就通过了。百思不得其解中。</p>
+
+        </section>
+        
+          <ul class="tag_box inline">
+            <li><i class="glyphicon glyphicon-open"></i></li>
+            
+            
+
+
+  
+     
+    	<li><a href="/categories.html#delphi-ref">
+    		delphi <span>3</span>
+    	</a></li>
+     
+    	<li><a href="/categories.html#编程-ref">
+    		编程 <span>32</span>
+    	</a></li>
+    
+  
+
+
+          </ul>
+          
+
+        
+          <ul class="tag_box inline">
+            <li><i class="glyphicon glyphicon-tags"></i></li>
+            
+            
+
+
+  
+     
+    	<li><a href="/tags.html#Delphi-ref">Delphi <span>3</span></a></li>
+     
+    	<li><a href="/tags.html#浮点数-ref">浮点数 <span>1</span></a></li>
+    
+  
+
+
+
+          </ul>
          
     </article>
   

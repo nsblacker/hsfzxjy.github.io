@@ -164,108 +164,6 @@
     <article class="post-content">
         <header class="text-center">
             <h1 class="post-title">
-                <a href="/uva536-recovery/">UVa536 Recovery</a>
-            </h1>
-            <p class="time">06 Oct 2014</p>
-        </header>
-        <section class="content">
-            <blockquote>
-<p>链接：<a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=7&amp;page=show_problem&amp;problem=477">Link</a> 耗时: 0.012s</p>
-</blockquote>
-<h2>前言</h2>
-<p>真是疯玩了几天，脑袋都残了，一道弱智题做了近一个小时。</p>
-<h2>Code</h2>
-<pre><code>var
-    pre, mid, s: string;
-    tree: array [1..50] of record
-        l, r: integer;
-        ch: char;
-    end;
-    cur: integer;
-function init: integer;
-var
-    m: integer;
-begin
-    readln(s);
-    m := length(s) &gt;&gt; 1 + 1;
-    pre := Copy(s, 1, m-1);
-    mid := Copy(s, m+1, length(s));
-    init := m-1;
-end;
-function build(l1, l2, r2: integer): integer;
-var
-    m,len: integer;
-    t: integer;
-begin
-    if l2 &gt; r2 then exit(0); //该子树不存在。**这个地方坑了我很久**
-    inc(cur);
-    t := cur;      // 这里也坑了我，当下面构造完左右子树后，cur已经变了，所以要缓存起来
-    build := t;  
-    tree[t].ch := pre[l1]; 
-    if r2-l2 = 0 then //叶节点
-        exit;
-    m := pos(pre[l1], mid); //在中序遍历中找根节点
-    len := m - l2;
-    tree[t].l := build(l1+1, l2, m-1); //构造左子树
-    tree[t].r := build(l1+len+1, m+1, r2); //构造右子树
-end;
-procedure print(x: integer);
-begin
-    if x = 0 then exit;
-    print(tree[x].l);
-    print(tree[x].r);
-    write(tree[x].ch);
-end;
-begin
-    assign(input, 'main.in'); reset(input);
-    assign(output, 'main.out'); rewrite(output);
-    while not eof do
-    begin
-        fillchar(tree, sizeof(tree), 0);
-        cur := 0;
-        build(1, 1, init);
-        print(1);
-        writeln;
-    end;
-    close(input);
-    close(output);
-end.
-</code></pre>
-
-        </section>
-        
-          <ul class="tag_box inline">
-            <li><i class="glyphicon glyphicon-open"></i></li>
-            
-            
-
-
-  
-     
-    	<li><a href="/categories.html#uva-ref">
-    		uva <span>12</span>
-    	</a></li>
-     
-    	<li><a href="/categories.html#信息学竞赛-ref">
-    		信息学竞赛 <span>24</span>
-    	</a></li>
-     
-    	<li><a href="/categories.html#编程-ref">
-    		编程 <span>32</span>
-    	</a></li>
-    
-  
-
-
-          </ul>
-          
-
-         
-    </article>
-  
-    <article class="post-content">
-        <header class="text-center">
-            <h1 class="post-title">
                 <a href="/uva11582-colossal-fibonacci-numbers/">UVa11582 Colossal Fibonacci Numbers! && 大数操作</a>
             </h1>
             <p class="time">01 Oct 2014</p>
@@ -723,6 +621,45 @@ end.
      
     	<li><a href="/categories.html#编程-ref">
     		编程 <span>32</span>
+    	</a></li>
+    
+  
+
+
+          </ul>
+          
+
+         
+    </article>
+  
+    <article class="post-content">
+        <header class="text-center">
+            <h1 class="post-title">
+                <a href="/ubuntu-offline-solution/">关于Ubuntu突然无法连接Wifi的解决方案</a>
+            </h1>
+            <p class="time">27 Sep 2014</p>
+        </header>
+        <section class="content">
+            <blockquote>
+<p>事实上我也不知道发生了什么，大概是几天前插了“小度Wifi”的缘故。没有任何征兆地，Wifi就用不了了。 其实我也不知道原理，大概是某个驱动被刷掉了。</p>
+</blockquote>
+<p>下面是从网上找来的答案：</p>
+<pre><code>sudo apt-get install wicd-daemon
+</code></pre>
+<p>做个记录。</p>
+
+        </section>
+        
+          <ul class="tag_box inline">
+            <li><i class="glyphicon glyphicon-open"></i></li>
+            
+            
+
+
+  
+     
+    	<li><a href="/categories.html#ubuntu-ref">
+    		ubuntu <span>9</span>
     	</a></li>
     
   

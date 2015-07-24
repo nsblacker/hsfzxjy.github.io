@@ -164,6 +164,64 @@
     <article class="post-content">
         <header class="text-center">
             <h1 class="post-title">
+                <a href="/add-custom-fonts-under-ubuntu/">Ubuntu加入自己的字体</a>
+            </h1>
+            <p class="time">13 Dec 2014</p>
+        </header>
+        <section class="content">
+            <p>假设字体文件夹为：<code>～/Fonts</code>。执行：</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">sudo mkdir -p /usr/share/fonts/myFonts
+sudo cp ~/Fonts/*.ttf /usr/share/fonts/myFonts/
+sudo chmod <span class="m">644</span> /usr/share/fonts/myFonts/*.ttf
+<span class="nb">cd</span> /usr/share/fonts/winFonts/
+sudo mkfontscale  <span class="c">#创建雅黑字体的fonts.scale文件，它用来控制字体旋转缩放</span>
+sudo mkfontdir    <span class="c">#创建雅黑字体的fonts.dir文件，它用来控制字体粗斜体产生</span>
+sudo <span class="nb">fc</span>-cache -fv <span class="c">#建立字体缓存信息，也就是让系统认识雅黑</span>
+</code></pre></div>
+        </section>
+        
+          <ul class="tag_box inline">
+            <li><i class="glyphicon glyphicon-open"></i></li>
+            
+            
+
+
+  
+     
+    	<li><a href="/categories.html#ubuntu-ref">
+    		ubuntu <span>9</span>
+    	</a></li>
+    
+  
+
+
+          </ul>
+          
+
+        
+          <ul class="tag_box inline">
+            <li><i class="glyphicon glyphicon-tags"></i></li>
+            
+            
+
+
+  
+     
+    	<li><a href="/tags.html#ubuntu-ref">ubuntu <span>3</span></a></li>
+     
+    	<li><a href="/tags.html#字体-ref">字体 <span>1</span></a></li>
+    
+  
+
+
+
+          </ul>
+         
+    </article>
+  
+    <article class="post-content">
+        <header class="text-center">
+            <h1 class="post-title">
                 <a href="/remove-broken-packages-under-ubuntu/">Ubuntu下删除不完整的包</a>
             </h1>
             <p class="time">13 Dec 2014</p>
@@ -376,7 +434,7 @@ default-character-set=utf8
     	</a></li>
      
     	<li><a href="/categories.html#编程-ref">
-    		编程 <span>33</span>
+    		编程 <span>34</span>
     	</a></li>
     
   
@@ -385,57 +443,6 @@ default-character-set=utf8
           </ul>
           
 
-         
-    </article>
-  
-    <article class="post-content">
-        <header class="text-center">
-            <h1 class="post-title">
-                <a href="/2014-PKU-JinQiu/">【转载】北大金秋营题目</a>
-            </h1>
-            <p class="time">17 Nov 2014</p>
-        </header>
-        <section class="content">
-            <p><img src="/assets/b32914dfa9ec8a13aa6514b5f403918fa0ecc06a.jpg" alt="enter image description here" /></p>
-<hr />
-<p><img src="/assets/b663d5160924ab18e8f4a16236fae6cd7a890b8e.jpg" alt="enter image description here" /></p>
-
-        </section>
-        
-          <ul class="tag_box inline">
-            <li><i class="glyphicon glyphicon-open"></i></li>
-            
-            
-
-
-  
-     
-    	<li><a href="/categories.html#数学-ref">
-    		数学 <span>6</span>
-    	</a></li>
-    
-  
-
-
-          </ul>
-          
-
-        
-          <ul class="tag_box inline">
-            <li><i class="glyphicon glyphicon-tags"></i></li>
-            
-            
-
-
-  
-     
-    	<li><a href="/tags.html#北大金秋营-ref">北大金秋营 <span>1</span></a></li>
-    
-  
-
-
-
-          </ul>
          
     </article>
   

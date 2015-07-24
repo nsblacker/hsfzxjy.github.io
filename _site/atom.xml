@@ -4,13 +4,25 @@
  <title>hsfzxjy</title>
  <link href="http://hsfzxjy.github.io/" rel="self"/>
  <link href="http://hsfzxjy.github.io"/>
- <updated>2015-07-24T21:45:58+08:00</updated>
+ <updated>2015-07-24T22:06:26+08:00</updated>
  <id>http://hsfzxjy.github.io</id>
  <author>
    <name>Jinyi Xie</name>
    <email>956357208@qq.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Wisecity 商赛总结——也谈前端自动化测试</title>
+   <link href="http://hsfzxjy.github.io/wisecity-conclusion/"/>
+   <updated>2015-07-24T00:00:00+08:00</updated>
+   <id>http://hsfzxjy.github.io/wisecity-conclusion</id>
+   <content type="html">&lt;p&gt;事实证明：我给 cc WisecityMBC 的管理权限是一个无比正确的选择——再怎么说我们也曾一起合作过，交给他再也合适不过了。不然的话，现在高伯肯定想杀了我。。&lt;/p&gt;
+
+&lt;p&gt;不知不觉，两年过去了。今年是 wisecity 2.0，也是我第二次对 wisecity 的网站进行开发和维护。曾记得，去年的这个时候，我因为这个忙得不可开交。
+（未完待续。。。去看好声音了）&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>记一次 DoS 诈骗网站的经历</title>

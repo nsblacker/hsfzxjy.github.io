@@ -151,7 +151,7 @@
 <div class="page-header">
   <h1 class="post-title">
          
-         <small class="tagline">What I expect, is that lonely starry night.</small>
+         <small class="tagline">不忌讳空山无人，不害怕遥望星辰</small>
   </h1>
 </div>
 
@@ -160,6 +160,161 @@
     
 <link rel="stylesheet" type="text/css" href="/assets/themes//bootstrap-3/css/index.css?body=1">
 <div class="posts">
+  
+    <article class="post-content">
+        <header class="text-center">
+            <h1 class="post-title">
+                <a href="/uva10285-longest-run-on-a-snowboard/">UVa10285 Longest Run on a Snowboard</a>
+            </h1>
+            <p class="time">29 Sep 2014</p>
+        </header>
+        <section class="content">
+            <blockquote>
+<p>链接：<a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;category=14&amp;problem=1226&amp;mosmsg=Submission%20received%20with%20ID%2014282250">Link</a> 耗时：0.028s</p>
+</blockquote>
+<p>一道简单的动态规划，主要思路就是：</p>
+<blockquote>
+<p><strong>用f[i,j]表示到达(i,j)的最长路径的长度。</strong>找到每个最高点，从其开始向四周的低处搜索。如果该点已搜过并且f值大于当前长度则退出回溯。直到达到某个最低点为止。</p>
+</blockquote>
+<p>不多说了，直接上代码：</p>
+<pre><code>const
+    delta :array [1..4, 1..2] of integer = ((-1, 0), (1, 0), (0, 1), (0, -1)); //四个方向向量
+var
+    _: Integer;
+    name: string;
+    n, m, i, j, x: Integer;
+    ans: longint;
+    map: array [0..101, 0..101] of integer;
+    f: array [1..100, 1..100] of longint;
+
+function max(x, y: longint): longint; inline;
+begin
+    if x&gt;y then exit(x) else exit(y);
+end;
+
+function can(x, y: integer): Boolean; inline; //判断是否是最高点
+var
+    i: Integer;
+    tx, ty: integer;
+begin
+    can := true;
+    for i := 1 to 4 do
+    begin
+        tx := x + delta[i, 1];
+        ty := y + delta[i, 2];
+        can := can and (map[x, y] &gt;= map[tx, ty]);
+        if not can then break;
+    end;
+end;
+
+procedure dp(x, y: integer; len: longint); //回溯进行动态规划
+var
+    i: Integer;
+    tx, ty: integer;
+begin
+    inc(len);
+    if f[x, y] &gt; len then exit;
+    f[x, y] := len;
+    ans := max(ans, len);
+    for i := 1 to 4 do
+    begin
+        tx := delta[i, 1] + x;
+        ty := delta[i, 2] + y;
+        if (tx = 0) or (tx &gt; n) or (ty = 0) or (ty &gt; m) then continue;
+        if map[x, y] &lt;= map[tx, ty] then continue;
+        dp(tx, ty, len);
+    end;
+end;
+
+procedure ReadAndProcessName; //处理那行该死的名字！！
+var
+    s: string;
+    i: integer;
+begin
+    readln(s);
+    i := 1;
+    name := '';
+    n := 0;
+    m := 0;
+    while s[i] &lt;&gt; ' ' do
+    begin
+        name := name + s[i];
+        inc(i);
+    end;
+    inc(i);
+    while s[i] &lt;&gt; ' ' do
+    begin
+        n := n * 10 + ord(s[i]) - ord('0');
+        inc(i);
+    end;
+    inc(i);
+    while i &lt;= length(s) do
+    begin
+        m := m * 10 + ord(s[i]) - ord('0');
+        inc(i);
+    end;
+end;
+
+begin
+    assign(input, 'main.in');reset(input);
+    assign(output, 'main.out');rewrite(output);
+    readln(_);
+    while _&gt;0 do
+    begin
+        dec(_);
+        fillchar(map, sizeof(map), 0);
+        ReadAndProcessName;
+
+        for i := 1 to n do
+            for j := 1 to m do
+            begin
+                read(x);
+                map[i, j] := x+1;
+            end;
+        readln;
+
+        fillchar(f, sizeof(f), 0);
+        ans := 0;
+        for i := 1 to n do
+            for j := 1 to m do
+                if can(i, j) then
+                    dp(i, j, 0);
+        writeln(name, ': ', ans);
+    end;
+    close(input);close(output);
+end.
+</code></pre>
+
+        </section>
+        
+          <ul class="tag_box inline">
+            <li><i class="glyphicon glyphicon-open"></i></li>
+            
+            
+
+
+  
+     
+    	<li><a href="/categories.html#uva-ref">
+    		uva <span>12</span>
+    	</a></li>
+     
+    	<li><a href="/categories.html#信息学竞赛-ref">
+    		信息学竞赛 <span>24</span>
+    	</a></li>
+     
+    	<li><a href="/categories.html#编程-ref">
+    		编程 <span>33</span>
+    	</a></li>
+    
+  
+
+
+          </ul>
+          
+
+         
+    </article>
   
     <article class="post-content">
         <header class="text-center">
@@ -332,7 +487,7 @@ end.
     	</a></li>
      
     	<li><a href="/categories.html#编程-ref">
-    		编程 <span>32</span>
+    		编程 <span>33</span>
     	</a></li>
     
   
@@ -442,7 +597,7 @@ end.
     	</a></li>
      
     	<li><a href="/categories.html#编程-ref">
-    		编程 <span>32</span>
+    		编程 <span>33</span>
     	</a></li>
     
   
@@ -617,144 +772,7 @@ end.
     	</a></li>
      
     	<li><a href="/categories.html#编程-ref">
-    		编程 <span>32</span>
-    	</a></li>
-    
-  
-
-
-          </ul>
-          
-
-         
-    </article>
-  
-    <article class="post-content">
-        <header class="text-center">
-            <h1 class="post-title">
-                <a href="/noip2011-expression/">NOIP2011 表达式计算</a>
-            </h1>
-            <p class="time">22 Sep 2014</p>
-        </header>
-        <section class="content">
-            <blockquote>
-<p>记得11年的时候，觉得这道题爆难，根本无从下手。三年后再次回顾，终于AC了，就当是对表达式求值和动态规划的复习吧。</p>
-</blockquote>
-
-<h1>题目：<a href="http://codevs.cn/problem/1133/">Link</a></h1>
-<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="c1">// Accepted.</span>
-<span class="cp">#include &amp;lt;iostream&amp;gt;</span>
-<span class="cp">#define Mod 10007;</span>
-<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-
-<span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
-    <span class="kt">long</span> <span class="kt">long</span> <span class="n">v0</span><span class="p">;</span>  <span class="c1">//当前值为0的个数</span>
-    <span class="kt">long</span> <span class="kt">long</span> <span class="n">v1</span><span class="p">;</span>  <span class="c1">//当前值为1的个数</span>
-    <span class="kt">char</span> <span class="n">ch</span><span class="p">;</span>  <span class="c1">//当前字符</span>
-<span class="p">}</span> <span class="n">vertex</span><span class="p">;</span>
-
-<span class="n">vertex</span> <span class="n">f</span><span class="p">[</span><span class="mi">100000</span><span class="p">];</span>
-
-<span class="kt">void</span> <span class="nf">merge_sum</span><span class="p">(</span><span class="kt">int</span> <span class="n">p</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">w0</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">v0</span> <span class="o">*</span> <span class="n">f</span><span class="p">[</span><span class="n">p</span><span class="p">].</span><span class="n">v0</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="n">w1</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">v0</span><span class="o">*</span><span class="n">f</span><span class="p">[</span><span class="n">p</span><span class="p">].</span><span class="n">v1</span><span class="o">+</span><span class="n">f</span><span class="p">[</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">v1</span><span class="o">*</span><span class="n">f</span><span class="p">[</span><span class="n">p</span><span class="p">].</span><span class="n">v0</span><span class="o">+</span><span class="n">f</span><span class="p">[</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">v1</span><span class="o">*</span><span class="n">f</span><span class="p">[</span><span class="n">p</span><span class="p">].</span><span class="n">v1</span><span class="p">;</span>
-    <span class="n">f</span><span class="p">[</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">v0</span> <span class="o">=</span> <span class="n">w0</span> <span class="o">%</span> <span class="n">Mod</span><span class="p">;</span>
-    <span class="n">f</span><span class="p">[</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">v1</span> <span class="o">=</span> <span class="n">w1</span> <span class="o">%</span> <span class="n">Mod</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kr">inline</span> <span class="kt">void</span> <span class="nf">merge_product</span><span class="p">(</span><span class="kt">int</span> <span class="n">p</span><span class="p">)</span>  <span class="c1">//处理当前的值和前一个值取&#39;*&#39;的操作</span>
-<span class="p">{</span>
-       <span class="kt">int</span> <span class="n">w0</span><span class="o">=</span><span class="n">f</span><span class="p">[</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">v0</span><span class="o">*</span><span class="n">f</span><span class="p">[</span><span class="n">p</span><span class="p">].</span><span class="n">v0</span><span class="o">+</span><span class="n">f</span><span class="p">[</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">v0</span><span class="o">*</span><span class="n">f</span><span class="p">[</span><span class="n">p</span><span class="p">].</span><span class="n">v1</span><span class="o">+</span><span class="n">f</span><span class="p">[</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">v1</span><span class="o">*</span><span class="n">f</span><span class="p">[</span><span class="n">p</span><span class="p">].</span><span class="n">v0</span><span class="p">;</span>
-       <span class="kt">int</span> <span class="n">w1</span><span class="o">=</span><span class="n">f</span><span class="p">[</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">v1</span><span class="o">*</span><span class="n">f</span><span class="p">[</span><span class="n">p</span><span class="p">].</span><span class="n">v1</span><span class="p">;</span>
-       <span class="n">f</span><span class="p">[</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">v0</span><span class="o">=</span><span class="n">w0</span><span class="o">%</span><span class="n">Mod</span><span class="p">;</span>
-       <span class="n">f</span><span class="p">[</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">v1</span><span class="o">=</span><span class="n">w1</span><span class="o">%</span><span class="n">Mod</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
-    <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">n</span><span class="p">;</span>
-    <span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">v0</span><span class="o">=</span><span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">v1</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
-    <span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="o">--</span><span class="p">)</span>
-    <span class="p">{</span>
-          <span class="n">now</span><span class="o">++</span><span class="p">;</span>   <span class="c1">//新建一个空位读入新符号</span>
-          <span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">f</span><span class="p">[</span><span class="n">now</span><span class="p">].</span><span class="n">ch</span><span class="p">;</span>
-          <span class="n">f</span><span class="p">[</span><span class="n">now</span><span class="p">].</span><span class="n">v0</span><span class="o">=</span><span class="n">f</span><span class="p">[</span><span class="n">now</span><span class="p">].</span><span class="n">v1</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>  <span class="c1">//初始化当前符号的前面的值(虽然&#39;)&#39;除外,但也不影响)</span>
-          <span class="k">if</span> <span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">now</span><span class="p">].</span><span class="n">ch</span><span class="o">==</span><span class="sc">&#39;+&#39;</span><span class="p">)</span>
-          <span class="p">{</span>
-             <span class="k">if</span> <span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">now</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">ch</span><span class="o">==</span><span class="sc">&#39;*&#39;</span><span class="p">)</span> <span class="c1">//处理&#39;*&#39;</span>
-             <span class="p">{</span>
-                <span class="n">now</span><span class="o">--</span><span class="p">;</span>
-                <span class="n">merge_product</span><span class="p">(</span><span class="n">now</span><span class="p">);</span>
-                <span class="n">f</span><span class="p">[</span><span class="n">now</span><span class="p">]</span><span class="o">=</span><span class="n">f</span><span class="p">[</span><span class="n">now</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
-             <span class="p">}</span>
-             <span class="k">if</span> <span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">now</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">ch</span><span class="o">==</span><span class="sc">&#39;+&#39;</span><span class="p">)</span> <span class="c1">//处理&#39;+&#39;</span>
-             <span class="p">{</span>
-                <span class="n">now</span><span class="o">--</span><span class="p">;</span>
-                <span class="n">merge_sum</span><span class="p">(</span><span class="n">now</span><span class="p">);</span>
-                <span class="n">f</span><span class="p">[</span><span class="n">now</span><span class="p">]</span><span class="o">=</span><span class="n">f</span><span class="p">[</span><span class="n">now</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
-             <span class="p">}</span>
-          <span class="p">}</span>
-          <span class="k">if</span> <span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">now</span><span class="p">].</span><span class="n">ch</span><span class="o">==</span><span class="sc">&#39;*&#39;</span><span class="p">)</span>
-           <span class="k">if</span> <span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">now</span><span class="o">-</span><span class="mi">1</span><span class="p">].</span><span class="n">ch</span><span class="o">==</span><span class="sc">&#39;*&#39;</span><span class="p">)</span> <span class="c1">//处理&#39;*&#39;</span>
-           <span class="p">{</span>
-              <span class="n">now</span><span class="o">--</span><span class="p">;</span>
-              <span class="n">merge_product</span><span class="p">(</span><span class="n">now</span><span class="p">);</span>
-              <span class="n">f</span><span class="p">[</span><span class="n">now</span><span class="p">]</span><span class="o">=</span><span class="n">f</span><span class="p">[</span><span class="n">now</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
-           <span class="p">}</span>
-          <span class="k">if</span> <span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">now</span><span class="p">].</span><span class="n">ch</span><span class="o">==</span><span class="sc">&#39;)&#39;</span><span class="p">)</span> <span class="c1">//处理&#39;)&#39;(比较麻烦)</span>
-          <span class="p">{</span>
-             <span class="n">now</span><span class="o">--</span><span class="p">;</span>
-             <span class="k">if</span> <span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">now</span><span class="p">].</span><span class="n">ch</span><span class="o">==</span><span class="sc">&#39;*&#39;</span><span class="p">)</span>
-             <span class="p">{</span>
-                <span class="n">merge_product</span><span class="p">(</span><span class="n">now</span><span class="p">);</span>
-                <span class="n">now</span><span class="o">--</span><span class="p">;</span>
-             <span class="p">}</span>
-             <span class="k">if</span> <span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">now</span><span class="p">].</span><span class="n">ch</span><span class="o">==</span><span class="sc">&#39;+&#39;</span><span class="p">)</span>
-             <span class="p">{</span>
-                <span class="n">merge_sum</span><span class="p">(</span><span class="n">now</span><span class="p">);</span>
-                <span class="n">now</span><span class="o">--</span><span class="p">;</span>
-             <span class="p">}</span>
-             <span class="n">now</span><span class="o">--</span><span class="p">;</span>
-             <span class="n">f</span><span class="p">[</span><span class="n">now</span><span class="p">].</span><span class="n">v0</span><span class="o">=</span><span class="n">f</span><span class="p">[</span><span class="n">now</span><span class="o">+</span><span class="mi">1</span><span class="p">].</span><span class="n">v0</span><span class="p">;</span>
-             <span class="n">f</span><span class="p">[</span><span class="n">now</span><span class="p">].</span><span class="n">v1</span><span class="o">=</span><span class="n">f</span><span class="p">[</span><span class="n">now</span><span class="o">+</span><span class="mi">1</span><span class="p">].</span><span class="n">v1</span><span class="p">;</span>
-             <span class="k">if</span> <span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">now</span><span class="p">].</span><span class="n">ch</span><span class="o">==</span><span class="sc">&#39;*&#39;</span><span class="p">)</span>
-             <span class="p">{</span>
-                <span class="n">merge_product</span><span class="p">(</span><span class="n">now</span><span class="p">);</span>
-                <span class="n">now</span><span class="o">--</span><span class="p">;</span>
-             <span class="p">}</span>
-          <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">now</span><span class="p">].</span><span class="n">ch</span><span class="o">==</span><span class="sc">&#39;*&#39;</span><span class="p">)</span>  <span class="c1">//处理完了以后,可能还有残留的&#39;*&#39;和&#39;+&#39;</span>
-    <span class="p">{</span>
-       <span class="n">merge_product</span><span class="p">(</span><span class="n">now</span><span class="p">);</span>
-       <span class="n">now</span><span class="o">--</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">now</span><span class="p">].</span><span class="n">ch</span><span class="o">==</span><span class="sc">&#39;+&#39;</span><span class="p">)</span>
-    <span class="p">{</span>
-       <span class="n">merge_sum</span><span class="p">(</span><span class="n">now</span><span class="p">);</span>
-       <span class="n">now</span><span class="o">--</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">v0</span><span class="p">;</span>
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-        </section>
-        
-          <ul class="tag_box inline">
-            <li><i class="glyphicon glyphicon-open"></i></li>
-            
-            
-
-
-  
-     
-    	<li><a href="/categories.html#信息学竞赛-ref">
-    		信息学竞赛 <span>24</span>
-    	</a></li>
-     
-    	<li><a href="/categories.html#编程-ref">
-    		编程 <span>32</span>
+    		编程 <span>33</span>
     	</a></li>
     
   

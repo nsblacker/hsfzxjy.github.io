@@ -159,10 +159,10 @@
   <div class="col-xs-12">
     <div class="content">
       <p>在SAE上进行应用开发时，常常需要导入数据库，这时候就需要用MySQLDump工具进行本地数据库导出。</p>
-<p>首先MySQLDump最基本的语法是这样的 <code>mysqldump &lt;database_name&gt;</code>，执行之后可以在控制台上看到SQL源码。但我第一次尝试将导出的源码上传至SAE时SAE却报错，原因是SAE的数据库管理不支持LOCK和UNLOCK语句。曾有一段时间，我是手动一行行删除LOCK语句。。30多张表那叫一个蛋疼。。后来，我翻阅了mysqlDump的help文档，发现可以添加这么一个参数<code>--ADD-LOCKS=FALSE</code>。几经尝试后发现果然没有LOCK语句了。 在此记录下整句命令：</p>
-<pre><code>mysqldump --add-locks=FALSE -uroot -p &lt;database_name&gt; &gt;example.sql
-</code></pre>
 
+<p>首先MySQLDump最基本的语法是这样的 <code>mysqldump &lt;database_name&gt;</code>，执行之后可以在控制台上看到SQL源码。但我第一次尝试将导出的源码上传至SAE时SAE却报错，原因是SAE的数据库管理不支持LOCK和UNLOCK语句。曾有一段时间，我是手动一行行删除LOCK语句。。30多张表那叫一个蛋疼。。后来，我翻阅了mysqlDump的help文档，发现可以添加这么一个参数<code>--ADD-LOCKS=FALSE</code>。几经尝试后发现果然没有LOCK语句了。 在此记录下整句命令：</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">mysqldump --add-locks<span class="o">=</span>FALSE -uroot -p &lt;database_name&gt; &gt; example.sql
+</code></pre></div>
     </div>
 
   
@@ -222,7 +222,7 @@
 
   <!-- Duoshuo Comment BEGIN -->
     <div id="comments">
-        <div class="ds-thread" data-thread-key="/mysqldump%e5%af%bc%e5%87%ba%e6%97%b6%e4%b8%8d%e5%8a%a0%e9%94%81"  data-title="MySQLDump导出时不加锁 - hsfzxjy"></div>
+        <div class="ds-thread" data-thread-key="/mysqldump-without-locks"  data-title="MySQLDump导出时不加锁 - hsfzxjy"></div>
     </div>
 <!-- Duoshuo Comment END -->
 

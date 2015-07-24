@@ -159,15 +159,14 @@
   <div class="col-xs-12">
     <div class="content">
       <p>假设字体文件夹为：<code>～/Fonts</code>。执行：</p>
-<pre><code>sudo mkdir -p /usr/share/fonts/myFonts
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">sudo mkdir -p /usr/share/fonts/myFonts
 sudo cp ~/Fonts/*.ttf /usr/share/fonts/myFonts/
-sudo chmod 644 /usr/share/fonts/myFonts/*.ttf
-cd /usr/share/fonts/winFonts/
-sudo mkfontscale （创建雅黑字体的fonts.scale文件，它用来控制字体旋转缩放）
-sudo mkfontdir （创建雅黑字体的fonts.dir文件，它用来控制字体粗斜体产生）
-sudo fc-cache -fv （建立字体缓存信息，也就是让系统认识雅黑）
-</code></pre>
-
+sudo chmod <span class="m">644</span> /usr/share/fonts/myFonts/*.ttf
+<span class="nb">cd</span> /usr/share/fonts/winFonts/
+sudo mkfontscale  <span class="c">#创建雅黑字体的fonts.scale文件，它用来控制字体旋转缩放</span>
+sudo mkfontdir    <span class="c">#创建雅黑字体的fonts.dir文件，它用来控制字体粗斜体产生</span>
+sudo <span class="nb">fc</span>-cache -fv <span class="c">#建立字体缓存信息，也就是让系统认识雅黑</span>
+</code></pre></div>
     </div>
 
   
@@ -225,7 +224,7 @@ sudo fc-cache -fv （建立字体缓存信息，也就是让系统认识雅黑�
 
   <!-- Duoshuo Comment BEGIN -->
     <div id="comments">
-        <div class="ds-thread" data-thread-key="/ubuntu%e5%8a%a0%e5%85%a5%e8%87%aa%e5%b7%b1%e7%9a%84%e5%ad%97%e4%bd%93"  data-title="Ubuntu加入自己的字体 - hsfzxjy"></div>
+        <div class="ds-thread" data-thread-key="/add-custom-fonts-under-ubuntu"  data-title="Ubuntu加入自己的字体 - hsfzxjy"></div>
     </div>
 <!-- Duoshuo Comment END -->
 

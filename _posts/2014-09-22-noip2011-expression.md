@@ -1,32 +1,23 @@
 ---
 layout: post
 title: NOIP2011 表达式计算
-date: 2014-09-22 21:57:50.000000000 +08:00
+date: 2014-09-22T13:57:50.000Z
 permalink: /noip2011-expression/
 categories:
-- 信息学竞赛
-- 编程
+  - 信息学竞赛
+  - 编程
 tags: []
 status: publish
 type: post
 published: true
-meta:
-  _edit_last: '1'
-author:
-  login: hsfzxjy
-  email: 956357208@qq.com
-  display_name: hsfzxjy
-  first_name: ''
-  last_name: ''
-excerpt: !ruby/object:Hpricot::Doc
-  options: {}
 ---
-<blockquote>
-<p>记得11年的时候，觉得这道题爆难，根本无从下手。三年后再次回顾，终于AC了，就当是对表达式求值和动态规划的复习吧。</p>
-</blockquote>
-<h2>题目：<a href="http://codevs.cn/problem/1133/">Link</a></h2>
-<p>C++代码：</p>
-<pre><code>// Accepted. 
+
+> 记得11年的时候，觉得这道题爆难，根本无从下手。三年后再次回顾，终于AC了，就当是对表达式求值和动态规划的复习吧。
+
+# 题目：[Link](http://codevs.cn/problem/1133/)
+
+```cpp
+// Accepted.
 #include &lt;iostream&gt;
 #define Mod 10007;
 using namespace std;
@@ -43,7 +34,7 @@ void merge_sum(int p) {
     int w0 = f[p-1].v0 * f[p].v0;
     int w1 = f[p-1].v0*f[p].v1+f[p-1].v1*f[p].v0+f[p-1].v1*f[p].v1;
     f[p-1].v0 = w0 % Mod;
-    f[p-1].v1 = w1 % Mod; 
+    f[p-1].v1 = w1 % Mod;
 }
 
 inline void merge_product(int p)  //处理当前的值和前一个值取'*'的操作
@@ -57,12 +48,12 @@ inline void merge_product(int p)  //处理当前的值和前一个值取'*'的�
 int main()
 {
     int n;
-    cin&gt;&gt;n;
+    cin>>n;
     f[0].v0=f[0].v1=1;
     while (n--)
     {
           now++;   //新建一个空位读入新符号
-          cin&gt;&gt;f[now].ch;
+          cin>>f[now].ch;
           f[now].v0=f[now].v1=1;  //初始化当前符号的前面的值(虽然')'除外,但也不影响)
           if (f[now].ch=='+')
           {
@@ -119,7 +110,7 @@ int main()
        merge_sum(now);
        now--;
     }
-    cout&lt;&lt;f[0].v0;
+    cout<<f[0].v0;
     return 0;
 }
-</code></pre>
+```

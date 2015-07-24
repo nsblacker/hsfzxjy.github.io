@@ -169,13 +169,10 @@
             <p class="time">29 Dec 2014</p>
         </header>
         <section class="content">
-            <pre><code>sudo add-apt-repository ppa:webupd8team/sublime-text-2
-
+            <div class="highlight"><pre><code class="language-sh" data-lang="sh">sudo add-apt-repository ppa:webupd8team/sublime-text-2
 sudo apt-get update
-
 sudo apt-get install sublime-text-2
-</code></pre>
-
+</code></pre></div>
         </section>
         
           <ul class="tag_box inline">
@@ -212,21 +209,34 @@ sudo apt-get install sublime-text-2
         </header>
         <section class="content">
             <blockquote>
-<p>今天在听<strong>张心捷同学</strong>讲题的时候，得知了一个很厉害的<strong>在限制条件下求多远函数极值的办法</strong>——<strong>拉格朗日乘数法</strong>。在这里记录一下。</p>
+<p>今天在听<strong>张心捷同学</strong>讲题的时候，得知了一个很厉害的<strong>在限制条件下求多远函数极值的办法</strong>----<strong>拉格朗日乘数法</strong>。在这里记录一下。</p>
 </blockquote>
-<h2><strong>引题</strong></h2>
-<p>已知：$a,b,c>0$，$a+b+c=1$。证明：$\sum_{cyc}(1-a^2)^2\geq 2$。</p>
-<h2><strong>拉格朗日乘数法的表述</strong></h2>
-<p>对于多值函数$y=f(x_1,x_2,\ldots ,x_n)$以及约束条件$\phi(x_1,x_2,\ldots,x_n)=0$，若待定一个系数$\lambda$，则由方程组：<br />
-$$\frac{\partial f}{\partial x_1}+\lambda\cdot{\partial \phi \over \partial x_1}=0,$$<br />
-$$\frac{\partial f}{\partial x_2}+\lambda\cdot{\partial \phi \over \partial x_2}=0,$$<br />
-$$\ldots$$<br />
-$$\frac{\partial f}{\partial x_n}+\lambda\cdot{\partial \phi \over \partial x_n}=0,$$<br />
-$$\phi(x_1,x_2,\ldots,x_n)=0$$<br />
-可得一系列的解。这些解即为$y=f(x_1,x_2,\ldots ,x_n)$在约束条件$\phi(x_1,x_2,\ldots,x_n)=0$下可能的极值点。</p>
-<h2><strong>解</strong></h2>
-<p>由拉格朗日乘数法，我们可解得：$(a,b,c)=(1,0,0),(0,1,0),(0,0,1)$。这是一些可能的极值点，在这些点上$f$都等于2。<br />
-当然，我们还要考虑边界情况：即$a,b,c$有一个为1或0。在这些情况下我们使用拉格朗日乘数法依旧可得上面的结论。</p>
+
+<h1><strong>引题</strong></h1>
+
+<p>已知：$a,b,c&gt;0$，$a+b+c=1$。证明：$\sum_{cyc}(1-a^2)^2\geq 2$。</p>
+
+<h1><strong>拉格朗日乘数法的表述</strong></h1>
+
+<p>对于多值函数$y=f(x<em>1,x</em>2,\ldots ,x<em>n)$以及约束条件$\phi(x</em>1,x<em>2,\ldots,x</em>n)=0$，若待定一个系数$\lambda$，则由方程组：</p>
+
+<p>$$\frac{\partial f}{\partial x<em>1}+\lambda\cdot{\partial \phi \over \partial x</em>1}=0,$$</p>
+
+<p>$$\frac{\partial f}{\partial x<em>2}+\lambda\cdot{\partial \phi \over \partial x</em>2}=0,$$</p>
+
+<p>$$\ldots$$</p>
+
+<p>$$\frac{\partial f}{\partial x<em>n}+\lambda\cdot{\partial \phi \over \partial x</em>n}=0,$$</p>
+
+<p>$$\phi(x<em>1,x</em>2,\ldots,x_n)=0$$</p>
+
+<p>可得一系列的解。这些解即为$y=f(x<em>1,x</em>2,\ldots ,x<em>n)$在约束条件$\phi(x</em>1,x<em>2,\ldots,x</em>n)=0$下可能的极值点。</p>
+
+<h1><strong>解</strong></h1>
+
+<p>由拉格朗日乘数法，我们可解得：$(a,b,c)=(1,0,0),(0,1,0),(0,0,1)$。这是一些可能的极值点，在这些点上$f$都等于2。</p>
+
+<p>当然，我们还要考虑边界情况：即$a,b,c$有一个为1或0。在这些情况下我们使用拉格朗日乘数法依旧可得上面的结论。</p>
 
         </section>
         
@@ -309,15 +319,14 @@ $$\phi(x_1,x_2,\ldots,x_n)=0$$<br />
         </header>
         <section class="content">
             <p>假设字体文件夹为：<code>～/Fonts</code>。执行：</p>
-<pre><code>sudo mkdir -p /usr/share/fonts/myFonts
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">sudo mkdir -p /usr/share/fonts/myFonts
 sudo cp ~/Fonts/*.ttf /usr/share/fonts/myFonts/
-sudo chmod 644 /usr/share/fonts/myFonts/*.ttf
-cd /usr/share/fonts/winFonts/
-sudo mkfontscale （创建雅黑字体的fonts.scale文件，它用来控制字体旋转缩放）
-sudo mkfontdir （创建雅黑字体的fonts.dir文件，它用来控制字体粗斜体产生）
-sudo fc-cache -fv （建立字体缓存信息，也就是让系统认识雅黑）
-</code></pre>
-
+sudo chmod <span class="m">644</span> /usr/share/fonts/myFonts/*.ttf
+<span class="nb">cd</span> /usr/share/fonts/winFonts/
+sudo mkfontscale  <span class="c">#创建雅黑字体的fonts.scale文件，它用来控制字体旋转缩放</span>
+sudo mkfontdir    <span class="c">#创建雅黑字体的fonts.dir文件，它用来控制字体粗斜体产生</span>
+sudo <span class="nb">fc</span>-cache -fv <span class="c">#建立字体缓存信息，也就是让系统认识雅黑</span>
+</code></pre></div>
         </section>
         
           <ul class="tag_box inline">
@@ -367,8 +376,9 @@ sudo fc-cache -fv （建立字体缓存信息，也就是让系统认识雅黑�
             <p class="time">13 Dec 2014</p>
         </header>
         <section class="content">
-            <p>答案来自<a href="http://stackoverflow.com/questions/27455626/how-to-remove-an-incomplete-package-by-using-apt-get">StackOverflow</a>: <code>sudo dpkg --remove --force-remove-reinstreq &lt;your package name&gt;</code></p>
-
+            <p>答案来自<a href="http://stackoverflow.com/questions/27455626/how-to-remove-an-incomplete-package-by-using-apt-get">StackOverflow</a>:</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh">sudo dpkg --remove --force-remove-reinstreq &lt;your package name&gt;
+</code></pre></div>
         </section>
         
           <ul class="tag_box inline">

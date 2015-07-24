@@ -1,38 +1,33 @@
 ---
 layout: post
 title: UVa437 The Tower of Babylon
-date: 2014-09-23 22:00:56.000000000 +08:00
+date: 2014-09-23T14:00:56.000Z
 categories:
-- UVa
-- 信息学竞赛
-- 编程
+  - UVa
+  - 信息学竞赛
+  - 编程
 tags: []
 status: publish
 type: post
 published: true
-meta:
-  _edit_last: '1'
-author:
-  login: hsfzxjy
-  email: 956357208@qq.com
-  display_name: hsfzxjy
-  first_name: ''
-  last_name: ''
-excerpt: !ruby/object:Hpricot::Doc
-  options: {}
 ---
+
+> 链接：[The Tower of Babylon](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=6&page=show_problem&problem=378") 耗时：0.015s
+
+这是刘汝佳的紫书中"DAG中的动态规划"中的习题，我拿它用来熟悉DAG中的动态规划。
+
+我们不妨进行逆向考虑：现堆上面的方块，然后考虑在下面进行叠加。这样子一来，影响决策的就只是最下面方块的尺寸了。
+
+对于这种出现了"大套小"这样的二元关系的题，我们可以将其视为一个有向无环图：**其中每个节点为一个状态，状态的转移是有固定的方向的**（在此题中，状态转移为从小的方块到大的方块）。
+
+但是这道题又不同于平常的DAG动态规划：若将边长视为状态的话，则要开一个巨大的数组，这是不可以接受的。因此，我们要换一种思维方式：只记录方块的序号和摆放的方式（如现将边长从小到大进行排序，然后用一个标志k表示当前是以第k小的边长作为高）。<br /> 至此，思路已经清晰了。用dp(i, k)表示**"第i个方块以第k条边为高进行摆放"**，以下给出状态转移方程：</p>
+
 <blockquote>
-<p>链接：<a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=6&amp;page=show_problem&amp;problem=378">The Tower of Babylon</a> 耗时：0.015s</p>
-</blockquote>
-<p>这是刘汝佳的紫书中“DAG中的动态规划”中的习题，我拿它用来熟悉DAG中的动态规划。</p>
-<p>我们不妨进行逆向考虑：现堆上面的方块，然后考虑在下面进行叠加。这样子一来，影响决策的就只是最下面方块的尺寸了。<br />
-对于这种出现了“大套小”这样的二元关系的题，我们可以将其视为一个有向无环图：<strong>其中每个节点为一个状态，状态的转移是有固定的方向的</strong>（在此题中，状态转移为从小的方块到大的方块）。<br />
-但是这道题又不同于平常的DAG动态规划：若将边长视为状态的话，则要开一个巨大的数组，这是不可以接受的。因此，我们要换一种思维方式：只记录方块的序号和摆放的方式（如现将边长从小到大进行排序，然后用一个标志k表示当前是以第k小的边长作为高）。<br />
-至此，思路已经清晰了。用dp(i, k)表示<strong>“第i个方块以第k条边为高进行摆放”</strong>，以下给出状态转移方程：</p>
-<blockquote>
-<p>dp(i, k) = max{dp(i, k), dp(j, k2)} j，k2遍历所有顶面矩形比dp(i, k)小的状态。</p>
-</blockquote>
+
+<p>dp(i, k) = max{dp(i, k), dp(j, k2)} j，k2遍历所有顶面矩形比dp(i, k)小的状态。</p> </blockquote>
+
 <p>代码实现首次尝试了Pascal中的object类型，使其更加工整，但不可避免地损耗了一些性能。</p>
+
 <p>Code：</p>
 <pre><code>type
     Cube = object

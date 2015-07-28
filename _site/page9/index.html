@@ -139,6 +139,8 @@
   
     
   
+    
+  
 
 
 
@@ -160,6 +162,161 @@
     
 <link rel="stylesheet" type="text/css" href="/assets/themes//bootstrap-3/css/index.css?body=1">
 <div class="posts">
+  
+    <article class="post-content">
+        <header class="text-center">
+            <h1 class="post-title">
+                <a href="/uva225-golygons/">UVa225 Golygons</a>
+            </h1>
+            <p class="time">15 Oct 2014</p>
+        </header>
+        <section class="content">
+            <blockquote>
+<p>链接：<a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;category=4&amp;problem=161&amp;mosmsg=Submission%20received%20with%20ID%2014355705">Link</a> 耗时：0.699s</p>
+</blockquote>
+<h2><strong>思路</strong></h2>
+<p><code>dfs(t, x, y, d, s)</code>表示当前走了t步，在(x,y)，上一个方向为d，s为一个求和用的辅助变量。<br />
+当前位置无法走完剩下的路时直接回溯。可节省接近2s的时间。<br />
+<strong>ps: 这道题虽然没有明说每个城市只走一次，但它的确那样判了，这一点坑了我好久。</strong></p>
+<h2><strong>Code</strong></h2>
+<pre><code>//Accepted.
+const
+    dx: array [1..4] of integer = (1, 0, 0, -1);
+    dy: array [1..4] of integer = (0, 1, -1, 0);
+    dir: array [1..4] of char = ('e', 'n', 's', 'w');
+
+var
+    a: array [1..50, 1..2] of integer; //障碍物
+    k, i, n, _, x, y: integer;
+    ans: array [1..20] of char;
+    tot: longint;
+    vis: array [-220..220, -220..220] of boolean;
+
+function judge(x1, y1, x2, y2: longint): Boolean; //判断刚刚走过的路上是否有障碍物
+var
+    i: Integer;
+begin
+    judge := False;
+    if x1 = x2 then
+    begin
+        for i := 1 to k do 
+            if (a[i, 1] = x1) and ((a[i, 2] - y1)*(a[i, 2] - y2) &lt;= 0) then exit;
+    end
+    else
+        for i := 1 to k do
+            if (a[i, 2] = y2) and ((a[i, 1] - x1)*(a[i, 1] - x2) &lt;= 0) then exit; 
+    judge := True;
+end;
+
+procedure print;
+var
+    i: Integer;
+begin
+    for i := 1 to n do write(ans[i]);
+    writeln;
+    inc(tot);
+end;
+
+procedure dfs(t, x, y, d, s: integer);
+var
+    i, sum: Integer;
+    tx, ty: longint;
+begin
+    if t = n then 
+    begin
+        if (x = 0) and (y = 0) then print;
+        exit;
+    end;
+
+    sum := s - t - 1;
+    inc(t);
+
+    for i := 1 to 4 do
+    begin
+        if (i = d) or (i + d = 5) then continue;   //方向相同或相反
+        tx := x + dx[i] * t;
+        ty := y + dy[i] * t;
+        if vis[tx, ty] then continue;              //走过 
+        if abs(tx) + abs(ty) &gt; sum then continue;  //回不去，剪枝
+        if not judge(x, y, tx, ty) then continue;  //有障碍物
+        ans[t] := dir[i];
+        vis[tx, ty] := True;
+        dfs(t, tx, ty, i, sum);
+        vis[tx, ty] := False;
+    end;
+end;
+
+begin
+    assign(input, 'main.in'); reset(input);
+    assign(output, 'main.out'); rewrite(output);
+
+    readln(_);
+    while _ &gt; 0 do 
+    begin
+        dec(_);
+        read(n, k);
+        fillchar(vis, sizeof(vis), 0);
+        for i := 1 to k do 
+            read(a[i, 1], a[i, 2]);
+        fillchar(ans, sizeof(ans), 0);
+        tot := 0;
+        dfs(0, 0, 0, -1, n * (n+1) div 2);
+        writeln('Found ', tot, ' golygon(s).');
+        writeln;
+    end;
+
+    close(input); close(output);
+end.
+</code></pre>
+
+        </section>
+        
+          <ul class="tag_box inline">
+            <li><i class="glyphicon glyphicon-open"></i></li>
+            
+            
+
+
+  
+     
+    	<li><a href="/categories.html#uva-ref">
+    		uva <span>12</span>
+    	</a></li>
+     
+    	<li><a href="/categories.html#信息学竞赛-ref">
+    		信息学竞赛 <span>24</span>
+    	</a></li>
+     
+    	<li><a href="/categories.html#编程-ref">
+    		编程 <span>34</span>
+    	</a></li>
+    
+  
+
+
+          </ul>
+          
+
+        
+          <ul class="tag_box inline">
+            <li><i class="glyphicon glyphicon-tags"></i></li>
+            
+            
+
+
+  
+     
+    	<li><a href="/tags.html#剪枝-ref">剪枝 <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#搜索-ref">搜索 <span>2</span></a></li>
+    
+  
+
+
+
+          </ul>
+         
+    </article>
   
     <article class="post-content">
         <header class="text-center">
@@ -688,84 +845,6 @@ end.
     	<li><a href="/categories.html#uva-ref">
     		uva <span>12</span>
     	</a></li>
-     
-    	<li><a href="/categories.html#信息学竞赛-ref">
-    		信息学竞赛 <span>24</span>
-    	</a></li>
-     
-    	<li><a href="/categories.html#编程-ref">
-    		编程 <span>34</span>
-    	</a></li>
-    
-  
-
-
-          </ul>
-          
-
-         
-    </article>
-  
-    <article class="post-content">
-        <header class="text-center">
-            <h1 class="post-title">
-                <a href="/extended-gcd-algorithm/">扩展欧几里得算法</a>
-            </h1>
-            <p class="time">01 Oct 2014</p>
-        </header>
-        <section class="content">
-            <blockquote>
-<p>今天开始学习数论方面的算法。这部分在NOIP中并不常出现，即使出现了也不会像高联这么难（。。。）。</p>
-</blockquote>
-<h2><strong>什么是扩展欧几里得算法</strong></h2>
-<p>所谓欧几里得算法，实际上就是辗转相除法——求两个数最大公约数的一种高效算法。而扩展欧几里得算法则是来源于于一类方程的解决：<br />
-$$ax+by=gcd(a,b)$$<br />
-这有点像是<strong>裴蜀定理</strong>的一般形式。和裴蜀定理类似，这类方程也有无数多个整数解。如何高效率地求得它的一组特解呢？</p>
-<h2><strong>代码</strong></h2>
-<pre><code>procedure gcd_ex(a, b: longint; var d: longint; var x, y: longint);
-begin
-    if b = 0 then
-    begin
-        d := a;
-        x := 1;
-        y := 0;
-        exit;
-    end;
-    gcd_ex(b, a mod b, d, y, x); //重要
-    y := y-(a div b) * x;
-end;
-</code></pre>
-<h2><strong>详解</strong></h2>
-<p>乍一看，算法似乎和一般欧几里得算法很是相似：都是递归实现，参数传递过程中都体现了“辗转相除”的思想。那为什么这个算法是正确的呢？</p>
-<p>这里先解释一下参数：</p>
-<ul>
-<li>a：方程中的参数a</li>
-<li>b：方程中的参数b</li>
-<li>d：即<code>gcd(a,b)</code>。由于和辗转相除法的相似性，在这里最大公约数也可以“顺便”算出。当然，去掉也无大碍</li>
-<li>x&amp;y：方程的一组特解(x, y)</li>
-</ul>
-<p>下面解释标注了<strong>重要</strong>的那行代码。</p>
-<p>假设方程 $ax+by=gcd(a,b)$ 有一组特解$(x_0,y_0)$。则有$ax_0+by_0=gcd(a,b)$。<br />
-由最大公约数原理可知：$gcd(a,b)=gcd(b, a\ mod\ b)$。从而有$ax_0+by_0=gcd(b,a\ mod\ b)$。<br />
-又方程：$bx+(a\ mod\ b)y=gcd(b,a\ mod\ b)$一定有整数解，设其为$(x_1,y_1)$。则有<br />
-$$ax_0+by_0=gcd(b,a\ mod\ b)=bx_1+(a\ mod\ b)y_1$$即$$ax_0+by_0=bx_1+(a-(a\ div\ b)*b)y_1$$即$$a(x_0-y_1)=b(x_1-(a\ div\ b)y_1-y_0)$$由恒等原理可知：$$x_0=y_1$$$$y_0=x_1-(a\ div\ b)y_1$$。<br />
-因此，当$a,b\neq0$时，$x,y$的值可以递归求得。递归边界为：$b=0$时$x=1,y=0$。<br />
-注意到上面的算法用到了一个技巧：在递归传参数的时候将y,x调换了。这样做的好处是节省了一个中间变量用来储存$y_1$，否则在计算$y_0$时$y_1$也被覆盖了。从而使算法更加的精简。</p>
-<h2><strong>应用</strong></h2>
-<ul>
-<li>计算几何中求整点的问题</li>
-<li>求一元一次同余方程$a\equiv b\pmod{m}$的一组特解。（即方程$ax+my=b$的一组特解）</li>
-</ul>
-
-        </section>
-        
-          <ul class="tag_box inline">
-            <li><i class="glyphicon glyphicon-open"></i></li>
-            
-            
-
-
-  
      
     	<li><a href="/categories.html#信息学竞赛-ref">
     		信息学竞赛 <span>24</span>

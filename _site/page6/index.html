@@ -139,6 +139,8 @@
   
     
   
+    
+  
 
 
 
@@ -164,6 +166,57 @@
     <article class="post-content">
         <header class="text-center">
             <h1 class="post-title">
+                <a href="/alter-mysql-character-set-under-ubuntu/">在Ubuntu下更改MYSQL的字符集</a>
+            </h1>
+            <p class="time">28 Nov 2014</p>
+        </header>
+        <section class="content">
+            <p>修改<code>/etc/mysql/my.cnf</code>：</p>
+<pre><code>[client]
+default-character-set=utf8
+
+[mysqld]
+character_set_server=utf8
+
+[mysql]
+default-character-set=utf8
+</code></pre>
+<p>然后：<code>sudo service mysql restart</code></p>
+
+        </section>
+        
+          <ul class="tag_box inline">
+            <li><i class="glyphicon glyphicon-open"></i></li>
+            
+            
+
+
+  
+     
+    	<li><a href="/categories.html#mysql-ref">
+    		mysql <span>2</span>
+    	</a></li>
+     
+    	<li><a href="/categories.html#ubuntu-ref">
+    		ubuntu <span>9</span>
+    	</a></li>
+     
+    	<li><a href="/categories.html#编程-ref">
+    		编程 <span>34</span>
+    	</a></li>
+    
+  
+
+
+          </ul>
+          
+
+         
+    </article>
+  
+    <article class="post-content">
+        <header class="text-center">
+            <h1 class="post-title">
                 <a href="/2014-PKU-JinQiu/">【转载】北大金秋营题目</a>
             </h1>
             <p class="time">17 Nov 2014</p>
@@ -184,7 +237,7 @@
   
      
     	<li><a href="/categories.html#数学-ref">
-    		数学 <span>6</span>
+    		数学 <span>7</span>
     	</a></li>
     
   
@@ -521,103 +574,6 @@ begin
         writeln(lca(x, y));
     end;
 
-
-    close(input); close(output);
-end.
-</code></pre>
-
-        </section>
-        
-          <ul class="tag_box inline">
-            <li><i class="glyphicon glyphicon-open"></i></li>
-            
-            
-
-
-  
-     
-    	<li><a href="/categories.html#信息学竞赛-ref">
-    		信息学竞赛 <span>24</span>
-    	</a></li>
-     
-    	<li><a href="/categories.html#编程-ref">
-    		编程 <span>34</span>
-    	</a></li>
-    
-  
-
-
-          </ul>
-          
-
-         
-    </article>
-  
-    <article class="post-content">
-        <header class="text-center">
-            <h1 class="post-title">
-                <a href="/RMQ-binary/">RMQ（二进制方法）</a>
-            </h1>
-            <p class="time">02 Nov 2014</p>
-        </header>
-        <section class="content">
-            <blockquote>
-<p>问题描述：已知数组a以及若干个查询(x, y)，求a[x~y]之间的最小值。</p>
-</blockquote>
-<h2><strong>分析</strong></h2>
-<p>不难发现：若取t使得$2^t\leq y-x+1$且$2^{t+1}>y-x+1$，则有：<br />
-$$[x, x+t]\bigcup[y-t+1,y]=[x,y]$$<br />
-运用二进制的思想，我们只需预处理出$i~i+2^k-1$之间的最小值，即可快速完成查询。设dp[i][j]为$i~i+2^j-1$之间的最小值，则有：<br />
-$$dp[i][j]=min(dp[i][j-1],dp[i+2^{j-1}][j-1])$$。</p>
-<h2><strong>Code</strong></h2>
-<pre><code>var
-    a: array [1..100000] of longint;
-    dp: array [1..100000, 0..20] of longint;
-    n, i: longint;
-
-function min(x, y: longint): longint;
-begin
-    if x &lt; y then exit(x) else exit(y);
-end;
-
-procedure init;
-var
-    i, j: longint;
-begin
-    for i := 1 to n do dp[i, 0] := a[i];
-    j := 1;
-    while 1&lt;&lt;j-1&lt;=n do
-    begin
-        for i := 1 to n-1&lt;&lt;(j-1) do
-            dp[i, j] := min(dp[i, j-1], dp[i+1&lt;&lt;(j-1), j-1]);
-        inc(j);
-    end;
-end;
-
-function query(x, y: longint): longint;
-var
-    t: longint;
-begin
-    t := 0;
-    while (1&lt;&lt;(t+1)&lt;=y-x+1) do inc(t);
-    query := min(dp[x][t], dp[y-(1&lt;&lt;t)+1][t]);
-end;
-
-var
-    x, y: longint;
-
-begin
-    assign(input, 'main.in'); reset(input);
-    assign(output, 'main.out'); rewrite(output);
-
-    readln(n);
-    for i := 1 to n do read(a[i]);
-    init;
-    while not eof do
-    begin
-        read(x, y);
-        writeln(query(X, y));
-    end;
 
     close(input); close(output);
 end.

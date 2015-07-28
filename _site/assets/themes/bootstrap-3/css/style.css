@@ -1,5 +1,5 @@
-html{font-family:Arial,"Microsoft Yahei"!important}
 #wrap{height:auto;margin:0 auto -30px;padding:0 0 30px}
+.content p,.content li{font-size:16px;line-height:24px}
 .align-center{display:block !important;margin:0 auto !important;text-align:center !important}
 .example{margin:20px 0;padding:5px;padding-top:0;border-radius:5px;border:#d5d5d5 solid 1px}
 .center-example{margin:20px 0;padding:5px;padding-top:0;border-radius:5px;border:#d5d5d5 solid 1px;text-align:center !important}.center-example:before{content:'示例';display:block;font-weight:800;padding:5px;margin-bottom:5px;text-align:center;border-bottom:#d5d5d5 solid 1px}
@@ -18,7 +18,7 @@ h1,h2,h3,h4{color:#333}
 .tag_box a:hover{background-color:#e5e5e5}
 .tag_box a.active{background:#57a957;border:1px solid #4c964d;color:#fff}
 #footer .container{background:#f2f2f2;padding:30px 0;border-top:#d5d5d5 1px solid}
-img{max-width:100%;display:block;margin:0 auto}
+img{max-width:100%;display:block;margin:1em auto}
 .content *{max-width:100%}
 .content p{text-indent:2em}
 .content li>p{text-indent:0}
@@ -27,9 +27,9 @@ h1 a:hover,h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover{color:#000}
 .posts article{border-bottom:#d5d5d5 solid 1px}
 html,body{background:#d5d5d5}
 #main-container{background:#f2f2f2}
-blockquote{color:#999;font-size:16px}blockquote p{font-size:16px}
+blockquote{color:#737373;font-size:16px;border:none;font-family:"Microsoft Yahei";border-radius:5px;background-color:#e1e1e1;box-shadow:5px 5px 5px #888}blockquote p{font-size:16px}
 .post-content{padding:15px 10px}
 .post-title{font-size:35px}
 @media (min-width:768px){.post-content{padding:60px 60px} .post-title{font-size:40px}}@media (min-width:992px){.post-content{padding:80px 90px} .post-title{font-size:50px}}.time{color:#117964}
 a:hover{text-decoration:none}
-.posts :first-child{padding-top:0 !important}
+.posts p:first-child{padding-top:0 !important}

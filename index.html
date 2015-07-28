@@ -40,12 +40,12 @@ tagline: 不忌讳空山无人，不害怕遥望星辰
 <ul class="pager">
   {% if paginator.next_page %}
     <li class="previous">
-      <a class="prev" href="{{paginator.next_page_path}}">&larr; Previous</a>
+      <a class="prev" href="{{paginator.next_page_path}}">&larr; 上一页</a>
     </li>
   {% endif %}
   {% if paginator.previous_page %}
   <li class="next">
-    <a class="next" href="{{paginator.previous_page_path}}">Next &rarr;</a>
+    <a class="next" href="{{paginator.previous_page_path}}">下一页 &rarr;</a>
   </li>
   {% endif %}
 </ul>

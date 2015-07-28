@@ -17,6 +17,14 @@
     padding: 0 0 30px;
 }
 
+.content {
+    
+    p, li {
+        font-size: 16px;
+        line-height: 24px;
+    }
+}
+
 .align-center {
     display: block!important;
     margin: 0 auto !important;
@@ -131,7 +139,7 @@ h1, h2, h3, h4 {
 img {
     max-width: 100%;
     display: block;
-    margin: 0 auto;
+    margin: 1em auto;
 }
 
 .content {
@@ -172,8 +180,13 @@ html, body {
 }
 
 blockquote {
-    color: rgb(153, 153, 153);
+    color: darken(rgb(153, 153, 153), 15%);
     font-size: 16px;
+    border: none;
+    font-family: "Microsoft Yahei";
+    border-radius: 5px;
+    background-color: lighten(@body-bk-color, 5%);
+    box-shadow: 5px 5px 5px #888;
 
     p {
         font-size: 16px;
@@ -218,6 +231,6 @@ a {
     }
 }
 
-.posts :first-child {
+.posts p:first-child {
     padding-top: 0px!important;
 }

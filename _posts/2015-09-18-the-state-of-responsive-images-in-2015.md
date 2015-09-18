@@ -1,5 +1,6 @@
 ---
 layout: post
+published: true
 title: 【译】响应式图片的现状
 category: 翻译 编程 web设计
 ---

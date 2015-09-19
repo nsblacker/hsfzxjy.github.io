@@ -9,7 +9,7 @@ categories: HFMUN重构系列
 
 “REST”这个词，也许会在许多场合上出现，但并不是每个人都理解它的意思。在维基百科中，它被定义为：
 
-> **Representational State Transfer (REST)** is a software architecture style consisting of guidelines and best practices for creating scalable web services. REST is a coordinated set of constraints applied to the design of components in a distributed hypermedia system that can lead to a more performant and maintainable architecture.    —— From [Wikipedia](http://en.wikipedia.org/wiki/Representational_state_transfer)
+> **Representational State Transfer (REST)** is a software architecture style consisting of guidelines and best practices for creating scalable web services. REST is a coordinated set of constraints applied to the design of components in a distributed hypermedia system that can lead to a more performant and maintainable architecture.    <cite>—— From [Wikipedia](http://en.wikipedia.org/wiki/Representational_state_transfer)</cite>
 
 也就是说：**REST，它不是一种技术，也不是一种标准，而是一种网络资源访问模式，一种编程哲学**。狭义上来说，REST指的是这样的设计思想：
 

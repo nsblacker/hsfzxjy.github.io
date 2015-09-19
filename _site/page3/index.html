@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <!-- Bootstrap styles -->
-    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap.min.css" rel="stylesheet" defer async="true">
     <!-- Optional theme -->
     <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/assets/themes/bootstrap-3/pygments.css">
@@ -26,13 +26,6 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
-
-    <!-- Update these with your own images
-      <link rel="shortcut icon" href="images/favicon.ico">
-      <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-      <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-      <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
-    -->
 
     <!-- atom & rss feed -->
     <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
@@ -139,6 +132,8 @@
   
     
   
+    
+  
 
 
 
@@ -147,6 +142,9 @@
       </nav>
 
       <div class="container" id="main-container">
+        <a href="https://github.com/hsfzxjy" target="_blank" class="hidden-xs">
+          <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png">
+        </a>
         
 <div class="page-header">
   <h1 class="post-title">
@@ -160,6 +158,115 @@
     
 <link rel="stylesheet" type="text/css" href="/assets/themes//bootstrap-3/css/index.css?body=1">
 <div class="posts">
+  
+    <article class="post-content">
+        <header class="text-center">
+            <h1 class="post-title">
+                <a href="/migrate-to-github/">博客迁移至Github.io</a>
+            </h1>
+            <p class="time">17 Apr 2015</p>
+        </header>
+        <section class="content">
+            <h3>为什么迁出？</h3>
+
+<p>话说<strong>SinaAppEngine</strong>真是越来越不像话了：在没有征得我们开发者的同意的情况下擅自把应用总数限制调整为5个（整整少了一半！），还口口声声说是作过调查——</p>
+
+<blockquote>
+<p>“大约90%开发者只用5个应用就足够了。”</p>
+</blockquote>
+
+<p>同时，增加配额的钱还那么贵，实在担负不起的我只好精简应用数目，以防未来某天应用数不够用。</p>
+
+<h3>为什么选择Github Pages？</h3>
+
+<p>本人爱好程序，习惯以代码的方式来做事——写文章时也不例外。因此，我需要找到一个支持Markdown的博客平台进行迁移。为此，我经历了很长时间的思想斗争——</p>
+
+<p><strong>新浪、网易 等国内博客平台？</strong></p>
+
+<p>果断否决。这些平台都是面向大众的，只提供富文本编辑器，效率捉急。</p>
+
+<p><strong>博客园？“程序员的网上家园”，总会好一些吧？</strong></p>
+
+<p>虽说最近博客园推出了Markdown编辑器，一切似乎很美好。但是——它——没有即时预览的功能！！这么重要的东西都不加上，写作时就像浑水中摸鱼一样，别提多不爽了。再说了，在博客园上聚集的多是些常工作于Windows平台下的程序员，在“信仰”方面有些合不来（别打我～～）。思考再三，还是否决了。</p>
+
+<p>而事实上，比起公共博客平台，我还是比较喜欢个人博客。一来逼格比较高，可以为将来的交友、面试等活动加分；二来可以随心所欲地自定义样式，使网站完全符合我的Style。</p>
+
+<p>这么一来，似乎就只剩下Github Pages了。</p>
+
+<h3>那么，如何在Github Pages上进行写作？</h3>
+
+<p>首先要介绍一下 Github Pages 的架构。先看看 <a href="https://help.github.com/articles/using-jekyll-with-pages/#using-jekyll">Github的介绍</a>：</p>
+
+<blockquote>
+<h4>Using Jekyll</h4>
+
+<p>Every GitHub Page is run through Jekyll when you push content to a specially named branch within your repository. For User Pages, use the master branch in your username.github.io repository. For Project Pages, use the gh-pages branch in your project&#39;s repository. Because a normal HTML site is also a valid Jekyll site, you don&#39;t have to do anything special to keep your standard HTML files unchanged. Jekyll has thorough documentation that covers its features and usage. Simply start committing Jekyll formatted files and you&#39;ll be using Jekyll in no time.</p>
+</blockquote>
+
+<p>可以看得出来，Github Pages使用Jekyll作为后端引擎——这是一个用Ruby写的博客框架。但用户不需要写一行Ruby的代码，只需在名为<strong><username>.github.io</strong>的项目下面以一定的目录结构放置markdown文件，Jekyll便会自动生成整个站点。</p>
+
+<p>这里需要注意的是，Jekyll生成的站点是<strong>静态的</strong>，也就是说站点的文件是Jekyll编译好之后存放在服务器端的，而不是接到请求之后才去编译站点，因此站点的访问速度是相当快的——这也是它的优点。</p>
+
+<hr>
+
+<p>我被这种机制深深地震惊了：这是一种我从来没见过的写作方式，无论是从方式上，抑或是从形式上。Jekyll 能让你真正专注于写作，而不是其他一些无谓的东西。     </p>
+
+<p>它把一切无关的东西都摒弃了，这才是真正的极简主义。</p>
+
+<hr>
+
+<p>最初的Jekyll站点是没有样式的。为了不重复发明轮子，我决定使用现成的主题。在网上略一搜索便有了收获：<a href="http://jekyllbootstrap.com/">Jekyll Bootstrap</a>。</p>
+
+<p>Bootstrap是我最常用，也是最欣赏的一个前端框架。因此尽管这个主题仍在开发当中，我还是毫不犹豫地选中了它。    </p>
+
+<p>从 <a href="https://github.com/plusjade/jekyll-bootstrap.git">Github</a> 上将这个项目 clone 下来，覆盖到hsfzxjy.github.io项目下，理论上，站点就可以运行了。接下来，进行一些样式上的微调就可以了。   </p>
+
+<p>至于评论系统，由于 Github Pages 是静态站点，因此只能使用第三方评论服务。Jekyll 默认的评论服务是Disqus ——一个国外的评论服务站点，但考虑到我在国内，许多人无法使用Facebook，Twitter等社交平台登录评论，我将它替换为了<strong>多说</strong>。具体操作，可以参考 <a href="http://havee.me/internet/2013-07/add-duoshuo-commemt-system-into-jekyll.html">这里</a>。</p>
+
+<p>Github Pages上的文章只能在本地编辑，因而需要一个趁手的 Markdown 编辑器。在 Ubuntu 环境下我使用的是 <strong>ReText</strong>：</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get install retext 
+</code></pre></div>
+        </section>
+          
+
+         
+    </article>
+  
+    <article class="post-content">
+        <header class="text-center">
+            <h1 class="post-title">
+                <a href="/solution-of-network-broken-down-per-20s-under-ubuntu/">Ubuntu 网络每20秒断开重连一次的解决方案</a>
+            </h1>
+            <p class="time">31 Mar 2015</p>
+        </header>
+        <section class="content">
+            <p>从昨天到现在一直都有这个问题，刚刚突然就解决了，至今不明白原理，在此记录一下：</p>
+<blockquote>
+<p>在网络设置中取消<strong>需要IPv6完成这个链接</strong>的选项</p>
+</blockquote>
+
+        </section>
+        
+          <ul class="tag_box inline">
+            <li><i class="glyphicon glyphicon-open"></i></li>
+            
+            
+
+
+  
+     
+    	<li><a href="/categories.html#ubuntu-ref">
+    		ubuntu <span>9</span>
+    	</a></li>
+    
+  
+
+
+          </ul>
+          
+
+         
+    </article>
   
     <article class="post-content">
         <header class="text-center">
@@ -326,7 +433,7 @@ $$={I^2T \over 2}$$</p>
     	</a></li>
      
     	<li><a href="/categories.html#编程-ref">
-    		编程 <span>34</span>
+    		编程 <span>36</span>
     	</a></li>
     
   
@@ -407,220 +514,6 @@ $$={I^2T \over 2}$$</p>
          
     </article>
   
-    <article class="post-content">
-        <header class="text-center">
-            <h1 class="post-title">
-                <a href="/kill-processes-under-ubuntu/">ubuntu杀死进程</a>
-            </h1>
-            <p class="time">02 Mar 2015</p>
-        </header>
-        <section class="content">
-            <pre><code>ps -e #查看进程列表
-sudo kill &lt;pid&gt;
-</code></pre>
-
-        </section>
-        
-          <ul class="tag_box inline">
-            <li><i class="glyphicon glyphicon-open"></i></li>
-            
-            
-
-
-  
-     
-    	<li><a href="/categories.html#ubuntu-ref">
-    		ubuntu <span>9</span>
-    	</a></li>
-    
-  
-
-
-          </ul>
-          
-
-         
-    </article>
-  
-    <article class="post-content">
-        <header class="text-center">
-            <h1 class="post-title">
-                <a href="/HFMUN-reconstruction-2/">【HFMUN重构系列】2. 用户系统</a>
-            </h1>
-            <p class="time">28 Jan 2015</p>
-        </header>
-        <section class="content">
-            <blockquote>
-<p>现在，我比任何时候都要有主见。</p>
-</blockquote>
-<p>这是这次重构过程中我最想说的一句话了。</p>
-<p>毋庸置疑，Django是一个十分优秀的Web框架：高效的开发模式，完备的应用集成，以及最重要的一点——具有完全自由的扩展能力——这是Django的灵魂所在。但是无知，通常会束缚了一个人的探索欲望与创新能力，让其变得胆怯、变得懒惰。一年前我的遭遇就很好地印证了这一点。</p>
-<p>对于一个网站而言，用户永远是最重要的元素。没有了用户，网站做得再好也只能被放在角落腐烂，与死尸无异。这样看来，打造一个完美的用户系统就显得十分必要了。</p>
-<p>Django为我们提供了一个优秀的用户系统，它位于<code>django.contrib.auth</code>——想必Djangoers都对它很熟悉了。<code>auth</code>应用是专门为用户管理打造的一个应用，它提供了以下功能：</p>
-<ul>
-<li>一个用户模型（User）。这是<code>auth</code>框架的核心所在，用于存储用户信息，包括 用户名、密码、邮箱等内容。该模型可被替换也可被拓展，具有良好的可塑性。</li>
-<li>一个权限系统（Permission）。这部分为实现访问控制提供了可能。一个<code>Permission</code>对应一个关于<code>Model</code>的操作，默认有<code>add</code>、<code>change</code>、<code>delete</code>三种。值得一提的是，在版本<code>1.7</code>之前，Django并不提供更改默认权限的能力，即每个<code>Model</code>都会固定拥有以上三种权限。我个人觉得这种做法不太好，并不是所有的模型都需要这种功能划分。更何况权限限制被应用在Django的每一个角落，如果想让一个模型完全开放，就要多敲许多不必要的代码。如今Django1.7改进了这一点，这使得模型更加简洁了。</li>
-<li>用户分组的功能（Groups）。一个<code>Group</code>可以拥有多个<code>Permission</code>，一个用户可以选择加入一个<code>Group</code>，并会自动拥有还<code>Group</code>的权限。这一设计简化了用户管理的操作，同时也让用户系统的更有层次。</li>
-</ul>
-<p>在这里，我想说的是关于扩展<code>User</code>模型的一些技巧。</p>
-<p>一年之前，由于对Django的不了解，我不敢对它的内部实现大动干戈。而事实上，没有什么东西是绝对完美的，即便是集众智于一身的开源框架也是如此。诚然，<code>auth</code>框架是不错，但在某些特定的应用场景，它便显得心有余而力不足了。因此，我希望能在<code>User</code>模型上附带一些额外的信息。</p>
-<p>百度一下，我找到了一个被广为流传的方法：<code>Profile</code>模式。也就是说，额外定义一个<code>Profile</code>模型和<code>User</code>模型建立一一对应的关系，用于储存额外信息。我清楚地记得，几乎是每一篇博客都在介绍这种方法，于是乎我毫不犹豫地就采纳了。现在想一想，这其实是一个十分糟糕的方案。它有如下缺点：</p>
-<ul>
-<li><strong>操作麻烦。</strong>每次访问额外信息，都要先询问是否存在<code>Profile</code>对象，如果不存在得先创建。然后再调用<code>user_object.profile</code>来访问信息。同时，这种方案对表单不友好，因为用户信息是被分开储存在两个表中的。</li>
-<li><strong>效率低下。</strong>每次访问额外信息，先是用<code>IF EXISTS</code>判断是否存在，再用<code>INNER JOIN</code>将主信息和次信息从数据库中取出，一共需要两条SQL语句。更何况，<code>INNER JOIN</code>指令是公认的效率低下的指令。</li>
-</ul>
-<p>因此，在这次重构中我采用了一种截然不同的做法：直接重写<code>User</code>模型。这里的灵感来自<a href="https://docs.djangoproject.com/en/1.7/topics/auth/customizing/#auth-custom-user">Django官方文档</a>：</p>
-<blockquote>
-<p>Some kinds of projects may have authentication requirements for which Django’s built-in User model is not always appropriate. For instance, on some sites it makes more sense to use an email address as your identification token instead of a username.</p>
-<p>Django allows you to override the default User model by providing a value for the AUTH_USER_MODEL setting that references a custom model:</p>
-<pre><code> AUTH_USER_MODEL = 'myapp.MyUser'
-</code></pre>
-</blockquote>
-<p>听起来不错，既方便实现起来又简单。于是我重写了我的<code>accounts</code>应用：</p>
-<pre><code>#encoding=utf8
-"""
-    事实上这里许多实现都模仿自`django.contrib.auth.models.User`，毕竟我只是要存储一些额外信息而已。
-"""
-from django.core import validators
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
-from django.utils.translation import ugettext_lazy as _
-from django.utils import timezone
-from django.db import models
-
-class UserManager(BaseUserManager):
-
-    def _create_user(self, username, password,
-                     is_staff, is_superuser, **extra_fields):
-        """
-        Creates and saves a User with the given username, email and password.
-        """
-        now = timezone.now()
-        if not username:
-            raise ValueError('The given username must be set')
-        user = self.model(username=username,
-                          is_staff=is_staff, is_active=True,
-                          is_superuser=is_superuser, last_login=now,
-                          date_joined=now, **extra_fields)
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
-
-    def create_user(self, username, password=None, **extra_fields):
-        return self._create_user(username, password, False, False,
-                                 **extra_fields)
-
-    def create_superuser(self, username, password, **extra_fields):
-        return self._create_user(username, password, True, True,
-                                 **extra_fields)
-
-# 这里的`AbstractBaseUser`是用户模型的基类，由于原生的`User`模型中有一些字段并不是我想要的，因此我需要从上一个抽象类继承。
-class User(AbstractBaseUser, PermissionsMixin):
-
-    username = models.CharField(_('username'), max_length=30, unique=True,
-        help_text=_('Required. 30 characters or fewer. Letters, digits and '
-                    '@/./+/-/_ only.'),
-        validators=[
-            validators.RegexValidator(r'^[\w.@+-]+$', _('Enter a valid username.'), 'invalid')
-        ])
-
-    # 用户描述
-    description = models.TextField()
-
-    # 昵称
-    nickname = models.CharField(_('nickname'),
-        max_length=30, unique=True,
-        help_text=_('Required. 30 characters or fewer.'),
-        )
-
-    # 好友关系
-    friends = models.ManyToManyField(
-        'self',
-        verbose_name=_('friends'),
-        blank=True,
-        related_name='+'
-        )
-
-    #================以下是原有的字段==================
-    is_staff = models.BooleanField(_('staff status'), default=False,
-        help_text=_('Designates whether the user can log into this admin '
-                    'site.'))
-    is_active = models.BooleanField(_('active'), default=True,
-        help_text=_('Designates whether this user should be treated as '
-                    'active. Unselect this instead of deleteing accounts.'))
-    date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
-
-    USERNAME_FIELD = 'username'
-    objects = UserManager()
-
-    class Meta:
-        verbose_name = _('user')
-        verbose_name_plural = _('users')
-
-    def get_full_name(self):
-        return self.nickname
-
-    def get_short_name(self):
-        return self.nickname
-</code></pre>
-<p>以及<code>settings.py</code>文件：</p>
-<pre><code>#...
-AUTH_USER_MODEL = 'accounts.User'
-#...
-</code></pre>
-<p>为了让admin框架同步支持我们的新<code>User</code>模型，还需要对<code>admin.py</code>以及<code>forms.py</code>进行相应的修改，实际上就是把新加入的字段写进相应的类即可，在这里我就不贴代码了。</p>
-<p>做完这一切，一个念头忽然从我脑海中闪过：对于一些第三方应用，如果它们直接引用了<code>django.contrib.auth.models.User</code>，那该怎么办呢？我的<code>User</code>模型会生效吗？</p>
-<p>这让我感到不安，因为重构的一大原则便是：不得改变外部接口的调用情况。如果这一改动使得整个网站都崩溃了，那就得不偿失了。可庆幸的是，这样的事情并没有发生。</p>
-<p>这不禁让我感到好奇：django是怎么做到这一点的？</p>
-<p>翻看<code>django.contrib.auth.models</code>，我发现了如下一句代码：</p>
-<pre><code>class User(AbstractUser):
-    """
-    Users within the Django authentication system are represented by this
-    model.
-
-    Username, password and email are required. Other fields are optional.
-    """
-    class Meta(AbstractUser.Meta):
-        swappable = 'AUTH_USER_MODEL'
-</code></pre>
-<p>查找<a href="https://docs.djangoproject.com/en/1.8/ref/models/fields/#django.db.models.ForeignKey.swappable">Django文档</a>，原来这是Django1.7的一个新特性：</p>
-<blockquote>
-<p><strong>ForeignKey.swappable</strong></p>
-<p>Controls the migration framework’s reaction if this ForeignKey is pointing at a swappable model. If it is True - the default - then if the ForeignKey is pointing at a model which matches the current value of settings.AUTH_USER_MODEL (or another swappable model setting) the relationship will be stored in the migration using a reference to the setting, not to the model directly.</p>
-<p>You only want to override this to be False if you are sure your model should always point towards the swapped-in model - for example, if it is a profile model designed specifically for your custom user model.</p>
-<p>Setting it to False does not mean you can reference a swappable model even if it is swapped out - False just means that the migrations made with this ForeignKey will always reference the exact model you specify (so it will fail hard if the user tries to run with a User model you don’t support, for example).</p>
-<p>If in doubt, leave it to its default of True.</p>
-</blockquote>
-<p>这个特性可以使指向这个模型的ForeignKey自动被替换成<code>Meta.swappable</code>的内容，实现模型的可替换能力。这是一个巧妙的设计。</p>
-<p>重构后的<code>accounts</code>应用，逻辑变得更加清晰，也使我不再纠结于冗长的恼人的<code>Profile</code>调用。</p>
-<p>这，是一个美妙的起点。</p>
-
-        </section>
-        
-          <ul class="tag_box inline">
-            <li><i class="glyphicon glyphicon-open"></i></li>
-            
-            
-
-
-  
-     
-    	<li><a href="/categories.html#hfmun重构系列-ref">
-    		hfmun重构系列 <span>5</span>
-    	</a></li>
-     
-    	<li><a href="/categories.html#编程-ref">
-    		编程 <span>34</span>
-    	</a></li>
-    
-  
-
-
-          </ul>
-          
-
-         
-    </article>
-  
 </div>
 
 <ul class="pager">
@@ -640,7 +533,6 @@ AUTH_USER_MODEL = 'accounts.User'
 </div>
 
 
-        <a href="https://github.com/hsfzxjy" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
       </div>
 
     </div>
@@ -665,12 +557,7 @@ AUTH_USER_MODEL = 'accounts.User'
          || document.getElementsByTagName('body')[0]).appendChild(ds);
       })();
     </script>
-    
-
-
-    <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/assets/themes/bootstrap-3/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/themes/bootstrap-3/bootstrap/js/bootstrap.min.js" defer async="true"></script>
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
         extensions: ["tex2jax.js"],
@@ -686,4 +573,3 @@ AUTH_USER_MODEL = 'accounts.User'
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default" defer async="true"></script>
   </body>
 </html>
-

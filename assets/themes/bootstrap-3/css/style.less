@@ -56,11 +56,28 @@
     }
 }
 
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+    line-height: 1.5;
+}
+
 h1, h2, h3, h4 {
     color: #333;
 }
 
+code {
+    background: lighten(@body-bk-color, 10%);
+    color: black;
+}
+
 /* posts index */
+
+section.content {
+    h1, h2, h3, h4, h5, h6 {
+        display: block;
+        margin-bottom: 1em;
+    }
+}
 
 .post > h3.title {
     position: relative;
@@ -116,6 +133,11 @@ h1, h2, h3, h4 {
 .tag_box a span {
     vertical-align: super;
     font-size: 0.8em; 
+}
+
+.tag_box i {
+    vertical-align: sub;
+    margin: 0 5ex;
 }
 
 .tag_box a:hover {
@@ -180,16 +202,18 @@ html, body {
 }
 
 blockquote {
-    color: darken(rgb(153, 153, 153), 15%);
     font-size: 16px;
-    border: none;
     font-family: "Microsoft Yahei";
-    border-radius: 5px;
-    background-color: lighten(@body-bk-color, 5%);
-    box-shadow: 5px 5px 5px #888;
+    border: 1px dashed;
 
     p {
         font-size: 16px;
+    }
+
+    cite {
+        display: block;
+        text-align: right;
+        font-style: italic;
     }
 }
 
@@ -198,7 +222,7 @@ blockquote {
 }
 
 .post-title {
-    font-size: 35px;
+    //font-size: 35px;
 }
 
 @media (min-width: @min-sm) {
@@ -233,4 +257,8 @@ a {
 
 .posts p:first-child {
     padding-top: 0px!important;
+}
+
+blockquote p {
+    text-indent: 0!important;
 }

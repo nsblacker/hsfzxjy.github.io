@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <!-- Bootstrap styles -->
-    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap.min.css" rel="stylesheet" defer async="true">
     <!-- Optional theme -->
     <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/assets/themes/bootstrap-3/pygments.css">
@@ -26,13 +26,6 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
-
-    <!-- Update these with your own images
-      <link rel="shortcut icon" href="images/favicon.ico">
-      <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-      <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-      <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
-    -->
 
     <!-- atom & rss feed -->
     <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
@@ -139,6 +132,8 @@
   
     
   
+    
+  
 
 
 
@@ -147,6 +142,9 @@
       </nav>
 
       <div class="container" id="main-container">
+        <a href="https://github.com/hsfzxjy" target="_blank" class="hidden-xs">
+          <img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png">
+        </a>
         
 <div class="page-header">
   <h1 class="post-title">
@@ -160,6 +158,344 @@
     
 <link rel="stylesheet" type="text/css" href="/assets/themes//bootstrap-3/css/index.css?body=1">
 <div class="posts">
+  
+    <article class="post-content">
+        <header class="text-center">
+            <h1 class="post-title">
+                <a href="/uva817-according-to-bartjens/">UVa817 According to Bartjens</a>
+            </h1>
+            <p class="time">17 Oct 2014</p>
+        </header>
+        <section class="content">
+            <blockquote>
+<p>链接：<a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;category=10&amp;problem=758&amp;mosmsg=Submission%20received%20with%20ID%2014367065">Link</a> 状态：<strong>WA</strong></p>
+</blockquote>
+<h2><strong>分析</strong></h2>
+<p>做了两个小时，很可惜最终还是WA了。非常奇怪——和网上的C++代码运行结果完全一样，但却WA了。不过，在这里我还是记录一下解题的过程。<br />
+这道题数据量很小，直接爆搜每个空位，用*, +, -, #0来代表符号或不填。</p>
+<h2><strong>Code</strong></h2>
+<pre><code>const
+    operators: array [1..4] of char = ('*', '+', '-', #0); //符号
+var
+    s: string;
+    _, n: integer;
+    op: array [0..10] of char;
+    yes: Boolean;
+
+function toValue(ch: char): integer;
+begin
+    exit(ord(ch) - ord('0'));
+end;
+
+procedure calcAndPrint; 
+var
+    numtop, opstop: Integer;  //数字栈，符号栈
+    num: array [1..10] of longint;
+    ops: array [1..10] of char;
+    i: integer;
+begin
+    i := 1;
+    numtop := 1;
+    num[numtop] := toValue(s[1]);
+    opstop := 0;
+    while i &lt;= n do
+    begin
+        while (i &lt; n) and (op[i] = #0) do
+        begin
+            inc(i);
+            num[numtop] := num[numtop] * 10 + toValue(s[i]);
+        end;
+        if (op[i] in ['+', '-']) or (i &gt;= n) then
+        begin
+            while (opstop &gt; 0) and (ops[opstop] = '*') do
+            begin
+                dec(opstop);
+                num[numtop - 1] := num[numtop] * num[numtop -1];
+                dec(numtop);
+            end;
+        end;
+        if i &gt;= n then break;
+        inc(opstop);
+        ops[opstop] := op[i];
+        inc(i);
+        inc(numtop);
+        num[numtop] := toValue(s[i]);
+    end;
+    i := 1;
+    while i &lt; numtop do
+    begin
+        if ops[i] = '+' then
+            num[i+1] := num[i] + num[i+1]
+        else
+            num[i+1] := num[i] - num[i+1];
+        inc(i);
+    end;
+    if (num[numtop] = 2000) and (opstop &gt; 0) then
+    begin
+        yes := True;
+        write('  ');
+        for i := 1 to n do
+        begin
+            write(s[i]);
+            if op[i] &lt;&gt; #0  then
+                write(op[i]);
+        end;
+        writeln('=');
+    end;
+end;
+
+procedure dfs(t: integer); //搜索第t个位置
+var
+    i: Integer;
+    ch: char;
+begin
+    if t = n then
+    begin
+        calcAndPrint;
+        exit;
+    end;
+    for i := 1 to 4 do
+    begin
+        ch := operators[i];
+        if (ch = #0) and (s[t] = '0') and ((t = 1) or (t &gt; 1) and (op[t-1] &lt;&gt; #0)) then continue;
+        op[t] := ch;
+        dfs(t+1);
+    end;
+end;
+
+var
+    i: Integer;
+
+begin
+    assign(input, 'main.in'); reset(input);
+    assign(output, 'main.out'); rewrite(output);
+
+    readln(s);
+    _ := 0;
+    while not eof and (s[1] &lt;&gt; '=') do
+    begin
+        i := 1;
+        while not (s[i] in ['0'..'9', '=']) do
+        begin
+            inc(i);
+        end;
+        delete(s, 1, i-1);
+        n := pos('=', s) - 1;
+        inc(_);
+        writeln('Problem ', _);
+        yes := False;
+        fillchar(op, sizeof(op), 0);
+        dfs(1);
+        if not yes then
+            writeln('  IMPOSSIBLE');
+        readln(s);
+    end;
+
+    close(input); close(output);
+end.
+</code></pre>
+
+        </section>
+        
+          <ul class="tag_box inline">
+            <li><i class="glyphicon glyphicon-open"></i></li>
+            
+            
+
+
+  
+     
+    	<li><a href="/categories.html#uva-ref">
+    		uva <span>12</span>
+    	</a></li>
+     
+    	<li><a href="/categories.html#信息学竞赛-ref">
+    		信息学竞赛 <span>24</span>
+    	</a></li>
+     
+    	<li><a href="/categories.html#编程-ref">
+    		编程 <span>36</span>
+    	</a></li>
+    
+  
+
+
+          </ul>
+          
+
+        
+          <ul class="tag_box inline">
+            <li><i class="glyphicon glyphicon-tags"></i></li>
+            
+            
+
+
+  
+     
+    	<li><a href="/tags.html#搜索-ref">搜索 <span>2</span></a></li>
+    
+  
+
+
+
+          </ul>
+         
+    </article>
+  
+    <article class="post-content">
+        <header class="text-center">
+            <h1 class="post-title">
+                <a href="/uva225-golygons/">UVa225 Golygons</a>
+            </h1>
+            <p class="time">15 Oct 2014</p>
+        </header>
+        <section class="content">
+            <blockquote>
+<p>链接：<a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;category=4&amp;problem=161&amp;mosmsg=Submission%20received%20with%20ID%2014355705">Link</a> 耗时：0.699s</p>
+</blockquote>
+<h2><strong>思路</strong></h2>
+<p><code>dfs(t, x, y, d, s)</code>表示当前走了t步，在(x,y)，上一个方向为d，s为一个求和用的辅助变量。<br />
+当前位置无法走完剩下的路时直接回溯。可节省接近2s的时间。<br />
+<strong>ps: 这道题虽然没有明说每个城市只走一次，但它的确那样判了，这一点坑了我好久。</strong></p>
+<h2><strong>Code</strong></h2>
+<pre><code>//Accepted.
+const
+    dx: array [1..4] of integer = (1, 0, 0, -1);
+    dy: array [1..4] of integer = (0, 1, -1, 0);
+    dir: array [1..4] of char = ('e', 'n', 's', 'w');
+
+var
+    a: array [1..50, 1..2] of integer; //障碍物
+    k, i, n, _, x, y: integer;
+    ans: array [1..20] of char;
+    tot: longint;
+    vis: array [-220..220, -220..220] of boolean;
+
+function judge(x1, y1, x2, y2: longint): Boolean; //判断刚刚走过的路上是否有障碍物
+var
+    i: Integer;
+begin
+    judge := False;
+    if x1 = x2 then
+    begin
+        for i := 1 to k do 
+            if (a[i, 1] = x1) and ((a[i, 2] - y1)*(a[i, 2] - y2) &lt;= 0) then exit;
+    end
+    else
+        for i := 1 to k do
+            if (a[i, 2] = y2) and ((a[i, 1] - x1)*(a[i, 1] - x2) &lt;= 0) then exit; 
+    judge := True;
+end;
+
+procedure print;
+var
+    i: Integer;
+begin
+    for i := 1 to n do write(ans[i]);
+    writeln;
+    inc(tot);
+end;
+
+procedure dfs(t, x, y, d, s: integer);
+var
+    i, sum: Integer;
+    tx, ty: longint;
+begin
+    if t = n then 
+    begin
+        if (x = 0) and (y = 0) then print;
+        exit;
+    end;
+
+    sum := s - t - 1;
+    inc(t);
+
+    for i := 1 to 4 do
+    begin
+        if (i = d) or (i + d = 5) then continue;   //方向相同或相反
+        tx := x + dx[i] * t;
+        ty := y + dy[i] * t;
+        if vis[tx, ty] then continue;              //走过 
+        if abs(tx) + abs(ty) &gt; sum then continue;  //回不去，剪枝
+        if not judge(x, y, tx, ty) then continue;  //有障碍物
+        ans[t] := dir[i];
+        vis[tx, ty] := True;
+        dfs(t, tx, ty, i, sum);
+        vis[tx, ty] := False;
+    end;
+end;
+
+begin
+    assign(input, 'main.in'); reset(input);
+    assign(output, 'main.out'); rewrite(output);
+
+    readln(_);
+    while _ &gt; 0 do 
+    begin
+        dec(_);
+        read(n, k);
+        fillchar(vis, sizeof(vis), 0);
+        for i := 1 to k do 
+            read(a[i, 1], a[i, 2]);
+        fillchar(ans, sizeof(ans), 0);
+        tot := 0;
+        dfs(0, 0, 0, -1, n * (n+1) div 2);
+        writeln('Found ', tot, ' golygon(s).');
+        writeln;
+    end;
+
+    close(input); close(output);
+end.
+</code></pre>
+
+        </section>
+        
+          <ul class="tag_box inline">
+            <li><i class="glyphicon glyphicon-open"></i></li>
+            
+            
+
+
+  
+     
+    	<li><a href="/categories.html#uva-ref">
+    		uva <span>12</span>
+    	</a></li>
+     
+    	<li><a href="/categories.html#信息学竞赛-ref">
+    		信息学竞赛 <span>24</span>
+    	</a></li>
+     
+    	<li><a href="/categories.html#编程-ref">
+    		编程 <span>36</span>
+    	</a></li>
+    
+  
+
+
+          </ul>
+          
+
+        
+          <ul class="tag_box inline">
+            <li><i class="glyphicon glyphicon-tags"></i></li>
+            
+            
+
+
+  
+     
+    	<li><a href="/tags.html#剪枝-ref">剪枝 <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#搜索-ref">搜索 <span>2</span></a></li>
+    
+  
+
+
+
+          </ul>
+         
+    </article>
   
     <article class="post-content">
         <header class="text-center">
@@ -253,7 +589,7 @@
     	</a></li>
      
     	<li><a href="/categories.html#编程-ref">
-    		编程 <span>34</span>
+    		编程 <span>36</span>
     	</a></li>
     
   
@@ -484,7 +820,7 @@ end.
     	</a></li>
      
     	<li><a href="/categories.html#编程-ref">
-    		编程 <span>34</span>
+    		编程 <span>36</span>
     	</a></li>
     
   
@@ -586,193 +922,7 @@ end.
     	</a></li>
      
     	<li><a href="/categories.html#编程-ref">
-    		编程 <span>34</span>
-    	</a></li>
-    
-  
-
-
-          </ul>
-          
-
-         
-    </article>
-  
-    <article class="post-content">
-        <header class="text-center">
-            <h1 class="post-title">
-                <a href="/uva11582-colossal-fibonacci-numbers/">UVa11582 Colossal Fibonacci Numbers! && 大数操作</a>
-            </h1>
-            <p class="time">01 Oct 2014</p>
-        </header>
-        <section class="content">
-            <blockquote>
-<p>链接：<a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;category=27&amp;problem=2629&amp;mosmsg=Submission%20received%20with%20ID%2014290914">Link</a> 耗时：0.139s</p>
-</blockquote>
-<h2>前言</h2>
-<p>这道题的主要思路就是打表，看看Fibonacci数列模n几个一循环。但由于这题给的数太大了，从而在细节上耗了很久。在此记录一下：</p>
-<pre><code>var
-    x: qword;
-    y: longint;
-begin
-    x := 1&lt;&lt;64-1;
-    y := 100;
-    x := x mod y; //报错201
-    x := x mod qword(y); //正确
-end.
-</code></pre>
-<h2>Code</h2>
-<pre><code>var
-    a,b: qword;
-    _, n, i, k, cnt: longint;
-    f: array [1..1000000] of longint;
-
-function superMod(a, b: qword; m: longint): longint;
-var
-    x: qword;
-begin
-    if b = 0 then
-        exit(1);
-    x := superMod(a, b shr 1, m);
-    superMod := x * x mod m;
-    if odd(b) then
-        superMod := superMod * a mod m;
-end;
-
-begin
-    assign(input, 'main.in'); reset(input);
-    assign(output, 'main.out'); rewrite(output);
-    readln(_);
-    while _ &gt; 0 do
-    begin
-        dec(_);
-        readln(a, b, n);
-        if a = 0 then
-        begin
-            writeln(0);
-            continue;
-        end;
-        if n = 1 then
-        begin
-            writeln(0);
-            continue;
-        end;
-        f[1] := 1;
-        f[2] := 1;
-        cnt := 2;
-        while not ((f[cnt-1] = 1) and (f[cnt] = 0)) do
-        begin
-            inc(cnt);
-            f[cnt] := (f[cnt-1] + f[cnt-2]) mod n;
-        end;
-        //while x &gt; int64(1 &lt;&lt;60) do
-        //    x := x - int64((cnt &lt;&lt; 59));
-        a := a mod qword(cnt);
-        k := superMod(a, b, cnt);
-        writeln(f[k]);
-    end;
-    close(output); close(input);
-end.
-</code></pre>
-
-        </section>
-        
-          <ul class="tag_box inline">
-            <li><i class="glyphicon glyphicon-open"></i></li>
-            
-            
-
-
-  
-     
-    	<li><a href="/categories.html#uva-ref">
-    		uva <span>12</span>
-    	</a></li>
-     
-    	<li><a href="/categories.html#信息学竞赛-ref">
-    		信息学竞赛 <span>24</span>
-    	</a></li>
-     
-    	<li><a href="/categories.html#编程-ref">
-    		编程 <span>34</span>
-    	</a></li>
-    
-  
-
-
-          </ul>
-          
-
-         
-    </article>
-  
-    <article class="post-content">
-        <header class="text-center">
-            <h1 class="post-title">
-                <a href="/extended-gcd-algorithm/">扩展欧几里得算法</a>
-            </h1>
-            <p class="time">01 Oct 2014</p>
-        </header>
-        <section class="content">
-            <blockquote>
-<p>今天开始学习数论方面的算法。这部分在NOIP中并不常出现，即使出现了也不会像高联这么难（。。。）。</p>
-</blockquote>
-<h2><strong>什么是扩展欧几里得算法</strong></h2>
-<p>所谓欧几里得算法，实际上就是辗转相除法——求两个数最大公约数的一种高效算法。而扩展欧几里得算法则是来源于于一类方程的解决：<br />
-$$ax+by=gcd(a,b)$$<br />
-这有点像是<strong>裴蜀定理</strong>的一般形式。和裴蜀定理类似，这类方程也有无数多个整数解。如何高效率地求得它的一组特解呢？</p>
-<h2><strong>代码</strong></h2>
-<pre><code>procedure gcd_ex(a, b: longint; var d: longint; var x, y: longint);
-begin
-    if b = 0 then
-    begin
-        d := a;
-        x := 1;
-        y := 0;
-        exit;
-    end;
-    gcd_ex(b, a mod b, d, y, x); //重要
-    y := y-(a div b) * x;
-end;
-</code></pre>
-<h2><strong>详解</strong></h2>
-<p>乍一看，算法似乎和一般欧几里得算法很是相似：都是递归实现，参数传递过程中都体现了“辗转相除”的思想。那为什么这个算法是正确的呢？</p>
-<p>这里先解释一下参数：</p>
-<ul>
-<li>a：方程中的参数a</li>
-<li>b：方程中的参数b</li>
-<li>d：即<code>gcd(a,b)</code>。由于和辗转相除法的相似性，在这里最大公约数也可以“顺便”算出。当然，去掉也无大碍</li>
-<li>x&amp;y：方程的一组特解(x, y)</li>
-</ul>
-<p>下面解释标注了<strong>重要</strong>的那行代码。</p>
-<p>假设方程 $ax+by=gcd(a,b)$ 有一组特解$(x_0,y_0)$。则有$ax_0+by_0=gcd(a,b)$。<br />
-由最大公约数原理可知：$gcd(a,b)=gcd(b, a\ mod\ b)$。从而有$ax_0+by_0=gcd(b,a\ mod\ b)$。<br />
-又方程：$bx+(a\ mod\ b)y=gcd(b,a\ mod\ b)$一定有整数解，设其为$(x_1,y_1)$。则有<br />
-$$ax_0+by_0=gcd(b,a\ mod\ b)=bx_1+(a\ mod\ b)y_1$$即$$ax_0+by_0=bx_1+(a-(a\ div\ b)*b)y_1$$即$$a(x_0-y_1)=b(x_1-(a\ div\ b)y_1-y_0)$$由恒等原理可知：$$x_0=y_1$$$$y_0=x_1-(a\ div\ b)y_1$$。<br />
-因此，当$a,b\neq0$时，$x,y$的值可以递归求得。递归边界为：$b=0$时$x=1,y=0$。<br />
-注意到上面的算法用到了一个技巧：在递归传参数的时候将y,x调换了。这样做的好处是节省了一个中间变量用来储存$y_1$，否则在计算$y_0$时$y_1$也被覆盖了。从而使算法更加的精简。</p>
-<h2><strong>应用</strong></h2>
-<ul>
-<li>计算几何中求整点的问题</li>
-<li>求一元一次同余方程$a\equiv b\pmod{m}$的一组特解。（即方程$ax+my=b$的一组特解）</li>
-</ul>
-
-        </section>
-        
-          <ul class="tag_box inline">
-            <li><i class="glyphicon glyphicon-open"></i></li>
-            
-            
-
-
-  
-     
-    	<li><a href="/categories.html#信息学竞赛-ref">
-    		信息学竞赛 <span>24</span>
-    	</a></li>
-     
-    	<li><a href="/categories.html#编程-ref">
-    		编程 <span>34</span>
+    		编程 <span>36</span>
     	</a></li>
     
   
@@ -803,7 +953,6 @@ $$ax_0+by_0=gcd(b,a\ mod\ b)=bx_1+(a\ mod\ b)y_1$$即$$ax_0+by_0=bx_1+(a-(a\ div
 </div>
 
 
-        <a href="https://github.com/hsfzxjy" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
       </div>
 
     </div>
@@ -828,12 +977,7 @@ $$ax_0+by_0=gcd(b,a\ mod\ b)=bx_1+(a\ mod\ b)y_1$$即$$ax_0+by_0=bx_1+(a-(a\ div
          || document.getElementsByTagName('body')[0]).appendChild(ds);
       })();
     </script>
-    
-
-
-    <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/assets/themes/bootstrap-3/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/assets/themes/bootstrap-3/bootstrap/js/bootstrap.min.js" defer async="true"></script>
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
         extensions: ["tex2jax.js"],
@@ -849,4 +993,3 @@ $$ax_0+by_0=gcd(b,a\ mod\ b)=bx_1+(a\ mod\ b)y_1$$即$$ax_0+by_0=bx_1+(a-(a\ div
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default" defer async="true"></script>
   </body>
 </html>
-

@@ -16,7 +16,7 @@ tagline: 不忌讳空山无人，不害怕遥望星辰
             <p class="time">{{ post.date | date_to_string }}</p>
         </header>
         <section class="content">
-            {{post.content}}
+            {{ post.excerpt }}
         </section>
         {% unless post.categories == empty %}
           <ul class="tag_box inline">

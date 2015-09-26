@@ -1,7 +1,7 @@
 # This is the default format. 
 # For more see: http://jekyllrb.com/docs/permalinks/
 permalink: /:title/
-
+excerpt_separator: <!--more-->
 exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md"]
 highlighter: pygments
 markdown: redcarpet
@@ -29,7 +29,7 @@ author :
 # Else if you are pushing to username.github.io, replace with your username.
 # Finally if you are pushing to a GitHub project page, include the project name at the end.
 #
-production_url : http://hsfzxjy.github.io
+production_url : http://hsfzxjy.github.io/
 
 # All Jekyll-Bootstrap specific configurations are namespaced into this hash
 #

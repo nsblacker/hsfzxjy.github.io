@@ -21,6 +21,8 @@ Web 是一种可视化的媒体。绚丽的视觉效果，很大程度上离不�
 
 从这篇指南中，你将了解到响应式图片的工作原理（what works），响应式图片仍然存在的问题和陷阱（pitfall），以及如何将响应式图片运用到网站中。
 
+<!--more-->
+
 ## 我能感受到这欲望，对速度的渴求
 
 为什么速度这么重要？难道还有人在用 3G 网络吗（译者注：歪果仁科技发达，早已看不起 3G 网络）？如果你的目标客户都住在曼哈顿市中心，为什么还要为莱索托的乡巴佬担心呢（译者注：南非山区）？ 事实上，“每个人都能用上超快的宽带，用上由那些利欲熏心的公司提供的宽带”——听起来就像个神话。
@@ -341,7 +343,12 @@ w 描述符最大的毛病（gotcha）就是：尽管在使用 x 描述符时，
 在 IE9 中有一个已知的问题：`picture` 标签将不会静默失败。为了处理 IE9 的情况，你需要欺骗 IE9，让它以为 `source` 标签是 `video` 标签的一部分：
 
 ```html
-
+<picture>
+    <!—[if IE 9]><video style="display:none;"><![endif]—>
+    <source type="image/webp" srcset="retina-image.webp 2x, image.webp 1x" />
+    <!—[if IE 9]></video><![endif]—>
+    <img srcset="retina-image.jpg 2x" src="image.jpg" alt="an image" />
+</picture>
 ```
 
 这是一个丑陋的解决方案——但聊胜于无。我们只能期望 Windows10 的发布能够加速 IE9 退出市场，因为虽然 Edge 也不支持 `picture` 标签，但至少它会用正确的方式来处理（静默失败）。

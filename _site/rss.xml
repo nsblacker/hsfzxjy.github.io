@@ -5,8 +5,8 @@
         <description>hsfzxjy - Jinyi Xie</description>
         <link>http://hsfzxjy.github.io</link>
         <atom:link href="http://hsfzxjy.github.io/rss.xml" rel="self" type="application/rss+xml" />
-        <lastBuildDate>Sat, 26 Sep 2015 23:40:54 +0800</lastBuildDate>
-        <pubDate>Sat, 26 Sep 2015 23:40:54 +0800</pubDate>
+        <lastBuildDate>Sat, 26 Sep 2015 23:56:30 +0800</lastBuildDate>
+        <pubDate>Sat, 26 Sep 2015 23:56:30 +0800</pubDate>
         <ttl>60</ttl>
 
 
@@ -29,6 +29,8 @@
 &lt;p&gt;响应式图片的目的，不是要为设备提供尽可能高质量的图片（这一点，我们很容易做到），而是要为设备提供它所能支持的最高质量的图片，仅此而已（nothing more）。&lt;/p&gt;
 
 &lt;p&gt;从这篇指南中，你将了解到响应式图片的工作原理（what works），响应式图片仍然存在的问题和陷阱（pitfall），以及如何将响应式图片运用到网站中。&lt;/p&gt;
+
+&lt;!--more--&gt;
 
 &lt;h2&gt;我能感受到这欲望，对速度的渴求&lt;/h2&gt;
 
@@ -283,7 +285,12 @@
 &lt;h3&gt;已知的问题&lt;/h3&gt;
 
 &lt;p&gt;在 IE9 中有一个已知的问题：&lt;code&gt;picture&lt;/code&gt; 标签将不会静默失败。为了处理 IE9 的情况，你需要欺骗 IE9，让它以为 &lt;code&gt;source&lt;/code&gt; 标签是 &lt;code&gt;video&lt;/code&gt; 标签的一部分：&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;picture&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;cp&quot;&gt;&amp;lt;!—[if IE 9]&amp;gt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;video&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;style=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;display:none;&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;![endif]—&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;source&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;image/webp&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;srcset=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;retina-image.webp 2x, image.webp 1x&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;cp&quot;&gt;&amp;lt;!—[if IE 9]&amp;gt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/video&amp;gt;&lt;/span&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;![endif]—&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;img&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;srcset=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;retina-image.jpg 2x&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;image.jpg&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;alt=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;an image&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/picture&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;这是一个丑陋的解决方案——但聊胜于无。我们只能期望 Windows10 的发布能够加速 IE9 退出市场，因为虽然 Edge 也不支持 &lt;code&gt;picture&lt;/code&gt; 标签，但至少它会用正确的方式来处理（静默失败）。&lt;/p&gt;
 

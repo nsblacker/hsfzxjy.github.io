@@ -169,63 +169,6 @@
         <section class="content">
             <h3>为什么迁出？</h3>
 
-<p>话说<strong>SinaAppEngine</strong>真是越来越不像话了：在没有征得我们开发者的同意的情况下擅自把应用总数限制调整为5个（整整少了一半！），还口口声声说是作过调查——</p>
-
-<blockquote>
-<p>“大约90%开发者只用5个应用就足够了。”</p>
-</blockquote>
-
-<p>同时，增加配额的钱还那么贵，实在担负不起的我只好精简应用数目，以防未来某天应用数不够用。</p>
-
-<h3>为什么选择Github Pages？</h3>
-
-<p>本人爱好程序，习惯以代码的方式来做事——写文章时也不例外。因此，我需要找到一个支持Markdown的博客平台进行迁移。为此，我经历了很长时间的思想斗争——</p>
-
-<p><strong>新浪、网易 等国内博客平台？</strong></p>
-
-<p>果断否决。这些平台都是面向大众的，只提供富文本编辑器，效率捉急。</p>
-
-<p><strong>博客园？“程序员的网上家园”，总会好一些吧？</strong></p>
-
-<p>虽说最近博客园推出了Markdown编辑器，一切似乎很美好。但是——它——没有即时预览的功能！！这么重要的东西都不加上，写作时就像浑水中摸鱼一样，别提多不爽了。再说了，在博客园上聚集的多是些常工作于Windows平台下的程序员，在“信仰”方面有些合不来（别打我～～）。思考再三，还是否决了。</p>
-
-<p>而事实上，比起公共博客平台，我还是比较喜欢个人博客。一来逼格比较高，可以为将来的交友、面试等活动加分；二来可以随心所欲地自定义样式，使网站完全符合我的Style。</p>
-
-<p>这么一来，似乎就只剩下Github Pages了。</p>
-
-<h3>那么，如何在Github Pages上进行写作？</h3>
-
-<p>首先要介绍一下 Github Pages 的架构。先看看 <a href="https://help.github.com/articles/using-jekyll-with-pages/#using-jekyll">Github的介绍</a>：</p>
-
-<blockquote>
-<h4>Using Jekyll</h4>
-
-<p>Every GitHub Page is run through Jekyll when you push content to a specially named branch within your repository. For User Pages, use the master branch in your username.github.io repository. For Project Pages, use the gh-pages branch in your project&#39;s repository. Because a normal HTML site is also a valid Jekyll site, you don&#39;t have to do anything special to keep your standard HTML files unchanged. Jekyll has thorough documentation that covers its features and usage. Simply start committing Jekyll formatted files and you&#39;ll be using Jekyll in no time.</p>
-</blockquote>
-
-<p>可以看得出来，Github Pages使用Jekyll作为后端引擎——这是一个用Ruby写的博客框架。但用户不需要写一行Ruby的代码，只需在名为<strong><username>.github.io</strong>的项目下面以一定的目录结构放置markdown文件，Jekyll便会自动生成整个站点。</p>
-
-<p>这里需要注意的是，Jekyll生成的站点是<strong>静态的</strong>，也就是说站点的文件是Jekyll编译好之后存放在服务器端的，而不是接到请求之后才去编译站点，因此站点的访问速度是相当快的——这也是它的优点。</p>
-
-<hr>
-
-<p>我被这种机制深深地震惊了：这是一种我从来没见过的写作方式，无论是从方式上，抑或是从形式上。Jekyll 能让你真正专注于写作，而不是其他一些无谓的东西。     </p>
-
-<p>它把一切无关的东西都摒弃了，这才是真正的极简主义。</p>
-
-<hr>
-
-<p>最初的Jekyll站点是没有样式的。为了不重复发明轮子，我决定使用现成的主题。在网上略一搜索便有了收获：<a href="http://jekyllbootstrap.com/">Jekyll Bootstrap</a>。</p>
-
-<p>Bootstrap是我最常用，也是最欣赏的一个前端框架。因此尽管这个主题仍在开发当中，我还是毫不犹豫地选中了它。    </p>
-
-<p>从 <a href="https://github.com/plusjade/jekyll-bootstrap.git">Github</a> 上将这个项目 clone 下来，覆盖到hsfzxjy.github.io项目下，理论上，站点就可以运行了。接下来，进行一些样式上的微调就可以了。   </p>
-
-<p>至于评论系统，由于 Github Pages 是静态站点，因此只能使用第三方评论服务。Jekyll 默认的评论服务是Disqus ——一个国外的评论服务站点，但考虑到我在国内，许多人无法使用Facebook，Twitter等社交平台登录评论，我将它替换为了<strong>多说</strong>。具体操作，可以参考 <a href="http://havee.me/internet/2013-07/add-duoshuo-commemt-system-into-jekyll.html">这里</a>。</p>
-
-<p>Github Pages上的文章只能在本地编辑，因而需要一个趁手的 Markdown 编辑器。在 Ubuntu 环境下我使用的是 <strong>ReText</strong>：</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get install retext 
-</code></pre></div>
         </section>
           
 
@@ -240,12 +183,7 @@
             <p class="time">31 Mar 2015</p>
         </header>
         <section class="content">
-            <p>从昨天到现在一直都有这个问题，刚刚突然就解决了，至今不明白原理，在此记录一下：</p>
-
-<blockquote>
-<p>在网络设置中取消<strong>需要IPv6完成这个链接</strong>的选项</p>
-</blockquote>
-
+            {"options"=>{}}
         </section>
         
           <ul class="tag_box inline">
@@ -277,22 +215,7 @@
             <p class="time">04 Mar 2015</p>
         </header>
         <section class="content">
-            <h3>公式</h3>
-
-<p>$I = {I_m \over \sqrt{2}}$</p>
-
-<h3>证明</h3>
-
-<p>设 $I = Asin\omega t$，则$I^2 = A^2sin^2\omega t$。</p>
-
-<p>取半个周期进行计算：$${Q \over R} $$<br />
-$$= \int_0^{T \over 2} I^2tdt$$<br />
-$$={A^2 \over 2}(t - {sin2\omega t \over 2\omega})|_{0}^{T \over 2}$$<br />
-$$={A^2T \over 4}$$<br />
-$$={I^2T \over 2}$$</p>
-
-<p>进而： $I = {A \over \sqrt{2}}$</p>
-
+            {"options"=>{}}
         </section>
         
           <ul class="tag_box inline">
@@ -328,125 +251,7 @@ $$={I^2T \over 2}$$</p>
             <p class="time">03 Mar 2015</p>
         </header>
         <section class="content">
-            <blockquote>
-<p>一个真正优秀的系统，值得你无数次地去重构。</p>
-</blockquote>
-
-<p>消息系统算是网站比较重要的一部分，它承担着将<strong>已发生的事件通知给相关用户</strong>的责任。看似简单，但若想做到DRY，实现起来却很复杂——因为，通知的类型太多了。</p>
-
-<p>这个系统，在三个项目中我实现了三次。三次都使用不同的方法，但三次都不怎么满意。这最后一次，算是比较成功的一次了。</p>
-
-<p>在第一版模联网站中，我采用了一个堪称最糟糕的方案（如图所示）：</p>
-
-<p><img src="/assets/wboard_notifications.jpg" alt="UML" /></p>
-
-<p>这个方案最大的缺点：</p>
-
-<ol>
-<li><strong>耦合度太高</strong>。如果有一天，又多了一种消息类型，那么就要多加一张表。</li>
-<li><strong>查询的难度大</strong>。通常来说我们需要显示所有的消息，从而需要使用JOIN语句进行多表联查——这效率是很低的。</li>
-<li><strong>SQL本身就不是面向对象的</strong>。虽说<code>CommentNotification</code>是<code>Notification</code>的子类，可查询时却并不能使用类似<code>Notification.objects.all()</code>一类的语句。在一定程度上可以说：SQL本身就不是面向对象的。</li>
-</ol>
-
-<p>而在第二版模联网站中，我采用了<a href="https://docs.djangoproject.com/en/1.7/ref/contrib/contenttypes/">泛型</a>（Generic Model Relations）这一技术来实现——这是Django另一大特色：<strong>通过记录对象的类型信息以及唯一标识符，实现了一种可以指向任何表的外键（GenericRelation）</strong>。这种技术存在的目的就是为了<strong>解耦合</strong>，使系统扩展更具灵活性——尽管要损失一些效率，但与架构的“健康”比起来那是微不足道的，无可厚非。</p>
-
-<p>UML图如下：</p>
-
-<p><img src="/assets/hfmun_notices.jpg" alt="UML" /></p>
-
-<p>这其中，<code>notice_type</code>的取值决定了<strong><code>url</code>域的作用</strong>：</p>
-
-<ul>
-<li><strong><code>link</code></strong>。该消息的<code>url</code>域表示一个指向<code>related_object</code>的地址，应该展示给用户看。</li>
-<li><strong><code>invoke</code></strong>。该消息需要在用户确认后执行一个动作。其<code>url</code>域表示需要执行的动作的地址——这里有些TaskQueue的意味。</li>
-</ul>
-
-<p>然而，发消息时又应该怎么做呢？如果在所有的地方都来一句：<code>Notice.create(......)</code>，那也太不DRY了吧？</p>
-
-<p>有人说：“懒惰是程序员的天性。”</p>
-
-<p>我赞同，但我还想补充一句：“懒惰更是程序员精简代码的动力。”</p>
-
-<p>于是，我创立了一个类<code>NoticeDispatcher</code>，用于分发消息——其实这一类工具代码在之前的系统中也存在过，只不过这一版本的令我更为满意。</p>
-
-<pre><code>class NoticeDispatcher(object):
-
-    def __init__(self, model, default = {}):
-        if not issubclass(model, SendNoticeModelMixin):
-            raise TypeError('The `model` must be a subclass of  `SendNoticeModelMixin`.')
-        self.__model = model
-        self.__default = {}
-        self.__default.update(default)
-
-    def send(self, *args, **kwargs):
-        klass = Notice
-
-        title = self.__model.generate_title(*args, **kwargs) 
-        content = self.__model.generate_content(*args, **kwargs) 
-        url = self.__model.generate_url(*args, **kwargs)
-        user = self.__model.generate_user(*args, **kwargs)
-
-        valid_keys_set = set(kwargs.iterkeys()) &amp; \
-            set(field.name for field in klass._meta.fields)
-
-        params = deepcopy(self.__default)
-        params.update({key: kwargs[key] for key in valid_keys_set})
-        params.update({
-            'title': title,
-            'content': content,
-            'url': url,
-        })
-
-        results = []
-        try:
-            iter(user)
-        except:
-            user = (user,)
-
-        for _user in user:
-            params['user'] = _user
-            notice = klass(*args, **params)
-            notice.save()
-            results.append(notice)
-
-        return results
-</code></pre>
-
-<p>我们可以传入一个模型类作为参数从而获得一个<code>NoticeDispatcher</code>对象。这个模型类被要求继承于<code>notices.mixins.SendNoticeModelMixin</code>，以完成一些默认的配置——这是一个抽象基类：</p>
-
-<pre><code>class SendNoticeModelMixin(object):
-
-    @classmethod
-    def generate_title(klass, *args, **kwargs):
-        return ''
-
-    @classmethod
-    def generate_content(klass, *args, **kwargs):
-        return ''
-
-    @classmethod
-    def generate_url(klass, *args, **kwargs):
-        return ''
-
-    @classmethod
-    def generate_user(klass, *args, **kwargs):
-        return []
-</code></pre>
-
-<p>做完这一切之后，每当调用<code>notice_dispatcher.send()</code>方法时，<code>NoticeDispatcher</code>会自动调用模型类中的<code>generate_*</code>方法以获取构建消息对象的默认参数。像一些基本不变的内容——如<code>url</code>、<code>title</code>就可以用代码自动生成，进而提高代码复用率。</p>
-
-<p>当然，这个系统仍有一些不够完善的地方，如：</p>
-
-<ul>
-<li><code>notice_type</code>为<code>invoke</code>时的逻辑至今尚未实现。</li>
-<li>当消息的构建不需要<code>related_object</code>参数时，仍需调用原生的<code>create</code>方法，非常麻烦。</li>
-<li><code>related_object</code>参数仍需手动传入，有些不干净——最好就是能在<code>SendNoticeModelMixin</code>上实现<code>send</code>方法，很多啰嗦的代码便又可以省略掉了。</li>
-</ul>
-
-<p>以上问题，或是由于没有需求，或是由于懒惰（- -!），没有来得及去实现。但愿能在下一次改进时解决。</p>
-
-<p>总而言之呢，事情正在似乎在朝着好的方面发展。</p>
-
+            {"options"=>{}}
         </section>
         
           <ul class="tag_box inline">
@@ -482,47 +287,7 @@ $$={I^2T \over 2}$$</p>
             <p class="time">03 Mar 2015</p>
         </header>
         <section class="content">
-            <p>再一次站在这里，我却发现早已没有了熟悉的感觉。一切都是那样陌生：长年累月的雨水冲刷，使原本灰色的墙面变得愈加晦暗，有几处墙皮脱落了，酷似一张布满皱纹的老脸；门前，野草肆意地疯长着，没过了缩在墙角的那根水管——记忆中它一直在渗水，却不知何时被修好了，只留下了一圈丑陋的青苔，像是对这十年光阴的一个标注。</p>
-
-<p>这里的一切，就像是被人遗弃了。四周站着的那一圈高楼，无时无刻不在表达着对这角隅的不屑——就像长辈们对待无知的孩童一样。<br />
-而事实上，这里比周围的一切都要年长。</p>
-
-<p>时光上溯十年，那时，我居住于此。那时，还没有周围这一切。</p>
-
-<p>曾记得，在不远处的那块菜地，我和小伙伴趟过泥水，猫着腰在捕捉小鱼小虾。柔软的泥土记录这我们的足迹，竹架上的蔬果聆听着我们的欢笑，就连那不知名的虫儿，也哼起歌为我们助兴。</p>
-
-<p>曾记得，在屋后的那片小树林，上演过一次又一次的“探险之旅”。不畏阴暗，不惧神秘，只求抵达尽头时那种大汗淋漓的快意。</p>
-
-<p>曾记得，在楼顶的天台，我第一次仰望星空。夏夜的风吹起架子上的藤蔓，吹拂着我的脸庞。和着如水的月光，四周的一切就像仙境般梦幻。</p>
-
-<p>这里，有着我童年的所有回忆。</p>
-
-<p>可如今，这一切都像是未曾发生过。这里，也未曾记得。</p>
-
-<p>十年，很长，长得足以让一个人，去遗忘一个地方。</p>
-
-<p>再一次遇见他，没有太多的喜悦，只是相视一笑，随即，便陷入了沉默。</p>
-
-<p>比起上一次相遇，他又有了一些变化，整个人显得更加成熟了。但与此同时，一种未知的像雾一样的却在我们中间弥散开来，凝固着空气，窒息着心灵。</p>
-
-<p>我竭力搜寻着话题，想要打破这恼人的尴尬，但却徒劳无功——真的没有共同语言了，毕竟在新的环境里，我们都有了新的爱好。</p>
-
-<p>真是一个让人迷惑的时代——在这里，共有着美好的回忆，却也无法维系十年的友情。</p>
-
-<p>在那人生的上古时期，他，是我最好的朋友，一起逃过课，在小学边上的山坡尽情地疯玩；一起偷过钱，忐忑地在小商店购买垂涎已久的零食。那些年和他，一玩能玩一天，一聊能聊一宿。我们有过争吵，而更多时候，我们亲如弟兄。</p>
-
-<p>记忆中的那些画面，每一张笑脸，每一滴眼泪，都是那样真诚。</p>
-
-<p>只是，曾经的旧知己，最终还是变不到老友。</p>
-
-<p>十年，很长，长得足以让一个人，去疏远另一个人。</p>
-
-<p>十年，真的很长。承载着过去的回忆，有欢笑，有泪水——就像是人那短暂一生的缩影。</p>
-
-<p>人生又能有几个十年？无从得知。</p>
-
-<p>因此，每一个十年都弥足珍贵；每一个十年，都要用心去珍惜。</p>
-
+            {"options"=>{}}
         </section>
         
           <ul class="tag_box inline">

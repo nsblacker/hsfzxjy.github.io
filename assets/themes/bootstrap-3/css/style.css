@@ -1,4 +1,4 @@
-@font-face{font-family:"lobster";src:url("Lobster_1.3.otf")}*{font-family:"Microsoft Yahei" !important}
+@font-face{font-family:"lobster";src:url("Lobster_1.3.otf")}li>a{font-family:"Microsoft Yahei" !important}
 a.navbar-brand{font-family:"lobster" !important}
 #wrap{height:auto;margin:0 auto -30px;padding:0 0 30px}
 .content{letter-spacing:.05em}.content p,.content li{font-size:16px;line-height:24px}

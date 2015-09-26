@@ -159,11 +159,15 @@
       <blockquote>
 <p>链接：<a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;category=4&amp;problem=161&amp;mosmsg=Submission%20received%20with%20ID%2014355705">Link</a> 耗时：0.699s</p>
 </blockquote>
+
 <h2><strong>思路</strong></h2>
+
 <p><code>dfs(t, x, y, d, s)</code>表示当前走了t步，在(x,y)，上一个方向为d，s为一个求和用的辅助变量。<br />
 当前位置无法走完剩下的路时直接回溯。可节省接近2s的时间。<br />
 <strong>ps: 这道题虽然没有明说每个城市只走一次，但它的确那样判了，这一点坑了我好久。</strong></p>
+
 <h2><strong>Code</strong></h2>
+
 <pre><code>//Accepted.
 const
     dx: array [1..4] of integer = (1, 0, 0, -1);

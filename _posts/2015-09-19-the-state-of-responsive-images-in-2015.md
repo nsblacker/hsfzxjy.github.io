@@ -9,7 +9,7 @@ categories: 翻译 编程 web设计
 
 ![](http://netdna.webdesignerdepot.com/uploads/2015/08/featured_images1.jpg)
 
-Web 是一种可视化的媒体。如此壮阔的视觉效果，很大程度上要感谢图片文件所作出的贡献。虽然（Whilst）其中的许多效果都可以用 CSS 和 内联 SVG 来实现，互联网上的许多站点仍需要图片文件。
+Web 是一种可视化的媒体。绚丽的视觉效果，很大程度上离不开图片文件所作出的贡献。虽然（Whilst）其中的许多效果都可以用 CSS 和 内联 SVG 来实现，互联网上的许多站点仍需要图片文件。
 
 从去年的统计来看，每个站点中，图片平均占了一半的页面体积，并且随着时间的推移，图片体积有持续增加的趋势；就 2014 年而言，图片的大小便增长了 **21%**。
 
@@ -354,4 +354,39 @@ w 描述符最大的毛病（gotcha）就是：尽管在使用 x 描述符时，
 
 ## 创建 响应式图片
 
-（ To be continue ...)
+位图并不会自己放大——这点和 SVG 不一样。面对这个问题，我们的解决方法是：使用 `srcset` 或者是 `picture`，从而为不同能力的浏览器提供不同的图片。因此，我们需要提供许多种不同尺寸的图片。
+
+许多图片编辑软件都实现了图片自动化多尺寸导出——无论使用何种软件，你都可以轻松获得各种尺寸的图片，而无需亲自逐一调整。
+
+Adobe Photoshop 是一款事实上的（de facto）位图编辑器。尽管对于设计工作者而言，它并不是一个很好的选择，但不可否认的是——用它来设计图片确实是一种享受（smooth & reliable）。在 Photoshop 中，多图输出的实现相对直接一些：
+
+ 1. 打开图片，并将其放在一个独立的图层上。 ![](http://netdna.webdesignerdepot.com/uploads/2015/08/step_1.jpg)
+ 2. 将图层重命名为你要生成的文件的名字（包括扩展名）![](http://netdna.webdesignerdepot.com/uploads/2015/08/step_2.jpg)
+ 3. 勾选 文件 -> 生成 -> 图片资源，然后 Photoshop 会在 PSD 文件旁生成一个新目录，其中有生成好的图片。
+ 4. 再次重命名图层，在每个文件名前加上对应的缩放尺寸。一旦图层被重命名，对应的图片便会自动生成，因此不必重复 步骤3。![](http://netdna.webdesignerdepot.com/uploads/2015/08/step_4.jpg)
+
+_（图片版权归 [Philip Collier](http://www.freeimages.com/photo/bikes-1447404) 所有）_
+
+若想了解更多关于 使用 Photoshop 生成图片 的知识，请点击 (这里)[https://helpx.adobe.com/photoshop/using/generate-assets-layers.html)。
+
+基于这些图片，我们便可以给浏览器提供 5 种选择：
+
+```html
+<img srcset="bikes_3x.jpg 3x, bikes_2-5x.jpg 2.5x, bikes_2x.jpg 2x, bikes_1-5x.jpg 1.5x" src="bikes_1x.jpg" alt="an image" />
+```
+
+## 结语
+
+`img` 标签已经度过了漫长的 20 个春秋——或者更精确地说，在伴着缺点（inadequate）缓慢行进了 18 年后，`img` 标签在最后的两年突然“奋起直追”，直到变成今天这个相对复杂（sophisticated）的样子。
+
+当然最重要的是：**我们找到了解决方案**。
+
+迄今为止，在 `srcset` 和 `picture` 这两个可选项中，前者的浏览器支持相对比较完善。如果你的网站已经完成了 95%，`srcset` 的高级特性及其简洁的实现将是你的不二之选。
+
+如果你在运营一个庞大的电子商务网站，有成千上万的产品图片需要显示，最佳的实践便是使用 WebP 格式的图片——随着 `picture` 元素的支持被不断完善，这一切的付出都是值得的。
+
+浏览器无法依据当前的网络状况来选择适合的图片——这是现有解决方案最大的缺点。这不是我们所能左右的。在当下，我们只能祈求“好马配好鞍”了。
+
+用最小的尺寸提供最高质量的图片，终于成为了可能。这意味着：在不久的将来，我们将能拥抱（embrace）更好的用户体验。
+
+_（图片引用：[mountains](http://www.shutterstock.com/pic-84977458.html) & [devices](http://www.shutterstock.com/pic-116864680.html)，来自 Shutterstock）_

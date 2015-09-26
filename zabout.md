@@ -2,7 +2,6 @@
 layout: page
 published: true
 title: 联系我
-date: 2014-08-19 14:41:23.000000000 +08:00
 permalink: /about/
 group: navigation
 ---

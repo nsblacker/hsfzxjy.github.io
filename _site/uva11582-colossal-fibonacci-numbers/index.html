@@ -159,8 +159,11 @@
       <blockquote>
 <p>链接：<a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;category=27&amp;problem=2629&amp;mosmsg=Submission%20received%20with%20ID%2014290914">Link</a> 耗时：0.139s</p>
 </blockquote>
+
 <h2>前言</h2>
+
 <p>这道题的主要思路就是打表，看看Fibonacci数列模n几个一循环。但由于这题给的数太大了，从而在细节上耗了很久。在此记录一下：</p>
+
 <pre><code>var
     x: qword;
     y: longint;
@@ -171,7 +174,9 @@ begin
     x := x mod qword(y); //正确
 end.
 </code></pre>
+
 <h2>Code</h2>
+
 <pre><code>var
     a,b: qword;
     _, n, i, k, cnt: longint;
@@ -272,7 +277,7 @@ end.
 
   <!-- Duoshuo Comment BEGIN -->
     <div id="comments">
-        <div class="ds-thread" data-thread-key="/uva11582-colossal-fibonacci-numbers-%e5%a4%a7%e6%95%b0%e6%93%8d%e4%bd%9c"  data-title="UVa11582 Colossal Fibonacci Numbers! && 大数操作 - hsfzxjy"></div>
+        <div class="ds-thread" data-thread-key="/uva11582-colossal-fibonacci-numbers"  data-title="UVa11582 Colossal Fibonacci Numbers! && 大数操作 - hsfzxjy"></div>
     </div>
 <!-- Duoshuo Comment END -->
 

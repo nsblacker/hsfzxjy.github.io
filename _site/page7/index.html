@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>主页</title>
+    <title>hsfzxjy</title>
     
     <script src="/assets/themes/bootstrap-3/bootstrap/js/jquery.min.js"></script>
     <meta name="author" content="Jinyi Xie">
@@ -288,12 +288,16 @@ end.
             <blockquote>
 <p>问题描述：已知数组a以及若干个查询(x, y)，求a[x~y]之间的最小值。</p>
 </blockquote>
+
 <h2><strong>分析</strong></h2>
+
 <p>不难发现：若取t使得$2^t\leq y-x+1$且$2^{t+1}>y-x+1$，则有：<br />
 $$[x, x+t]\bigcup[y-t+1,y]=[x,y]$$<br />
 运用二进制的思想，我们只需预处理出$i~i+2^k-1$之间的最小值，即可快速完成查询。设dp[i][j]为$i~i+2^j-1$之间的最小值，则有：<br />
 $$dp[i][j]=min(dp[i][j-1],dp[i+2^{j-1}][j-1])$$。</p>
+
 <h2><strong>Code</strong></h2>
+
 <pre><code>var
     a: array [1..100000] of longint;
     dp: array [1..100000, 0..20] of longint;
@@ -383,9 +387,12 @@ end.
         </header>
         <section class="content">
             <h2><strong>介绍</strong></h2>
+
 <p>所谓树状数组，就是将线性的数组预处理成树状的结构以降低时间复杂度。先来看一幅经典的图： <img src="/assets/TArry1.jpg" alt="enter image description here" /><br />
 其中的a数组为原生数组，c数组为辅助数组，计算方式为： $$c_1=a_1——{(1)}&#95;{10}={(1)}&#95;2$$ $$c_2=a_2+c_1——{(2)}&#95;{10}={(10)}&#95;2$$ $$\ldots$$              不难发现，c[k]存储的实际上是从k开始向前数k的二进制表示中右边第一个1所代表的数字个元素的和。这样写的好处便是可以利用位运算轻松计算sum。上代码。</p>
+
 <h2><strong>Code</strong></h2>
+
 <pre><code>var
     n, i: longint;
     a, c: array [1..10000] of longint;
@@ -508,9 +515,13 @@ end.
             <blockquote>
 <p>在学习数论时我们都知道：只用2的幂次可以组合出所有的正整数。这便是二进制的魅力——状态简单而又变化万千。</p>
 </blockquote>
+
 <h2><strong>引子</strong></h2>
+
 <p>实际算法中，常常有一些线性的但数据量特别大的问题，如区间求和、求最小值等。很多时候，为了把时间复杂度从$O(n^2)$甚至更高的地方降下来，我们需要对数据进行一些预处理，以提高计算的速度。在这其中，有很大一部分是来自二进制运算特点的启发。</p>
+
 <h2><strong>目录</strong></h2>
+
 <ol>
 <li><a href="/archives/307">树状数组</a></li>
 <li><a href="/archives/318">RMQ</a> </li>
@@ -555,6 +566,7 @@ end.
             <blockquote>
 <p>测试位置：<a href="http://codevs.cn/problem/1078/">WikiOI1078</a></p>
 </blockquote>
+
 <pre><code>type
     TEdge = record
         start, terminal: longint;

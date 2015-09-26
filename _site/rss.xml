@@ -5,8 +5,8 @@
         <description>hsfzxjy - Jinyi Xie</description>
         <link>http://hsfzxjy.github.io</link>
         <atom:link href="http://hsfzxjy.github.io/rss.xml" rel="self" type="application/rss+xml" />
-        <lastBuildDate>Sat, 19 Sep 2015 22:01:46 +0800</lastBuildDate>
-        <pubDate>Sat, 19 Sep 2015 22:01:46 +0800</pubDate>
+        <lastBuildDate>Sat, 26 Sep 2015 23:40:54 +0800</lastBuildDate>
+        <pubDate>Sat, 26 Sep 2015 23:40:54 +0800</pubDate>
         <ttl>60</ttl>
 
 
@@ -18,7 +18,7 @@
 
 &lt;p&gt;&lt;img src=&quot;http://netdna.webdesignerdepot.com/uploads/2015/08/featured_images1.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
-&lt;p&gt;Web 是一种可视化的媒体。如此壮阔的视觉效果，很大程度上要感谢图片文件所作出的贡献。虽然（Whilst）其中的许多效果都可以用 CSS 和 内联 SVG 来实现，互联网上的许多站点仍需要图片文件。&lt;/p&gt;
+&lt;p&gt;Web 是一种可视化的媒体。绚丽的视觉效果，很大程度上离不开图片文件所作出的贡献。虽然（Whilst）其中的许多效果都可以用 CSS 和 内联 SVG 来实现，互联网上的许多站点仍需要图片文件。&lt;/p&gt;
 
 &lt;p&gt;从去年的统计来看，每个站点中，图片平均占了一半的页面体积，并且随着时间的推移，图片体积有持续增加的趋势；就 2014 年而言，图片的大小便增长了 &lt;strong&gt;21%&lt;/strong&gt;。&lt;/p&gt;
 
@@ -295,7 +295,41 @@
 
 &lt;h2&gt;创建 响应式图片&lt;/h2&gt;
 
-&lt;p&gt;（ To be continue ...)&lt;/p&gt;
+&lt;p&gt;位图并不会自己放大——这点和 SVG 不一样。面对这个问题，我们的解决方法是：使用 &lt;code&gt;srcset&lt;/code&gt; 或者是 &lt;code&gt;picture&lt;/code&gt;，从而为不同能力的浏览器提供不同的图片。因此，我们需要提供许多种不同尺寸的图片。&lt;/p&gt;
+
+&lt;p&gt;许多图片编辑软件都实现了图片自动化多尺寸导出——无论使用何种软件，你都可以轻松获得各种尺寸的图片，而无需亲自逐一调整。&lt;/p&gt;
+
+&lt;p&gt;Adobe Photoshop 是一款事实上的（de facto）位图编辑器。尽管对于设计工作者而言，它并不是一个很好的选择，但不可否认的是——用它来设计图片确实是一种享受（smooth &amp;amp; reliable）。在 Photoshop 中，多图输出的实现相对直接一些：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;打开图片，并将其放在一个独立的图层上。 &lt;img src=&quot;http://netdna.webdesignerdepot.com/uploads/2015/08/step_1.jpg&quot; alt=&quot;&quot;&gt;&lt;/li&gt;
+&lt;li&gt;将图层重命名为你要生成的文件的名字（包括扩展名）&lt;img src=&quot;http://netdna.webdesignerdepot.com/uploads/2015/08/step_2.jpg&quot; alt=&quot;&quot;&gt;&lt;/li&gt;
+&lt;li&gt;勾选 文件 -&amp;gt; 生成 -&amp;gt; 图片资源，然后 Photoshop 会在 PSD 文件旁生成一个新目录，其中有生成好的图片。&lt;/li&gt;
+&lt;li&gt;再次重命名图层，在每个文件名前加上对应的缩放尺寸。一旦图层被重命名，对应的图片便会自动生成，因此不必重复 步骤3。&lt;img src=&quot;http://netdna.webdesignerdepot.com/uploads/2015/08/step_4.jpg&quot; alt=&quot;&quot;&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;em&gt;（图片版权归 &lt;a href=&quot;http://www.freeimages.com/photo/bikes-1447404&quot;&gt;Philip Collier&lt;/a&gt; 所有）&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;若想了解更多关于 使用 Photoshop 生成图片 的知识，请点击 (这里)[https://helpx.adobe.com/photoshop/using/generate-assets-layers.html)。&lt;/p&gt;
+
+&lt;p&gt;基于这些图片，我们便可以给浏览器提供 5 种选择：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;img&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;srcset=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;bikes_3x.jpg 3x, bikes_2-5x.jpg 2.5x, bikes_2x.jpg 2x, bikes_1-5x.jpg 1.5x&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;bikes_1x.jpg&amp;quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;alt=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;an image&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;结语&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;img&lt;/code&gt; 标签已经度过了漫长的 20 个春秋——或者更精确地说，在伴着缺点（inadequate）缓慢行进了 18 年后，&lt;code&gt;img&lt;/code&gt; 标签在最后的两年突然“奋起直追”，直到变成今天这个相对复杂（sophisticated）的样子。&lt;/p&gt;
+
+&lt;p&gt;当然最重要的是：&lt;strong&gt;我们找到了解决方案&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;迄今为止，在 &lt;code&gt;srcset&lt;/code&gt; 和 &lt;code&gt;picture&lt;/code&gt; 这两个可选项中，前者的浏览器支持相对比较完善。如果你的网站已经完成了 95%，&lt;code&gt;srcset&lt;/code&gt; 的高级特性及其简洁的实现将是你的不二之选。&lt;/p&gt;
+
+&lt;p&gt;如果你在运营一个庞大的电子商务网站，有成千上万的产品图片需要显示，最佳的实践便是使用 WebP 格式的图片——随着 &lt;code&gt;picture&lt;/code&gt; 元素的支持被不断完善，这一切的付出都是值得的。&lt;/p&gt;
+
+&lt;p&gt;浏览器无法依据当前的网络状况来选择适合的图片——这是现有解决方案最大的缺点。这不是我们所能左右的。在当下，我们只能祈求“好马配好鞍”了。&lt;/p&gt;
+
+&lt;p&gt;用最小的尺寸提供最高质量的图片，终于成为了可能。这意味着：在不久的将来，我们将能拥抱（embrace）更好的用户体验。&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;（图片引用：&lt;a href=&quot;http://www.shutterstock.com/pic-84977458.html&quot;&gt;mountains&lt;/a&gt; &amp;amp; &lt;a href=&quot;http://www.shutterstock.com/pic-116864680.html&quot;&gt;devices&lt;/a&gt;，来自 Shutterstock）&lt;/em&gt;&lt;/p&gt;
 </description>
                 <link>http://hsfzxjy.github.io/the-state-of-responsive-images-in-2015/</link>
                 <guid>http://hsfzxjy.github.io/the-state-of-responsive-images-in-2015</guid>
@@ -1168,30 +1202,36 @@ sudo apt-get dselect-upgrade
         <item>
                 <title>Ubuntu 网络每20秒断开重连一次的解决方案</title>
                 <description>&lt;p&gt;从昨天到现在一直都有这个问题，刚刚突然就解决了，至今不明白原理，在此记录一下：&lt;/p&gt;
+
 &lt;blockquote&gt;
 &lt;p&gt;在网络设置中取消&lt;strong&gt;需要IPv6完成这个链接&lt;/strong&gt;的选项&lt;/p&gt;
 &lt;/blockquote&gt;
 </description>
                 <link>http://hsfzxjy.github.io/solution-of-network-broken-down-per-20s-under-ubuntu/</link>
-                <guid>http://hsfzxjy.github.io/ubuntu-%e7%bd%91%e7%bb%9c%e6%af%8f20%e7%a7%92%e6%96%ad%e5%bc%80%e9%87%8d%e8%bf%9e%e4%b8%80%e6%ac%a1%e7%9a%84%e8%a7%a3%e5%86%b3%e6%96%b9%e6%a1%88</guid>
+                <guid>http://hsfzxjy.github.io/solution-of-network-broken-down-per-20s-under-ubuntu</guid>
                 <pubDate>Tue, 31 Mar 2015 19:18:38 +0800</pubDate>
         </item>
 
         <item>
                 <title>关于正弦交流电有效值计算公式的证明</title>
                 <description>&lt;h3&gt;公式&lt;/h3&gt;
+
 &lt;p&gt;$I = {I_m \over \sqrt{2}}$&lt;/p&gt;
+
 &lt;h3&gt;证明&lt;/h3&gt;
+
 &lt;p&gt;设 $I = Asin\omega t$，则$I^2 = A^2sin^2\omega t$。&lt;/p&gt;
+
 &lt;p&gt;取半个周期进行计算：$${Q \over R} $$&lt;br /&gt;
 $$= \int_0^{T \over 2} I^2tdt$$&lt;br /&gt;
 $$={A^2 \over 2}(t - {sin2\omega t \over 2\omega})|_{0}^{T \over 2}$$&lt;br /&gt;
 $$={A^2T \over 4}$$&lt;br /&gt;
 $$={I^2T \over 2}$$&lt;/p&gt;
+
 &lt;p&gt;进而： $I = {A \over \sqrt{2}}$&lt;/p&gt;
 </description>
                 <link>http://hsfzxjy.github.io/provement-of-Sinusoidal-AC-RMS-calculation-formula/</link>
-                <guid>http://hsfzxjy.github.io/%e5%85%b3%e4%ba%8e%e6%ad%a3%e5%bc%a6%e4%ba%a4%e6%b5%81%e7%94%b5%e6%9c%89%e6%95%88%e5%80%bc%e8%ae%a1%e7%ae%97%e5%85%ac%e5%bc%8f%e7%9a%84%e8%af%81%e6%98%8e</guid>
+                <guid>http://hsfzxjy.github.io/provement-of-Sinusoidal-AC-RMS-calculation-formula</guid>
                 <pubDate>Wed, 04 Mar 2015 19:32:50 +0800</pubDate>
         </item>
 
@@ -1200,28 +1240,44 @@ $$={I^2T \over 2}$$&lt;/p&gt;
                 <description>&lt;blockquote&gt;
 &lt;p&gt;一个真正优秀的系统，值得你无数次地去重构。&lt;/p&gt;
 &lt;/blockquote&gt;
+
 &lt;p&gt;消息系统算是网站比较重要的一部分，它承担着将&lt;strong&gt;已发生的事件通知给相关用户&lt;/strong&gt;的责任。看似简单，但若想做到DRY，实现起来却很复杂——因为，通知的类型太多了。&lt;/p&gt;
+
 &lt;p&gt;这个系统，在三个项目中我实现了三次。三次都使用不同的方法，但三次都不怎么满意。这最后一次，算是比较成功的一次了。&lt;/p&gt;
+
 &lt;p&gt;在第一版模联网站中，我采用了一个堪称最糟糕的方案（如图所示）：&lt;/p&gt;
+
 &lt;p&gt;&lt;img src=&quot;/assets/wboard_notifications.jpg&quot; alt=&quot;UML&quot; /&gt;&lt;/p&gt;
+
 &lt;p&gt;这个方案最大的缺点：&lt;/p&gt;
+
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;耦合度太高&lt;/strong&gt;。如果有一天，又多了一种消息类型，那么就要多加一张表。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;查询的难度大&lt;/strong&gt;。通常来说我们需要显示所有的消息，从而需要使用JOIN语句进行多表联查——这效率是很低的。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;SQL本身就不是面向对象的&lt;/strong&gt;。虽说&lt;code&gt;CommentNotification&lt;/code&gt;是&lt;code&gt;Notification&lt;/code&gt;的子类，可查询时却并不能使用类似&lt;code&gt;Notification.objects.all()&lt;/code&gt;一类的语句。在一定程度上可以说：SQL本身就不是面向对象的。&lt;/li&gt;
 &lt;/ol&gt;
+
 &lt;p&gt;而在第二版模联网站中，我采用了&lt;a href=&quot;https://docs.djangoproject.com/en/1.7/ref/contrib/contenttypes/&quot;&gt;泛型&lt;/a&gt;（Generic Model Relations）这一技术来实现——这是Django另一大特色：&lt;strong&gt;通过记录对象的类型信息以及唯一标识符，实现了一种可以指向任何表的外键（GenericRelation）&lt;/strong&gt;。这种技术存在的目的就是为了&lt;strong&gt;解耦合&lt;/strong&gt;，使系统扩展更具灵活性——尽管要损失一些效率，但与架构的“健康”比起来那是微不足道的，无可厚非。&lt;/p&gt;
+
 &lt;p&gt;UML图如下：&lt;/p&gt;
+
 &lt;p&gt;&lt;img src=&quot;/assets/hfmun_notices.jpg&quot; alt=&quot;UML&quot; /&gt;&lt;/p&gt;
+
 &lt;p&gt;这其中，&lt;code&gt;notice_type&lt;/code&gt;的取值决定了&lt;strong&gt;&lt;code&gt;url&lt;/code&gt;域的作用&lt;/strong&gt;：&lt;/p&gt;
+
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;&lt;code&gt;link&lt;/code&gt;&lt;/strong&gt;。该消息的&lt;code&gt;url&lt;/code&gt;域表示一个指向&lt;code&gt;related_object&lt;/code&gt;的地址，应该展示给用户看。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;&lt;code&gt;invoke&lt;/code&gt;&lt;/strong&gt;。该消息需要在用户确认后执行一个动作。其&lt;code&gt;url&lt;/code&gt;域表示需要执行的动作的地址——这里有些TaskQueue的意味。&lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;p&gt;然而，发消息时又应该怎么做呢？如果在所有的地方都来一句：&lt;code&gt;Notice.create(......)&lt;/code&gt;，那也太不DRY了吧？&lt;/p&gt;
+
 &lt;p&gt;有人说：“懒惰是程序员的天性。”&lt;/p&gt;
+
 &lt;p&gt;我赞同，但我还想补充一句：“懒惰更是程序员精简代码的动力。”&lt;/p&gt;
+
 &lt;p&gt;于是，我创立了一个类&lt;code&gt;NoticeDispatcher&lt;/code&gt;，用于分发消息——其实这一类工具代码在之前的系统中也存在过，只不过这一版本的令我更为满意。&lt;/p&gt;
+
 &lt;pre&gt;&lt;code&gt;class NoticeDispatcher(object):
 
     def __init__(self, model, default = {}):
@@ -1264,7 +1320,9 @@ $$={I^2T \over 2}$$&lt;/p&gt;
 
         return results
 &lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;我们可以传入一个模型类作为参数从而获得一个&lt;code&gt;NoticeDispatcher&lt;/code&gt;对象。这个模型类被要求继承于&lt;code&gt;notices.mixins.SendNoticeModelMixin&lt;/code&gt;，以完成一些默认的配置——这是一个抽象基类：&lt;/p&gt;
+
 &lt;pre&gt;&lt;code&gt;class SendNoticeModelMixin(object):
 
     @classmethod
@@ -1283,47 +1341,71 @@ $$={I^2T \over 2}$$&lt;/p&gt;
     def generate_user(klass, *args, **kwargs):
         return []
 &lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;做完这一切之后，每当调用&lt;code&gt;notice_dispatcher.send()&lt;/code&gt;方法时，&lt;code&gt;NoticeDispatcher&lt;/code&gt;会自动调用模型类中的&lt;code&gt;generate_*&lt;/code&gt;方法以获取构建消息对象的默认参数。像一些基本不变的内容——如&lt;code&gt;url&lt;/code&gt;、&lt;code&gt;title&lt;/code&gt;就可以用代码自动生成，进而提高代码复用率。&lt;/p&gt;
+
 &lt;p&gt;当然，这个系统仍有一些不够完善的地方，如：&lt;/p&gt;
+
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;notice_type&lt;/code&gt;为&lt;code&gt;invoke&lt;/code&gt;时的逻辑至今尚未实现。&lt;/li&gt;
 &lt;li&gt;当消息的构建不需要&lt;code&gt;related_object&lt;/code&gt;参数时，仍需调用原生的&lt;code&gt;create&lt;/code&gt;方法，非常麻烦。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;related_object&lt;/code&gt;参数仍需手动传入，有些不干净——最好就是能在&lt;code&gt;SendNoticeModelMixin&lt;/code&gt;上实现&lt;code&gt;send&lt;/code&gt;方法，很多啰嗦的代码便又可以省略掉了。&lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;p&gt;以上问题，或是由于没有需求，或是由于懒惰（- -!），没有来得及去实现。但愿能在下一次改进时解决。&lt;/p&gt;
+
 &lt;p&gt;总而言之呢，事情正在似乎在朝着好的方面发展。&lt;/p&gt;
 </description>
                 <link>http://hsfzxjy.github.io/HFMUN-reconstruction-3/</link>
-                <guid>http://hsfzxjy.github.io/%e3%80%90hfmun%e9%87%8d%e6%9e%84%e7%b3%bb%e5%88%97%e3%80%913-%e6%b6%88%e6%81%af%e7%b3%bb%e7%bb%9f</guid>
+                <guid>http://hsfzxjy.github.io/HFMUN-reconstruction-3</guid>
                 <pubDate>Tue, 03 Mar 2015 21:53:20 +0800</pubDate>
         </item>
 
         <item>
                 <title>十年</title>
                 <description>&lt;p&gt;再一次站在这里，我却发现早已没有了熟悉的感觉。一切都是那样陌生：长年累月的雨水冲刷，使原本灰色的墙面变得愈加晦暗，有几处墙皮脱落了，酷似一张布满皱纹的老脸；门前，野草肆意地疯长着，没过了缩在墙角的那根水管——记忆中它一直在渗水，却不知何时被修好了，只留下了一圈丑陋的青苔，像是对这十年光阴的一个标注。&lt;/p&gt;
+
 &lt;p&gt;这里的一切，就像是被人遗弃了。四周站着的那一圈高楼，无时无刻不在表达着对这角隅的不屑——就像长辈们对待无知的孩童一样。&lt;br /&gt;
 而事实上，这里比周围的一切都要年长。&lt;/p&gt;
+
 &lt;p&gt;时光上溯十年，那时，我居住于此。那时，还没有周围这一切。&lt;/p&gt;
+
 &lt;p&gt;曾记得，在不远处的那块菜地，我和小伙伴趟过泥水，猫着腰在捕捉小鱼小虾。柔软的泥土记录这我们的足迹，竹架上的蔬果聆听着我们的欢笑，就连那不知名的虫儿，也哼起歌为我们助兴。&lt;/p&gt;
+
 &lt;p&gt;曾记得，在屋后的那片小树林，上演过一次又一次的“探险之旅”。不畏阴暗，不惧神秘，只求抵达尽头时那种大汗淋漓的快意。&lt;/p&gt;
+
 &lt;p&gt;曾记得，在楼顶的天台，我第一次仰望星空。夏夜的风吹起架子上的藤蔓，吹拂着我的脸庞。和着如水的月光，四周的一切就像仙境般梦幻。&lt;/p&gt;
+
 &lt;p&gt;这里，有着我童年的所有回忆。&lt;/p&gt;
+
 &lt;p&gt;可如今，这一切都像是未曾发生过。这里，也未曾记得。&lt;/p&gt;
+
 &lt;p&gt;十年，很长，长得足以让一个人，去遗忘一个地方。&lt;/p&gt;
+
 &lt;p&gt;再一次遇见他，没有太多的喜悦，只是相视一笑，随即，便陷入了沉默。&lt;/p&gt;
+
 &lt;p&gt;比起上一次相遇，他又有了一些变化，整个人显得更加成熟了。但与此同时，一种未知的像雾一样的却在我们中间弥散开来，凝固着空气，窒息着心灵。&lt;/p&gt;
+
 &lt;p&gt;我竭力搜寻着话题，想要打破这恼人的尴尬，但却徒劳无功——真的没有共同语言了，毕竟在新的环境里，我们都有了新的爱好。&lt;/p&gt;
+
 &lt;p&gt;真是一个让人迷惑的时代——在这里，共有着美好的回忆，却也无法维系十年的友情。&lt;/p&gt;
+
 &lt;p&gt;在那人生的上古时期，他，是我最好的朋友，一起逃过课，在小学边上的山坡尽情地疯玩；一起偷过钱，忐忑地在小商店购买垂涎已久的零食。那些年和他，一玩能玩一天，一聊能聊一宿。我们有过争吵，而更多时候，我们亲如弟兄。&lt;/p&gt;
+
 &lt;p&gt;记忆中的那些画面，每一张笑脸，每一滴眼泪，都是那样真诚。&lt;/p&gt;
+
 &lt;p&gt;只是，曾经的旧知己，最终还是变不到老友。&lt;/p&gt;
+
 &lt;p&gt;十年，很长，长得足以让一个人，去疏远另一个人。&lt;/p&gt;
+
 &lt;p&gt;十年，真的很长。承载着过去的回忆，有欢笑，有泪水——就像是人那短暂一生的缩影。&lt;/p&gt;
+
 &lt;p&gt;人生又能有几个十年？无从得知。&lt;/p&gt;
+
 &lt;p&gt;因此，每一个十年都弥足珍贵；每一个十年，都要用心去珍惜。&lt;/p&gt;
 </description>
                 <link>http://hsfzxjy.github.io/ten-years/</link>
-                <guid>http://hsfzxjy.github.io/%e5%8d%81%e5%b9%b4</guid>
+                <guid>http://hsfzxjy.github.io/ten-years</guid>
                 <pubDate>Tue, 03 Mar 2015 20:19:18 +0800</pubDate>
         </item>
 
@@ -1334,7 +1416,7 @@ sudo kill &amp;lt;pid&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
 </description>
                 <link>http://hsfzxjy.github.io/kill-processes-under-ubuntu/</link>
-                <guid>http://hsfzxjy.github.io/ubuntu%e6%9d%80%e6%ad%bb%e8%bf%9b%e7%a8%8b</guid>
+                <guid>http://hsfzxjy.github.io/kill-processes-under-ubuntu</guid>
                 <pubDate>Mon, 02 Mar 2015 19:17:55 +0800</pubDate>
         </item>
 
@@ -1343,30 +1425,43 @@ sudo kill &amp;lt;pid&amp;gt;
                 <description>&lt;blockquote&gt;
 &lt;p&gt;现在，我比任何时候都要有主见。&lt;/p&gt;
 &lt;/blockquote&gt;
+
 &lt;p&gt;这是这次重构过程中我最想说的一句话了。&lt;/p&gt;
+
 &lt;p&gt;毋庸置疑，Django是一个十分优秀的Web框架：高效的开发模式，完备的应用集成，以及最重要的一点——具有完全自由的扩展能力——这是Django的灵魂所在。但是无知，通常会束缚了一个人的探索欲望与创新能力，让其变得胆怯、变得懒惰。一年前我的遭遇就很好地印证了这一点。&lt;/p&gt;
+
 &lt;p&gt;对于一个网站而言，用户永远是最重要的元素。没有了用户，网站做得再好也只能被放在角落腐烂，与死尸无异。这样看来，打造一个完美的用户系统就显得十分必要了。&lt;/p&gt;
+
 &lt;p&gt;Django为我们提供了一个优秀的用户系统，它位于&lt;code&gt;django.contrib.auth&lt;/code&gt;——想必Djangoers都对它很熟悉了。&lt;code&gt;auth&lt;/code&gt;应用是专门为用户管理打造的一个应用，它提供了以下功能：&lt;/p&gt;
+
 &lt;ul&gt;
 &lt;li&gt;一个用户模型（User）。这是&lt;code&gt;auth&lt;/code&gt;框架的核心所在，用于存储用户信息，包括 用户名、密码、邮箱等内容。该模型可被替换也可被拓展，具有良好的可塑性。&lt;/li&gt;
 &lt;li&gt;一个权限系统（Permission）。这部分为实现访问控制提供了可能。一个&lt;code&gt;Permission&lt;/code&gt;对应一个关于&lt;code&gt;Model&lt;/code&gt;的操作，默认有&lt;code&gt;add&lt;/code&gt;、&lt;code&gt;change&lt;/code&gt;、&lt;code&gt;delete&lt;/code&gt;三种。值得一提的是，在版本&lt;code&gt;1.7&lt;/code&gt;之前，Django并不提供更改默认权限的能力，即每个&lt;code&gt;Model&lt;/code&gt;都会固定拥有以上三种权限。我个人觉得这种做法不太好，并不是所有的模型都需要这种功能划分。更何况权限限制被应用在Django的每一个角落，如果想让一个模型完全开放，就要多敲许多不必要的代码。如今Django1.7改进了这一点，这使得模型更加简洁了。&lt;/li&gt;
 &lt;li&gt;用户分组的功能（Groups）。一个&lt;code&gt;Group&lt;/code&gt;可以拥有多个&lt;code&gt;Permission&lt;/code&gt;，一个用户可以选择加入一个&lt;code&gt;Group&lt;/code&gt;，并会自动拥有还&lt;code&gt;Group&lt;/code&gt;的权限。这一设计简化了用户管理的操作，同时也让用户系统的更有层次。&lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;p&gt;在这里，我想说的是关于扩展&lt;code&gt;User&lt;/code&gt;模型的一些技巧。&lt;/p&gt;
+
 &lt;p&gt;一年之前，由于对Django的不了解，我不敢对它的内部实现大动干戈。而事实上，没有什么东西是绝对完美的，即便是集众智于一身的开源框架也是如此。诚然，&lt;code&gt;auth&lt;/code&gt;框架是不错，但在某些特定的应用场景，它便显得心有余而力不足了。因此，我希望能在&lt;code&gt;User&lt;/code&gt;模型上附带一些额外的信息。&lt;/p&gt;
+
 &lt;p&gt;百度一下，我找到了一个被广为流传的方法：&lt;code&gt;Profile&lt;/code&gt;模式。也就是说，额外定义一个&lt;code&gt;Profile&lt;/code&gt;模型和&lt;code&gt;User&lt;/code&gt;模型建立一一对应的关系，用于储存额外信息。我清楚地记得，几乎是每一篇博客都在介绍这种方法，于是乎我毫不犹豫地就采纳了。现在想一想，这其实是一个十分糟糕的方案。它有如下缺点：&lt;/p&gt;
+
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;操作麻烦。&lt;/strong&gt;每次访问额外信息，都要先询问是否存在&lt;code&gt;Profile&lt;/code&gt;对象，如果不存在得先创建。然后再调用&lt;code&gt;user_object.profile&lt;/code&gt;来访问信息。同时，这种方案对表单不友好，因为用户信息是被分开储存在两个表中的。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;效率低下。&lt;/strong&gt;每次访问额外信息，先是用&lt;code&gt;IF EXISTS&lt;/code&gt;判断是否存在，再用&lt;code&gt;INNER JOIN&lt;/code&gt;将主信息和次信息从数据库中取出，一共需要两条SQL语句。更何况，&lt;code&gt;INNER JOIN&lt;/code&gt;指令是公认的效率低下的指令。&lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;p&gt;因此，在这次重构中我采用了一种截然不同的做法：直接重写&lt;code&gt;User&lt;/code&gt;模型。这里的灵感来自&lt;a href=&quot;https://docs.djangoproject.com/en/1.7/topics/auth/customizing/#auth-custom-user&quot;&gt;Django官方文档&lt;/a&gt;：&lt;/p&gt;
+
 &lt;blockquote&gt;
 &lt;p&gt;Some kinds of projects may have authentication requirements for which Django’s built-in User model is not always appropriate. For instance, on some sites it makes more sense to use an email address as your identification token instead of a username.&lt;/p&gt;
 &lt;p&gt;Django allows you to override the default User model by providing a value for the AUTH_USER_MODEL setting that references a custom model:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt; AUTH_USER_MODEL = 'myapp.MyUser'
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/blockquote&gt;
+
 &lt;p&gt;听起来不错，既方便实现起来又简单。于是我重写了我的&lt;code&gt;accounts&lt;/code&gt;应用：&lt;/p&gt;
+
 &lt;pre&gt;&lt;code&gt;#encoding=utf8
 &quot;&quot;&quot;
     事实上这里许多实现都模仿自`django.contrib.auth.models.User`，毕竟我只是要存储一些额外信息而已。
@@ -1452,16 +1547,24 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         return self.nickname
 &lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;以及&lt;code&gt;settings.py&lt;/code&gt;文件：&lt;/p&gt;
+
 &lt;pre&gt;&lt;code&gt;#...
 AUTH_USER_MODEL = 'accounts.User'
 #...
 &lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;为了让admin框架同步支持我们的新&lt;code&gt;User&lt;/code&gt;模型，还需要对&lt;code&gt;admin.py&lt;/code&gt;以及&lt;code&gt;forms.py&lt;/code&gt;进行相应的修改，实际上就是把新加入的字段写进相应的类即可，在这里我就不贴代码了。&lt;/p&gt;
+
 &lt;p&gt;做完这一切，一个念头忽然从我脑海中闪过：对于一些第三方应用，如果它们直接引用了&lt;code&gt;django.contrib.auth.models.User&lt;/code&gt;，那该怎么办呢？我的&lt;code&gt;User&lt;/code&gt;模型会生效吗？&lt;/p&gt;
+
 &lt;p&gt;这让我感到不安，因为重构的一大原则便是：不得改变外部接口的调用情况。如果这一改动使得整个网站都崩溃了，那就得不偿失了。可庆幸的是，这样的事情并没有发生。&lt;/p&gt;
+
 &lt;p&gt;这不禁让我感到好奇：django是怎么做到这一点的？&lt;/p&gt;
+
 &lt;p&gt;翻看&lt;code&gt;django.contrib.auth.models&lt;/code&gt;，我发现了如下一句代码：&lt;/p&gt;
+
 &lt;pre&gt;&lt;code&gt;class User(AbstractUser):
     &quot;&quot;&quot;
     Users within the Django authentication system are represented by this
@@ -1472,7 +1575,9 @@ AUTH_USER_MODEL = 'accounts.User'
     class Meta(AbstractUser.Meta):
         swappable = 'AUTH_USER_MODEL'
 &lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;查找&lt;a href=&quot;https://docs.djangoproject.com/en/1.8/ref/models/fields/#django.db.models.ForeignKey.swappable&quot;&gt;Django文档&lt;/a&gt;，原来这是Django1.7的一个新特性：&lt;/p&gt;
+
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;ForeignKey.swappable&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Controls the migration framework’s reaction if this ForeignKey is pointing at a swappable model. If it is True - the default - then if the ForeignKey is pointing at a model which matches the current value of settings.AUTH_USER_MODEL (or another swappable model setting) the relationship will be stored in the migration using a reference to the setting, not to the model directly.&lt;/p&gt;
@@ -1480,70 +1585,95 @@ AUTH_USER_MODEL = 'accounts.User'
 &lt;p&gt;Setting it to False does not mean you can reference a swappable model even if it is swapped out - False just means that the migrations made with this ForeignKey will always reference the exact model you specify (so it will fail hard if the user tries to run with a User model you don’t support, for example).&lt;/p&gt;
 &lt;p&gt;If in doubt, leave it to its default of True.&lt;/p&gt;
 &lt;/blockquote&gt;
+
 &lt;p&gt;这个特性可以使指向这个模型的ForeignKey自动被替换成&lt;code&gt;Meta.swappable&lt;/code&gt;的内容，实现模型的可替换能力。这是一个巧妙的设计。&lt;/p&gt;
+
 &lt;p&gt;重构后的&lt;code&gt;accounts&lt;/code&gt;应用，逻辑变得更加清晰，也使我不再纠结于冗长的恼人的&lt;code&gt;Profile&lt;/code&gt;调用。&lt;/p&gt;
+
 &lt;p&gt;这，是一个美妙的起点。&lt;/p&gt;
 </description>
                 <link>http://hsfzxjy.github.io/HFMUN-reconstruction-2/</link>
-                <guid>http://hsfzxjy.github.io/%e3%80%90hfmun%e9%87%8d%e6%9e%84%e7%b3%bb%e5%88%97%e3%80%912-%e7%94%a8%e6%88%b7%e7%b3%bb%e7%bb%9f</guid>
+                <guid>http://hsfzxjy.github.io/HFMUN-reconstruction-2</guid>
                 <pubDate>Wed, 28 Jan 2015 20:41:10 +0800</pubDate>
         </item>
 
         <item>
                 <title>【HFMUN重构系列】1. Django1.7</title>
                 <description>&lt;p&gt;有人说：&lt;/p&gt;
+
 &lt;blockquote&gt;
 &lt;p&gt;“软件更新的速度永远也比不上客户使用的速度。”&lt;/p&gt;
 &lt;/blockquote&gt;
+
 &lt;p&gt;的确，网络世界真是一个日新月异的地方，甚至作为开发者的我也能真切地感受到这一点。记得2013年初，Django最高的版本号才是1.5.5。一年之后，已经变成1.7了（事实上，应该是1.7.3，两个月的时间让我又落后了0.3个版本）。比起1.5.x，Django1.7多了如下的新特性：&lt;/p&gt;
+
 &lt;ul&gt;
 &lt;li&gt;Migrations，即实时同步数据库。在此之前，如果要对Model的表结构进行改动，要么自己用MySQL的&lt;code&gt;ALTER TABLE&lt;/code&gt;语句，要么就删除整个数据库再&lt;code&gt;syncdb&lt;/code&gt;（大家可能很惊讶，由于本人较懒，因此常常会做出这样“鲁莽”的操作，反正是在调试- -）。这给开发带来了不少的麻烦。尽管不少博客都说——在解读需求时期就要定好表结构。可对于我，这点实在是比较难办到，总会有一些考虑不周的地方。&lt;/li&gt;
 &lt;li&gt;Custom lookups，即自定义查找规则。我们常常会用到QuerySet的查找语句&lt;code&gt;User.objects.filter(id__lt=2)&lt;/code&gt;等等。但如果要某一天我要实现自定义规则，如MySQL的全文搜索，又该怎么做呢？在1.7之前，Django并没有提供相应的接口，只能通过嵌入Raw SQL来实现。如今，1.7的这个特性让大家眼前一亮，同时也使数据库查找变得更加灵活。 &lt;/li&gt;
 &lt;li&gt;App Configurations，即关于应用的自定义配置。就我个人看来，这里主要时方便了Admin的应用名显示。在1.7版本之前，我们无法设定应用在Admin中显示的名字，只能让那些格格不入的英文名显示在管理界面中——这也是我不让Admin投入实际应用的一个原因。如今，通过配置&lt;code&gt;AppConfig&lt;/code&gt;，我们可以轻易地实现这一点。&lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;p&gt;在HFMUN2.0中我用到的新特性大概就是这些，它们给应用开发带来了愉悦的体验。但可恶的是：&lt;strong&gt;SAE并不同步更新Django。&lt;/strong&gt;如今，那里的Django仍然停留在版本1.5。&lt;/p&gt;
+
 &lt;p&gt;于是，我只能将新鲜出炉的Django1.7放在网站的目录下，一同传上SAE。&lt;/p&gt;
+
 &lt;p&gt;起初，我是将Django打包成Zip文件发在&lt;code&gt;site_packages/&lt;/code&gt;目录下，因为我隐约记得Python是支持直接导入Zip文件的。但尝试了许多次，都说“找不到Django”。迫不得已，只好将Django解压出来再上传——这花费了我不少的时间（哦！中国的上传速度！）。&lt;/p&gt;
+
 &lt;p&gt;接下来便是Django的配置了。先将&lt;code&gt;config.yaml&lt;/code&gt;修改成这样：&lt;/p&gt;
+
 &lt;pre&gt;&lt;code&gt;name: hfmun
 version: 1
 &lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;既然我们已经不用SAE自带的Django了，就应该把依赖关系删除，以免导入其默认的Django。&lt;/p&gt;
+
 &lt;p&gt;接着修改&lt;code&gt;index.wsgi&lt;/code&gt;：&lt;/p&gt;
+
 &lt;pre&gt;&lt;code&gt;#...
 import sys
 from site_packages import django 
 sys.modules['django'] = django
 #...
 &lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;由于&lt;code&gt;index.wsgi&lt;/code&gt;是第一个被执行的文件，在此处把Django先导入可以保证之后每次使用的Django都是自己上传的那个版本。&lt;br /&gt;
 至此，新版本Django就可以使用了。&lt;/p&gt;
+
 &lt;p&gt;&lt;em&gt;ps：据测试，这样配置的网站大约会比普通的网站慢几十毫秒，大概是自己的Django需要启动时间。不过比起新功能，这点损耗是微不足道的。&lt;/em&gt;&lt;/p&gt;
 </description>
                 <link>http://hsfzxjy.github.io/HFMUN-reconstruction-1/</link>
-                <guid>http://hsfzxjy.github.io/%e3%80%90hfmun%e9%87%8d%e6%9e%84%e7%b3%bb%e5%88%97%e3%80%911-django1-7</guid>
+                <guid>http://hsfzxjy.github.io/HFMUN-reconstruction-1</guid>
                 <pubDate>Tue, 27 Jan 2015 20:49:06 +0800</pubDate>
         </item>
 
         <item>
                 <title>【HFMUN重构系列】0. 前言</title>
                 <description>&lt;p&gt;这是2014年初我接到的一个项目：给模拟联合国建立一个网站，实现文章发布以及在线聊天的功能，供在3月初的华附模联大会使用。&lt;/p&gt;
+
 &lt;p&gt;这是我人生中做的第一个网站，也是在这时，我组建了第一支自己的开发团队——尽管，只有两个人；尽管，我们都才高一。至于他们是怎么找到我的，那一刻，我记得十分清楚——那是2013年12月的某天，一个晚自习的课间，阿三突然走进来大喊了一声：“我们班有谁会做网站的？”那时候的我，刚刚接触web编程。我记得，我毫不犹豫地就答应了。这一句回答，改变了我之后一年多的生活。其中，有收获，同时也失去了一些东西——但我不后悔。这一年多的生活，在别人看来我似乎是在固执地溯流行船，逆着大家公认的“好的方向”前进，可我觉得这一切都是值得的。一年来，我收获的不只是技术，还有团队协作能力、与客户交涉的能力、许多解决未知问题的方法，以及最重要的一点——快乐。现在回想起来：如果当初我没有选择这一条路，也许我会通过一些“传统”的努力获得一些“传统”的荣誉，甚至没有了高考的负担，这固然不错，但同时我也会失去上一句话中提到的那些东西——一些在书本中学不到的珍宝，这些都是要通过实践来感知。更何况——每个人都应该拥有属于自己的生活。&lt;/p&gt;
+
 &lt;p&gt;我又想起了黄老师那句话：&lt;/p&gt;
+
 &lt;blockquote&gt;
 &lt;p&gt;“希望你不要随波逐流。”&lt;/p&gt;
 &lt;/blockquote&gt;
+
 &lt;p&gt;言归正传。我先简单概括一下这个系统的情况。这是搭建在SinaAppEngine上的一个网站，使用Python+Django1.7+MySQL+Bootstrap3进行开发。去年的版本做的实在是有些匆忙，在投入使用前一天才草草收尾，没有经过QA测试就投入使用了——或者说我们请客户当了QA(T_T)。幸好客户比较温柔，不像传说中段子里提到的&lt;strong&gt;可怕的甲方&lt;/strong&gt;，或许是因为这是第一版，又或许是碍于同学情面。&lt;/p&gt;
+
 &lt;p&gt;那次的前端做得实在是太挫了：每一个界面元素都是照搬Bootstrap的组件，Bootstrap没有的便用其中一种或几种组合（Panel搭建的超大评论框就这么诞生了...），我们自己只写了少得可怜的几行css——事实上就凭着当年那菜鸟级别的css水平，我们也不敢乱改。另外一个令我们头疼的是IE兼容性问题（EVIL！）——这还是一个用户发现的：bootstrap在IE8-下全乱了。我只得陪着笑乞求他们换用Chrome，别提有多尴尬了。&lt;/p&gt;
+
 &lt;p&gt;问题还不止这些。2013年初，正是新浪云的Channel服务进行公测的时候。Channel服务是新浪云自主开发的一个提供客户端实时推送的服务，可应用于网络聊天室等实时性要求较高的网站中。有了这一技术，我才有能力搭建会议聊天系统。但这毕竟是Alpha版本，难免有些Bug。在调试时，光是和新浪客服交涉就花了我不少的时间。可在实际应用时它还是出了一些毛病，甚至在会议最后半天时它干脆直接无法使用了（π.π）。&lt;/p&gt;
+
 &lt;blockquote&gt;
 &lt;p&gt;凡事都是要走出第一步的，无论是成功或是失败。&lt;/p&gt;
 &lt;/blockquote&gt;
+
 &lt;p&gt;时光荏苒，转眼间一年又过去了。从14年12月开始我又重新启动了这一项目。比起上一次，尽管上次的网站做基础，尽管我有了更多的时间，可用户的需求也更加苛刻了。截至目前，1月27日，重构已经几乎完成了。在这里，我将记下这两个月的重构工程中发生的点点滴滴。&lt;/p&gt;
+
 &lt;p&gt;附：&lt;a href=&quot;http://hfmun.sinaapp.com/&quot;&gt;华附模拟联合国官网&lt;/a&gt;&lt;/p&gt;
 </description>
                 <link>http://hsfzxjy.github.io/HFMUN-reconstruction-0/</link>
-                <guid>http://hsfzxjy.github.io/%e3%80%90hfmun%e9%87%8d%e6%9e%84%e7%b3%bb%e5%88%97%e3%80%910-%e5%89%8d%e8%a8%80</guid>
+                <guid>http://hsfzxjy.github.io/HFMUN-reconstruction-0</guid>
                 <pubDate>Tue, 27 Jan 2015 20:02:41 +0800</pubDate>
         </item>
 

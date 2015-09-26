@@ -9,6 +9,19 @@
 @post-bk-color: darken(#fff, 5%);
 @body-bk-color: darken(#eee, 10%);
 
+@font-face {
+    font-family: "lobster";
+    src: url("Lobster_1.3.otf");
+}
+
+* {
+    font-family: "Microsoft Yahei"!important;
+}
+
+a.navbar-brand {
+    font-family: "lobster"!important;
+}
+
 #wrap {
     height: auto;
     /* Negative indent footer by its height */
@@ -19,6 +32,8 @@
 
 .content {
     
+    letter-spacing: 0.05em;
+
     p, li {
         font-size: 16px;
         line-height: 24px;
@@ -66,6 +81,8 @@ h1, h2, h3, h4 {
 }
 
 code {
+    font-family: sans-serif !important;
+    letter-spacing: 0.05em;
     background: lighten(@body-bk-color, 10%);
     color: black;
 }
@@ -203,7 +220,6 @@ html, body {
 
 blockquote {
     font-size: 16px;
-    font-family: "Microsoft Yahei";
     border: 1px dashed;
 
     p {

@@ -159,11 +159,15 @@
       <blockquote>
 <p>链接：<a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;category=14&amp;problem=1226&amp;mosmsg=Submission%20received%20with%20ID%2014282250">Link</a> 耗时：0.028s</p>
 </blockquote>
+
 <p>一道简单的动态规划，主要思路就是：</p>
+
 <blockquote>
 <p><strong>用f[i,j]表示到达(i,j)的最长路径的长度。</strong>找到每个最高点，从其开始向四周的低处搜索。如果该点已搜过并且f值大于当前长度则退出回溯。直到达到某个最低点为止。</p>
 </blockquote>
+
 <p>不多说了，直接上代码：</p>
+
 <pre><code>const
     delta :array [1..4, 1..2] of integer = ((-1, 0), (1, 0), (0, 1), (0, -1)); //四个方向向量
 var

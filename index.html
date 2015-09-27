@@ -4,10 +4,10 @@ title:
 page_title: hsfzxjy
 tagline: 不忌讳空山无人，不害怕遥望星辰
 ---
-{% include JB/setup %}
+{% include JB/setup %} 
 <link rel="stylesheet" type="text/css" href="{{ ASSET_PATH }}/bootstrap-3/css/index.css?body=1">
-<div class="posts">
-  {% for post in paginator.posts %}
+<div class="posts"> 
+    {% for post in paginator.posts %}
     <article class="post-content">
         <header class="text-center">
             <h1 class="post-title">
@@ -17,35 +17,41 @@ tagline: 不忌讳空山无人，不害怕遥望星辰
         </header>
         <section class="content">
             {{ post.excerpt }}
+
+            <a href="{{ BASE_PATH }}{{ post.url }}" style="display: block; text-align: center; padding: 25px 0;">阅读全文...</a>
         </section>
         {% unless post.categories == empty %}
-          <ul class="tag_box inline">
-            <li><i class="glyphicon glyphicon-open"></i></li>
-            {% assign categories_list = post.categories %}
-            {% include JB/categories_list %}
-          </ul>
+            <ul class="tag_box inline">
+                <li>
+                    <i class="glyphicon glyphicon-open"></i>
+                </li>
+                {% assign categories_list = post.categories %}
+                {% include JB/categories_list %}
+            </ul>
         {% endunless %}  
 
         {% unless post.tags == empty %}
-          <ul class="tag_box inline">
-            <li><i class="glyphicon glyphicon-tags"></i></li>
+            <ul class="tag_box inline">
+                <li>
+                    <i class="glyphicon glyphicon-tags"></i>
+                </li>
             {% assign tags_list = post.tags %}
             {% include JB/tags_list %}
-          </ul>
+            </ul>
         {% endunless %} 
     </article>
-  {% endfor %}
+    {% endfor %}
 </div>
 
 <ul class="pager">
-  {% if paginator.next_page %}
+    {% if paginator.next_page %}
     <li class="previous">
-      <a class="prev" href="{{paginator.next_page_path}}">&larr; 上一页</a>
+        <a class="prev" href="{{paginator.next_page_path}}">&larr; 上一页</a>
     </li>
-  {% endif %}
-  {% if paginator.previous_page %}
-  <li class="next">
-    <a class="next" href="{{paginator.previous_page_path}}">下一页 &rarr;</a>
-  </li>
-  {% endif %}
+    {% endif %}
+    {% if paginator.previous_page %}
+    <li class="next">
+        <a class="next" href="{{paginator.previous_page_path}}">下一页 &rarr;</a>
+    </li>
+    {% endif %}
 </ul>

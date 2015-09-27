@@ -2,7 +2,7 @@
 # For more see: http://jekyllrb.com/docs/permalinks/
 permalink: /:title/
 excerpt_separator: <!--more-->
-exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md", "*.less"]
+exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md", "*.less", "*.py", "*.pyc"]
 include: ["_pages"]
 relative_permalinks: false
 highlighter: pygments

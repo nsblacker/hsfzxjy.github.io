@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 【译】Your Django Story：Jessica Hamrick 访谈录
-published: true
+published: false
 categories: 翻译 django 访谈
 ---
 

@@ -5,10 +5,100 @@
         <description>hsfzxjy - Jinyi Xie</description>
         <link>http://hsfzxjy.github.io/</link>
         <atom:link href="http://hsfzxjy.github.io//rss.xml" rel="self" type="application/rss+xml" />
-        <lastBuildDate>Fri, 23 Oct 2015 21:34:55 +0800</lastBuildDate>
-        <pubDate>Fri, 23 Oct 2015 21:34:55 +0800</pubDate>
+        <lastBuildDate>Fri, 06 Nov 2015 22:38:14 +0800</lastBuildDate>
+        <pubDate>Fri, 06 Nov 2015 22:38:14 +0800</pubDate>
         <ttl>60</ttl>
 
+
+        <item>
+                <title>初试 node.js：MD5 解密网站</title>
+                <description>&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;有些日子没写技术笔记了。正好今天刚月考完，写篇东西放松一下。&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;node.js，IT界的新角，怀揣着用 javascript 称霸前后端的野心。一年前听说这个东西时，我就被其魅力深深地吸引了。尽管从语法上看，js 继承了其父丑陋的风格，无法和我钟爱的 python 相提并论，但人家的性能却是不可小觑的。浏览器脚本起家，天生支持异步编程，时间驱动，完美压榨 CPU 时间，简直让同步的 python 望尘莫及——更何况，还有 Google 大牛精心优化的 V8 引擎，速度快得飞起，完全弥补了其语法上的不足。&lt;/p&gt;
+
+&lt;p&gt;早就想学 node.js 了，却一直苦于没有动机。软件工程的学习和其他学科很是不同：如果没有动机，没有实践，仅是读干巴巴的文档，那是很乏味的。在之前的项目中我一直使用 python。在对性能没有过高的要求的情况下，python 是敏捷开发的不二之选。而且在 SAE 支持的三种语言中，我最擅长的便是 python（好吧，其实是其他两种我都不会～～）。学习 node.js，确实没有太急切的需求。&lt;/p&gt;
+
+&lt;p&gt;约摸两个星期前吧，@cc 提出了一个新的 idea——在高考后建一个网站，记录同学们毕业后的去向。具体需求尚未确定，但我非常感兴趣。乍一看来，websocket 是必不可少的了，而且对于这类 IO 密集型的网站，MySQL 水土不服，WSGI 模式吃不消。于是我又想到了 node.js——正好趁这个机会，再学一门技术。技多不压身嘛。&lt;/p&gt;
+
+&lt;p&gt;于是，在上周我写了个小 &lt;a href=&quot;https://github.com/hsfzxjy/md5cracker/&quot;&gt;demo&lt;/a&gt;，借此透析一下 node.js 及其常见框架。&lt;/p&gt;
+
+&lt;p&gt;说了那么多废话，切入正题。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2&gt;需求 &amp;amp; 构思 &amp;amp; 准备&lt;/h2&gt;
+
+&lt;p&gt;一个小 demo 而已，需求很简洁：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;MD5 加密功能&lt;/strong&gt; 用户可以输入任意字符串，网站会返回字符串的 MD5 值，同时将原始串和哈希值存入数据库&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;MD5 解密功能&lt;/strong&gt; 用户可以输入一个合法的 MD5 值，网站会检索已知的 MD5 值及其对应的原始字符串，若比对成功则返回原串，否则显示未找到。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;由于是学习 node.js 的 demo，为了简单起见我只用了一个页面，GET 返回空表单，POST 执行加密或解密动作，并返回结果。前端用了 pure.css，一个很简单的 CSS 框架，只为了效果不要太挫。&lt;/p&gt;
+
+&lt;p&gt;在 mongodb 的使用上，我没有用官方的 mongodb driver，而是用了 mongoose。这是出于两点考虑：一是尽管 mongodb 很灵活，但在将来的网站建设中，绝不可能做到 schemeless，否则在设计类似用户系统这样的模块时会很痛苦；二是 mongoose 除了提供了一个 Schema，其他诸如 CRUD 的操作基本还是遵循原生 mongodb driver 的语法，因此并不影响对 mongodb 的理解。&lt;/p&gt;
+
+&lt;p&gt;在 web 框架的选择上，我决定先尝试 express.js。在此之前我曾搜过 &amp;quot;node.js web framework comparison&amp;quot;，其中有篇&lt;a href=&quot;https://www.airpair.com/node.js/posts/nodejs-framework-comparison-express-koa-hapi&quot;&gt;文章&lt;/a&gt;写的不错，较为详尽地分析了三个较为流行的框架 express、koa 以及 hapi。&lt;/p&gt;
+
+&lt;p&gt;express 是元老级的框架了，几乎和 node.js 是同时出现的，在 Github 上 有 16158 个 stars。它是个微框架（micro-framework），在 http 协议上封装了一层。npmjs 上已有成千上百的基于 express 的中间件，用于解决各类的问题。&lt;/p&gt;
+
+&lt;p&gt;koa 是个新型的框架，基于 ES6，Github 上有 4846 个 stars。其突出的特点是用了 ES6 的 generators 实现了协程，可以增加异步编程的可读性——这点和 Tornado 很相似。目前的版本是 0.13，尚未稳定，不敢贸然采用。&lt;/p&gt;
+
+&lt;p&gt;hapi 则是另一种风格，Github 上也有 3283 个 stars。其理念是 用配置代替代码，这在设计 REST API 时是十分方便的，在后续的学习中我可以适当地了解一下。&lt;/p&gt;
+
+&lt;h3&gt;初始化&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;nodejs&lt;/code&gt;、&lt;code&gt;npm&lt;/code&gt;、&lt;code&gt;mongodb&lt;/code&gt; 这些必要程序的安装就不用说了。mongodb 和 MySQL 不同，不用做额外的配置，装完就可以用。&lt;/p&gt;
+
+&lt;p&gt;先建目录：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;mkdir md5cracker &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;md5cracker
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm init
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;一路回车——虽然我知道这样不好，但这毕竟只是一个 demo。&lt;/p&gt;
+
+&lt;p&gt;装依赖：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm install --save mongodb mongoose express es6-promise
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;这里&lt;code&gt;es6-promise&lt;/code&gt;是&lt;code&gt;mongoose&lt;/code&gt;的一个依赖，不知为何要单独拿出来安装。&lt;/p&gt;
+
+&lt;p&gt;辅助工具：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm install -g nodemon express-generator
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;nodemon&lt;/code&gt;是一个方便的小程序，可以实时检测你的代码库，并在出现变更时重启服务器；&lt;code&gt;express-generator&lt;/code&gt;，正如其名，用于生成 express 网站骨架。&lt;/p&gt;
+
+&lt;p&gt;这里要赞美一下 npm 3：在低版本的 npm 中，依赖的安装是树状结构的，不同的包不能共享依赖——这对有代码体积洁癖的人来说简直不能忍。npm 3 有许多新的特性，其一便是“依赖扁平化”——应该说，这才是正常的做法。&lt;/p&gt;
+
+&lt;p&gt;编辑&lt;code&gt;package.json&lt;/code&gt;：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// ...&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&amp;quot;scripts&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&amp;quot;start&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;nodemon ./bin/www&amp;quot;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// ...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;这是为了简化网站的启动命令，完成后使用&lt;code&gt;npm start&lt;/code&gt;即可启动网站，而不必每次都键入&lt;code&gt;nodemon ./bin/www&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;新建&lt;code&gt;nodemon.json&lt;/code&gt;：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&amp;quot;execMap&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;s2&quot;&gt;&amp;quot;js&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;node --harmony&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;这是&lt;code&gt;nodemon&lt;/code&gt;的配置文件，&lt;code&gt;node&lt;/code&gt;的&lt;code&gt;--harmony&lt;/code&gt;的参数能够启用 ES6 语法。&lt;/p&gt;
+
+&lt;h3&gt;mongodb 相关内容&lt;/h3&gt;
+
+&lt;p&gt;（未完待续）&lt;/p&gt;
+</description>
+                <link>http://hsfzxjy.github.io//md5-cracker-powered-by-nodejs/</link>
+                <guid>http://hsfzxjy.github.io//md5-cracker-powered-by-nodejs</guid>
+                <pubDate>Fri, 06 Nov 2015 00:00:00 +0800</pubDate>
+        </item>
 
         <item>
                 <title>家书·十八岁成人礼</title>
@@ -1771,55 +1861,6 @@ AUTH_USER_MODEL = 'accounts.User'
                 <link>http://hsfzxjy.github.io//HFMUN-reconstruction-2/</link>
                 <guid>http://hsfzxjy.github.io//HFMUN-reconstruction-2</guid>
                 <pubDate>Wed, 28 Jan 2015 20:41:10 +0800</pubDate>
-        </item>
-
-        <item>
-                <title>【HFMUN重构系列】1. Django1.7</title>
-                <description>&lt;p&gt;有人说：&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;“软件更新的速度永远也比不上客户使用的速度。”&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;的确，网络世界真是一个日新月异的地方，甚至作为开发者的我也能真切地感受到这一点。记得2013年初，Django最高的版本号才是1.5.5。一年之后，已经变成1.7了（事实上，应该是1.7.3，两个月的时间让我又落后了0.3个版本）。比起1.5.x，Django1.7多了如下的新特性：&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Migrations，即实时同步数据库。在此之前，如果要对Model的表结构进行改动，要么自己用MySQL的&lt;code&gt;ALTER TABLE&lt;/code&gt;语句，要么就删除整个数据库再&lt;code&gt;syncdb&lt;/code&gt;（大家可能很惊讶，由于本人较懒，因此常常会做出这样“鲁莽”的操作，反正是在调试- -）。这给开发带来了不少的麻烦。尽管不少博客都说——在解读需求时期就要定好表结构。可对于我，这点实在是比较难办到，总会有一些考虑不周的地方。&lt;/li&gt;
-&lt;li&gt;Custom lookups，即自定义查找规则。我们常常会用到QuerySet的查找语句&lt;code&gt;User.objects.filter(id__lt=2)&lt;/code&gt;等等。但如果要某一天我要实现自定义规则，如MySQL的全文搜索，又该怎么做呢？在1.7之前，Django并没有提供相应的接口，只能通过嵌入Raw SQL来实现。如今，1.7的这个特性让大家眼前一亮，同时也使数据库查找变得更加灵活。 &lt;/li&gt;
-&lt;li&gt;App Configurations，即关于应用的自定义配置。就我个人看来，这里主要时方便了Admin的应用名显示。在1.7版本之前，我们无法设定应用在Admin中显示的名字，只能让那些格格不入的英文名显示在管理界面中——这也是我不让Admin投入实际应用的一个原因。如今，通过配置&lt;code&gt;AppConfig&lt;/code&gt;，我们可以轻易地实现这一点。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;在HFMUN2.0中我用到的新特性大概就是这些，它们给应用开发带来了愉悦的体验。但可恶的是：&lt;strong&gt;SAE并不同步更新Django。&lt;/strong&gt;如今，那里的Django仍然停留在版本1.5。&lt;/p&gt;
-
-&lt;p&gt;于是，我只能将新鲜出炉的Django1.7放在网站的目录下，一同传上SAE。&lt;/p&gt;
-
-&lt;p&gt;起初，我是将Django打包成Zip文件发在&lt;code&gt;site_packages/&lt;/code&gt;目录下，因为我隐约记得Python是支持直接导入Zip文件的。但尝试了许多次，都说“找不到Django”。迫不得已，只好将Django解压出来再上传——这花费了我不少的时间（哦！中国的上传速度！）。&lt;/p&gt;
-
-&lt;p&gt;接下来便是Django的配置了。先将&lt;code&gt;config.yaml&lt;/code&gt;修改成这样：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;name: hfmun
-version: 1
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;既然我们已经不用SAE自带的Django了，就应该把依赖关系删除，以免导入其默认的Django。&lt;/p&gt;
-
-&lt;p&gt;接着修改&lt;code&gt;index.wsgi&lt;/code&gt;：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;#...
-import sys
-from site_packages import django 
-sys.modules['django'] = django
-#...
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;由于&lt;code&gt;index.wsgi&lt;/code&gt;是第一个被执行的文件，在此处把Django先导入可以保证之后每次使用的Django都是自己上传的那个版本。&lt;br /&gt;
-至此，新版本Django就可以使用了。&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;ps：据测试，这样配置的网站大约会比普通的网站慢几十毫秒，大概是自己的Django需要启动时间。不过比起新功能，这点损耗是微不足道的。&lt;/em&gt;&lt;/p&gt;
-</description>
-                <link>http://hsfzxjy.github.io//HFMUN-reconstruction-1/</link>
-                <guid>http://hsfzxjy.github.io//HFMUN-reconstruction-1</guid>
-                <pubDate>Tue, 27 Jan 2015 20:49:06 +0800</pubDate>
         </item>
 
 

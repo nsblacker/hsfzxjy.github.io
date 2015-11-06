@@ -186,6 +186,150 @@
     <article class="post-content">
         <header class="text-center">
             <h1 class="post-title">
+                <a href="/md5-cracker-powered-by-nodejs/">初试 node.js：MD5 解密网站</a>
+            </h1>
+            <p class="time">06 Nov 2015</p>
+        </header>
+        <section class="content">
+            <blockquote>
+<p><em>有些日子没写技术笔记了。正好今天刚月考完，写篇东西放松一下。</em></p>
+
+<p>node.js，IT界的新角，怀揣着用 javascript 称霸前后端的野心。一年前听说这个东西时，我就被其魅力深深地吸引了。尽管从语法上看，js 继承了其父丑陋的风格，无法和我钟爱的 python 相提并论，但人家的性能却是不可小觑的。浏览器脚本起家，天生支持异步编程，时间驱动，完美压榨 CPU 时间，简直让同步的 python 望尘莫及——更何况，还有 Google 大牛精心优化的 V8 引擎，速度快得飞起，完全弥补了其语法上的不足。</p>
+
+<p>早就想学 node.js 了，却一直苦于没有动机。软件工程的学习和其他学科很是不同：如果没有动机，没有实践，仅是读干巴巴的文档，那是很乏味的。在之前的项目中我一直使用 python。在对性能没有过高的要求的情况下，python 是敏捷开发的不二之选。而且在 SAE 支持的三种语言中，我最擅长的便是 python（好吧，其实是其他两种我都不会～～）。学习 node.js，确实没有太急切的需求。</p>
+
+<p>约摸两个星期前吧，@cc 提出了一个新的 idea——在高考后建一个网站，记录同学们毕业后的去向。具体需求尚未确定，但我非常感兴趣。乍一看来，websocket 是必不可少的了，而且对于这类 IO 密集型的网站，MySQL 水土不服，WSGI 模式吃不消。于是我又想到了 node.js——正好趁这个机会，再学一门技术。技多不压身嘛。</p>
+
+<p>于是，在上周我写了个小 <a href="https://github.com/hsfzxjy/md5cracker/">demo</a>，借此透析一下 node.js 及其常见框架。</p>
+
+<p>说了那么多废话，切入正题。</p>
+</blockquote>
+
+<h2>需求 &amp; 构思 &amp; 准备</h2>
+
+<p>一个小 demo 而已，需求很简洁：</p>
+
+<blockquote>
+<ul>
+<li><strong>MD5 加密功能</strong> 用户可以输入任意字符串，网站会返回字符串的 MD5 值，同时将原始串和哈希值存入数据库</li>
+<li><strong>MD5 解密功能</strong> 用户可以输入一个合法的 MD5 值，网站会检索已知的 MD5 值及其对应的原始字符串，若比对成功则返回原串，否则显示未找到。</li>
+</ul>
+</blockquote>
+
+<p>由于是学习 node.js 的 demo，为了简单起见我只用了一个页面，GET 返回空表单，POST 执行加密或解密动作，并返回结果。前端用了 pure.css，一个很简单的 CSS 框架，只为了效果不要太挫。</p>
+
+<p>在 mongodb 的使用上，我没有用官方的 mongodb driver，而是用了 mongoose。这是出于两点考虑：一是尽管 mongodb 很灵活，但在将来的网站建设中，绝不可能做到 schemeless，否则在设计类似用户系统这样的模块时会很痛苦；二是 mongoose 除了提供了一个 Schema，其他诸如 CRUD 的操作基本还是遵循原生 mongodb driver 的语法，因此并不影响对 mongodb 的理解。</p>
+
+<p>在 web 框架的选择上，我决定先尝试 express.js。在此之前我曾搜过 &quot;node.js web framework comparison&quot;，其中有篇<a href="https://www.airpair.com/node.js/posts/nodejs-framework-comparison-express-koa-hapi">文章</a>写的不错，较为详尽地分析了三个较为流行的框架 express、koa 以及 hapi。</p>
+
+<p>express 是元老级的框架了，几乎和 node.js 是同时出现的，在 Github 上 有 16158 个 stars。它是个微框架（micro-framework），在 http 协议上封装了一层。npmjs 上已有成千上百的基于 express 的中间件，用于解决各类的问题。</p>
+
+<p>koa 是个新型的框架，基于 ES6，Github 上有 4846 个 stars。其突出的特点是用了 ES6 的 generators 实现了协程，可以增加异步编程的可读性——这点和 Tornado 很相似。目前的版本是 0.13，尚未稳定，不敢贸然采用。</p>
+
+<p>hapi 则是另一种风格，Github 上也有 3283 个 stars。其理念是 用配置代替代码，这在设计 REST API 时是十分方便的，在后续的学习中我可以适当地了解一下。</p>
+
+<h3>初始化</h3>
+
+<p><code>nodejs</code>、<code>npm</code>、<code>mongodb</code> 这些必要程序的安装就不用说了。mongodb 和 MySQL 不同，不用做额外的配置，装完就可以用。</p>
+
+<p>先建目录：</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>mkdir md5cracker <span class="o">&amp;&amp;</span> <span class="nb">cd </span>md5cracker
+<span class="nv">$ </span>npm init
+</code></pre></div>
+<p>一路回车——虽然我知道这样不好，但这毕竟只是一个 demo。</p>
+
+<p>装依赖：</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>npm install --save mongodb mongoose express es6-promise
+</code></pre></div>
+<p>这里<code>es6-promise</code>是<code>mongoose</code>的一个依赖，不知为何要单独拿出来安装。</p>
+
+<p>辅助工具：</p>
+<div class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="nv">$ </span>npm install -g nodemon express-generator
+</code></pre></div>
+<p><code>nodemon</code>是一个方便的小程序，可以实时检测你的代码库，并在出现变更时重启服务器；<code>express-generator</code>，正如其名，用于生成 express 网站骨架。</p>
+
+<p>这里要赞美一下 npm 3：在低版本的 npm 中，依赖的安装是树状结构的，不同的包不能共享依赖——这对有代码体积洁癖的人来说简直不能忍。npm 3 有许多新的特性，其一便是“依赖扁平化”——应该说，这才是正常的做法。</p>
+
+<p>编辑<code>package.json</code>：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">{</span>
+  <span class="c1">// ...</span>
+  <span class="s2">&quot;scripts&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;start&quot;</span><span class="o">:</span> <span class="s2">&quot;nodemon ./bin/www&quot;</span>
+  <span class="p">},</span>
+  <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>这是为了简化网站的启动命令，完成后使用<code>npm start</code>即可启动网站，而不必每次都键入<code>nodemon ./bin/www</code>。</p>
+
+<p>新建<code>nodemon.json</code>：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="p">{</span>
+    <span class="s2">&quot;execMap&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;js&quot;</span><span class="o">:</span> <span class="s2">&quot;node --harmony&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>这是<code>nodemon</code>的配置文件，<code>node</code>的<code>--harmony</code>的参数能够启用 ES6 语法。</p>
+
+<h3>mongodb 相关内容</h3>
+
+<p>（未完待续）</p>
+
+
+            <a href="/md5-cracker-powered-by-nodejs/" style="display: block; text-align: center; padding: 25px 0;">阅读全文...</a>
+        </section>
+        
+            <ul class="tag_box inline">
+                <li>
+                    <i class="glyphicon glyphicon-open"></i>
+                </li>
+                
+                
+
+
+  
+     
+    	<li><a href="/categories/#编程-ref">
+    		编程 <span>38</span>
+    	</a></li>
+     
+    	<li><a href="/categories/#node.js-ref">
+    		node.js <span>1</span>
+    	</a></li>
+    
+  
+
+
+            </ul>
+          
+
+        
+            <ul class="tag_box inline">
+                <li>
+                    <i class="glyphicon glyphicon-tags"></i>
+                </li>
+            
+            
+
+
+  
+     
+    	<li><a href="/tags/#mongodb-ref">mongodb <span>1</span></a></li>
+     
+    	<li><a href="/tags/#node.js-ref">node.js <span>1</span></a></li>
+     
+    	<li><a href="/tags/#express.js-ref">express.js <span>1</span></a></li>
+    
+  
+
+
+
+            </ul>
+         
+    </article>
+    
+    <article class="post-content">
+        <header class="text-center">
+            <h1 class="post-title">
                 <a href="/letter-to-parents/">家书·十八岁成人礼</a>
             </h1>
             <p class="time">18 Oct 2015</p>
@@ -285,7 +429,7 @@
     	</a></li>
      
     	<li><a href="/categories/#编程-ref">
-    		编程 <span>37</span>
+    		编程 <span>38</span>
     	</a></li>
     
   
@@ -342,7 +486,7 @@
     	</a></li>
      
     	<li><a href="/categories/#编程-ref">
-    		编程 <span>37</span>
+    		编程 <span>38</span>
     	</a></li>
      
     	<li><a href="/categories/#web设计-ref">
@@ -435,7 +579,7 @@
     	</a></li>
      
     	<li><a href="/categories/#编程-ref">
-    		编程 <span>37</span>
+    		编程 <span>38</span>
     	</a></li>
     
   
@@ -444,122 +588,6 @@
             </ul>
           
 
-         
-    </article>
-    
-    <article class="post-content">
-        <header class="text-center">
-            <h1 class="post-title">
-                <a href="/wisecity-conclusion/">Wisecity 商赛总结——也谈前端自动化测试</a>
-            </h1>
-            <p class="time">24 Jul 2015</p>
-        </header>
-        <section class="content">
-            <p>真没想到，高伯还是给了我两百块报酬（土豪就是土豪）——我还担心他连运营成本都不肯给呢，毕竟网站做得并不是令人太满意。为社团做了两年的网站，这是第一次收到报酬，也算是自己赚的第一桶金吧。</p>
-
-<p>事实证明，临去北京前我给 cc 开放了管理者权限是一个非常正确的选择。尽管 wisecity 已经举办了两届，尽管在此之前我已做过 4 个网站，尽管这次的网站是在上一届的基础上进行改造的，我的心里仍有些忐忑不安，害怕它会出什么问题——抑或是大会的工作人员操作不当导致网站崩溃云云（这事真的发生了）。5 天的 wisecity 大会，我都身在北京，身边没有电脑，没有解决问题的条件，因此需要一个有基本的编程能力的人协助我。5 天下来，问题还不少，调试的过程可谓是十分原始：接到问题后，囿于有限的条件，我只能通过翻看手机上的代码，在脑海中模拟并觉出问题所在，找到最小代价的改动方案，再将改动之处通过短信通知 cc——当然，很多时候并不那么顺利，我还需要跟多的信息帮助判断，比如错误日志，又比如进行特定操作时的表现（这个最坑爹，可遇而不可求）。我尽一切努力在脑海中想象着程序的流程，很累，但也很有挑战性。</p>
-
-<p>第一天就遇到了一个棘手的问题：高伯在删除测试数据时不小心把管理员账号（admin）一起删掉了。这个消息从扬声器传出后，我足足沉默了一分钟，
-心里像是有千万头草泥马奔过：</p>
-
-<blockquote>
-<p>怎么这么毛手毛脚？这下可好了，麻烦大了——虽然这个设计是有些不合理，但这不能怪我，django 已经封装好了（姜戈：怪我咯？）。快想办法快想办法……直接去后台加一个？不行不行，密码这块很难弄，MD5 + SHA1 + Salt，根本不是人能算的——只能让 django 自己产生一个用户了。嗯，我需要一个 MySQL，一个完整的 Python 开发环境，各种包……不知 cc 能不能应付过来。真是的一大早!@#$%^……
-<img src="http://i6.hexunimg.cn/2012-05-09/141219425.jpg" alt=""> </p>
-</blockquote>
-
-<p>挂断电话，抄起手机噼里啪啦给 cc 发了一条短信，手把手教配置 MySQL，django，导出 SQL，上传数据库……吧啦吧啦洋洋洒洒几百字。发送时一直祈祷：但愿 cc 悟性高一些，不然真的完了——还好，半个小时后，前线传来了好消息：一切顺利。</p>
-
-<p>总算是松了一口气，才发现，背已汗湿。</p>
-
-<p>然而，事情还没有结束。</p>
-
-<p>第二天一早，我又被告知：上传的文件下载不了（纳尼？走之前不是才作过测试吗）。点开文件看网址，发现原来是七牛的域名后面少了一个<code>/</code>，很快便处理好了。本以为可以好好玩一天了（那天出去玩），逛了大半个北京，夕阳西下时，却又接到一个 bug：选手列表只显示了 10 个用户，但应该有 40+ 个。</p>
-
-<p>这个 bug，前后调了 2 个小时。从奥林匹克公园，到中关村——因为，我并不知道问题出在哪，一点也不知道。打 <code>console.log</code>，翻看网络记录（没错！在短信这种高时滞的通讯条件下！），最终发现，原来是 REST 返回的用户列表顺序反了，加载了最后 10 个，但由于用户没有明显的顺序标志，所以调试时没有察觉。改正之后，终于可以安心吃完饭——</p>
-
-<p>谁知，两分钟后，短信又开始轰炸了：加载的用户列表有重复项！很多的重复项！！没有规律的重复项！！！</p>
-
-<p>这个 bug，前后又调了 2 个小时。从中关村，再到人大附中，直到繁星爬满了苍穹。第一个反应是自制的瀑布流控件滚动事件并发处理没有做好。翻看源代码，似乎找到一处疑似有问题的地方，尝试让 cc 改了一下——半个小时后，传回了一个令人泄气的消息（中间配置<code>grunt</code>又耗费了好些功夫）。冥想了一个小时，前后端的代码都看遍了，就是没有发现问题，最终只得放弃，告诉高伯用一些奇技*巧避开重复项。直至回来后，静下心分析代码，才发现在一个不起眼的地方有一处笔误，这是重构 HFMUN 的瀑布流控件时产生的。</p>
-
-<p>之后的几天，又有几个大大小小的 bug，抑或是需求改动，处理得还算顺利。可怕的是最后一天，KVDB 直接宕掉了——我整个缓存都是挂在 KVDB 上的，也怪当时没有作容灾处理，这个事件直接导致全站报 500 错误。急急忙忙关掉了缓存（还好做缓存时解了耦，只需改动两处即可），然后再质问 SAE，这些都是后话了。</p>
-
-<p>然而，这里有个值得反思的问题：既然我已经作过 4 个网站，为何还是会有 bug 出现？从 HFMUN 1.0，到 wisecity 1.0，到 HFMUN 2.0，随着我技术的逐渐成熟，bug 出现的频率也在不断下降——但是 bug 仍在，就像“杀不死的小强”一样。</p>
-
-<p>测试，关键还是在测试。</p>
-
-<p>人的主观意识，受制于时空、环境等诸多因素，任何一个参数的改变都有可能影响主观能动性的发挥。因此，不能保证在任何时候人的意识都能正确地、高效地发挥作用。软件工程，作为人类纯意识的产物，其正确性并不能百分百地保证。或是精神不振引起的一处笔误，或是重构迁移时没有同步更改的一处配置，抑或是一处自己在开发过程中完全没有意识到的错误——设计归设计，程序是否能运行，还是电脑说了算。许多的 bug 就是这样产生的。</p>
-
-<p>这个时候，单元测试（Unit Test）就显得非常重要了。通过分析需求而设计的测试样例，可以保证功能的相对正确性，即在能够考虑到的所有情况下，程序都能狗正常运行。这是重构（Refactory）过程中十分重要的一个环节，因为外部不变性是重构必须遵守的一个准则。</p>
-
-<p>在软件工程的上古时代，测试常常是由人工来完成的。团队中，总有几名成员每天都在做着重复、机械的工作，即对新增的功能或是修改过的功能进行测试。这种测试机制费时费力，同时也不是非常有效——上面已经说过了，没有人能保证主观意识的正确性。后来，出现了基于脚本的批量测试，测试人员可以编写一小段代码对特定的功能进行校验，很大程度地提高了效率；再到今天的分布式测试，成熟的测试系统可以模拟多种不同的生产环境，检测到代码库的变化后，便会自动进行单元测试。这是单元测试的自动化进程。</p>
-
-<p>今天的自动化测试固然很成熟，基本可以检测到各种逻辑错误。但在测试领域，却仍有一处令其束手无策的“禁地”——这便是 GUI 测试。综合分析 wisecity2.0 的 bugs，其中大部分都是前端出了问题。GUI 测试的麻烦在于：</p>
-
-<ul>
-<li>GUI 是一个输入与输出交替进行的系统，并且输入具有无限的可能，无法用有限的测试样例对输入进行覆盖。比如第二天发生的那个 bug 需要在“文件上传成功后，跳转到首页，点击下载链接”、“用户数量超过 10 个，在列表页面快速滚动鼠标滚轮”才能被触发。许多的 bug 只有在真实生产环境中被用户捕捉到。</li>
-<li>GUI 的正确性没有一个绝对的判定标准。元素错位、颜色不正确，这些事件都不报错，但它们也是 bug，通常也只有人类认为它们是 bug。但它们的发生并不影响功能，只是用户体验（User Experience）不好——用户体验是一个纯主观的概念，至少在当下，计算机是不能理解的。</li>
-</ul>
-
-<p>目前，GUI 测试主要还是依赖人工。Facebook 就有一个庞大的测试人员系统，以模拟尽可能多的用户操作样例。诚然，业界已经开始出现一些 前端自动化测试框架，有如 selenium、phantomjs 等通过 mock 事件模拟用户操作，更有甚者如 PhantomCSS 可以对特定操作的结果进行像素比对，可软件的主观部分还是需要人脑来判断。</p>
-
-<p>这是一个好时代，周围的一切都在飞快地变化着。希望在不久的将来，当人工智能出现时，这个问题能够有效地解决。</p>
-
-
-            <a href="/wisecity-conclusion/" style="display: block; text-align: center; padding: 25px 0;">阅读全文...</a>
-        </section>
-        
-            <ul class="tag_box inline">
-                <li>
-                    <i class="glyphicon glyphicon-open"></i>
-                </li>
-                
-                
-
-
-  
-     
-    	<li><a href="/categories/#编程-ref">
-    		编程 <span>37</span>
-    	</a></li>
-     
-    	<li><a href="/categories/#总结-ref">
-    		总结 <span>1</span>
-    	</a></li>
-     
-    	<li><a href="/categories/#前端-ref">
-    		前端 <span>1</span>
-    	</a></li>
-     
-    	<li><a href="/categories/#单元测试-ref">
-    		单元测试 <span>1</span>
-    	</a></li>
-    
-  
-
-
-            </ul>
-          
-
-        
-            <ul class="tag_box inline">
-                <li>
-                    <i class="glyphicon glyphicon-tags"></i>
-                </li>
-            
-            
-
-
-  
-     
-    	<li><a href="/tags/#wisecity-ref">wisecity <span>1</span></a></li>
-     
-    	<li><a href="/tags/#前端自动化测试-ref">前端自动化测试 <span>1</span></a></li>
-    
-  
-
-
-
-            </ul>
          
     </article>
     

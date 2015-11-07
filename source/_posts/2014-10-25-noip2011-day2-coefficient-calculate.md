@@ -4,11 +4,11 @@ title: NOIP2011 Day2 计算系数：快速求组合数
 permalink: /noip2011-day2-coefficient-calculate/
 date: 2014-10-25 23:27:13.000000000 +08:00
 categories:
-- 信息学竞赛
-- 数学
-- 数论
 - 编程
 tags:
+- 数论
+- 信息学竞赛
+- 数学
 - 数论
 ---
 <h2><strong>题目大意</strong></h2>

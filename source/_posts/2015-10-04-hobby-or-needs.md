@@ -2,7 +2,8 @@
 layout: post
 published: true
 title: 炫技？还是需求？
-categories: 杂感 产品 编程
+categories: 杂感
+tags: [杂感, 产品, 编程]
 ---
 
 > 一款产品，其生命周期始于想法的萌发    

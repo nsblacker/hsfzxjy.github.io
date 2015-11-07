@@ -4,8 +4,9 @@ title: RMQ（二进制方法）
 permalink: /RMQ-binary/
 date: 2014-11-02 15:07:05.000000000 +08:00
 categories:
-- 信息学竞赛
 - 编程
+tags:
+- 信息学竞赛
 ---
 <blockquote>
 <p>问题描述：已知数组a以及若干个查询(x, y)，求a[x~y]之间的最小值。</p>

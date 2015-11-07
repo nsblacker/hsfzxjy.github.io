@@ -2,8 +2,8 @@
 layout: post
 published: true
 title: 家书·十八岁成人礼
-categories: 家书 杂感
-tags: 成人礼
+categories: 杂感
+tags: [家书, 杂感, 成人礼]
 ---
 
 事实上，截至目前，我只有十七岁，但无论年龄的多与少，今天这个特殊的日子，都有着其特殊的意义——是的，我要成人了。

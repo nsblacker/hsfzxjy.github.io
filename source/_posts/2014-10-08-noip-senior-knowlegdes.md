@@ -3,9 +3,9 @@ layout: post
 title: NOIP初赛基础知识
 permalink: /noip-senior-knowlegdes/
 date: 2014-10-08 22:03:30.000000000 +08:00
-categories:
+categories: 编程
+tags:
 - 信息学竞赛
-- 编程
 ---
 <blockquote>
 <p>从今天起至10月11日，持续连载。</p>

@@ -4,11 +4,11 @@ title: NOIP2013 Day1 火柴排队：快速求逆序对
 permalink: /noip2013-day1-matches/
 date: 2014-10-26 11:42:23.000000000 +08:00
 categories:
-- 信息学竞赛
 - 编程
 tags:
 - 归并排序
 - 逆序对
+- 信息学竞赛
 ---
 <h2><strong>题目</strong></h2>
 <blockquote>

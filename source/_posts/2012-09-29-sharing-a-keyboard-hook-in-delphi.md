@@ -2,8 +2,8 @@
 layout: post
 published: true
 title: 一个键盘钩子的写法，很实用
-categories: delphi win32
-tags: Delphi
+categories: 编程
+tags: [Delphi, win32]
 ---
 
 ## 0x00 前言

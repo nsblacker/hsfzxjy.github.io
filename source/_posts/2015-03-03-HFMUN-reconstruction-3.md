@@ -4,8 +4,9 @@ title: 【HFMUN重构系列】3. 消息系统
 permalink: /HFMUN-reconstruction-3/
 date: 2015-03-03 21:53:20.000000000 +08:00
 categories:
-- HFMUN重构系列
 - 编程
+tags:
+- HFMUN重构系列
 ---
 <blockquote>
 <p>一个真正优秀的系统，值得你无数次地去重构。</p>

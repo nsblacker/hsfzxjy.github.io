@@ -4,10 +4,10 @@ title: 树状数组
 permalink: /tree-array/
 date: 2014-11-02 00:31:54.000000000 +08:00
 categories:
-- 信息学竞赛
 - 编程
 tags:
 - 树状数组
+- 信息学竞赛
 ---
 <h2><strong>介绍</strong></h2>
 <p>所谓树状数组，就是将线性的数组预处理成树状的结构以降低时间复杂度。先来看一幅经典的图： <img src="/assets/TArry1.jpg" alt="enter image description here" /><br />

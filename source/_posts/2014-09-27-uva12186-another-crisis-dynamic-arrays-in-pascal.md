@@ -2,10 +2,10 @@
 layout: post
 title: UVa12186 Another Crisis && [Dynamic Arrays in Pascal]
 date: 2014-09-27 16:26:32.000000000 +08:00
-categories:
+categories: 编程
+tags:
 - UVa
 - 信息学竞赛
-- 编程
 ---
 <blockquote>
 <p>链接：<a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=243&amp;page=show_problem&amp;problem=3338">Link</a> 耗时：0.586s</p>

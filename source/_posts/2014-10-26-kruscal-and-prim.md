@@ -4,10 +4,10 @@ title: 最小生成树（Kruscal & Prim）
 permalink: /kruscal-and-prim/
 date: 2014-10-26 16:47:51.000000000 +08:00
 categories:
-- 信息学竞赛
 - 编程
 tags:
 - 最小生成树
+- 信息学竞赛
 ---
 <blockquote>
 <p>测试位置：<a href="http://codevs.cn/problem/1078/">WikiOI1078</a></p>

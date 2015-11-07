@@ -4,8 +4,9 @@ title: 【HFMUN重构系列】2. 用户系统
 permalink: /HFMUN-reconstruction-2/
 date: 2015-01-28 20:41:10.000000000 +08:00
 categories:
-- HFMUN重构系列
 - 编程
+tags:
+- HFMUN重构系列
 ---
 <blockquote>
 <p>现在，我比任何时候都要有主见。</p>

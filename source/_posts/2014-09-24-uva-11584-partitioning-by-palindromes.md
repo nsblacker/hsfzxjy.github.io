@@ -2,10 +2,10 @@
 layout: post
 title: UVa11584 Partitioning by Palindromes
 date: 2014-09-24 22:00:14.000000000 +08:00
-categories:
+categories: 编程
+tags:
 - UVa
 - 信息学竞赛
-- 编程
 ---
 <blockquote>
 <p>这是一道区间型DP，转移方程很简单，但在实现的过程中却遇见了很多坑，在此记录一下。 链接：<a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;category=27&amp;problem=2631&amp;mosmsg=Submission%20received%20with%20ID%2014256745">Link</a> 耗时：0.368s</p>

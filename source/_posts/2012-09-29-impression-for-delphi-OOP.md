@@ -2,8 +2,8 @@
 layout: post
 published: true
 title: 学习Delphi面向对象编程的一点心得
-categories: delphi 杂感
-tags: Delphi OOP
+categories: 编程
+tags: [Delphi,OOP]
 ---
 
 以前我是完全不理解类的概念的，我只是把它当成一个Record来看，只不过它里面可以包含函数和过程罢了。但深入VCL学习后我才发现，原来面向对象的世界是这么精彩。

@@ -3,9 +3,9 @@ layout: post
 title: 扩展欧几里得算法
 permalink: /extended-gcd-algorithm/
 date: 2014-10-01 16:55:50.000000000 +08:00
-categories:
+categories: 编程
+tags: 
 - 信息学竞赛
-- 编程
 ---
 <blockquote>
 <p>今天开始学习数论方面的算法。这部分在NOIP中并不常出现，即使出现了也不会像高联这么难（。。。）。</p>

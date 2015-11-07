@@ -1,8 +1,8 @@
 ---
 layout: post
 title: 初试 node.js：MD5 解密网站
-categories: 编程 node.js
-tags: mongodb node.js express.js
+categories: [编程]
+tags: [mongodb, node.js, express.js]
 ---
 
 ## 前言

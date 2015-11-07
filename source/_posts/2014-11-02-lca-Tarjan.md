@@ -4,10 +4,10 @@ title: LCA之离线Tarjan算法
 permalink: /lca-Tarjan/
 date: 2014-11-02 17:05:45.000000000 +08:00
 categories:
-- 信息学竞赛
 - 编程
 tags:
 - LCA
+- 信息学竞赛
 ---
 <blockquote>
 <p>真是巧妙的算法！</p>

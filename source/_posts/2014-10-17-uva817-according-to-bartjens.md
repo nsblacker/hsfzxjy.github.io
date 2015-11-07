@@ -3,11 +3,11 @@ layout: post
 title: UVa817 According to Bartjens
 date: 2014-10-17 20:05:06.000000000 +08:00
 categories:
-- UVa
-- 信息学竞赛
 - 编程
 tags:
 - 搜索
+- UVa
+- 信息学竞赛
 ---
 <blockquote>
 <p>链接：<a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;category=10&amp;problem=758&amp;mosmsg=Submission%20received%20with%20ID%2014367065">Link</a> 状态：<strong>WA</strong></p>

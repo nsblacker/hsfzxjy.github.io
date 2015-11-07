@@ -4,8 +4,9 @@ title: 【HFMUN重构系列】1. Django1.7
 permalink: /HFMUN-reconstruction-1/
 date: 2015-01-27 20:49:06.000000000 +08:00
 categories:
-- HFMUN重构系列
 - 编程
+tags:
+- HFMUN重构系列
 ---
 <p>有人说：</p>
 <blockquote>

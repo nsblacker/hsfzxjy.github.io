@@ -3,16 +3,16 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle:
+title: hsfzxjy
+subtitle: 不忌讳空山无人，不害怕遥望星辰
 description:
-author: John Doe
+author: hsfzxjy
 language:
 timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
+url: http://hsfzxjy.github.io/
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -54,6 +54,8 @@ tag_map:
 ## http://momentjs.com/docs/#/displaying/format/
 date_format: YYYY-MM-DD
 time_format: HH:mm:ss
+
+duoshuo: hsfzxjy
 
 # Pagination
 ## Set per_page to 0 to disable pagination

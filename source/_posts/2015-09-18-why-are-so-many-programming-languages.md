@@ -1,7 +1,8 @@
 ---
 layout: post
 title: 【译】“为什么有这么多的编程语言？”
-categories: 翻译 编程
+categories: 编程
+tags: 翻译
 published: true
 ---
 

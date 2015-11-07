@@ -2,10 +2,10 @@
 layout: post
 title: UVa10285 Cake Slicing
 date: 2014-10-01 12:20:18.000000000 +08:00
-categories:
+categories: 编程
+tags:
 - UVa
 - 信息学竞赛
-- 编程
 ---
 <blockquote>
 <p>链接：<a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=825&amp;page=show_problem&amp;problem=4504">Link</a>  耗时：1.825s</p>

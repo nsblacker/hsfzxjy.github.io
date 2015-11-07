@@ -2,7 +2,8 @@
 layout: post
 published: true
 title: 【译】响应式图片的现状
-categories: 翻译 编程 web设计
+categories: 编程
+tags: [翻译, web设计]
 ---
 
 > 原文链接：[戳这里](http://www.webdesignerdepot.com/2015/08/the-state-of-responsive-images/)

@@ -5,7 +5,6 @@ permalink: /chemistry-chapter2-section1/
 date: 2014-12-01 20:58:40.000000000 +08:00
 categories:
 - 化学
-- 百题大过关
 tags:
 - 化学
 - 百题大过关

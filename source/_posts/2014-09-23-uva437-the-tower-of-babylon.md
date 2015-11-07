@@ -2,11 +2,8 @@
 layout: post
 title: UVa437 The Tower of Babylon
 date: 2014-09-23T14:00:56.000Z
-categories:
-  - UVa
-  - 信息学竞赛
-  - 编程
-tags: []
+categories: [编程]
+tags: [UVa,信息学竞赛]
 status: publish
 type: post
 published: true

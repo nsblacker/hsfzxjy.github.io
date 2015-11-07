@@ -4,8 +4,9 @@ title: 二进制的启示
 permalink: /revelation-of-binary/
 date: 2014-11-01 23:43:19.000000000 +08:00
 categories:
-- 信息学竞赛
 - 编程
+tags:
+- 信息学竞赛
 ---
 <blockquote>
 <p>在学习数论时我们都知道：只用2的幂次可以组合出所有的正整数。这便是二进制的魅力——状态简单而又变化万千。</p>

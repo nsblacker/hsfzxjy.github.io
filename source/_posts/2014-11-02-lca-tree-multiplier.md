@@ -4,8 +4,9 @@ title: LCA树上倍增
 permalink: /lca-tree-multiplier/
 date: 2014-11-02 16:23:13.000000000 +08:00
 categories:
-- 信息学竞赛
 - 编程
+tags:
+- 信息学竞赛
 ---
 <pre><code>var
     a: array [1..100, 1..100] of boolean;

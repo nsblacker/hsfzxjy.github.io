@@ -2,8 +2,8 @@
 layout: post
 published: true
 title: 窥视香港
-categories: 杂感 游记
-tags: 不经意间的感动
+categories: 杂感
+tags: [不经意间的感动,游记]
 ---
 
 > 用心灵窥视，用良知感悟，寻觅精神世界的失落。 ——题记

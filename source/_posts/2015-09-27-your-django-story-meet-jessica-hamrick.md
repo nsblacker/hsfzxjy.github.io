@@ -2,7 +2,8 @@
 layout: post
 title: 【译】Your Django Story：Jessica Hamrick 访谈录
 published: false
-categories: 翻译 django 访谈
+categories: 编程
+tags: [翻译, django, 访谈]
 ---
 
 > 原文链接：[戳这里](http://blog.djangogirls.org/post/129569804938/your-django-story-meet-jessica-hamrick)

@@ -2,8 +2,8 @@
 title: 如何备份apt-get已安装的软件列表？
 layout: post
 author: hsfzxjy
-categories: ubuntu apt-get
-tags: ubuntu apt-get
+categories: Ubuntu
+tags: [ubuntu,apt-get]
 ---
 
 `apt-get`是 ubuntu 下管理软件包的一个工具，实用简单，功能强大。平时若要安装或卸载软件包，只需轻敲一条指令即可。每一台ubuntu上，都安装着数以千百计的软件包——或是内核模块，或是工作、娱乐所需的软件，在它们的支持下，工作着这个开放的操作系统。

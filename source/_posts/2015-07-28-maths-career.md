@@ -1,7 +1,7 @@
 ---
 layout: post
 published: false
-categories: 杂感 数学
+categories: 杂感
 title: 忆昔·省今·乙未年北京协作体有感
 
 ---

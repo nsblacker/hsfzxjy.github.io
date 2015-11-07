@@ -3,14 +3,14 @@ layout: post
 title: UVa1647 Computer Transformation
 date: 2014-10-24 18:50:30.000000000 +08:00
 categories:
-- UVa
-- 信息学竞赛
-- 数学
-- 数论
 - 编程
 tags:
 - 数列
 - 高精度
+- UVa
+- 信息学竞赛
+- 数学
+- 数论
 ---
 <blockquote>
 <p>链接：<a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=825&amp;page=show_problem&amp;problem=4522">Link</a> 耗时：0.679s</p>

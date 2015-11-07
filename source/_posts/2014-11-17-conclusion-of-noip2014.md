@@ -1,0 +1,59 @@
+---
+layout: post
+title: NOIP2014总结
+permalink: /conclusion-of-noip2014/
+date: 2014-11-17 20:22:38.000000000 +08:00
+categories:
+- 信息学竞赛
+- 编程
+tags:
+- NOIP2014
+---
+<blockquote>
+<p>现在算起来，至少有<strong>220分</strong>是不应该丢的——已经接近我的得分了，都是由各种脑残的错误引起的。总之，经历了这一切，我都早已习惯了。过去的事只能让它过去了，重要的是：经历了这一切，我总要明白一些什么。</p>
+</blockquote>
+<h2><strong>生活大爆炸版剪刀石头布</strong></h2>
+<blockquote>
+<p>题目链接：<a href="http://www.luogu.org/problem/show?pid=1328">Link</a>  得分：<strong>100</strong></p>
+</blockquote>
+<p>这题是真正的大水题，当然也是我唯一一道满分的题（欲哭无泪）。不说了，模拟就是了。</p>
+<h2><strong>联合权值</strong></h2>
+<blockquote>
+<p>题目链接：<a href="http://www.luogu.org/problem/show?pid=1351">Link</a> 得分：<strong>40</strong></p>
+</blockquote>
+<p>这题不难，关键是要将无根树转化成为有根树，做一次DFS。事实上，两个距离为2的节点，要么一个是另一个的祖父节点，要么两个节点是兄弟关系。一方面，我们在DFS时先求当前节点与祖父节点产生的联合权值（如果有的话）；另一方面，遍历当前节点的子节点。对于一个子节点：只需将其的权值乘以已遍历过的节点中权值最大者即得最大权值，而只需将当前权值乘以已遍历的节点权值之和即可得到总联合权值。因此，该算法的时间复杂度为$O(n)$。<br />
+但关键之处往往就在细节的地方：我自作多情地以为求出的最大联合权值也要模10007，而事实上只需将综合取模即可。在这里丢了<strong>60分</strong>，真是不应该。</p>
+<h2><strong>飞扬的小鸟</strong></h2>
+<blockquote>
+<p>题目链接：<a href="http://www.luogu.org/problem/show?pid=1941">Link</a> 得分：<strong>0</strong></p>
+</blockquote>
+<p>这题我能够想到的办法就是爆搜，但因为做一个优化的时候开了10000*10000的longint数组导致MLE。现在算来，如果去掉那个该死的0，我可以拿到60分。同时，求正解。</p>
+<h2><strong>无线电网络发射选址</strong></h2>
+<blockquote>
+<p>题目链接：<a href="http://www.luogu.org/problem/show?pid=2038">Link</a> 得分：<strong>70</strong></p>
+</blockquote>
+<p>这题按理说应该是最不应该错的一道题了，但也只拿了70分。为此我还花了接近半个小时进行查错。结果发现，还是语文水平不过关——我自作主张地将题目脑补成<strong>“WIFI覆盖范围不得超出街道范围”</strong>。这导致了有一些边缘区域成了死角。在这里我丢了<strong>30分</strong>。下次一定要认真看题。</p>
+<h2><strong>道路寻找</strong></h2>
+<blockquote>
+<p>题目链接：<a href="http://www.luogu.org/problem/show?pid=2296">Link</a> 得分：<strong>30</strong></p>
+</blockquote>
+<p>这道题从一开始思路就是错误的：我先做了一遍DFS判断哪些点是可以经过的。而事实上：由于图中有环的存在，很多判断将具有后效性，从而导致错误。这一点我在距离考试结束还有半个小时的时候就发现了，但一直没有想到怎么更改，只能祈祷这样的数据点不要太多。<br />
+这是从别人那里听得的一个解法，花了10分钟来实现并且AC了，挺巧妙的：</p>
+<blockquote>
+<ol>
+<li>先将所有读进来的边反向存储，并删掉所有的自环。这样起点和中点就互换了位置。这是这个算法的核心。</li>
+<li>做一次DFS，将已走过的点做标记，在遍历子节点的时候，对于每个搜到的子节点都将其cnt加一。这样一来我们可以知道起点是否能走到终点；二来如果某个节点的cnt值等于其入度，则这个节点就可以通过。</li>
+<li>做一次SPFA，这就很简单了，只对可以经过的节点做松弛。</li>
+</ol>
+</blockquote>
+<p>这是一种逆向思维。</p>
+<h2><strong>解方程</strong></h2>
+<blockquote>
+<p>题目链接：<a href="http://www.luogu.org/problem/show?pid=2312">Link</a> 得分：<strong>30</strong></p>
+</blockquote>
+<p>这道题我能想到的方法只是直接做高精度，外加数论定理优化。听说可以用求导的办法求得单调区间，然后进行二分查找。个人感觉较为复杂，日后再研究一下。</p>
+<blockquote>
+<p>细节决定成败。如果做题时细心一点，而不是过于匆忙，或许，结果就不会这样了。<br />
+  而事实上在这次考试中，心态也很重要。高联的失利使我渐渐变得急功近利起来。没有了高一的淡然，没有了年少时的沉稳，一切都浮躁了起来。<br />
+  这一切，终于结束了。但，未来，未来究竟要怎么样呢？   —— 后记</p>
+</blockquote>

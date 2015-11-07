@@ -1,0 +1,146 @@
+---
+layout: post
+title: UVa437 The Tower of Babylon
+date: 2014-09-23T14:00:56.000Z
+categories:
+  - UVa
+  - 信息学竞赛
+  - 编程
+tags: []
+status: publish
+type: post
+published: true
+---
+
+> 链接：[The Tower of Babylon](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=6&page=show_problem&problem=378") 耗时：0.015s
+
+这是刘汝佳的紫书中"DAG中的动态规划"中的习题，我拿它用来熟悉DAG中的动态规划。
+
+我们不妨进行逆向考虑：现堆上面的方块，然后考虑在下面进行叠加。这样子一来，影响决策的就只是最下面方块的尺寸了。
+
+对于这种出现了"大套小"这样的二元关系的题，我们可以将其视为一个有向无环图：**其中每个节点为一个状态，状态的转移是有固定的方向的**（在此题中，状态转移为从小的方块到大的方块）。
+
+但是这道题又不同于平常的DAG动态规划：若将边长视为状态的话，则要开一个巨大的数组，这是不可以接受的。因此，我们要换一种思维方式：只记录方块的序号和摆放的方式（如现将边长从小到大进行排序，然后用一个标志k表示当前是以第k小的边长作为高）。<br /> 至此，思路已经清晰了。用dp(i, k)表示**"第i个方块以第k条边为高进行摆放"**，以下给出状态转移方程：</p>
+
+<blockquote>
+
+<p>dp(i, k) = max{dp(i, k), dp(j, k2)} j，k2遍历所有顶面矩形比dp(i, k)小的状态。</p> </blockquote>
+
+<p>代码实现首次尝试了Pascal中的object类型，使其更加工整，但不可避免地损耗了一些性能。</p>
+
+<p>Code：</p>
+<pre><code>type
+    Cube = object
+        a: array [1..3] of longint;
+        procedure init(x,y,z: longint);
+        function height(k: integer): longint;
+        function low(k: integer): longint;
+        function high(k: integer): longint;
+    end;
+
+function max(x,y: longint): longint;
+begin
+    if x&gt;y then max := x else max := y;
+end;
+
+procedure swap(var x,y: longint);
+var
+    t: longint;
+begin
+    t := x;
+    x := y;
+    y := t;
+end;
+
+function Cube.height(k: integer): longint;
+begin
+    height := self.a[k];
+end;
+
+function Cube.high(k: integer): longint;
+begin
+    case k of
+        1: high := a[3];
+        2: high := a[3];
+        3: high := a[2];
+    end;
+end;
+
+function Cube.low(k: integer): longint;
+begin
+    case k of
+        1: low := a[2];
+        2,3: low := a[1];
+    end;
+end;
+
+procedure Cube.init(x, y, z: longint);
+begin
+   if x&gt;y then swap(x,y);
+   if y&gt;z then swap(y,z);
+   if x&gt;y then swap(x,y);
+   a[1] := x;
+   a[2] := y;
+   a[3] := z;
+end;
+
+var
+    f: array [1..30, 1..3] of longint;
+    i,j,m,n,x,y,z: longint;
+    cnt: longint;
+    cubes: array [1..30] of Cube;
+
+function dp(id, k: integer): longint;
+var
+    l, h, hi: longint;
+    i, j: integer;
+begin
+    if f[id, k] &gt; 0 then
+        exit(f[id, k]);
+    l := cubes[id].low(k);
+    hi := cubes[id].height(k);
+    h := cubes[id].high(k);
+
+    f[id, k] := hi;
+
+    for i := 1 to n do
+    begin
+        //if i = id then continue;  //此处在一开始时忘记考虑了立方体有无穷多个这一条件。
+        for j := 1 to 3 do
+        begin
+            if not ((cubes[i].low(j) &lt; l) and (cubes[i].high(j) &lt; h)) then
+                continue;
+            f[id, k] := max(f[id, k], dp(i, j)+hi);
+        end;
+    end;
+
+    dp := f[id, k];
+end;
+
+begin
+    assign(input, 'main.in');reset(input);
+    assign(output, 'main.out');rewrite(output);
+    read(n);
+    cnt := 0;
+    while n &gt; 0 do
+    begin
+        inc(cnt);
+        for i := 1 to n do
+        begin
+            read(x,y,z);
+            cubes[i].init(x,y,z);
+        end;
+        fillchar(f, sizeof(f), 0);
+
+        m := 0;
+        for i := 1 to n do
+            for j := 1 to 3 do
+                m := max(m, dp(i, j));
+
+        writeln('Case ', cnt, ': maximum height = ', m);
+
+        read(n);
+    end;
+    close(input);close(output);
+end.
+</code></pre>

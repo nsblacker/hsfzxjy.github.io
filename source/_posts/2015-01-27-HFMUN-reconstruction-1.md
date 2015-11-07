@@ -1,0 +1,37 @@
+---
+layout: post
+title: 【HFMUN重构系列】1. Django1.7
+permalink: /HFMUN-reconstruction-1/
+date: 2015-01-27 20:49:06.000000000 +08:00
+categories:
+- HFMUN重构系列
+- 编程
+---
+<p>有人说：</p>
+<blockquote>
+<p>“软件更新的速度永远也比不上客户使用的速度。”</p>
+</blockquote>
+<p>的确，网络世界真是一个日新月异的地方，甚至作为开发者的我也能真切地感受到这一点。记得2013年初，Django最高的版本号才是1.5.5。一年之后，已经变成1.7了（事实上，应该是1.7.3，两个月的时间让我又落后了0.3个版本）。比起1.5.x，Django1.7多了如下的新特性：</p>
+<ul>
+<li>Migrations，即实时同步数据库。在此之前，如果要对Model的表结构进行改动，要么自己用MySQL的<code>ALTER TABLE</code>语句，要么就删除整个数据库再<code>syncdb</code>（大家可能很惊讶，由于本人较懒，因此常常会做出这样“鲁莽”的操作，反正是在调试- -）。这给开发带来了不少的麻烦。尽管不少博客都说——在解读需求时期就要定好表结构。可对于我，这点实在是比较难办到，总会有一些考虑不周的地方。</li>
+<li>Custom lookups，即自定义查找规则。我们常常会用到QuerySet的查找语句<code>User.objects.filter(id__lt=2)</code>等等。但如果要某一天我要实现自定义规则，如MySQL的全文搜索，又该怎么做呢？在1.7之前，Django并没有提供相应的接口，只能通过嵌入Raw SQL来实现。如今，1.7的这个特性让大家眼前一亮，同时也使数据库查找变得更加灵活。 </li>
+<li>App Configurations，即关于应用的自定义配置。就我个人看来，这里主要时方便了Admin的应用名显示。在1.7版本之前，我们无法设定应用在Admin中显示的名字，只能让那些格格不入的英文名显示在管理界面中——这也是我不让Admin投入实际应用的一个原因。如今，通过配置<code>AppConfig</code>，我们可以轻易地实现这一点。</li>
+</ul>
+<p>在HFMUN2.0中我用到的新特性大概就是这些，它们给应用开发带来了愉悦的体验。但可恶的是：<strong>SAE并不同步更新Django。</strong>如今，那里的Django仍然停留在版本1.5。</p>
+<p>于是，我只能将新鲜出炉的Django1.7放在网站的目录下，一同传上SAE。</p>
+<p>起初，我是将Django打包成Zip文件发在<code>site_packages/</code>目录下，因为我隐约记得Python是支持直接导入Zip文件的。但尝试了许多次，都说“找不到Django”。迫不得已，只好将Django解压出来再上传——这花费了我不少的时间（哦！中国的上传速度！）。</p>
+<p>接下来便是Django的配置了。先将<code>config.yaml</code>修改成这样：</p>
+<pre><code>name: hfmun
+version: 1
+</code></pre>
+<p>既然我们已经不用SAE自带的Django了，就应该把依赖关系删除，以免导入其默认的Django。</p>
+<p>接着修改<code>index.wsgi</code>：</p>
+<pre><code>#...
+import sys
+from site_packages import django 
+sys.modules['django'] = django
+#...
+</code></pre>
+<p>由于<code>index.wsgi</code>是第一个被执行的文件，在此处把Django先导入可以保证之后每次使用的Django都是自己上传的那个版本。<br />
+至此，新版本Django就可以使用了。</p>
+<p><em>ps：据测试，这样配置的网站大约会比普通的网站慢几十毫秒，大概是自己的Django需要启动时间。不过比起新功能，这点损耗是微不足道的。</em></p>

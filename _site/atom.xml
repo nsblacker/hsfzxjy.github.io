@@ -4,7 +4,7 @@
  <title>hsfzxjy</title>
  <link href="http://hsfzxjy.github.io//atom.xml" rel="self"/>
  <link href="http://hsfzxjy.github.io/"/>
- <updated>2015-11-06T22:38:14+08:00</updated>
+ <updated>2015-11-07T21:03:59+08:00</updated>
  <id>http://hsfzxjy.github.io/</id>
  <author>
    <name>Jinyi Xie</name>
@@ -17,7 +17,8 @@
    <link href="http://hsfzxjy.github.io//md5-cracker-powered-by-nodejs/"/>
    <updated>2015-11-06T00:00:00+08:00</updated>
    <id>http://hsfzxjy.github.io//md5-cracker-powered-by-nodejs</id>
-   <content type="html">&lt;blockquote&gt;
+   <content type="html">&lt;h2&gt;前言&lt;/h2&gt;
+
 &lt;p&gt;&lt;em&gt;有些日子没写技术笔记了。正好今天刚月考完，写篇东西放松一下。&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;node.js，IT界的新角，怀揣着用 javascript 称霸前后端的野心。一年前听说这个东西时，我就被其魅力深深地吸引了。尽管从语法上看，js 继承了其父丑陋的风格，无法和我钟爱的 python 相提并论，但人家的性能却是不可小觑的。浏览器脚本起家，天生支持异步编程，时间驱动，完美压榨 CPU 时间，简直让同步的 python 望尘莫及——更何况，还有 Google 大牛精心优化的 V8 引擎，速度快得飞起，完全弥补了其语法上的不足。&lt;/p&gt;
@@ -26,10 +27,9 @@
 
 &lt;p&gt;约摸两个星期前吧，@cc 提出了一个新的 idea——在高考后建一个网站，记录同学们毕业后的去向。具体需求尚未确定，但我非常感兴趣。乍一看来，websocket 是必不可少的了，而且对于这类 IO 密集型的网站，MySQL 水土不服，WSGI 模式吃不消。于是我又想到了 node.js——正好趁这个机会，再学一门技术。技多不压身嘛。&lt;/p&gt;
 
-&lt;p&gt;于是，在上周我写了个小 &lt;a href=&quot;https://github.com/hsfzxjy/md5cracker/&quot;&gt;demo&lt;/a&gt;，借此透析一下 node.js 及其常见框架。&lt;/p&gt;
+&lt;p&gt;于是，在上周我写了个小 &lt;a href=&quot;https://github.com/hsfzxjy/md5crack/&quot;&gt;demo&lt;/a&gt;，借此透析一下 node.js 及其常见框架。&lt;/p&gt;
 
 &lt;p&gt;说了那么多废话，切入正题。&lt;/p&gt;
-&lt;/blockquote&gt;
 
 &lt;h2&gt;需求 &amp;amp; 构思 &amp;amp; 准备&lt;/h2&gt;
 
@@ -96,7 +96,23 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;这是&lt;code&gt;nodemon&lt;/code&gt;的配置文件，&lt;code&gt;node&lt;/code&gt;的&lt;code&gt;--harmony&lt;/code&gt;的参数能够启用 ES6 语法。&lt;/p&gt;
 
-&lt;h3&gt;mongodb 相关内容&lt;/h3&gt;
+&lt;h3&gt;mongodb&lt;/h3&gt;
+
+&lt;p&gt;和 mysql 类似，mongodb 也需要初始化连接的代码。在 &lt;code&gt;app.js&lt;/code&gt; 加入下列语句：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// ...&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;express&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// set up mongodb engine.&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mongoose&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;mongoose&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;db&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;mongoose&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;connection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;error&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;bind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;connection error:&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;mongoose&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;connect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;mongodb://localhost:27017/crack&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// ...&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;事实上，这并不是最佳实践。毕竟，并不是所有的请求都会访问数据库，而且所有的请求都依赖于一个连接，可能会带来性能的损失。这里只是一个示范，暂时先不复杂化。&lt;/p&gt;
+
+&lt;p&gt;接下来便是 model 的定义：&lt;/p&gt;
 
 &lt;p&gt;（未完待续）&lt;/p&gt;
 </content>

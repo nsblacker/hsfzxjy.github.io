@@ -191,7 +191,8 @@
             <p class="time">06 Nov 2015</p>
         </header>
         <section class="content">
-            <blockquote>
+            <h2>前言</h2>
+
 <p><em>有些日子没写技术笔记了。正好今天刚月考完，写篇东西放松一下。</em></p>
 
 <p>node.js，IT界的新角，怀揣着用 javascript 称霸前后端的野心。一年前听说这个东西时，我就被其魅力深深地吸引了。尽管从语法上看，js 继承了其父丑陋的风格，无法和我钟爱的 python 相提并论，但人家的性能却是不可小觑的。浏览器脚本起家，天生支持异步编程，时间驱动，完美压榨 CPU 时间，简直让同步的 python 望尘莫及——更何况，还有 Google 大牛精心优化的 V8 引擎，速度快得飞起，完全弥补了其语法上的不足。</p>
@@ -200,10 +201,9 @@
 
 <p>约摸两个星期前吧，@cc 提出了一个新的 idea——在高考后建一个网站，记录同学们毕业后的去向。具体需求尚未确定，但我非常感兴趣。乍一看来，websocket 是必不可少的了，而且对于这类 IO 密集型的网站，MySQL 水土不服，WSGI 模式吃不消。于是我又想到了 node.js——正好趁这个机会，再学一门技术。技多不压身嘛。</p>
 
-<p>于是，在上周我写了个小 <a href="https://github.com/hsfzxjy/md5cracker/">demo</a>，借此透析一下 node.js 及其常见框架。</p>
+<p>于是，在上周我写了个小 <a href="https://github.com/hsfzxjy/md5crack/">demo</a>，借此透析一下 node.js 及其常见框架。</p>
 
 <p>说了那么多废话，切入正题。</p>
-</blockquote>
 
 <h2>需求 &amp; 构思 &amp; 准备</h2>
 
@@ -270,7 +270,23 @@
 </code></pre></div>
 <p>这是<code>nodemon</code>的配置文件，<code>node</code>的<code>--harmony</code>的参数能够启用 ES6 语法。</p>
 
-<h3>mongodb 相关内容</h3>
+<h3>mongodb</h3>
+
+<p>和 mysql 类似，mongodb 也需要初始化连接的代码。在 <code>app.js</code> 加入下列语句：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="c1">// ...</span>
+<span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">express</span><span class="p">();</span>
+
+<span class="c1">// set up mongodb engine.</span>
+<span class="kd">var</span> <span class="nx">mongoose</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;mongoose&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">db</span> <span class="o">=</span> <span class="nx">mongoose</span><span class="p">.</span><span class="nx">connection</span><span class="p">;</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">console</span><span class="p">,</span> <span class="s1">&#39;connection error:&#39;</span><span class="p">));</span>
+<span class="nx">mongoose</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="s1">&#39;mongodb://localhost:27017/crack&#39;</span><span class="p">);</span>
+
+<span class="c1">// ...</span>
+</code></pre></div>
+<p>事实上，这并不是最佳实践。毕竟，并不是所有的请求都会访问数据库，而且所有的请求都依赖于一个连接，可能会带来性能的损失。这里只是一个示范，暂时先不复杂化。</p>
+
+<p>接下来便是 model 的定义：</p>
 
 <p>（未完待续）</p>
 

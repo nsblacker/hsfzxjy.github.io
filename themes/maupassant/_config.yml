@@ -9,12 +9,29 @@ menu:
   - page: home
     directory: /
     icon: icon-home
+    position: main
+  - page: code
+    directory: /categories/编程/
+    icon: icon-code
+    position: main
+  - page: life
+    directory: /categories/杂感/
+    position: main
+    icon: icon-life
   - page: archive
-    directory: archives/
-    icon: icon-archive
+    directory: /archives/
+    icon: icon-archives
+    position: optional
+  - page: works
+    directory: /works/
+    icon: icon-works
+    position: optional
   - page: about
-    directory: about/
+    directory: /about/
     icon: icon-about
+    position: main
   - page: rss
-    directory: atom.xml
+    directory: /atom.xml
     icon: icon-rss
+    position: optional
+sections: [编程, 杂感]

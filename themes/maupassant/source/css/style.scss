@@ -6,8 +6,10 @@
  * @link http://chopstack.com
  */
 
+$bk-color: lighten(#eee, 3%);
+
 body {
-	background-color: #FFF;
+	background-color: $bk-color;
 	color: #444;
 	font-family: "TIBch", "Classic Grotesque W01", "Helvetica Neue", Arial, "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", "WenQuanYi Micro Hei", SimSun, sans-serif;
 	-webkit-font-smoothing: antialiased;
@@ -70,6 +72,10 @@ a:focus{
 			margin: .2em 0 0;
 			color: #999;
 		}
+
+		.github-btn {
+			margin: 20px 0;
+		}
 	}
 	#nav-menu {
 		margin: 10px 0 -1px;
@@ -89,7 +95,7 @@ a:focus{
 			}
 			&.current{
 				border: 1px solid #ddd;
-				border-bottom-color: #fff;
+				border-bottom-color: $bk-color;
 			}
 		}
 	}
@@ -141,11 +147,10 @@ a:focus{
 		position: relative;
 		overflow: hidden;
 		input {
-			background: #fff 8px 8px no-repeat
-				url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAYAAABy6%2BR8AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAG11AABzoAAA%2FN0AAINkAABw6AAA7GgAADA%2BAAAQkOTsmeoAAAESSURBVHjajNCxS9VRGMbxz71E4OwgoXPQxVEpXCI47%2BZqGP0LCoJO7UVD3QZzb3SwcHB7F3Uw3Zpd%2FAPCcJKG7Dj4u%2FK7Pwp94HDg5Xyf5z1Pr9YKImKANTzFXxzjU2ae6qhXaxURr%2FAFl9hHDy%2FwEK8z89sYVEp5gh84wMvMvGiSJ%2FEV85jNzLMR1McqfmN5BEBmnmMJFSvtpH7jdJiZv7q7Z%2BZPfMdcF6rN%2FT%2F1m2LGBkd4HhFT3dcRMY2FpskxaLNpayciHrWAGeziD7b%2BVfkithuTk8bkGa4wgWFmbrSTZOYeBvjc%2BucQj%2FEe6xHx4Taq1nrnKaW8K6XUUsrHWuvNevdRRLzFGwzvDbXAB9cDAHvhedDruuxSAAAAAElFTkSuQmCC);
+			background-color: $bk-color;
 			display: inline-block;
     		height: 16px;
-    		padding: 7px 11px 7px 28px;
+    		padding: 7px 11px;
     		border: 1px solid #bbb;
     		border: 1px solid rgba(0,0,0,0.25);
     		font-weight: 400;
@@ -180,11 +185,20 @@ a:focus{
 		margin: 0;
 		color: #555;
 		text-align: left;
-		font: bold 25px/1.1 "ff-tisa-web-pro", Cambria, "Times New Roman", Georgia, Times, sans-serif;
+		padding: 0;
+		padding-top: 2em;
+		border-top: 2px dotted darken($bk-color, 30%);
+		font: bold 45px/1.1 "ff-tisa-web-pro", Cambria, "Times New Roman", Georgia, Times, sans-serif;
 		a {
 			color: #555;
 		}
 	}
+
+	&:first-child .post-title {
+		border: none;
+		padding: 0;
+	}
+
 	.post-meta {
 		padding: 0;
 		margin: 12px 0 0;
@@ -220,6 +234,10 @@ a:focus{
 		}
 		pre code {
 			padding: 0 2em;
+		}
+
+		>p {
+			text-indent: 2em;
 		}
 		p {
 			margin: 0 0 1.234em;
@@ -399,22 +417,15 @@ blockquote,.stressed {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     margin: 2.5em 0;
-    padding: 0 0 0 50px;
+    padding: 20px;
     color: #555;
-	border-left: none;
+    border: dashed darken($bk-color, 30%) 1px;
+
+    p:last-child {
+    	margin: 0!important;
+    }
 }
-blockquote:before,.stressed-quote:before {
-    content: "\201C";
-    display: block;
-    font-family: times;
-    font-style: normal;
-    font-size: 48px;
-    color: #444;
-    font-weight: bold;
-    line-height: 30px;
-    margin-left: -50px;
-    position: absolute;
-}
+
 strong,b,em{
 	padding: 1px 2px;
 	font-weight: bold;
@@ -512,7 +523,7 @@ div {
     line-height: 20px;
 }
 .timeline .timeline-item .marker {
-    background-color: #fff;
+    background-color: $bk-color;
     border: 4px solid #aaa;
     height: 20px;
     width: 20px;
@@ -670,7 +681,7 @@ div {
     text-align: center;
 
     &:hover {
-      color: #fff;
+      color: $bk-color;
       background: #666;
     }
   }
@@ -740,7 +751,7 @@ code {
 code {
   word-break: break-all;
   background: #eee;
-  text-shadow: 0 1px #fff;
+  text-shadow: 0 1px $bk-color;
   padding: 0 0.3em;
 }
 pre code {
@@ -900,8 +911,8 @@ pre .javascript .function {
 	font-style: normal;
 }
 
-i {
-	font-family: 'icomoon', "TIBch", "Classic Grotesque W01", "Helvetica Neue", Arial, "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", "WenQuanYi Micro Hei", SimSun, sans-serif;
+[class^="icon-"], [class*=" icon-"] {
+	font-family: 'icomoon';
 	speak: none;
 	font-style: normal;
 	font-weight: normal;
@@ -916,27 +927,35 @@ i {
 .icon-home:before {
 	content: "\e900";
 }
-.icon-history:before {
+.icon-categories:before {
 	content: "\e901";
 }
-.icon-guestbook:before {
+.icon-tags:before {
 	content: "\e902";
 }
-.icon-about:before {
+.icon-history:before {
 	content: "\e903";
 }
-.icon-rss:before {
-	content: "\e905";
-}
-.icon-previous:before {
-	content: "\e908";
-}
-.icon-next:before {
-	content: "\e909";
-}
-.icon-archive:before {
+.icon-archives:before {
 	content: "\e904";
 }
+.icon-life:before {
+	content: "\e905";
+}
+.icon-about:before {
+	content: "\e906";
+}
+.icon-works:before {
+	content: "\e907";
+}
+.icon-code:before {
+	content: "\e908";
+}
+.icon-rss:before {
+	content: "\e909";
+}
+
+
 
 /* post navigator*/
 .post-nav {

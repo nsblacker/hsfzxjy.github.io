@@ -1,10 +1,13 @@
 mixin a_with_current(href, content, id)
   - var url = url_for(href)
-  if (href == '/' && (is_home() || is_post())) || is_current(href)
-    a.current(href=url)
+
+  if url !== '/'
+    - var url = url.slice(1)
+  if (href == '/' && (is_home() || is_post())) || is_current(url)
+    a.current(href=href)
       i(class=id)= ' ' + content
   else
-    a(href=url)
+    a(href=href)
       i(class=id)= ' ' + content
 
 mixin title(page)

@@ -3,10 +3,10 @@ layout: post
 title: 在Ubuntu下更改MYSQL的字符集
 date: 2014-11-28 21:49:30.000000000 +08:00
 categories:
-- 编程
+- 随手记
 tags:
 - MySql
-- Ubuntu
+- ubuntu
 ---
 
 修改`/etc/mysql/my.cnf`：

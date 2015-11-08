@@ -3,7 +3,7 @@ layout: post
 title: Ubuntu加入自己的字体
 date: 2014-12-13T07:50:34.000Z
 categories:
-  - Ubuntu
+  - 随手记
 tags:
   - ubuntu
   - 字体

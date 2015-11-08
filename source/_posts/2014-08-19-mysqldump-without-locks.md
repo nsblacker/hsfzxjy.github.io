@@ -3,7 +3,7 @@ layout: post
 title: MySQLDump导出时不加锁
 date: 2014-08-19T09:50:37.000Z
 permalink: /mysqldump-without-lock/
-categories: 编程
+categories: 随手记
 tags: mysql
 status: publish
 type: post

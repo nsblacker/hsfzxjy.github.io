@@ -3,7 +3,7 @@ layout: post
 title: Ubuntu下删除不完整的包
 date: 2014-12-13T05:41:10.000Z
 categories:
-  - Ubuntu
+  - 随手记
 tags:
   - ubuntu
 status: publish

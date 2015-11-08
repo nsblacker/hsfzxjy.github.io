@@ -3,7 +3,7 @@ layout: post
 title: Sublime configuration for Pascal
 date: 2014-10-23 21:22:54.000000000 +08:00
 categories:
-- Sublime
+- 随手记
 tags:
 - Pascal
 - Sublime

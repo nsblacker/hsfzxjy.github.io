@@ -2,7 +2,8 @@
 layout: post  
 published: true
 title: 高中化学常用除杂方法
-categories: 化学
+categories: 学习
+tags: 化学
 ---
 
 ## 0x00 规律

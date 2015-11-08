@@ -2,7 +2,7 @@
 title: 如何备份apt-get已安装的软件列表？
 layout: post
 author: hsfzxjy
-categories: Ubuntu
+categories: 随手记
 tags: [ubuntu,apt-get]
 ---
 

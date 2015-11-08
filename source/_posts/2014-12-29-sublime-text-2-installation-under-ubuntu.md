@@ -3,9 +3,10 @@ layout: post
 title: Ubuntu安装Sublime 2
 date: 2014-12-29T11:31:02.000Z
 categories:
-- Ubuntu
+- 随手记
 tags: 
 - Sublime
+- ubuntu
 status: publish
 type: post
 published: true

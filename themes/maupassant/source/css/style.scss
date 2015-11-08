@@ -379,6 +379,14 @@ a:focus{
 
 /*<middle*/
 @media print, screen and (max-width: 48em) {
+
+	.post {
+		.post-title {
+			padding-top: 2em;
+			font-size: 35px!important;
+			text-align: center;
+		}
+	}
 	.body_container {
 		padding: 0 30px;
 	}
@@ -410,6 +418,14 @@ a:focus{
 	}
 	.content_container {
 		padding-right: 0;
+	}
+
+	.post {
+		.post-title {
+			padding-top: 2em;
+			font-size: 30px!important;
+			text-align: center;
+		}
 	}
 }
 

@@ -1,7 +1,6 @@
 ---
 layout: post
 title: 拉格朗日乘数法
-permalink: /lagrange-multiplier-method/
 date: 2014-12-27T08:55:52.000Z
 categories:
   - 数学

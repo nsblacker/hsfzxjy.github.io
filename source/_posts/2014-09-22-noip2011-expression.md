@@ -2,7 +2,6 @@
 layout: post
 title: NOIP2011 表达式计算
 date: 2014-09-22T13:57:50.000Z
-permalink: /noip2011-expression/
 categories: [编程]
 tags: [信息学竞赛, 编程]
 status: publish

@@ -2,7 +2,6 @@
 layout: post
 title: Extended和Double的奇怪问题
 date: 2014-08-20T05:37:46.000Z
-permalink: /strange-extended-and-double-problem/
 categories: 编程
 tags: [Delphi, 浮点数]
 status: publish

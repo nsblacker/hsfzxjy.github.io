@@ -1,7 +1,6 @@
 ---
 layout: post
 title: Ubuntu下删除不完整的包
-permalink: /remove-broken-packages-under-ubuntu/
 date: 2014-12-13T05:41:10.000Z
 categories:
   - Ubuntu

@@ -7,15 +7,20 @@ tags:
 - UVa
 - 信息学竞赛
 ---
-<blockquote>
-<p>链接：<a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=243&amp;page=show_problem&amp;problem=3338">Link</a> 耗时：0.586s</p>
-</blockquote>
-<p>昨晚做的太急了，没时间写总结，正好下午有空，补上。<br />
-这是一道典型的树形动态规划，不是很难，但十分坑语言。思路大致如下：</p>
-<p>对于第i个节点，用d(i)表示其上诉所需的最小工人数。若i为叶节点，则d(i)=1；否则，遍历求出i的子节点所对应的d值，并由小到大排序，取出最小的几个相加，即为d(i)。</p>
-<p>很容易想到用递归来实现。但对于“子节点的d值的排序”实现起来却十分困难：因为事先不知道有多少个数。当然啦，如果是C++组，用vector可以轻松搞定，可至于P党，实现起来却难上加难。思来想去，决定试试Pascal的动态数组。磕磕碰碰调了近1个小时，终于AC了。<br />
-Code:</p>
-<pre><code>//Accepted
+> 链接：[Link](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=243&amp;page=show_problem&amp;problem=3338) 耗时：0.586s 
+
+昨晚做的太急了，没时间写总结，正好下午有空，补上。
+
+这是一道典型的树形动态规划，不是很难，但十分坑语言。思路大致如下：
+
+对于第i个节点，用d(i)表示其上诉所需的最小工人数。若i为叶节点，则d(i)=1；否则，遍历求出i的子节点所对应的d值，并由小到大排序，取出最小的几个相加，即为d(i)。
+
+很容易想到用递归来实现。但对于“子节点的d值的排序”实现起来却十分困难：因为事先不知道有多少个数。当然啦，如果是C++组，用vector可以轻松搞定，可至于P党，实现起来却难上加难。思来想去，决定试试Pascal的动态数组。磕磕碰碰调了近1个小时，终于AC了。
+
+Code:
+
+```pascal
+//Accepted
 var
     tree: array [0..100000] of array of int64;
     T: Integer;
@@ -103,11 +108,15 @@ begin
     end;
     close(input); close(output);
 end.
-</code></pre>
-<h2>Dynamic Arrays</h2>
-<p>这里，再总结一下动态数组的用法。<br />
-1&#46; 定义：<code>a: array of [type];</code><br />
-2&#46; 设置长度： <code>SetLength(a, 10);</code><br />
-3&#46; 长度加一： <code>SetLength(a, Length(a)+1);</code><br />
-4&#46; 取得最大、最小下标： <code>High(a)</code>, <code>Low(a)</code></p>
-<p>事实上，从<a href="http://freepascal.org/docs-html/ref/refsu18.html#x42-480003.3.1">1&#46;1</a>版本开始FPC就支持Dynamic Arrays了。所以在NOIP竞赛中我们大可放心使用。</p>
+```
+
+## Dynamic Arrays
+
+这里，再总结一下动态数组的用法。
+
+ 1. 定义：`a: array of [type];`
+ 2. 设置长度： `SetLength(a, 10);`
+ 3. 长度加一： `SetLength(a, Length(a)+1);`
+ 4. 取得最大、最小下标： `High(a)`, `Low(a)`
+
+事实上，从[1.1](http://freepascal.org/docs-html/ref/refsu18.html#x42-480003.3.1)版本开始FPC就支持Dynamic Arrays了。所以在NOIP竞赛中我们大可放心使用。

@@ -2,7 +2,6 @@
 layout: post
 title: 关于Ubuntu突然无法连接Wifi的解决方案
 date: 2014-09-27 18:41:31.000000000 +08:00
-permalink: /ubuntu-offline-solution/
 categories:
 - Ubuntu
 ---

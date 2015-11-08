@@ -1,7 +1,6 @@
 ---
 published: true
 layout: post
-permalink: /migrate-to-github/
 title: 博客迁移至Github.io
 ---
 ###为什么迁出？
@@ -31,7 +30,7 @@ title: 博客迁移至Github.io
 
 首先要介绍一下 Github Pages 的架构。先看看 [Github的介绍](https://help.github.com/articles/using-jekyll-with-pages/#using-jekyll)：
 
-> ####Using Jekyll    
+> #### Using Jekyll    
 > Every GitHub Page is run through Jekyll when you push content to a specially named branch within your repository. For User Pages, use the master branch in your username.github.io repository. For Project Pages, use the gh-pages branch in your project's repository. Because a normal HTML site is also a valid Jekyll site, you don't have to do anything special to keep your standard HTML files unchanged. Jekyll has thorough documentation that covers its features and usage. Simply start committing Jekyll formatted files and you'll be using Jekyll in no time.
 
 可以看得出来，Github Pages使用Jekyll作为后端引擎——这是一个用Ruby写的博客框架。但用户不需要写一行Ruby的代码，只需在名为**<username>.github.io**的项目下面以一定的目录结构放置markdown文件，Jekyll便会自动生成整个站点。

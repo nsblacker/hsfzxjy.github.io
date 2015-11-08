@@ -1,6 +1,7 @@
 ---
 layout: post
 title: 【译】“为什么有这么多的编程语言？”
+description: 在过去的一周中，几位同事曾两次问了我这个问题。听起来，这像是一个糟糕的问题，但事实上并不是这样的。
 categories: 编程
 tags: 翻译
 published: true

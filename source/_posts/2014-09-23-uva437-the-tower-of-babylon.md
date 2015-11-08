@@ -9,7 +9,7 @@ type: post
 published: true
 ---
 
-> 链接：[The Tower of Babylon](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=6&page=show_problem&problem=378") 耗时：0.015s
+> 链接：[The Tower of Babylon](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&category=6&page=show_problem&problem=378) 耗时：0.015s
 
 这是刘汝佳的紫书中"DAG中的动态规划"中的习题，我拿它用来熟悉DAG中的动态规划。
 
@@ -17,16 +17,18 @@ published: true
 
 对于这种出现了"大套小"这样的二元关系的题，我们可以将其视为一个有向无环图：**其中每个节点为一个状态，状态的转移是有固定的方向的**（在此题中，状态转移为从小的方块到大的方块）。
 
-但是这道题又不同于平常的DAG动态规划：若将边长视为状态的话，则要开一个巨大的数组，这是不可以接受的。因此，我们要换一种思维方式：只记录方块的序号和摆放的方式（如现将边长从小到大进行排序，然后用一个标志k表示当前是以第k小的边长作为高）。<br /> 至此，思路已经清晰了。用dp(i, k)表示**"第i个方块以第k条边为高进行摆放"**，以下给出状态转移方程：</p>
+但是这道题又不同于平常的DAG动态规划：若将边长视为状态的话，则要开一个巨大的数组，这是不可以接受的。因此，我们要换一种思维方式：只记录方块的序号和摆放的方式（如现将边长从小到大进行排序，然后用一个标志k表示当前是以第k小的边长作为高）。<br /> 至此，思路已经清晰了。用dp(i, k)表示**"第i个方块以第k条边为高进行摆放"**，以下给出状态转移方程：
 
-<blockquote>
 
-<p>dp(i, k) = max{dp(i, k), dp(j, k2)} j，k2遍历所有顶面矩形比dp(i, k)小的状态。</p> </blockquote>
 
-<p>代码实现首次尝试了Pascal中的object类型，使其更加工整，但不可避免地损耗了一些性能。</p>
+> dp(i, k) = max{dp(i, k), dp(j, k2)} j，k2遍历所有顶面矩形比dp(i, k)小的状态。
 
-<p>Code：</p>
-<pre><code>type
+代码实现首次尝试了Pascal中的object类型，使其更加工整，但不可避免地损耗了一些性能。
+
+Code：
+
+```pascal
+type
     Cube = object
         a: array [1..3] of longint;
         procedure init(x,y,z: longint);
@@ -140,4 +142,4 @@ begin
     end;
     close(input);close(output);
 end.
-</code></pre>
+```

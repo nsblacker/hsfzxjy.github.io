@@ -7,20 +7,27 @@ tags:
 - UVa
 - 信息学竞赛
 ---
-<blockquote>
-<p>链接：<a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=825&amp;page=show_problem&amp;problem=4504">Link</a>  耗时：1.825s</p>
-</blockquote>
-<p>这道题做的可真够久的：前前后后加起来将近有两个小时，因此当AC的那一刻，自己心中还是挺自豪的。<br />
-事实上，这是一道复杂一点的区间型动态规划，之所以说“复杂”，是因为它的状态转移是<strong>二维</strong>的：切蛋糕既可以横切，也可以纵切。由此我想到了分治算法：</p>
-<blockquote>
-<p>假设一个矩形它所需要切的刀数是f，则f可以由组成该矩形的小矩形的f值决定。</p>
-</blockquote>
-<p>因此，这个问题具有最优子结构。由于每个状态为一个矩形，因此需要4个维度来记录状态（及左上、右下两个顶点）。下面是横切时的状态转移方程，纵切时同理可得：</p>
-<blockquote>
-<p>f(up, down, left, right) = min{f(up, i, left, right) + f(i, down, left, right) + right - left} (i = up + 1 .. down -1)</p>
-</blockquote>
-<p>Code:</p>
-<pre><code>{$R-}
+> 链接：[Link](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=825&amp;page=show_problem&amp;problem=4504)  耗时：1.825s
+
+
+这道题做的可真够久的：前前后后加起来将近有两个小时，因此当AC的那一刻，自己心中还是挺自豪的。
+
+事实上，这是一道复杂一点的区间型动态规划，之所以说“复杂”，是因为它的状态转移是**二维**的：切蛋糕既可以横切，也可以纵切。由此我想到了分治算法：
+
+> 
+假设一个矩形它所需要切的刀数是f，则f可以由组成该矩形的小矩形的f值决定。
+
+
+因此，这个问题具有最优子结构。由于每个状态为一个矩形，因此需要4个维度来记录状态（及左上、右下两个顶点）。下面是横切时的状态转移方程，纵切时同理可得：
+
+> 
+f(up, down, left, right) = min{f(up, i, left, right) + f(i, down, left, right) + right - left} (i = up + 1 .. down -1)
+
+
+Code:
+
+```
+{$R-}
 const INF = maxint div 5; //正无穷
 var
     f: array [0..20, 0..20, 0..20, 0..20] of integer;
@@ -96,4 +103,4 @@ begin
     end;
     close(input);close(output);
 end.
-</code></pre>
+```

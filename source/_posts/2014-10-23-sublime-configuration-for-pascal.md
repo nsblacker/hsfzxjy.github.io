@@ -8,27 +8,27 @@ tags:
 - Pascal
 - Sublime
 ---
-<blockquote>
-<p>鉴于U盘中Sublime的配置常常莫名其妙地消失，在此将其记录一下。</p>
-</blockquote>
-<h2><strong>Code</strong></h2>
-<pre><code>{
-    "cmd": ["fpc", "-S2", "${file}", "-o${file_path}/${file_base_name}.exe"],
-    "file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
-    "working_dir": "${file_path}",
-    "selector": "source.pascal",
 
-    "variants": [
-        {
-            "name": "Run",
-            "cmd": ["cmd", "/c", "fpc", "-S2", "${file}", "-o${file_path}/${file_base_name}.exe", 
- "&amp;&amp;", "${file_path}/${file_base_name}.exe"]
-        }
-    ],
+> 鉴于U盘中Sublime的配置常常莫名其妙地消失，在此将其记录一下。
 
-    "osx":
+## **Code**
+
     {
-        "path": "/usr/local/bin:/usr/bin:/bin:${path}"
+        "cmd": ["fpc", "-S2", "${file}", "-o${file_path}/${file_base_name}.exe"],
+        "file_regex": "^(..[^:]*):([0-9]+):?([0-9]+)?:? (.*)$",
+        "working_dir": "${file_path}",
+        "selector": "source.pascal",
+
+        "variants": [
+            {
+                "name": "Run",
+                "cmd": ["cmd", "/c", "fpc", "-S2", "${file}", "-o${file_path}/${file_base_name}.exe", 
+     "&&", "${file_path}/${file_base_name}.exe"]
+            }
+        ],
+
+        "osx":
+        {
+            "path": "/usr/local/bin:/usr/bin:/bin:${path}"
+        }
     }
-}
-</code></pre>

@@ -7,17 +7,22 @@ tags:
 - UVa
 - 信息学竞赛
 ---
-<blockquote>
-<p>这是一道区间型DP，转移方程很简单，但在实现的过程中却遇见了很多坑，在此记录一下。 链接：<a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;category=27&amp;problem=2631&amp;mosmsg=Submission%20received%20with%20ID%2014256745">Link</a> 耗时：0.368s</p>
-</blockquote>
-<p>容易想到，前i个数的划分情况可以由1,2,3...,i-1的划分情况来决定。因此很容易得到状态转移方程：</p>
-<blockquote>
-<p>d[i] = min(d[i], d[j]+1) //j = 0, 1, 2...n-1 并且 s[j+1, i]为回文串，初始条件：d[i] = i。</p>
-</blockquote>
-<p>d[i]表示前i项的最小划分。这样一来状态转移的复杂度就为O($n^2$)。<br />
-但状态转移的判断呢？“回文串”是一个复杂的条件，判断一个串是否为回文串需要将该串至少遍历一遍。这样一来时间复杂度就上升为O($n^3$)了。而事实上在这种算法中有许多无谓的计算，因此我们可以先对字符串进行预处理：用huiwen[i,j]表示s[i,j]是否为回文串（奇怪的名字。。。）。如此一来，时间复杂度就降为O($n^2$)了。</p>
-<p>Code：</p>
-<pre><code>var
+> 这是一道区间型DP，转移方程很简单，但在实现的过程中却遇见了很多坑，在此记录一下。 链接：[Link](http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;category=27&amp;problem=2631&amp;mosmsg=Submission%20received%20with%20ID%2014256745") 耗时：0.368s
+
+容易想到，前i个数的划分情况可以由1,2,3...,i-1的划分情况来决定。因此很容易得到状态转移方程：
+
+
+> d[i] = min(d[i], d[j]+1) //j = 0, 1, 2...n-1 并且 s[j+1, i]为回文串，初始条件：d[i] = i。
+
+`d[i]`表示前i项的最小划分。这样一来状态转移的复杂度就为O($n^2$)。
+
+但状态转移的判断呢？“回文串”是一个复杂的条件，判断一个串是否为回文串需要将该串至少遍历一遍。这样一来时间复杂度就上升为O($n^3$)了。而事实上在这种算法中有许多无谓的计算，因此我们可以先对字符串进行预处理：用huiwen[i,j]表示s[i,j]是否为回文串（奇怪的名字。。。）。如此一来，时间复杂度就降为O($n^2$)了。
+
+
+Code：
+
+```pascal
+var
     s: AnsiString;
     n, _, i, j, l: integer;
     huiwen: array [1..1000, 1..1000] of boolean; //s[i,j]是否为回文串
@@ -76,4 +81,4 @@ begin
 
     //close(input);close(output);
 end.
-</code></pre>
+```

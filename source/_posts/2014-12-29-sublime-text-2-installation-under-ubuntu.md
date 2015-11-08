@@ -1,7 +1,6 @@
 ---
 layout: post
 title: Ubuntu安装Sublime 2
-permalink: /sublime-text-2-installation-under-ubuntu/
 date: 2014-12-29T11:31:02.000Z
 categories:
 - Ubuntu

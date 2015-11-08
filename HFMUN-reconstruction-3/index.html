@@ -1,0 +1,126 @@
+<a id="rocket" href="#top" class="show"></a><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/><meta content="yes" name="apple-mobile-web-app-capable"/><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/><meta content="telephone=no" name="format-detection"/><meta name="description"/><title>【HFMUN重构系列】3. 消息系统 | hsfzxjy</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"/><link rel="stylesheet" type="text/css" href="/css/pure-min.css"/><link rel="stylesheet" type="text/css" href="/css/grids-responsive-min.css"/><link rel="stylesheet" type="text/css" href="/css/style.css"/><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"/><link rel="apple-touch-icon" href="/apple-touch-icon.png"/><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"/><link rel="alternate" type="application/atom+xml" href="/atom.xml"/></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">【HFMUN重构系列】3. 消息系统</h1><a id="logo" href="/">hsfzxjy</a><p class="description">不忌讳空山无人，不害怕遥望星辰</p><iframe src="https://ghbtns.com/github-btn.html?user=mdo&amp;type=follow&amp;count=true" frameborder="0" scrolling="0" width="170px" height="20px" class="github-btn"></iframe></div><div id="nav-menu"><a href="/" class="current"><i class="icon-home"> 首页</i></a><a href="/categories/编程/"><i class="icon-code"> 码海拾贝</i></a><a href="/categories/杂感/"><i class="icon-life"> 五味杂感</i></a><a href="/about/"><i class="icon-about"> 我</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post post-page"><h1 class="post-title">【HFMUN重构系列】3. 消息系统</h1><div class="post-meta">2015-03-03 | <span class="categories">分类于<a href="/categories/编程/">编程</a></span></div><span data-thread-key="/HFMUN-reconstruction-3/" class="ds-thread-count"></span><div class="post-content"><blockquote>
+<p>一个真正优秀的系统，值得你无数次地去重构。</p>
+</blockquote>
+<p>消息系统算是网站比较重要的一部分，它承担着将<strong>已发生的事件通知给相关用户</strong>的责任。看似简单，但若想做到DRY，实现起来却很复杂——因为，通知的类型太多了。</p>
+<p>这个系统，在三个项目中我实现了三次。三次都使用不同的方法，但三次都不怎么满意。这最后一次，算是比较成功的一次了。</p>
+<p>在第一版模联网站中，我采用了一个堪称最糟糕的方案（如图所示）：</p>
+<p><img src="/assets/wboard_notifications.jpg" alt="UML"></p>
+<p>这个方案最大的缺点：</p>
+<ol>
+<li><strong>耦合度太高</strong>。如果有一天，又多了一种消息类型，那么就要多加一张表。</li>
+<li><strong>查询的难度大</strong>。通常来说我们需要显示所有的消息，从而需要使用JOIN语句进行多表联查——这效率是很低的。</li>
+<li><strong>SQL本身就不是面向对象的</strong>。虽说<code>CommentNotification</code>是<code>Notification</code>的子类，可查询时却并不能使用类似<code>Notification.objects.all()</code>一类的语句。在一定程度上可以说：SQL本身就不是面向对象的。</li>
+</ol>
+<p>而在第二版模联网站中，我采用了<a href="https://docs.djangoproject.com/en/1.7/ref/contrib/contenttypes/" target="_blank" rel="external">泛型</a>（Generic Model Relations）这一技术来实现——这是Django另一大特色：<strong>通过记录对象的类型信息以及唯一标识符，实现了一种可以指向任何表的外键（GenericRelation）</strong>。这种技术存在的目的就是为了<strong>解耦合</strong>，使系统扩展更具灵活性——尽管要损失一些效率，但与架构的“健康”比起来那是微不足道的，无可厚非。</p>
+<p>UML图如下：</p>
+<p><img src="/assets/hfmun_notices.jpg" alt="UML"></p>
+<p>这其中，<code>notice_type</code>的取值决定了<strong><code>url</code>域的作用</strong>：</p>
+<ul>
+<li><strong><code>link</code></strong>。该消息的<code>url</code>域表示一个指向<code>related_object</code>的地址，应该展示给用户看。</li>
+<li><strong><code>invoke</code></strong>。该消息需要在用户确认后执行一个动作。其<code>url</code>域表示需要执行的动作的地址——这里有些TaskQueue的意味。</li>
+</ul>
+<p>然而，发消息时又应该怎么做呢？如果在所有的地方都来一句：<code>Notice.create(......)</code>，那也太不DRY了吧？</p>
+<p>有人说：“懒惰是程序员的天性。”</p>
+<p>我赞同，但我还想补充一句：“懒惰更是程序员精简代码的动力。”</p>
+<p>于是，我创立了一个类<code>NoticeDispatcher</code>，用于分发消息——其实这一类工具代码在之前的系统中也存在过，只不过这一版本的令我更为满意。</p>
+<pre><code><span class="class"><span class="keyword">class</span> <span class="title">NoticeDispatcher</span><span class="params">(object)</span>:</span>
+
+    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, model, default = {})</span>:</span>
+        <span class="keyword">if</span> <span class="keyword">not</span> issubclass(model, SendNoticeModelMixin):
+            <span class="keyword">raise</span> TypeError(<span class="string">'The `model` must be a subclass of  `SendNoticeModelMixin`.'</span>)
+        self.__model = model
+        self.__default = {}
+        self.__default.update(default)
+
+    <span class="function"><span class="keyword">def</span> <span class="title">send</span><span class="params">(self, *args, **kwargs)</span>:</span>
+        klass = Notice
+
+        title = self.__model.generate_title(*args, **kwargs) 
+        content = self.__model.generate_content(*args, **kwargs) 
+        url = self.__model.generate_url(*args, **kwargs)
+        user = self.__model.generate_user(*args, **kwargs)
+
+        valid_keys_set = set(kwargs.iterkeys()) &amp; \
+            set(field.name <span class="keyword">for</span> field <span class="keyword">in</span> klass._meta.fields)
+
+        params = deepcopy(self.__default)
+        params.update({key: kwargs[key] <span class="keyword">for</span> key <span class="keyword">in</span> valid_keys_set})
+        params.update({
+            <span class="string">'title'</span>: title,
+            <span class="string">'content'</span>: content,
+            <span class="string">'url'</span>: url,
+        })
+
+        results = []
+        <span class="keyword">try</span>:
+            iter(user)
+        <span class="keyword">except</span>:
+            user = (user,)
+
+        <span class="keyword">for</span> _user <span class="keyword">in</span> user:
+            params[<span class="string">'user'</span>] = _user
+            notice = klass(*args, **params)
+            notice.save()
+            results.append(notice)
+
+        <span class="keyword">return</span> results
+</code></pre><p>我们可以传入一个模型类作为参数从而获得一个<code>NoticeDispatcher</code>对象。这个模型类被要求继承于<code>notices.mixins.SendNoticeModelMixin</code>，以完成一些默认的配置——这是一个抽象基类：</p>
+<pre><code><span class="class"><span class="keyword">class</span> <span class="title">SendNoticeModelMixin</span><span class="params">(object)</span>:</span>
+
+<span class="decorator">    @classmethod</span>
+    <span class="function"><span class="keyword">def</span> <span class="title">generate_title</span><span class="params">(klass, *args, **kwargs)</span>:</span>
+        <span class="keyword">return</span> <span class="string">''</span>
+
+<span class="decorator">    @classmethod</span>
+    <span class="function"><span class="keyword">def</span> <span class="title">generate_content</span><span class="params">(klass, *args, **kwargs)</span>:</span>
+        <span class="keyword">return</span> <span class="string">''</span>
+
+<span class="decorator">    @classmethod</span>
+    <span class="function"><span class="keyword">def</span> <span class="title">generate_url</span><span class="params">(klass, *args, **kwargs)</span>:</span>
+        <span class="keyword">return</span> <span class="string">''</span>
+
+<span class="decorator">    @classmethod</span>
+    <span class="function"><span class="keyword">def</span> <span class="title">generate_user</span><span class="params">(klass, *args, **kwargs)</span>:</span>
+        <span class="keyword">return</span> []
+</code></pre><p>做完这一切之后，每当调用<code>notice_dispatcher.send()</code>方法时，<code>NoticeDispatcher</code>会自动调用模型类中的<code>generate_*</code>方法以获取构建消息对象的默认参数。像一些基本不变的内容——如<code>url</code>、<code>title</code>就可以用代码自动生成，进而提高代码复用率。</p>
+<p>当然，这个系统仍有一些不够完善的地方，如：</p>
+<ul>
+<li><code>notice_type</code>为<code>invoke</code>时的逻辑至今尚未实现。</li>
+<li>当消息的构建不需要<code>related_object</code>参数时，仍需调用原生的<code>create</code>方法，非常麻烦。</li>
+<li><code>related_object</code>参数仍需手动传入，有些不干净——最好就是能在<code>SendNoticeModelMixin</code>上实现<code>send</code>方法，很多啰嗦的代码便又可以省略掉了。</li>
+</ul>
+<p>以上问题，或是由于没有需求，或是由于懒惰（- -!），没有来得及去实现。但愿能在下一次改进时解决。</p>
+<p>总而言之呢，事情正在似乎在朝着好的方面发展。</p>
+</div><div class="tags"><a href="/tags/HFMUN重构系列/">HFMUN重构系列</a></div><div class="post-nav"><a href="/provement-of-Sinusoidal-AC-RMS-calculation-formula/" class="pre"><i class="icon-previous">关于正弦交流电有效值计算公式的证明</i></a><a href="/ten-years/" class="next">十年<i class="icon-next"></i></a></div><div data-thread-key="/HFMUN-reconstruction-3/" data-title="【HFMUN重构系列】3. 消息系统" data-url="http://hsfzxjy.github.io//HFMUN-reconstruction-3/" class="ds-share flat"><div class="ds-share-inline"><ul class="ds-share-icons-16"><li data-toggle="ds-share-icons-more"><a href="javascript:void(0);" class="ds-more">分享到：</a></li><li><a href="javascript:void(0);" data-service="weibo" class="ds-weibo">微博</a></li><li><a href="javascript:void(0);" data-service="qzone" class="ds-qzone">QQ空间</a></li><li><a href="javascript:void(0);" data-service="qqt" class="ds-qqt">腾讯微博</a></li><li><a href="javascript:void(0);" data-service="wechat" class="ds-wechat">微信</a></li></ul><div class="ds-share-icons-more"></div></div></div><div data-thread-key="/HFMUN-reconstruction-3/" data-title="【HFMUN重构系列】3. 消息系统" data-url="http://hsfzxjy.github.io//HFMUN-reconstruction-3/" data-author-key="1" class="ds-thread"></div></div></div></div><div class="pure-u-1-4"><div id="sidebar"><div class="widget"><div id="search"><form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="http://hsfzxjy.github.io"></form></div></div><div class="widget"><div class="widget-title">导航<ul><li><a href="/archives/"> <i class="icon-archives"> 归档</i></a></li><li><a href="/works/"> <i class="icon-works"> 个人作品</i></a></li><li><a href="/atom.xml"> <i class="icon-rss"> 订阅</i></a></li></ul></div></div><div class="widget"><div class="widget-title">分类</div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Sublime/">Sublime</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ubuntu/">Ubuntu</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/化学/">化学</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数学/">数学</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂感/">杂感</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程/">编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载文章/">转载文章</a></li></ul></div><div class="widget"><div class="widget-title">标签</div><div class="tagcloud"><a href="/tags/转载/" style="font-size: 15px;">转载</a> <a href="/tags/Delphi/" style="font-size: 15px;">Delphi</a> <a href="/tags/mongodb/" style="font-size: 15px;">mongodb</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/express-js/" style="font-size: 15px;">express.js</a> <a href="/tags/家书/" style="font-size: 15px;">家书</a> <a href="/tags/杂感/" style="font-size: 15px;">杂感</a> <a href="/tags/成人礼/" style="font-size: 15px;">成人礼</a> <a href="/tags/产品/" style="font-size: 15px;">产品</a> <a href="/tags/编程/" style="font-size: 15px;">编程</a> <a href="/tags/翻译/" style="font-size: 15px;">翻译</a> <a href="/tags/web设计/" style="font-size: 15px;">web设计</a> <a href="/tags/wisecity/" style="font-size: 15px;">wisecity</a> <a href="/tags/前端自动化测试，总结/" style="font-size: 15px;">前端自动化测试，总结</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/单元测试/" style="font-size: 15px;">单元测试</a> <a href="/tags/安全/" style="font-size: 15px;">安全</a> <a href="/tags/不经意间的感动/" style="font-size: 15px;">不经意间的感动</a> <a href="/tags/HFMUN重构系列/" style="font-size: 15px;">HFMUN重构系列</a> <a href="/tags/ubuntu/" style="font-size: 15px;">ubuntu</a> <a href="/tags/apt-get/" style="font-size: 15px;">apt-get</a> <a href="/tags/物理/" style="font-size: 15px;">物理</a> <a href="/tags/创新作文大赛/" style="font-size: 15px;">创新作文大赛</a> <a href="/tags/Sublime/" style="font-size: 15px;">Sublime</a> <a href="/tags/OOP/" style="font-size: 15px;">OOP</a> <a href="/tags/字体/" style="font-size: 15px;">字体</a> <a href="/tags/化学/" style="font-size: 15px;">化学</a> <a href="/tags/百题大过关/" style="font-size: 15px;">百题大过关</a> <a href="/tags/逆袭/" style="font-size: 15px;">逆袭</a> <a href="/tags/MySql/" style="font-size: 15px;">MySql</a> <a href="/tags/Ubuntu/" style="font-size: 15px;">Ubuntu</a> <a href="/tags/NOIP2014/" style="font-size: 15px;">NOIP2014</a> <a href="/tags/信息学竞赛/" style="font-size: 15px;">信息学竞赛</a> <a href="/tags/北大金秋营/" style="font-size: 15px;">北大金秋营</a> <a href="/tags/树状数组/" style="font-size: 15px;">树状数组</a> <a href="/tags/LCA/" style="font-size: 15px;">LCA</a> <a href="/tags/归并排序/" style="font-size: 15px;">归并排序</a> <a href="/tags/逆序对/" style="font-size: 15px;">逆序对</a> <a href="/tags/最小生成树/" style="font-size: 15px;">最小生成树</a> <a href="/tags/数论/" style="font-size: 15px;">数论</a> <a href="/tags/数学/" style="font-size: 15px;">数学</a> <a href="/tags/数列/" style="font-size: 15px;">数列</a> <a href="/tags/高精度/" style="font-size: 15px;">高精度</a> <a href="/tags/UVa/" style="font-size: 15px;">UVa</a> <a href="/tags/Pascal/" style="font-size: 15px;">Pascal</a> <a href="/tags/搜索/" style="font-size: 15px;">搜索</a> <a href="/tags/剪枝/" style="font-size: 15px;">剪枝</a> <a href="/tags/浮点数/" style="font-size: 15px;">浮点数</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/游记/" style="font-size: 15px;">游记</a> <a href="/tags/win32/" style="font-size: 15px;">win32</a></div></div><div class="widget"><div class="widget-title">最新文章</div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/md5-cracker-powered-by-nodejs/">初试 node.js：MD5 解密网站</a></li><li class="post-list-item"><a class="post-list-link" href="/letter-to-parents/">家书·十八岁成人礼</a></li><li class="post-list-item"><a class="post-list-link" href="/hobby-or-needs/">炫技？还是需求？</a></li><li class="post-list-item"><a class="post-list-link" href="/the-state-of-responsive-images-in-2015/">【译】响应式图片的现状</a></li><li class="post-list-item"><a class="post-list-link" href="/why-are-so-many-programming-languages/">【译】“为什么有这么多的编程语言？”</a></li><li class="post-list-item"><a class="post-list-link" href="/wisecity-conclusion/">Wisecity 商赛总结——也谈前端自动化测试</a></li><li class="post-list-item"><a class="post-list-link" href="/how-to-fuck-a-bilk-site/">记一次 DoS 诈骗网站的经历</a></li><li class="post-list-item"><a class="post-list-link" href="/secret/">不能说的秘密</a></li><li class="post-list-item"><a class="post-list-link" href="/that-starry-night/">那一年，我们望向星空</a></li><li class="post-list-item"><a class="post-list-link" href="/hfmun-reconstruction-4/">【HFMUN重构系列】4. Restful API 框架</a></li></ul></div><div class="widget"><div class="comments-title">最近评论</div><div data-num-items="5" data-show-avatars="0" data-show-time="1" data-show-admin="0" data-excerpt-length="32" data-show-title="1" class="ds-recent-comments"></div></div></div></div></div><div id="footer">© <a href="/" rel="nofollow">hsfzxjy.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></body><script src="/js/jquery.min.js" type="text/javascript"></script>
+<script src="/js/totop.js" type="text/javascript"></script><script src="/js/fancybox.pack.js" type="text/javascript"></script><link rel="stylesheet" href="/css/jquery.fancybox.css" type="text/css"><script>$(document).ready(function() {
+  $('img').each(function() {
+    if ($(this).parent().hasClass('fancybox')) return;
+    if ($(this).hasClass('nofancybox')) return;
+    var alt = this.alt;
+    if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+    $(this).wrap('<a href="' + ($(this).attr('data-src') == null ? this.src : $(this).attr('data-src')) + '" title="' + alt + '" class="fancybox"></a>');
+  });
+  $(this).find('.fancybox').each(function(){
+    $(this).attr('rel', 'article');
+  });
+});</script><script>$(document).ready(function() {
+  $("a[href$='.jpg'],a[href$='.png'],a[href$='.gif']").attr('rel', 'gallery').fancybox({
+   helpers : {
+   title: { type: 'inside'}
+   }
+ });
+});
+</script><script>var duoshuoQuery = {short_name:'hsfzxjy'};
+(function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$']]},
+  jax: ["input/TeX","output/HTML-CSS"]
+});
+</script><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></html>

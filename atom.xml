@@ -699,7 +699,7 @@
     <link href="http://hsfzxjy.github.io//chemistry-impurity/"/>
     <id>http://hsfzxjy.github.io//chemistry-impurity/</id>
     <published>2015-04-21T16:00:00.000Z</published>
-    <updated>2015-11-08T08:40:30.149Z</updated>
+    <updated>2015-11-08T10:11:17.565Z</updated>
     <content type="html"><![CDATA[<h2 id="0x00_规律">0x00 规律</h2><ol>
 <li>要除去弱酸性气体中混有的强酸性气体杂质，我们常选用弱酸性气体溶于水后形成的饱和盐溶液。若弱酸性气体溶于水后为一元酸，则用该酸形成的饱和正盐溶液。若为二元弱酸，则为该酸形成的饱和酸式盐，如$Cl_2$混有$HCl$气体，用饱和食盐水净化吸收，如$CO_2$中混有$HCl$、$SO_2$用饱和$NaHCO_3$溶液净化吸收。 </li>
 <li>要除去非还原性气体中的还原性气体，应选用反应前后均具固体的具有氧化性的物质。如$CO_2$中混有的$CO$,用灼热的$CuO$除去。 </li>
@@ -771,7 +771,9 @@
 <li>要除去弱酸性气体中混有的强酸性气体杂质，我们常选用弱酸性气体溶于水后形成的饱和盐溶液。若弱酸性气体溶于水后为一元酸，则用该酸形成的饱和正盐溶液。若为二元弱酸，则为该酸形成的饱和酸式盐，如$Cl_2$混有$]]>
     </summary>
     
-      <category term="化学" scheme="http://hsfzxjy.github.io/categories/%E5%8C%96%E5%AD%A6/"/>
+      <category term="化学" scheme="http://hsfzxjy.github.io/tags/%E5%8C%96%E5%AD%A6/"/>
+    
+      <category term="学习" scheme="http://hsfzxjy.github.io/categories/%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
@@ -818,7 +820,7 @@
     <link href="http://hsfzxjy.github.io//backup-apt-get/"/>
     <id>http://hsfzxjy.github.io//backup-apt-get/</id>
     <published>2015-04-18T16:00:00.000Z</published>
-    <updated>2015-11-08T08:40:30.149Z</updated>
+    <updated>2015-11-08T10:07:09.289Z</updated>
     <content type="html"><![CDATA[<p><code>apt-get</code>是 ubuntu 下管理软件包的一个工具，实用简单，功能强大。平时若要安装或卸载软件包，只需轻敲一条指令即可。每一台ubuntu上，都安装着数以千百计的软件包——或是内核模块，或是工作、娱乐所需的软件，在它们的支持下，工作着这个开放的操作系统。</p>
 <p>但，如果有一天，系统需要被重装——或是无可救药了，抑或是购置了新的设备，问题来了：</p>
 <blockquote>
@@ -840,7 +842,7 @@
     
       <category term="ubuntu" scheme="http://hsfzxjy.github.io/tags/ubuntu/"/>
     
-      <category term="Ubuntu" scheme="http://hsfzxjy.github.io/categories/Ubuntu/"/>
+      <category term="随手记" scheme="http://hsfzxjy.github.io/categories/%E9%9A%8F%E6%89%8B%E8%AE%B0/"/>
     
   </entry>
   
@@ -894,7 +896,7 @@
     <link href="http://hsfzxjy.github.io//solution-of-network-broken-down-per-20s-under-ubuntu/"/>
     <id>http://hsfzxjy.github.io//solution-of-network-broken-down-per-20s-under-ubuntu/</id>
     <published>2015-03-31T03:18:38.000Z</published>
-    <updated>2015-11-08T08:40:29.997Z</updated>
+    <updated>2015-11-08T10:07:26.425Z</updated>
     <content type="html"><![CDATA[<p>从昨天到现在一直都有这个问题，刚刚突然就解决了，至今不明白原理，在此记录一下：</p>
 <blockquote>
 <p>在网络设置中取消<strong>需要IPv6完成这个链接</strong>的选项</p>
@@ -908,7 +910,9 @@
 ]]>
     </summary>
     
-      <category term="Ubuntu" scheme="http://hsfzxjy.github.io/categories/Ubuntu/"/>
+      <category term="ubuntu" scheme="http://hsfzxjy.github.io/tags/ubuntu/"/>
+    
+      <category term="随手记" scheme="http://hsfzxjy.github.io/categories/%E9%9A%8F%E6%89%8B%E8%AE%B0/"/>
     
   </entry>
   
@@ -1090,7 +1094,7 @@
     <link href="http://hsfzxjy.github.io//kill-processes-under-ubuntu/"/>
     <id>http://hsfzxjy.github.io//kill-processes-under-ubuntu/</id>
     <published>2015-03-02T03:17:55.000Z</published>
-    <updated>2015-11-08T08:40:29.989Z</updated>
+    <updated>2015-11-08T10:07:42.329Z</updated>
     <content type="html"><![CDATA[<pre><code>ps <span class="operator">-e</span> <span class="comment">#查看进程列表</span>
 sudo <span class="built_in">kill</span> &lt;pid&gt;
 </code></pre>]]></content>
@@ -1100,7 +1104,9 @@ sudo <span class="built_in">kill</span> &lt;pid&gt;
 </co]]>
     </summary>
     
-      <category term="Ubuntu" scheme="http://hsfzxjy.github.io/categories/Ubuntu/"/>
+      <category term="ubuntu" scheme="http://hsfzxjy.github.io/tags/ubuntu/"/>
+    
+      <category term="随手记" scheme="http://hsfzxjy.github.io/categories/%E9%9A%8F%E6%89%8B%E8%AE%B0/"/>
     
   </entry>
   

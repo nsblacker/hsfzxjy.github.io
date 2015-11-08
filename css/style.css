@@ -308,6 +308,10 @@ a:focus {
 /* for different pages ends*/
 /*<middle*/
 @media print, screen and (max-width: 48em) {
+  .post .post-title {
+    padding-top: 2em;
+    font-size: 35px !important;
+    text-align: center; }
   .body_container {
     padding: 0 30px; }
   .content_container {
@@ -328,7 +332,11 @@ a:focus {
   .body_container {
     padding: 0 20px; }
   .content_container {
-    padding-right: 0; } }
+    padding-right: 0; }
+  .post .post-title {
+    padding-top: 2em;
+    font-size: 30px !important;
+    text-align: center; } }
 
 blockquote, .stressed {
   -moz-box-sizing: border-box;

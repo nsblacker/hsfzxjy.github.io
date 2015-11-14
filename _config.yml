@@ -75,3 +75,5 @@ deploy:
 plugins:
 - hexo-generate-feed
 - hexo-genetator-sitemap
+
+language: zh-CN

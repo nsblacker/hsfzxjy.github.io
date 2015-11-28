@@ -1,4 +1,336 @@
-<a id="rocket" href="#top" class="show"></a><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/><meta content="yes" name="apple-mobile-web-app-capable"/><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/><meta content="telephone=no" name="format-detection"/><meta name="description"/><title>hsfzxjy | 不忌讳空山无人，不害怕遥望星辰</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"/><link rel="stylesheet" type="text/css" href="/css/pure-min.css"/><link rel="stylesheet" type="text/css" href="/css/grids-responsive-min.css"/><link rel="stylesheet" type="text/css" href="/css/style.css"/><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"/><link rel="apple-touch-icon" href="/apple-touch-icon.png"/><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"/><link rel="alternate" type="application/atom+xml" href="/atom.xml"/></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">hsfzxjy</h1><a id="logo" href="/">hsfzxjy</a><p class="description">不忌讳空山无人，不害怕遥望星辰</p><iframe src="https://ghbtns.com/github-btn.html?user=hsfzxjy&amp;type=follow&amp;count=true" frameborder="0" scrolling="0" width="170px" height="20px" class="github-btn"></iframe></div><div id="nav-menu"><a href="/" class="current"><i class="icon-home"> 首页</i></a><a href="/categories/编程/"><i class="icon-code"> 码海拾贝</i></a><a href="/categories/杂感/"><i class="icon-life"> 五味杂感</i></a><a href="/about/"><i class="icon-about"> 我</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h2 class="post-title"><a href="/uva10285-cake-slicing/">UVa10285 Cake Slicing</a></h2><div class="post-meta">2014-10-01</div><span data-thread-key="/uva10285-cake-slicing/" class="ds-thread-count"></span><div class="post-content"><blockquote>
+<a id="rocket" href="#top" class="show"></a><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/><meta content="yes" name="apple-mobile-web-app-capable"/><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/><meta content="telephone=no" name="format-detection"/><meta name="description"/><title>hsfzxjy | 不忌讳空山无人，不害怕遥望星辰</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"/><link rel="stylesheet" type="text/css" href="/css/pure-min.css"/><link rel="stylesheet" type="text/css" href="/css/grids-responsive-min.css"/><link rel="stylesheet" type="text/css" href="/css/style.css"/><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"/><link rel="apple-touch-icon" href="/apple-touch-icon.png"/><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"/><link rel="alternate" type="application/atom+xml" href="/atom.xml"/></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">hsfzxjy</h1><a id="logo" href="/">hsfzxjy</a><p class="description">不忌讳空山无人，不害怕遥望星辰</p><iframe src="https://ghbtns.com/github-btn.html?user=hsfzxjy&amp;type=follow&amp;count=true" frameborder="0" scrolling="0" width="170px" height="20px" class="github-btn"></iframe></div><div id="nav-menu"><a href="/" class="current"><i class="icon-home"> 首页</i></a><a href="/categories/编程/"><i class="icon-code"> 码海拾贝</i></a><a href="/categories/杂感/"><i class="icon-life"> 五味杂感</i></a><a href="/about/"><i class="icon-about"> 我</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h2 class="post-title"><a href="/uva12219-common-subexpression-elimination/">UVa12219 Common Subexpression Elimination</a></h2><div class="post-meta">2014-10-05</div><span data-thread-key="/uva12219-common-subexpression-elimination/" class="ds-thread-count"></span><div class="post-content"><blockquote>
+<p>链接：<a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=3371" target="_blank" rel="external">Link</a> 状态：<strong>Runtime Error</strong></p>
+</blockquote>
+<h2 id="前言">前言</h2><p>这题做的可真够久的，整整三个小时。但即便如此，还是只过了一部分的点，另一部分报运行时错误——估计是哈希表设计的不太好。但这确实是一道好题，因此，在睡觉前决定记录一下。</p>
+<h2 id="分析">分析</h2><p>很容易便想到：用一个三元组$(x,y,z)$表示节点，表示内容为x的节点下跟着标号为y和z的左右子树。这样一来，一类相同的子树便可以唯一确定了，而不必每构造一棵子树就把整棵树遍历一遍。<br>对于三元组的储存，刚开始图方便，用了数组。查找也是用了$O(n)$的线性查找。磕磕碰碰写了两个多小时然后兴冲冲地提交，结果TLE了…………没办法，只好又花了半个小时写了一个哈希表，然后就是上文说过的情况了：<strong>Runtime Error204</strong>。可能是哈希数组过大的原因，日后再微调一下，今天实在是没有脑子了。</p>
+<h2 id="Code">Code</h2><pre><code><span class="keyword">const</span>
+  maxn = <span class="number">20000</span>;
+<span class="keyword">type</span>
+  NodeRec = <span class="keyword">record</span>
+    Value: <span class="keyword">string</span>;
+    l, r, <span class="keyword">index</span>: longint;
+  <span class="keyword">end</span>;
+  Node = <span class="keyword">record</span>
+     left, right: longint;   <span class="comment">//Index of left and right child in the `tree` array, -1 for none.</span>
+     Rec: NodeRec;
+     <span class="keyword">index</span>: longint;
+  <span class="keyword">end</span>;
+  <span class="comment">//以下为哈希表的定义</span>
+  _PNode = ^_Node;
+  _Node = <span class="keyword">record</span>
+    n: Node;
+    next: _PNode;
+  <span class="keyword">end</span>;
+
+  HashTable = <span class="keyword">object</span>
+    arr: <span class="keyword">array</span> [<span class="number">0</span>..maxn] <span class="keyword">of</span> _PNode;
+    <span class="function"><span class="keyword">function</span> <span class="title">hash</span><span class="params">(n: NodeRec)</span>:</span> longint;
+    <span class="function"><span class="keyword">procedure</span> <span class="title">add</span><span class="params">(n: Node)</span>;</span>
+    <span class="function"><span class="keyword">procedure</span> <span class="title">clear</span>;</span>
+    <span class="function"><span class="keyword">function</span> <span class="title">find</span><span class="params">(n: NodeRec)</span>:</span> longint;
+  <span class="keyword">end</span>;
+
+<span class="function"><span class="keyword">procedure</span> <span class="title">HashTable</span>.<span class="title">clear</span>;</span>
+<span class="keyword">var</span>
+  i: longint;
+  p, q: _PNode;
+<span class="keyword">begin</span>
+  <span class="keyword">for</span> i := <span class="number">0</span> <span class="keyword">to</span> maxn <span class="keyword">do</span>
+  <span class="keyword">begin</span>
+    p := arr[i];
+    <span class="keyword">while</span> p&lt;&gt;<span class="keyword">nil</span> <span class="keyword">do</span>
+    <span class="keyword">begin</span>
+      q := p^.next;
+      dispose(p);
+      p := q;
+    <span class="keyword">end</span>;
+  <span class="keyword">end</span>;
+  fillchar(arr, sizeof(arr),<span class="number">0</span>);
+<span class="keyword">end</span>;
+
+<span class="function"><span class="keyword">function</span> <span class="title">cmp</span><span class="params">(r1, r2: NodeRec)</span>:</span> Boolean;
+<span class="keyword">begin</span>
+  cmp := (r1.l = r2.l) <span class="keyword">and</span> (r1.r = r2.r) <span class="keyword">and</span> (r1.Value = r2.Value);
+<span class="keyword">end</span>;
+
+<span class="function"><span class="keyword">function</span> <span class="title">HashTable</span>.<span class="title">hash</span><span class="params">(n: NodeRec)</span>:</span> longint;
+<span class="keyword">var</span>
+  i: longint;
+<span class="keyword">begin</span>
+  hash := <span class="number">0</span>;
+  <span class="keyword">for</span> i := <span class="number">1</span> <span class="keyword">to</span> length(n.Value) <span class="keyword">do</span>
+    hash := (hash*<span class="number">5</span> + ord(n.Value[i]) - ord(<span class="string">'a'</span>)) <span class="keyword">mod</span> maxn;
+  hash := (hash + n.l * <span class="number">10</span> + n.r * <span class="number">5</span>) <span class="keyword">mod</span> maxn;
+<span class="keyword">end</span>;
+
+<span class="function"><span class="keyword">procedure</span> <span class="title">HashTable</span>.<span class="title">add</span><span class="params">(n: Node)</span>;</span>
+<span class="keyword">var</span>
+  h: longint;
+  p, q: _PNode;
+<span class="keyword">begin</span>
+  h := hash(n.rec);
+  new(q);
+  fillchar(q^, sizeof(_Node), <span class="number">0</span>);
+  q^.next := arr[h];
+  q^.n := n;
+  arr[h] := q;
+<span class="keyword">end</span>;
+
+<span class="function"><span class="keyword">function</span> <span class="title">HashTable</span>.<span class="title">find</span><span class="params">(n: NodeRec)</span>:</span> longint;
+<span class="keyword">var</span>
+  p: _PNode;
+<span class="keyword">begin</span>
+  find := -<span class="number">1</span>;
+  p := arr[hash(n)];
+  <span class="keyword">while</span> (p&lt;&gt;<span class="keyword">nil</span>) <span class="keyword">and</span> <span class="keyword">not</span> cmp(n, p^.n.rec) <span class="keyword">do</span> p := p^.next;
+  <span class="keyword">if</span> p &lt;&gt; <span class="keyword">nil</span> <span class="keyword">then</span>
+    find := p^.n.<span class="keyword">index</span>;
+<span class="keyword">end</span>;
+<span class="comment">//哈系表定义结束</span>
+<span class="keyword">var</span>
+  inputs: Ansistring;
+  _: longint;
+  tree: <span class="keyword">array</span> [<span class="number">1</span>..<span class="number">50001</span>] <span class="keyword">of</span> Node;
+  cur: longint;              <span class="comment">//The current pointer of the input string.</span>
+  num: longint;              <span class="comment">//The current number of the `tree` array.</span>
+  ls: longint;
+  t: longint;
+  tot: longint;
+  ht: HashTable;
+
+<span class="function"><span class="keyword">function</span> <span class="title">build</span>:</span> longint; <span class="comment">//建树</span>
+<span class="keyword">label</span> lb;
+<span class="keyword">var</span>
+  rec: NodeRec;
+  i,j,l,r: longint;
+<span class="keyword">begin</span>
+  l := <span class="number">0</span>;
+  r := <span class="number">0</span>;
+  fillchar(rec, sizeof(rec), <span class="number">0</span>);
+  inc(tot);
+  rec.<span class="keyword">index</span> := tot;
+  <span class="keyword">while</span> (cur&lt;=ls) <span class="keyword">and</span> (inputs[cur] <span class="keyword">in</span> [<span class="string">'a'</span>..<span class="string">'z'</span>]) <span class="keyword">do</span>
+  <span class="keyword">begin</span>
+    rec.Value := rec.Value+inputs[cur];
+    inc(cur);
+  <span class="keyword">end</span>;
+  <span class="keyword">if</span> cur&gt;ls <span class="keyword">then</span> <span class="keyword">goto</span> lb;    <span class="comment">//。。。这里被迫跳转控制流，由于实在不想多谢，就用了臭名昭著的label</span>
+  <span class="keyword">if</span> inputs[cur] = <span class="string">'('</span> <span class="keyword">then</span>
+  <span class="keyword">begin</span>
+    inc(cur);
+    l := build();
+    rec.l := tree[l].rec.<span class="keyword">index</span>;
+    inc(cur);
+    r := build();
+    rec.r := tree[r].rec.<span class="keyword">index</span>;
+    inc(cur);
+  <span class="keyword">end</span>;
+  j := ht.find(rec);
+  <span class="keyword">if</span> j&gt;<span class="number">0</span> <span class="keyword">then</span>
+  <span class="keyword">begin</span>
+    dec(tot);
+    <span class="keyword">exit</span>(j);
+  <span class="keyword">end</span>
+  <span class="keyword">else</span>
+  <span class="keyword">begin</span>
+lb:
+    inc(num);
+    tree[num].left := l;
+    tree[num].right := r;
+    tree[num].rec := rec;
+    tree[num].<span class="keyword">index</span> := num;
+    ht.add(tree[num]);
+    <span class="keyword">exit</span>(num);
+  <span class="keyword">end</span>;
+<span class="keyword">end</span>;
+
+<span class="function"><span class="keyword">procedure</span> <span class="title">print</span><span class="params">(n: longint)</span>;</span>
+<span class="keyword">begin</span>
+  <span class="keyword">if</span> tree[n].rec.<span class="keyword">index</span> &gt; t <span class="keyword">then</span>
+  <span class="keyword">begin</span>
+    <span class="keyword">write</span>(tree[n].rec.Value);
+    t := tree[n].rec.<span class="keyword">index</span>;
+  <span class="keyword">end</span>
+  <span class="keyword">else</span>
+  <span class="keyword">begin</span>
+    <span class="keyword">write</span>(tree[n].rec.<span class="keyword">index</span>);
+    <span class="keyword">exit</span>;
+  <span class="keyword">end</span>;
+  <span class="keyword">if</span> tree[n].right = <span class="number">0</span> <span class="keyword">then</span>
+    <span class="keyword">exit</span>;
+  <span class="keyword">write</span>(<span class="string">'('</span>);
+  print(tree[n].left);
+  <span class="keyword">write</span>(<span class="string">','</span>);
+  print(tree[n].right);
+  <span class="keyword">write</span>(<span class="string">')'</span>);
+<span class="keyword">end</span>;
+<span class="keyword">begin</span>
+  assign(input, <span class="string">'main.in'</span>); reset(input);
+  assign(output, <span class="string">'main.out'</span>); rewrite(output);
+  readln(_);
+  fillchar(ht.arr, sizeof(ht.arr),<span class="number">0</span>);
+  <span class="keyword">while</span> _&gt;<span class="number">0</span> <span class="keyword">do</span>
+  <span class="keyword">begin</span>
+    dec(_);
+    readln(inputs);
+    fillchar(tree, sizeof(tree), <span class="number">0</span>);
+    ht.clear;
+    ls := length(inputs);
+    cur := <span class="number">1</span>;  num := <span class="number">0</span>; tot := <span class="number">0</span>;
+    build;
+    t := <span class="number">0</span>;
+    print(num);
+    writeln;
+  <span class="keyword">end</span>;
+  close(input); close(output);
+<span class="keyword">end</span>.
+</code></pre></div><p class="readmore"><a href="/uva12219-common-subexpression-elimination/">阅读更多</a></p></div><div class="post"><h2 class="post-title"><a href="/uva536-recovery/">UVa536 Recovery</a></h2><div class="post-meta">2014-10-05</div><span data-thread-key="/uva536-recovery/" class="ds-thread-count"></span><div class="post-content"><blockquote>
+<p>链接：<a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=7&amp;page=show_problem&amp;problem=477" target="_blank" rel="external">Link</a> 耗时: 0.012s</p>
+</blockquote>
+<h2 id="前言">前言</h2><p>真是疯玩了几天，脑袋都残了，一道弱智题做了近一个小时。</p>
+<h2 id="Code">Code</h2><pre><code><span class="keyword">var</span>
+    pre, mid, s: string;
+    tree: <span class="keyword">array</span> [<span class="number">1</span>..<span class="number">50</span>] <span class="keyword">of</span> <span class="keyword">record</span>
+        l, r: integer;
+        ch: char;
+    <span class="keyword">end</span>;
+    cur: integer;
+<span class="function"><span class="keyword">function</span> <span class="title">init</span>:</span> integer;
+<span class="keyword">var</span>
+    m: integer;
+<span class="keyword">begin</span>
+    readln(s);
+    m := length(s) &gt;&gt; <span class="number">1</span> + <span class="number">1</span>;
+    pre := <span class="keyword">Copy</span>(s, <span class="number">1</span>, m-<span class="number">1</span>);
+    mid := <span class="keyword">Copy</span>(s, m+<span class="number">1</span>, length(s));
+    init := m-<span class="number">1</span>;
+<span class="keyword">end</span>;
+<span class="function"><span class="keyword">function</span> <span class="title">build</span><span class="params">(l1, l2, r2: integer)</span>:</span> integer;
+<span class="keyword">var</span>
+    m,len: integer;
+    t: integer;
+<span class="keyword">begin</span>
+    <span class="keyword">if</span> l2 &gt; r2 <span class="keyword">then</span> <span class="keyword">exit</span>(<span class="number">0</span>); <span class="comment">//该子树不存在。**这个地方坑了我很久**</span>
+    inc(cur);
+    t := cur;      <span class="comment">// 这里也坑了我，当下面构造完左右子树后，cur已经变了，所以要缓存起来</span>
+    build := t;  
+    tree[t].ch := pre[l1]; 
+    <span class="keyword">if</span> r2-l2 = <span class="number">0</span> <span class="keyword">then</span> <span class="comment">//叶节点</span>
+        <span class="keyword">exit</span>;
+    m := pos(pre[l1], mid); <span class="comment">//在中序遍历中找根节点</span>
+    len := m - l2;
+    tree[t].l := build(l1+<span class="number">1</span>, l2, m-<span class="number">1</span>); <span class="comment">//构造左子树</span>
+    tree[t].r := build(l1+len+<span class="number">1</span>, m+<span class="number">1</span>, r2); <span class="comment">//构造右子树</span>
+<span class="keyword">end</span>;
+<span class="function"><span class="keyword">procedure</span> <span class="title">print</span><span class="params">(x: integer)</span>;</span>
+<span class="keyword">begin</span>
+    <span class="keyword">if</span> x = <span class="number">0</span> <span class="keyword">then</span> <span class="keyword">exit</span>;
+    print(tree[x].l);
+    print(tree[x].r);
+    <span class="keyword">write</span>(tree[x].ch);
+<span class="keyword">end</span>;
+<span class="keyword">begin</span>
+    assign(input, <span class="string">'main.in'</span>); reset(input);
+    assign(output, <span class="string">'main.out'</span>); rewrite(output);
+    <span class="keyword">while</span> <span class="keyword">not</span> eof <span class="keyword">do</span>
+    <span class="keyword">begin</span>
+        fillchar(tree, sizeof(tree), <span class="number">0</span>);
+        cur := <span class="number">0</span>;
+        build(<span class="number">1</span>, <span class="number">1</span>, init);
+        print(<span class="number">1</span>);
+        writeln;
+    <span class="keyword">end</span>;
+    close(input);
+    close(output);
+<span class="keyword">end</span>.
+</code></pre></div><p class="readmore"><a href="/uva536-recovery/">阅读更多</a></p></div><div class="post"><h2 class="post-title"><a href="/uva11582-colossal-fibonacci-numbers/">UVa11582 Colossal Fibonacci Numbers! &amp;&amp; 大数操作</a></h2><div class="post-meta">2014-10-01</div><span data-thread-key="/uva11582-colossal-fibonacci-numbers/" class="ds-thread-count"></span><div class="post-content"><blockquote>
+<p>链接：<a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;category=27&amp;problem=2629&amp;mosmsg=Submission%20received%20with%20ID%2014290914" target="_blank" rel="external">Link</a> 耗时：0.139s</p>
+</blockquote>
+<h2 id="前言">前言</h2><p>这道题的主要思路就是打表，看看Fibonacci数列模n几个一循环。但由于这题给的数太大了，从而在细节上耗了很久。在此记录一下：</p>
+<pre><code><span class="tag">var</span>
+    x<span class="value">: qword;</span>
+    y<span class="value">: longint;</span>
+begin
+    x <span class="value">:= <span class="number">1</span>&lt;&lt;<span class="number">64</span>-<span class="number">1</span>;</span>
+    y <span class="value">:= <span class="number">100</span>;</span>
+    x <span class="value">:= x mod y;</span> <span class="comment">//报错201</span>
+    x <span class="value">:= x mod <span class="function">qword</span>(y);</span> <span class="comment">//正确</span>
+end.
+</code></pre><h2 id="Code">Code</h2><pre><code><span class="keyword">var</span>
+    a,b: qword;
+    _, n, i, k, cnt: longint;
+    f: <span class="keyword">array</span> [<span class="number">1</span>..<span class="number">1000000</span>] <span class="keyword">of</span> longint;
+
+<span class="function"><span class="keyword">function</span> <span class="title">superMod</span><span class="params">(a, b: qword; m: longint)</span>:</span> longint;
+<span class="keyword">var</span>
+    x: qword;
+<span class="keyword">begin</span>
+    <span class="keyword">if</span> b = <span class="number">0</span> <span class="keyword">then</span>
+        <span class="keyword">exit</span>(<span class="number">1</span>);
+    x := superMod(a, b <span class="keyword">shr</span> <span class="number">1</span>, m);
+    superMod := x * x <span class="keyword">mod</span> m;
+    <span class="keyword">if</span> odd(b) <span class="keyword">then</span>
+        superMod := superMod * a <span class="keyword">mod</span> m;
+<span class="keyword">end</span>;
+
+<span class="keyword">begin</span>
+    assign(input, <span class="string">'main.in'</span>); reset(input);
+    assign(output, <span class="string">'main.out'</span>); rewrite(output);
+    readln(_);
+    <span class="keyword">while</span> _ &gt; <span class="number">0</span> <span class="keyword">do</span>
+    <span class="keyword">begin</span>
+        dec(_);
+        readln(a, b, n);
+        <span class="keyword">if</span> a = <span class="number">0</span> <span class="keyword">then</span>
+        <span class="keyword">begin</span>
+            writeln(<span class="number">0</span>);
+            <span class="keyword">continue</span>;
+        <span class="keyword">end</span>;
+        <span class="keyword">if</span> n = <span class="number">1</span> <span class="keyword">then</span>
+        <span class="keyword">begin</span>
+            writeln(<span class="number">0</span>);
+            <span class="keyword">continue</span>;
+        <span class="keyword">end</span>;
+        f[<span class="number">1</span>] := <span class="number">1</span>;
+        f[<span class="number">2</span>] := <span class="number">1</span>;
+        cnt := <span class="number">2</span>;
+        <span class="keyword">while</span> <span class="keyword">not</span> ((f[cnt-<span class="number">1</span>] = <span class="number">1</span>) <span class="keyword">and</span> (f[cnt] = <span class="number">0</span>)) <span class="keyword">do</span>
+        <span class="keyword">begin</span>
+            inc(cnt);
+            f[cnt] := (f[cnt-<span class="number">1</span>] + f[cnt-<span class="number">2</span>]) <span class="keyword">mod</span> n;
+        <span class="keyword">end</span>;
+        <span class="comment">//while x &gt; int64(1 &lt;&lt;60) do</span>
+        <span class="comment">//    x := x - int64((cnt &lt;&lt; 59));</span>
+        a := a <span class="keyword">mod</span> qword(cnt);
+        k := superMod(a, b, cnt);
+        writeln(f[k]);
+    <span class="keyword">end</span>;
+    close(output); close(input);
+<span class="keyword">end</span>.
+</code></pre></div><p class="readmore"><a href="/uva11582-colossal-fibonacci-numbers/">阅读更多</a></p></div><div class="post"><h2 class="post-title"><a href="//extended-gcd-algorithm//">扩展欧几里得算法</a></h2><div class="post-meta">2014-10-01</div><span data-thread-key="//extended-gcd-algorithm//" class="ds-thread-count"></span><div class="post-content"><blockquote>
+<p>今天开始学习数论方面的算法。这部分在NOIP中并不常出现，即使出现了也不会像高联这么难（。。。）。</p>
+</blockquote>
+<h2 id="什么是扩展欧几里得算法">什么是扩展欧几里得算法</h2><p>所谓欧几里得算法，实际上就是辗转相除法——求两个数最大公约数的一种高效算法。而扩展欧几里得算法则是来源于于一类方程的解决：</p>
+<p>$$ax+by=gcd(a,b)$$<br>这有点像是<strong>裴蜀定理</strong>的一般形式。和裴蜀定理类似，这类方程也有无数多个整数解。如何高效率地求得它的一组特解呢？</p>
+<h2 id="代码"><strong>代码</strong></h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">procedure gcd_ex(a, b: longint; var d: longint; var x, y: longint);&#10;begin&#10;    if b = 0 then&#10;    begin&#10;        d := a;&#10;        x := 1;&#10;        y := 0;&#10;        exit;&#10;    end;&#10;    gcd_ex(b, a mod b, d, y, x); //&#37325;&#35201;&#10;    y := y-(a div b) * x;&#10;end;</span><br></pre></td></tr></table></figure>
+<h2 id="详解"><strong>详解</strong></h2><p>乍一看，算法似乎和一般欧几里得算法很是相似：都是递归实现，参数传递过程中都体现了“辗转相除”的思想。那为什么这个算法是正确的呢？<br>这里先解释一下参数：</p>
+<ul>
+<li>a：方程中的参数a</li>
+<li>b：方程中的参数b</li>
+<li>d：即<code>gcd(a,b)</code>。由于和辗转相除法的相似性，在这里最大公约数也可以“顺便”算出。当然，去掉也无大碍</li>
+<li>x&amp;y：方程的一组特解(x, y)</li>
+</ul>
+<p>下面解释标注了<strong>重要</strong>的那行代码。<br>假设方程 $ax+by=gcd(a,b)$ 有一组特解$(x_0,y_0)$。则有$ax_0+by_0=gcd(a,b)$。</p>
+<p>由最大公约数原理可知：$gcd(a,b)=gcd(b, a\ mod\ b)$。从而有$ax_0+by_0=gcd(b,a\ mod\ b)$。</p>
+<p>又方程：$bx+(a\ mod\ b)y=gcd(b,a\ mod\ b)$一定有整数解，设其为$(x_1,y_1)$。则有</p>
+<p>$$ax_0+by_0=gcd(b,a\ mod\ b)=bx_1+(a\ mod\ b)y_1$$即$$ax_0+by_0=bx_1+(a-(a\ div\ b)*b)y_1$$即$$a(x_0-y_1)=b(x_1-(a\ div\ b)y_1-y_0)$$由恒等原理可知：$$x_0=y_1$$$$y_0=x_1-(a\ div\ b)y_1$$。</p>
+<p>因此，当$a,b\neq0$时，$x,y$的值可以递归求得。递归边界为：$b=0$时$x=1,y=0$。</p>
+<p>注意到上面的算法用到了一个技巧：在递归传参数的时候将y,x调换了。这样做的好处是节省了一个中间变量用来储存$y_1$，否则在计算$y_0$时$y_1$也被覆盖了。从而使算法更加的精简。</p>
+<h2 id="应用"><strong>应用</strong></h2><ul>
+<li>计算几何中求整点的问题</li>
+<li>求一元一次同余方程$a\equiv b\pmod{m}$的一组特解。（即方程$ax+my=b$的一组特解）</li>
+</ul>
+</div><p class="readmore"><a href="//extended-gcd-algorithm//">阅读更多</a></p></div><div class="post"><h2 class="post-title"><a href="/uva10285-cake-slicing/">UVa10285 Cake Slicing</a></h2><div class="post-meta">2014-10-01</div><span data-thread-key="/uva10285-cake-slicing/" class="ds-thread-count"></span><div class="post-content"><blockquote>
 <p>链接：<a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;category=825&amp;page=show_problem&amp;problem=4504" target="_blank" rel="external">Link</a>  耗时：1.825s</p>
 </blockquote>
 <p>这道题做的可真够久的：前前后后加起来将近有两个小时，因此当AC的那一刻，自己心中还是挺自豪的。</p>
@@ -65,57 +397,7 @@
 </blockquote>
 <p>代码实现首次尝试了Pascal中的object类型，使其更加工整，但不可避免地损耗了一些性能。</p>
 <p>Code：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type&#10;    Cube = object&#10;        a: array [1..3] of longint;&#10;        procedure init(x,y,z: longint);&#10;        function height(k: integer): longint;&#10;        function low(k: integer): longint;&#10;        function high(k: integer): longint;&#10;    end;&#10;&#10;function max(x,y: longint): longint;&#10;begin&#10;    if x&#38;gt;y then max := x else max := y;&#10;end;&#10;&#10;procedure swap(var x,y: longint);&#10;var&#10;    t: longint;&#10;begin&#10;    t := x;&#10;    x := y;&#10;    y := t;&#10;end;&#10;&#10;function Cube.height(k: integer): longint;&#10;begin&#10;    height := self.a[k];&#10;end;&#10;&#10;function Cube.high(k: integer): longint;&#10;begin&#10;    case k of&#10;        1: high := a[3];&#10;        2: high := a[3];&#10;        3: high := a[2];&#10;    end;&#10;end;&#10;&#10;function Cube.low(k: integer): longint;&#10;begin&#10;    case k of&#10;        1: low := a[2];&#10;        2,3: low := a[1];&#10;    end;&#10;end;&#10;&#10;procedure Cube.init(x, y, z: longint);&#10;begin&#10;   if x&#38;gt;y then swap(x,y);&#10;   if y&#38;gt;z then swap(y,z);&#10;   if x&#38;gt;y then swap(x,y);&#10;   a[1] := x;&#10;   a[2] := y;&#10;   a[3] := z;&#10;end;&#10;&#10;var&#10;    f: array [1..30, 1..3] of longint;&#10;    i,j,m,n,x,y,z: longint;&#10;    cnt: longint;&#10;    cubes: array [1..30] of Cube;&#10;&#10;function dp(id, k: integer): longint;&#10;var&#10;    l, h, hi: longint;&#10;    i, j: integer;&#10;begin&#10;    if f[id, k] &#38;gt; 0 then&#10;        exit(f[id, k]);&#10;    l := cubes[id].low(k);&#10;    hi := cubes[id].height(k);&#10;    h := cubes[id].high(k);&#10;&#10;    f[id, k] := hi;&#10;&#10;    for i := 1 to n do&#10;    begin&#10;        //if i = id then continue;  //&#27492;&#22788;&#22312;&#19968;&#24320;&#22987;&#26102;&#24536;&#35760;&#32771;&#34385;&#20102;&#31435;&#26041;&#20307;&#26377;&#26080;&#31351;&#22810;&#20010;&#36825;&#19968;&#26465;&#20214;&#12290;&#10;        for j := 1 to 3 do&#10;        begin&#10;            if not ((cubes[i].low(j) &#38;lt; l) and (cubes[i].high(j) &#38;lt; h)) then&#10;                continue;&#10;            f[id, k] := max(f[id, k], dp(i, j)+hi);&#10;        end;&#10;    end;&#10;&#10;    dp := f[id, k];&#10;end;&#10;&#10;begin&#10;    assign(input, &#39;main.in&#39;);reset(input);&#10;    assign(output, &#39;main.out&#39;);rewrite(output);&#10;    read(n);&#10;    cnt := 0;&#10;    while n &#38;gt; 0 do&#10;    begin&#10;        inc(cnt);&#10;        for i := 1 to n do&#10;        begin&#10;            read(x,y,z);&#10;            cubes[i].init(x,y,z);&#10;        end;&#10;        fillchar(f, sizeof(f), 0);&#10;&#10;        m := 0;&#10;        for i := 1 to n do&#10;            for j := 1 to 3 do&#10;                m := max(m, dp(i, j));&#10;&#10;        writeln(&#39;Case &#39;, cnt, &#39;: maximum height = &#39;, m);&#10;&#10;        read(n);&#10;    end;&#10;    close(input);close(output);&#10;end.</span><br></pre></td></tr></table></figure></div><p class="readmore"><a href="/uva437-the-tower-of-babylon/">阅读更多</a></p></div><div class="post"><h2 class="post-title"><a href="/noip2011-expression/">NOIP2011 表达式计算</a></h2><div class="post-meta">2014-09-22</div><span data-thread-key="/noip2011-expression/" class="ds-thread-count"></span><div class="post-content"><blockquote>
-<p>记得11年的时候，觉得这道题爆难，根本无从下手。三年后再次回顾，终于AC了，就当是对表达式求值和动态规划的复习吧。</p>
-</blockquote>
-<h1 id="题目：Link">题目：<a href="http://codevs.cn/problem/1133/" target="_blank" rel="external">Link</a></h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Accepted.</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &amp;lt;iostream&amp;gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">define</span> Mod <span class="number">10007</span>;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> &#123;</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> v0;  <span class="comment">//当前值为0的个数</span></span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> v1;  <span class="comment">//当前值为1的个数</span></span><br><span class="line">    <span class="keyword">char</span> ch;  <span class="comment">//当前字符</span></span><br><span class="line">&#125; vertex;</span><br><span class="line"></span><br><span class="line">vertex f[<span class="number">100000</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge_sum</span><span class="params">(<span class="keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> w0 = f[p-<span class="number">1</span>].v0 * f[p].v0;</span><br><span class="line">    <span class="keyword">int</span> w1 = f[p-<span class="number">1</span>].v0*f[p].v1+f[p-<span class="number">1</span>].v1*f[p].v0+f[p-<span class="number">1</span>].v1*f[p].v1;</span><br><span class="line">    f[p-<span class="number">1</span>].v0 = w0 % Mod;</span><br><span class="line">    f[p-<span class="number">1</span>].v1 = w1 % Mod;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">merge_product</span><span class="params">(<span class="keyword">int</span> p)</span>  <span class="comment">//处理当前的值和前一个值取'*'的操作</span></span><br><span class="line"></span>&#123;</span><br><span class="line">       <span class="keyword">int</span> w0=f[p-<span class="number">1</span>].v0*f[p].v0+f[p-<span class="number">1</span>].v0*f[p].v1+f[p-<span class="number">1</span>].v1*f[p].v0;</span><br><span class="line">       <span class="keyword">int</span> w1=f[p-<span class="number">1</span>].v1*f[p].v1;</span><br><span class="line">       f[p-<span class="number">1</span>].v0=w0%Mod;</span><br><span class="line">       f[p-<span class="number">1</span>].v1=w1%Mod;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">    f[<span class="number">0</span>].v0=f[<span class="number">0</span>].v1=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (n--)</span><br><span class="line">    &#123;</span><br><span class="line">          now++;   <span class="comment">//新建一个空位读入新符号</span></span><br><span class="line">          <span class="built_in">cin</span>&gt;&gt;f[now].ch;</span><br><span class="line">          f[now].v0=f[now].v1=<span class="number">1</span>;  <span class="comment">//初始化当前符号的前面的值(虽然')'除外,但也不影响)</span></span><br><span class="line">          <span class="keyword">if</span> (f[now].ch==<span class="string">'+'</span>)</span><br><span class="line">          &#123;</span><br><span class="line">             <span class="keyword">if</span> (f[now-<span class="number">1</span>].ch==<span class="string">'*'</span>) <span class="comment">//处理'*'</span></span><br><span class="line">             &#123;</span><br><span class="line">                now--;</span><br><span class="line">                merge_product(now);</span><br><span class="line">                f[now]=f[now+<span class="number">1</span>];</span><br><span class="line">             &#125;</span><br><span class="line">             <span class="keyword">if</span> (f[now-<span class="number">1</span>].ch==<span class="string">'+'</span>) <span class="comment">//处理'+'</span></span><br><span class="line">             &#123;</span><br><span class="line">                now--;</span><br><span class="line">                merge_sum(now);</span><br><span class="line">                f[now]=f[now+<span class="number">1</span>];</span><br><span class="line">             &#125;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">if</span> (f[now].ch==<span class="string">'*'</span>)</span><br><span class="line">           <span class="keyword">if</span> (f[now-<span class="number">1</span>].ch==<span class="string">'*'</span>) <span class="comment">//处理'*'</span></span><br><span class="line">           &#123;</span><br><span class="line">              now--;</span><br><span class="line">              merge_product(now);</span><br><span class="line">              f[now]=f[now+<span class="number">1</span>];</span><br><span class="line">           &#125;</span><br><span class="line">          <span class="keyword">if</span> (f[now].ch==<span class="string">')'</span>) <span class="comment">//处理')'(比较麻烦)</span></span><br><span class="line">          &#123;</span><br><span class="line">             now--;</span><br><span class="line">             <span class="keyword">if</span> (f[now].ch==<span class="string">'*'</span>)</span><br><span class="line">             &#123;</span><br><span class="line">                merge_product(now);</span><br><span class="line">                now--;</span><br><span class="line">             &#125;</span><br><span class="line">             <span class="keyword">if</span> (f[now].ch==<span class="string">'+'</span>)</span><br><span class="line">             &#123;</span><br><span class="line">                merge_sum(now);</span><br><span class="line">                now--;</span><br><span class="line">             &#125;</span><br><span class="line">             now--;</span><br><span class="line">             f[now].v0=f[now+<span class="number">1</span>].v0;</span><br><span class="line">             f[now].v1=f[now+<span class="number">1</span>].v1;</span><br><span class="line">             <span class="keyword">if</span> (f[now].ch==<span class="string">'*'</span>)</span><br><span class="line">             &#123;</span><br><span class="line">                merge_product(now);</span><br><span class="line">                now--;</span><br><span class="line">             &#125;</span><br><span class="line">          &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (f[now].ch==<span class="string">'*'</span>)  <span class="comment">//处理完了以后,可能还有残留的'*'和'+'</span></span><br><span class="line">    &#123;</span><br><span class="line">       merge_product(now);</span><br><span class="line">       now--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (f[now].ch==<span class="string">'+'</span>)</span><br><span class="line">    &#123;</span><br><span class="line">       merge_sum(now);</span><br><span class="line">       now--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;f[<span class="number">0</span>].v0;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</div><p class="readmore"><a href="/noip2011-expression/">阅读更多</a></p></div><div class="post"><h2 class="post-title"><a href="/strange-extended-and-double-problem/">Extended和Double的奇怪问题</a></h2><div class="post-meta">2014-08-20</div><span data-thread-key="/strange-extended-and-double-problem/" class="ds-thread-count"></span><div class="post-content"><p>最近在做一个项目，其中有一段判断一个Extended浮点数是否为整数的代码。我用如下方式实现：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">function IsInt(F: Extended): Boolean;&#10;begin&#10;  result := Trunc(F)-F = 0; //&#25972;&#25968;&#37096;&#20998;&#31561;&#20110;&#33258;&#36523;&#10;end;</span><br></pre></td></tr></table></figure>
-<p>测试了许多样例都过了，唯独这个没过：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">IsInt(4.000000002*1000000000); //False</span><br></pre></td></tr></table></figure>
-<p>调试时发现： Trunc(F)居然等于4000000001！开始以为是精度的问题，找了许多资料也没能解决。后来将Extended换成了Double，就通过了。百思不得其解中。</p>
-</div><p class="readmore"><a href="/strange-extended-and-double-problem/">阅读更多</a></p></div><div class="post"><h2 class="post-title"><a href="//mysqldump-without-lock//">MySQLDump导出时不加锁</a></h2><div class="post-meta">2014-08-19</div><span data-thread-key="//mysqldump-without-lock//" class="ds-thread-count"></span><div class="post-content"><p>在SAE上进行应用开发时，常常需要导入数据库，这时候就需要用MySQLDump工具进行本地数据库导出。</p>
-<p>首先MySQLDump最基本的语法是这样的 <code>mysqldump &lt;database_name&gt;</code>，执行之后可以在控制台上看到SQL源码。但我第一次尝试将导出的源码上传至SAE时SAE却报错，原因是SAE的数据库管理不支持LOCK和UNLOCK语句。曾有一段时间，我是手动一行行删除LOCK语句。。30多张表那叫一个蛋疼。。后来，我翻阅了mysqlDump的help文档，发现可以添加这么一个参数<code>--ADD-LOCKS=FALSE</code>。几经尝试后发现果然没有LOCK语句了。 在此记录下整句命令：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump --add-locks=FALSE -uroot -p &lt;database_name&gt; &gt; example.sql</span><br></pre></td></tr></table></figure>
-</div><p class="readmore"><a href="//mysqldump-without-lock//">阅读更多</a></p></div><div class="post"><h2 class="post-title"><a href="/peeking-hongkong/">窥视香港</a></h2><div class="post-meta">2013-07-10</div><span data-thread-key="/peeking-hongkong/" class="ds-thread-count"></span><div class="post-content"><blockquote>
-<p>用心灵窥视，用良知感悟，寻觅精神世界的失落。 ——题记</p>
-</blockquote>
-<p>##地铁票</p>
-<p>才刚到晚上八点，地铁站便已“门可罗雀”，偶尔一两个人从眼前晃过。偌大的站台，空虚着，萧索着——这并不像一个大城市的作风。</p>
-<p>紧攥着手中的地铁票，生怕它被风吹走了——香港真能信任人呵，地铁票制作得如此薄，如此简陋，一点也不“高科技”，难道就不怕有人造假？对于见惯了内地地铁票的我来说，实在值得琢磨。</p>
-<p>##电梯</p>
-<p>“嘿，”同伴拍了拍我肩膀，轻声说，“你看……”</p>
-<p>我回头一看——顿时觉得糗大了。</p>
-<p>后面一排人都靠在扶梯右边有秩序地站着，整齐而不乱；而我——像往常一样靠在左边的扶手上，入迷地玩着手机……我“刷”地脸红了，立刻向右边挪了一步。</p>
-<p>“上下楼梯靠右边”，这是幼儿园就应该了解的常识。但我，作为一个中学生，却忘得一干二净，真是惭愧。但愿后面站着的人没有把我的做法放在心上。</p>
-<p>不过，既然手扶梯是单向的，为什么要让出左边的一半呢？两边都站满利用率不是更高吗？</p>
-<p>突然，身后传来一阵急促的脚步声——原来是一位“上班族”。只见他一手拎着包，一手扶着电梯扶手，气喘吁吁地从左边的通道跑下，很快，便消失在月台深处。</p>
-<p>原来如此，香港人的守秩序是为了有需要的人。</p>
-<p>电梯虽小，却折射出人生百相。</p>
-<p>##换乘</p>
-<p>“金钟站到了。”</p>
-<p>透过车窗望去，外面黑压压地挤了一群人——想必这里应该是繁华地段吧。</p>
-<p>车门开了，车厢里的人涌了出去。但奇怪的是，他们并没有跑向楼梯或电梯，而是跑向了对面的一辆列车。</p>
-<p>按照内地人的思路，两辆相对的列车理应是开往相反方向的。难道很多人都坐错车了？要不怎么都想往回走。我顿生狐疑。</p>
-<p>仔细端详对面的那辆列车，无意间，我发现了一个奇怪之处：那辆车和我乘坐的这一辆根本就不是同一条线路的！这也太奇怪了！</p>
-<p>但仔细想想，这样的安排似乎也有他的合理之处。</p>
-<p>这里是靠近市中心的地方，客流量大，每天都有几百万人次的换乘量。把两条人们常坐的线路靠的近一点，从一定程度上可以减小换乘带来的麻烦。况且，坐错车的人只是极少数，的确没有必要把两条相反方向的线路靠在一起。</p>
-<p>繁华的都市，竟然也粗中有细，实为可贵。</p>
-<p>##路人</p>
-<p>“劳驾……请问皇后大道东怎么走？”</p>
-<p>香港小巷密集，巷与巷之间又没有什么突出的不同之处，因此一不小心就会迷路。</p>
-<p>听说香港人有些排斥说普通话的游客，因此不会说粤语的我一直都不敢问路。但走到这个十字路口，我再也坚持不住了，只靠硬着头皮去问路。</p>
-<p>眼前的这位阿姨大概三十岁出头，拎着包，好像是一位刚下班的白领。她先是用奇怪的眼光打量我，看得我暗暗不安。几秒后，她终于开口了，用的是不很熟练的国语：“皇后大道东这么长，你具体要去哪？”</p>
-<p>这可把我问住了。“嗯……只要到那就行了……我只是想去走走。”</p>
-<p>这时，路对面的信号灯变绿了。我心里“咯噔”一下：不好，“救命稻草”可能要走了。可幸运的是，阿姨并没有要走的意思。她先问我有没有地图，在昏暗的路灯下，她艰难地从地图上找出了我们现在所处的位置。接着，她开始详细地讲解路线：需要乘哪些地铁，出了站后应该怎么走等等。经过了近5分钟的讲解，我终于把路线弄清了。</p>
-<p>“你会不会坐地铁啊？”临走前，阿姨还问我。</p>
-<p>“嗯，会的。我就是搭地铁来的。谢谢！”</p>
-<p>这时我才发现，对面的红绿灯已经变绿了两三次了。这要是在内地，对方非咒死你不可。</p>
-<p>还好，我在香港迷路了。</p>
-<p>##反思</p>
-<p>都说社会主义社会比资本主义社会优越，但我一路走下来，却并不这么认为。</p>
-<p>看来，经济高速发展带来了很多问题。古老的中国，年轻的中国，还有许多地方需要学习。</p>
-</div><p class="readmore"><a href="/peeking-hongkong/">阅读更多</a></p></div><div class="page-navigator"><a href="/page/5/" class="pre">上一页</a><a href="/page/7/" class="next">下一页</a></div></div></div><div class="pure-u-1-4"><div id="sidebar"><div class="widget"><div id="search"><form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="http://hsfzxjy.github.io"></form></div></div><div class="widget"><div class="widget-title">导航<ul><li><a href="/archives/"> <i class="icon-archives"> 归档</i></a></li><li><a href="/works/"> <i class="icon-works"> 个人作品</i></a></li><li><a href="/atom.xml"> <i class="icon-rss"> 订阅</i></a></li></ul></div></div><div class="widget"><div class="widget-title">分类</div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/学习/">学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数学/">数学</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂感/">杂感</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程/">编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载文章/">转载文章</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/随手记/">随手记</a></li></ul></div><div class="widget"><div class="widget-title">标签</div><div class="tagcloud"><a href="/tags/创新作文大赛/" style="font-size: 15px;">创新作文大赛</a> <a href="/tags/Delphi/" style="font-size: 15px;">Delphi</a> <a href="/tags/mongodb/" style="font-size: 15px;">mongodb</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/express-js/" style="font-size: 15px;">express.js</a> <a href="/tags/家书/" style="font-size: 15px;">家书</a> <a href="/tags/杂感/" style="font-size: 15px;">杂感</a> <a href="/tags/成人礼/" style="font-size: 15px;">成人礼</a> <a href="/tags/产品/" style="font-size: 15px;">产品</a> <a href="/tags/编程/" style="font-size: 15px;">编程</a> <a href="/tags/翻译/" style="font-size: 15px;">翻译</a> <a href="/tags/web设计/" style="font-size: 15px;">web设计</a> <a href="/tags/wisecity/" style="font-size: 15px;">wisecity</a> <a href="/tags/前端自动化测试，总结/" style="font-size: 15px;">前端自动化测试，总结</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/单元测试/" style="font-size: 15px;">单元测试</a> <a href="/tags/安全/" style="font-size: 15px;">安全</a> <a href="/tags/不经意间的感动/" style="font-size: 15px;">不经意间的感动</a> <a href="/tags/HFMUN重构系列/" style="font-size: 15px;">HFMUN重构系列</a> <a href="/tags/化学/" style="font-size: 15px;">化学</a> <a href="/tags/ubuntu/" style="font-size: 15px;">ubuntu</a> <a href="/tags/apt-get/" style="font-size: 15px;">apt-get</a> <a href="/tags/物理/" style="font-size: 15px;">物理</a> <a href="/tags/OOP/" style="font-size: 15px;">OOP</a> <a href="/tags/Sublime/" style="font-size: 15px;">Sublime</a> <a href="/tags/转载/" style="font-size: 15px;">转载</a> <a href="/tags/字体/" style="font-size: 15px;">字体</a> <a href="/tags/百题大过关/" style="font-size: 15px;">百题大过关</a> <a href="/tags/逆袭/" style="font-size: 15px;">逆袭</a> <a href="/tags/MySql/" style="font-size: 15px;">MySql</a> <a href="/tags/NOIP2014/" style="font-size: 15px;">NOIP2014</a> <a href="/tags/信息学竞赛/" style="font-size: 15px;">信息学竞赛</a> <a href="/tags/北大金秋营/" style="font-size: 15px;">北大金秋营</a> <a href="/tags/树状数组/" style="font-size: 15px;">树状数组</a> <a href="/tags/LCA/" style="font-size: 15px;">LCA</a> <a href="/tags/归并排序/" style="font-size: 15px;">归并排序</a> <a href="/tags/逆序对/" style="font-size: 15px;">逆序对</a> <a href="/tags/最小生成树/" style="font-size: 15px;">最小生成树</a> <a href="/tags/数论/" style="font-size: 15px;">数论</a> <a href="/tags/数学/" style="font-size: 15px;">数学</a> <a href="/tags/数列/" style="font-size: 15px;">数列</a> <a href="/tags/高精度/" style="font-size: 15px;">高精度</a> <a href="/tags/UVa/" style="font-size: 15px;">UVa</a> <a href="/tags/Pascal/" style="font-size: 15px;">Pascal</a> <a href="/tags/搜索/" style="font-size: 15px;">搜索</a> <a href="/tags/剪枝/" style="font-size: 15px;">剪枝</a> <a href="/tags/浮点数/" style="font-size: 15px;">浮点数</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/游记/" style="font-size: 15px;">游记</a> <a href="/tags/win32/" style="font-size: 15px;">win32</a></div></div><div class="widget"><div class="widget-title">最新文章</div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/md5-cracker-powered-by-nodejs/">初试 node.js：MD5 解密网站</a></li><li class="post-list-item"><a class="post-list-link" href="/letter-to-parents/">家书·十八岁成人礼</a></li><li class="post-list-item"><a class="post-list-link" href="/hobby-or-needs/">炫技？还是需求？</a></li><li class="post-list-item"><a class="post-list-link" href="/the-state-of-responsive-images-in-2015/">【译】响应式图片的现状</a></li><li class="post-list-item"><a class="post-list-link" href="/why-are-so-many-programming-languages/">【译】“为什么有这么多的编程语言？”</a></li><li class="post-list-item"><a class="post-list-link" href="/wisecity-conclusion/">Wisecity 商赛总结——也谈前端自动化测试</a></li><li class="post-list-item"><a class="post-list-link" href="/how-to-fuck-a-bilk-site/">记一次 DoS 诈骗网站的经历</a></li><li class="post-list-item"><a class="post-list-link" href="/secret/">不能说的秘密</a></li><li class="post-list-item"><a class="post-list-link" href="/that-starry-night/">那一年，我们望向星空</a></li><li class="post-list-item"><a class="post-list-link" href="/hfmun-reconstruction-4/">【HFMUN重构系列】4. Restful API 框架</a></li></ul></div><div class="widget"><div class="comments-title">最近评论</div><div data-num-items="5" data-show-avatars="0" data-show-time="1" data-show-admin="0" data-excerpt-length="32" data-show-title="1" class="ds-recent-comments"></div></div></div></div></div><div id="footer">© <a href="/" rel="nofollow">hsfzxjy.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></body><script src="/js/jquery.min.js" type="text/javascript"></script>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type&#10;    Cube = object&#10;        a: array [1..3] of longint;&#10;        procedure init(x,y,z: longint);&#10;        function height(k: integer): longint;&#10;        function low(k: integer): longint;&#10;        function high(k: integer): longint;&#10;    end;&#10;&#10;function max(x,y: longint): longint;&#10;begin&#10;    if x&#38;gt;y then max := x else max := y;&#10;end;&#10;&#10;procedure swap(var x,y: longint);&#10;var&#10;    t: longint;&#10;begin&#10;    t := x;&#10;    x := y;&#10;    y := t;&#10;end;&#10;&#10;function Cube.height(k: integer): longint;&#10;begin&#10;    height := self.a[k];&#10;end;&#10;&#10;function Cube.high(k: integer): longint;&#10;begin&#10;    case k of&#10;        1: high := a[3];&#10;        2: high := a[3];&#10;        3: high := a[2];&#10;    end;&#10;end;&#10;&#10;function Cube.low(k: integer): longint;&#10;begin&#10;    case k of&#10;        1: low := a[2];&#10;        2,3: low := a[1];&#10;    end;&#10;end;&#10;&#10;procedure Cube.init(x, y, z: longint);&#10;begin&#10;   if x&#38;gt;y then swap(x,y);&#10;   if y&#38;gt;z then swap(y,z);&#10;   if x&#38;gt;y then swap(x,y);&#10;   a[1] := x;&#10;   a[2] := y;&#10;   a[3] := z;&#10;end;&#10;&#10;var&#10;    f: array [1..30, 1..3] of longint;&#10;    i,j,m,n,x,y,z: longint;&#10;    cnt: longint;&#10;    cubes: array [1..30] of Cube;&#10;&#10;function dp(id, k: integer): longint;&#10;var&#10;    l, h, hi: longint;&#10;    i, j: integer;&#10;begin&#10;    if f[id, k] &#38;gt; 0 then&#10;        exit(f[id, k]);&#10;    l := cubes[id].low(k);&#10;    hi := cubes[id].height(k);&#10;    h := cubes[id].high(k);&#10;&#10;    f[id, k] := hi;&#10;&#10;    for i := 1 to n do&#10;    begin&#10;        //if i = id then continue;  //&#27492;&#22788;&#22312;&#19968;&#24320;&#22987;&#26102;&#24536;&#35760;&#32771;&#34385;&#20102;&#31435;&#26041;&#20307;&#26377;&#26080;&#31351;&#22810;&#20010;&#36825;&#19968;&#26465;&#20214;&#12290;&#10;        for j := 1 to 3 do&#10;        begin&#10;            if not ((cubes[i].low(j) &#38;lt; l) and (cubes[i].high(j) &#38;lt; h)) then&#10;                continue;&#10;            f[id, k] := max(f[id, k], dp(i, j)+hi);&#10;        end;&#10;    end;&#10;&#10;    dp := f[id, k];&#10;end;&#10;&#10;begin&#10;    assign(input, &#39;main.in&#39;);reset(input);&#10;    assign(output, &#39;main.out&#39;);rewrite(output);&#10;    read(n);&#10;    cnt := 0;&#10;    while n &#38;gt; 0 do&#10;    begin&#10;        inc(cnt);&#10;        for i := 1 to n do&#10;        begin&#10;            read(x,y,z);&#10;            cubes[i].init(x,y,z);&#10;        end;&#10;        fillchar(f, sizeof(f), 0);&#10;&#10;        m := 0;&#10;        for i := 1 to n do&#10;            for j := 1 to 3 do&#10;                m := max(m, dp(i, j));&#10;&#10;        writeln(&#39;Case &#39;, cnt, &#39;: maximum height = &#39;, m);&#10;&#10;        read(n);&#10;    end;&#10;    close(input);close(output);&#10;end.</span><br></pre></td></tr></table></figure></div><p class="readmore"><a href="/uva437-the-tower-of-babylon/">阅读更多</a></p></div><div class="page-navigator"><a href="/page/5/" class="pre">上一页</a><a href="/page/7/" class="next">下一页</a></div></div></div><div class="pure-u-1-4"><div id="sidebar"><div class="widget"><div id="search"><form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="http://hsfzxjy.github.io"></form></div></div><div class="widget"><div class="widget-title">导航<ul><li><a href="/archives/"> <i class="icon-archives"> 归档</i></a></li><li><a href="/works/"> <i class="icon-works"> 个人作品</i></a></li><li><a href="/atom.xml"> <i class="icon-rss"> 订阅</i></a></li></ul></div></div><div class="widget"><div class="widget-title">分类</div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/学习/">学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数学/">数学</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂感/">杂感</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程/">编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载文章/">转载文章</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/随手记/">随手记</a></li></ul></div><div class="widget"><div class="widget-title">标签</div><div class="tagcloud"><a href="/tags/物理/" style="font-size: 15px;">物理</a> <a href="/tags/Delphi/" style="font-size: 15px;">Delphi</a> <a href="/tags/杂感/" style="font-size: 15px;">杂感</a> <a href="/tags/作文/" style="font-size: 15px;">作文</a> <a href="/tags/朋友圈-诗/" style="font-size: 15px;">朋友圈 诗</a> <a href="/tags/mongodb/" style="font-size: 15px;">mongodb</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/express-js/" style="font-size: 15px;">express.js</a> <a href="/tags/家书/" style="font-size: 15px;">家书</a> <a href="/tags/成人礼/" style="font-size: 15px;">成人礼</a> <a href="/tags/产品/" style="font-size: 15px;">产品</a> <a href="/tags/编程/" style="font-size: 15px;">编程</a> <a href="/tags/翻译/" style="font-size: 15px;">翻译</a> <a href="/tags/web设计/" style="font-size: 15px;">web设计</a> <a href="/tags/wisecity/" style="font-size: 15px;">wisecity</a> <a href="/tags/前端自动化测试，总结/" style="font-size: 15px;">前端自动化测试，总结</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/单元测试/" style="font-size: 15px;">单元测试</a> <a href="/tags/安全/" style="font-size: 15px;">安全</a> <a href="/tags/不经意间的感动/" style="font-size: 15px;">不经意间的感动</a> <a href="/tags/HFMUN重构系列/" style="font-size: 15px;">HFMUN重构系列</a> <a href="/tags/化学/" style="font-size: 15px;">化学</a> <a href="/tags/ubuntu/" style="font-size: 15px;">ubuntu</a> <a href="/tags/apt-get/" style="font-size: 15px;">apt-get</a> <a href="/tags/OOP/" style="font-size: 15px;">OOP</a> <a href="/tags/创新作文大赛/" style="font-size: 15px;">创新作文大赛</a> <a href="/tags/Sublime/" style="font-size: 15px;">Sublime</a> <a href="/tags/转载/" style="font-size: 15px;">转载</a> <a href="/tags/字体/" style="font-size: 15px;">字体</a> <a href="/tags/百题大过关/" style="font-size: 15px;">百题大过关</a> <a href="/tags/逆袭/" style="font-size: 15px;">逆袭</a> <a href="/tags/MySql/" style="font-size: 15px;">MySql</a> <a href="/tags/NOIP2014/" style="font-size: 15px;">NOIP2014</a> <a href="/tags/信息学竞赛/" style="font-size: 15px;">信息学竞赛</a> <a href="/tags/北大金秋营/" style="font-size: 15px;">北大金秋营</a> <a href="/tags/树状数组/" style="font-size: 15px;">树状数组</a> <a href="/tags/LCA/" style="font-size: 15px;">LCA</a> <a href="/tags/归并排序/" style="font-size: 15px;">归并排序</a> <a href="/tags/逆序对/" style="font-size: 15px;">逆序对</a> <a href="/tags/最小生成树/" style="font-size: 15px;">最小生成树</a> <a href="/tags/数论/" style="font-size: 15px;">数论</a> <a href="/tags/数学/" style="font-size: 15px;">数学</a> <a href="/tags/数列/" style="font-size: 15px;">数列</a> <a href="/tags/高精度/" style="font-size: 15px;">高精度</a> <a href="/tags/UVa/" style="font-size: 15px;">UVa</a> <a href="/tags/Pascal/" style="font-size: 15px;">Pascal</a> <a href="/tags/搜索/" style="font-size: 15px;">搜索</a> <a href="/tags/剪枝/" style="font-size: 15px;">剪枝</a> <a href="/tags/浮点数/" style="font-size: 15px;">浮点数</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/游记/" style="font-size: 15px;">游记</a> <a href="/tags/win32/" style="font-size: 15px;">win32</a></div></div><div class="widget"><div class="widget-title">最新文章</div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/life-needs-discovery/">生活，需要被“发现”</a></li><li class="post-list-item"><a class="post-list-link" href="/poem-cold/">冬日清晨起床做操有感</a></li><li class="post-list-item"><a class="post-list-link" href="/poem-instinct/">剖析解题过程有感</a></li><li class="post-list-item"><a class="post-list-link" href="/md5-cracker-powered-by-nodejs/">初试 node.js：MD5 解密网站</a></li><li class="post-list-item"><a class="post-list-link" href="/poem-before-test-2/">月考二前夕</a></li><li class="post-list-item"><a class="post-list-link" href="/letter-to-parents/">家书·十八岁成人礼</a></li><li class="post-list-item"><a class="post-list-link" href="/hobby-or-needs/">炫技？还是需求？</a></li><li class="post-list-item"><a class="post-list-link" href="/the-state-of-responsive-images-in-2015/">【译】响应式图片的现状</a></li><li class="post-list-item"><a class="post-list-link" href="/why-are-so-many-programming-languages/">【译】“为什么有这么多的编程语言？”</a></li><li class="post-list-item"><a class="post-list-link" href="/wisecity-conclusion/">Wisecity 商赛总结——也谈前端自动化测试</a></li></ul></div><div class="widget"><div class="comments-title">最近评论</div><div data-num-items="5" data-show-avatars="0" data-show-time="1" data-show-admin="0" data-excerpt-length="32" data-show-title="1" class="ds-recent-comments"></div></div></div></div></div><div id="footer">© <a href="/" rel="nofollow">hsfzxjy.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></body><script src="/js/jquery.min.js" type="text/javascript"></script>
 <script src="/js/totop.js" type="text/javascript"></script><script src="/js/fancybox.pack.js" type="text/javascript"></script><link rel="stylesheet" href="/css/jquery.fancybox.css" type="text/css"><script>$(document).ready(function() {
   $('img').each(function() {
     if ($(this).parent().hasClass('fancybox')) return;

@@ -52,29 +52,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[提问之前，请先过脑]]></title>
-    <link href="http://hsfzxjy.github.io//annoying-segmentfault-users/"/>
-    <id>http://hsfzxjy.github.io//annoying-segmentfault-users/</id>
-    <published>2015-11-27T16:00:00.000Z</published>
-    <updated>2015-11-28T14:56:23.819Z</updated>
-    <content type="html"><![CDATA[<p>再一次和 Segmentfault 上的小白撕逼了，简直忍无可忍 （<a href="http://segmentfault.com/q/1010000004013747?_ea=457124" target="_blank" rel="external">战场传送门</a>）。</p>
-<p>或许是小时候内向的性格，迫使我养成了提问前三思的习惯，以及看不惯别人提白痴问题的强迫症。你可以说这是病态，但上面那位题主收获的 <strong>5 个踩</strong> 足以说明：这种病是普遍存在的，至少在这个社区里是这样。</p>
-<blockquote>
-<p>这种简单功能，如果想不到，说明你不适合这个行业</p>
-</blockquote>
-<p>这是战争的导火索。我想说的是：这句话一点都不过分。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>再一次和 Segmentfault 上的小白撕逼了，简直忍无可忍 （<a href="http://segmentfault.com/q/1010000004013747?_ea=457124" target="_blank" rel="external">战场传送门</a]]>
-    </summary>
-    
-      <category term="杂感 牢骚" scheme="http://hsfzxjy.github.io/tags/%E6%9D%82%E6%84%9F-%E7%89%A2%E9%AA%9A/"/>
-    
-      <category term="杂感" scheme="http://hsfzxjy.github.io/categories/%E6%9D%82%E6%84%9F/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[冬日清晨起床做操有感]]></title>
     <link href="http://hsfzxjy.github.io//poem-cold/"/>
     <id>http://hsfzxjy.github.io//poem-cold/</id>
@@ -123,69 +100,6 @@
       <category term="朋友圈 诗" scheme="http://hsfzxjy.github.io/tags/%E6%9C%8B%E5%8F%8B%E5%9C%88-%E8%AF%97/"/>
     
       <category term="杂感" scheme="http://hsfzxjy.github.io/categories/%E6%9D%82%E6%84%9F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[初试 node.js：MD5 解密网站]]></title>
-    <link href="http://hsfzxjy.github.io//md5-cracker-powered-by-nodejs/"/>
-    <id>http://hsfzxjy.github.io//md5-cracker-powered-by-nodejs/</id>
-    <published>2015-11-05T16:00:00.000Z</published>
-    <updated>2015-11-08T08:40:30.145Z</updated>
-    <content type="html"><![CDATA[<h2 id="前言">前言</h2><p><em>有些日子没写技术笔记了。正好今天刚月考完，写篇东西放松一下。</em></p>
-<p>node.js，IT界的新角，怀揣着用 javascript 称霸前后端的野心。一年前听说这个东西时，我就被其魅力深深地吸引了。尽管从语法上看，js 继承了其父丑陋的风格，无法和我钟爱的 python 相提并论，但人家的性能却是不可小觑的。浏览器脚本起家，天生支持异步编程，时间驱动，完美压榨 CPU 时间，简直让同步的 python 望尘莫及——更何况，还有 Google 大牛精心优化的 V8 引擎，速度快得飞起，完全弥补了其语法上的不足。</p>
-<p>早就想学 node.js 了，却一直苦于没有动机。软件工程的学习和其他学科很是不同：如果没有动机，没有实践，仅是读干巴巴的文档，那是很乏味的。在之前的项目中我一直使用 python。在对性能没有过高的要求的情况下，python 是敏捷开发的不二之选。而且在 SAE 支持的三种语言中，我最擅长的便是 python（好吧，其实是其他两种我都不会～～）。学习 node.js，确实没有太急切的需求。</p>
-<p>约摸两个星期前吧，@cc 提出了一个新的 idea——在高考后建一个网站，记录同学们毕业后的去向。具体需求尚未确定，但我非常感兴趣。乍一看来，websocket 是必不可少的了，而且对于这类 IO 密集型的网站，MySQL 水土不服，WSGI 模式吃不消。于是我又想到了 node.js——正好趁这个机会，再学一门技术。技多不压身嘛。</p>
-<p>于是，在上周我写了个小 <a href="https://github.com/hsfzxjy/md5crack/" target="_blank" rel="external">demo</a>，借此透析一下 node.js 及其常见框架。</p>
-<p>说了那么多废话，切入正题。</p>
-<h2 id="需求_&amp;_构思_&amp;_准备">需求 &amp; 构思 &amp; 准备</h2><p>一个小 demo 而已，需求很简洁：</p>
-<blockquote>
-<ul>
-<li><strong>MD5 加密功能</strong> 用户可以输入任意字符串，网站会返回字符串的 MD5 值，同时将原始串和哈希值存入数据库</li>
-<li><strong>MD5 解密功能</strong> 用户可以输入一个合法的 MD5 值，网站会检索已知的 MD5 值及其对应的原始字符串，若比对成功则返回原串，否则显示未找到。</li>
-</ul>
-</blockquote>
-<p>由于是学习 node.js 的 demo，为了简单起见我只用了一个页面，GET 返回空表单，POST 执行加密或解密动作，并返回结果。前端用了 pure.css，一个很简单的 CSS 框架，只为了效果不要太挫。</p>
-<p>在 mongodb 的使用上，我没有用官方的 mongodb driver，而是用了 mongoose。这是出于两点考虑：一是尽管 mongodb 很灵活，但在将来的网站建设中，绝不可能做到 schemeless，否则在设计类似用户系统这样的模块时会很痛苦；二是 mongoose 除了提供了一个 Schema，其他诸如 CRUD 的操作基本还是遵循原生 mongodb driver 的语法，因此并不影响对 mongodb 的理解。</p>
-<p>在 web 框架的选择上，我决定先尝试 express.js。在此之前我曾搜过 “node.js web framework comparison”，其中有篇<a href="https://www.airpair.com/node.js/posts/nodejs-framework-comparison-express-koa-hapi" target="_blank" rel="external">文章</a>写的不错，较为详尽地分析了三个较为流行的框架 express、koa 以及 hapi。</p>
-<p>express 是元老级的框架了，几乎和 node.js 是同时出现的，在 Github 上 有 16158 个 stars。它是个微框架（micro-framework），在 http 协议上封装了一层。npmjs 上已有成千上百的基于 express 的中间件，用于解决各类的问题。</p>
-<p>koa 是个新型的框架，基于 ES6，Github 上有 4846 个 stars。其突出的特点是用了 ES6 的 generators 实现了协程，可以增加异步编程的可读性——这点和 Tornado 很相似。目前的版本是 0.13，尚未稳定，不敢贸然采用。</p>
-<p>hapi 则是另一种风格，Github 上也有 3283 个 stars。其理念是 用配置代替代码，这在设计 REST API 时是十分方便的，在后续的学习中我可以适当地了解一下。</p>
-<h3 id="初始化">初始化</h3><p><code>nodejs</code>、<code>npm</code>、<code>mongodb</code> 这些必要程序的安装就不用说了。mongodb 和 MySQL 不同，不用做额外的配置，装完就可以用。</p>
-<p>先建目录：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir md5cracker &amp;&amp; <span class="built_in">cd</span> md5cracker</span><br><span class="line">$ npm init</span><br></pre></td></tr></table></figure>
-<p>一路回车——虽然我知道这样不好，但这毕竟只是一个 demo。</p>
-<p>装依赖：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install --save mongodb mongoose express es6-promise</span><br></pre></td></tr></table></figure>
-<p>这里<code>es6-promise</code>是<code>mongoose</code>的一个依赖，不知为何要单独拿出来安装。</p>
-<p>辅助工具：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g nodemon express-generator</span><br></pre></td></tr></table></figure>
-<p><code>nodemon</code>是一个方便的小程序，可以实时检测你的代码库，并在出现变更时重启服务器；<code>express-generator</code>，正如其名，用于生成 express 网站骨架。</p>
-<p>这里要赞美一下 npm 3：在低版本的 npm 中，依赖的安装是树状结构的，不同的包不能共享依赖——这对有代码体积洁癖的人来说简直不能忍。npm 3 有许多新的特性，其一便是“依赖扁平化”——应该说，这才是正常的做法。</p>
-<p>编辑<code>package.json</code>：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  <span class="string">"scripts"</span>: &#123;</span><br><span class="line">    <span class="string">"start"</span>: <span class="string">"nodemon ./bin/www"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这是为了简化网站的启动命令，完成后使用<code>npm start</code>即可启动网站，而不必每次都键入<code>nodemon ./bin/www</code>。</p>
-<p>新建<code>nodemon.json</code>：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"execMap"</span>: &#123;</span><br><span class="line">        <span class="string">"js"</span>: <span class="string">"node --harmony"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这是<code>nodemon</code>的配置文件，<code>node</code>的<code>--harmony</code>的参数能够启用 ES6 语法。</p>
-<h3 id="mongodb">mongodb</h3><p>和 mysql 类似，mongodb 也需要初始化连接的代码。在 <code>app.js</code> 加入下列语句：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="keyword">var</span> app = express();</span><br><span class="line"></span><br><span class="line"><span class="comment">// set up mongodb engine.</span></span><br><span class="line"><span class="keyword">var</span> mongoose = <span class="built_in">require</span>(<span class="string">'mongoose'</span>);</span><br><span class="line"><span class="keyword">var</span> db = mongoose.connection;</span><br><span class="line">db.on(<span class="string">'error'</span>, <span class="built_in">console</span>.error.bind(<span class="built_in">console</span>, <span class="string">'connection error:'</span>));</span><br><span class="line">mongoose.connect(<span class="string">'mongodb://localhost:27017/crack'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
-<p>事实上，这并不是最佳实践。毕竟，并不是所有的请求都会访问数据库，而且所有的请求都依赖于一个连接，可能会带来性能的损失。这里只是一个示范，暂时先不复杂化。</p>
-<p>接下来便是 model 的定义：</p>
-<p>（未完待续）</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h2 id="前言">前言</h2><p><em>有些日子没写技术笔记了。正好今天刚月考完，写篇东西放松一下。</em></p>
-<p>node.js，IT界的新角，怀揣着用 javascript 称霸前后端的野心。一年前听说这个东西时，我就被其魅力深深地吸引了。尽管从语法上看]]>
-    </summary>
-    
-      <category term="express.js" scheme="http://hsfzxjy.github.io/tags/express-js/"/>
-    
-      <category term="mongodb" scheme="http://hsfzxjy.github.io/tags/mongodb/"/>
-    
-      <category term="node.js" scheme="http://hsfzxjy.github.io/tags/node-js/"/>
-    
-      <category term="编程" scheme="http://hsfzxjy.github.io/categories/%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   
@@ -1052,6 +966,142 @@
       <category term="ubuntu" scheme="http://hsfzxjy.github.io/tags/ubuntu/"/>
     
       <category term="随手记" scheme="http://hsfzxjy.github.io/categories/%E9%9A%8F%E6%89%8B%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[关于正弦交流电有效值计算公式的证明]]></title>
+    <link href="http://hsfzxjy.github.io//provement-of-Sinusoidal-AC-RMS-calculation-formula/"/>
+    <id>http://hsfzxjy.github.io//provement-of-Sinusoidal-AC-RMS-calculation-formula/</id>
+    <published>2015-03-04T03:32:50.000Z</published>
+    <updated>2015-11-08T08:40:29.989Z</updated>
+    <content type="html"><![CDATA[<h3 id="公式">公式</h3><p>$I = {I_m \over \sqrt{2}}$</p>
+<h3 id="证明">证明</h3><p>设 $I = Asin\omega t$，则$I^2 = A^2sin^2\omega t$。</p>
+<p>取半个周期进行计算：$${Q \over R} $$<br>$$= \int_0^{T \over 2} I^2tdt$$<br>$$={A^2 \over 2}(t - {sin2\omega t \over 2\omega})|_{0}^{T \over 2}$$<br>$$={A^2T \over 4}$$<br>$$={I^2T \over 2}$$</p>
+<p>进而： $I = {A \over \sqrt{2}}$</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="公式">公式</h3><p>$I = {I_m \over \sqrt{2}}$</p>
+<h3 id="证明">证明</h3><p>设 $I = Asin\omega t$，则$I^2 = A^2sin^2\omega t$。</p>
+<p>取半个周期进行计算：]]>
+    </summary>
+    
+      <category term="物理" scheme="http://hsfzxjy.github.io/tags/%E7%89%A9%E7%90%86/"/>
+    
+      <category term="数学" scheme="http://hsfzxjy.github.io/categories/%E6%95%B0%E5%AD%A6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[【HFMUN重构系列】3. 消息系统]]></title>
+    <link href="http://hsfzxjy.github.io//HFMUN-reconstruction-3/"/>
+    <id>http://hsfzxjy.github.io//HFMUN-reconstruction-3/</id>
+    <published>2015-03-03T05:53:20.000Z</published>
+    <updated>2015-11-08T08:40:29.989Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>一个真正优秀的系统，值得你无数次地去重构。</p>
+</blockquote>
+<p>消息系统算是网站比较重要的一部分，它承担着将<strong>已发生的事件通知给相关用户</strong>的责任。看似简单，但若想做到DRY，实现起来却很复杂——因为，通知的类型太多了。</p>
+<p>这个系统，在三个项目中我实现了三次。三次都使用不同的方法，但三次都不怎么满意。这最后一次，算是比较成功的一次了。</p>
+<p>在第一版模联网站中，我采用了一个堪称最糟糕的方案（如图所示）：</p>
+<p><img src="/assets/wboard_notifications.jpg" alt="UML"></p>
+<p>这个方案最大的缺点：</p>
+<ol>
+<li><strong>耦合度太高</strong>。如果有一天，又多了一种消息类型，那么就要多加一张表。</li>
+<li><strong>查询的难度大</strong>。通常来说我们需要显示所有的消息，从而需要使用JOIN语句进行多表联查——这效率是很低的。</li>
+<li><strong>SQL本身就不是面向对象的</strong>。虽说<code>CommentNotification</code>是<code>Notification</code>的子类，可查询时却并不能使用类似<code>Notification.objects.all()</code>一类的语句。在一定程度上可以说：SQL本身就不是面向对象的。</li>
+</ol>
+<p>而在第二版模联网站中，我采用了<a href="https://docs.djangoproject.com/en/1.7/ref/contrib/contenttypes/" target="_blank" rel="external">泛型</a>（Generic Model Relations）这一技术来实现——这是Django另一大特色：<strong>通过记录对象的类型信息以及唯一标识符，实现了一种可以指向任何表的外键（GenericRelation）</strong>。这种技术存在的目的就是为了<strong>解耦合</strong>，使系统扩展更具灵活性——尽管要损失一些效率，但与架构的“健康”比起来那是微不足道的，无可厚非。</p>
+<p>UML图如下：</p>
+<p><img src="/assets/hfmun_notices.jpg" alt="UML"></p>
+<p>这其中，<code>notice_type</code>的取值决定了<strong><code>url</code>域的作用</strong>：</p>
+<ul>
+<li><strong><code>link</code></strong>。该消息的<code>url</code>域表示一个指向<code>related_object</code>的地址，应该展示给用户看。</li>
+<li><strong><code>invoke</code></strong>。该消息需要在用户确认后执行一个动作。其<code>url</code>域表示需要执行的动作的地址——这里有些TaskQueue的意味。</li>
+</ul>
+<p>然而，发消息时又应该怎么做呢？如果在所有的地方都来一句：<code>Notice.create(......)</code>，那也太不DRY了吧？</p>
+<p>有人说：“懒惰是程序员的天性。”</p>
+<p>我赞同，但我还想补充一句：“懒惰更是程序员精简代码的动力。”</p>
+<p>于是，我创立了一个类<code>NoticeDispatcher</code>，用于分发消息——其实这一类工具代码在之前的系统中也存在过，只不过这一版本的令我更为满意。</p>
+<pre><code><span class="class"><span class="keyword">class</span> <span class="title">NoticeDispatcher</span><span class="params">(object)</span>:</span>
+
+    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, model, default = {})</span>:</span>
+        <span class="keyword">if</span> <span class="keyword">not</span> issubclass(model, SendNoticeModelMixin):
+            <span class="keyword">raise</span> TypeError(<span class="string">'The `model` must be a subclass of  `SendNoticeModelMixin`.'</span>)
+        self.__model = model
+        self.__default = {}
+        self.__default.update(default)
+
+    <span class="function"><span class="keyword">def</span> <span class="title">send</span><span class="params">(self, *args, **kwargs)</span>:</span>
+        klass = Notice
+
+        title = self.__model.generate_title(*args, **kwargs) 
+        content = self.__model.generate_content(*args, **kwargs) 
+        url = self.__model.generate_url(*args, **kwargs)
+        user = self.__model.generate_user(*args, **kwargs)
+
+        valid_keys_set = set(kwargs.iterkeys()) &amp; \
+            set(field.name <span class="keyword">for</span> field <span class="keyword">in</span> klass._meta.fields)
+
+        params = deepcopy(self.__default)
+        params.update({key: kwargs[key] <span class="keyword">for</span> key <span class="keyword">in</span> valid_keys_set})
+        params.update({
+            <span class="string">'title'</span>: title,
+            <span class="string">'content'</span>: content,
+            <span class="string">'url'</span>: url,
+        })
+
+        results = []
+        <span class="keyword">try</span>:
+            iter(user)
+        <span class="keyword">except</span>:
+            user = (user,)
+
+        <span class="keyword">for</span> _user <span class="keyword">in</span> user:
+            params[<span class="string">'user'</span>] = _user
+            notice = klass(*args, **params)
+            notice.save()
+            results.append(notice)
+
+        <span class="keyword">return</span> results
+</code></pre><p>我们可以传入一个模型类作为参数从而获得一个<code>NoticeDispatcher</code>对象。这个模型类被要求继承于<code>notices.mixins.SendNoticeModelMixin</code>，以完成一些默认的配置——这是一个抽象基类：</p>
+<pre><code><span class="class"><span class="keyword">class</span> <span class="title">SendNoticeModelMixin</span><span class="params">(object)</span>:</span>
+
+<span class="decorator">    @classmethod</span>
+    <span class="function"><span class="keyword">def</span> <span class="title">generate_title</span><span class="params">(klass, *args, **kwargs)</span>:</span>
+        <span class="keyword">return</span> <span class="string">''</span>
+
+<span class="decorator">    @classmethod</span>
+    <span class="function"><span class="keyword">def</span> <span class="title">generate_content</span><span class="params">(klass, *args, **kwargs)</span>:</span>
+        <span class="keyword">return</span> <span class="string">''</span>
+
+<span class="decorator">    @classmethod</span>
+    <span class="function"><span class="keyword">def</span> <span class="title">generate_url</span><span class="params">(klass, *args, **kwargs)</span>:</span>
+        <span class="keyword">return</span> <span class="string">''</span>
+
+<span class="decorator">    @classmethod</span>
+    <span class="function"><span class="keyword">def</span> <span class="title">generate_user</span><span class="params">(klass, *args, **kwargs)</span>:</span>
+        <span class="keyword">return</span> []
+</code></pre><p>做完这一切之后，每当调用<code>notice_dispatcher.send()</code>方法时，<code>NoticeDispatcher</code>会自动调用模型类中的<code>generate_*</code>方法以获取构建消息对象的默认参数。像一些基本不变的内容——如<code>url</code>、<code>title</code>就可以用代码自动生成，进而提高代码复用率。</p>
+<p>当然，这个系统仍有一些不够完善的地方，如：</p>
+<ul>
+<li><code>notice_type</code>为<code>invoke</code>时的逻辑至今尚未实现。</li>
+<li>当消息的构建不需要<code>related_object</code>参数时，仍需调用原生的<code>create</code>方法，非常麻烦。</li>
+<li><code>related_object</code>参数仍需手动传入，有些不干净——最好就是能在<code>SendNoticeModelMixin</code>上实现<code>send</code>方法，很多啰嗦的代码便又可以省略掉了。</li>
+</ul>
+<p>以上问题，或是由于没有需求，或是由于懒惰（- -!），没有来得及去实现。但愿能在下一次改进时解决。</p>
+<p>总而言之呢，事情正在似乎在朝着好的方面发展。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>一个真正优秀的系统，值得你无数次地去重构。</p>
+</blockquote>
+<p>消息系统算是网站比较重要的一部分，它承担着将<strong>已发生的事件通知给相关用户</strong>的责任。看似简单，但若想做到DRY，实现起来却很复杂——因]]>
+    </summary>
+    
+      <category term="HFMUN重构系列" scheme="http://hsfzxjy.github.io/tags/HFMUN%E9%87%8D%E6%9E%84%E7%B3%BB%E5%88%97/"/>
+    
+      <category term="编程" scheme="http://hsfzxjy.github.io/categories/%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   

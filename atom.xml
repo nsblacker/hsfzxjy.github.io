@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不忌讳空山无人，不害怕遥望星辰]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hsfzxjy.github.io/"/>
-  <updated>2015-11-28T14:17:54.511Z</updated>
+  <updated>2015-12-12T15:03:15.118Z</updated>
   <id>http://hsfzxjy.github.io/</id>
   
   <author>
@@ -13,6 +13,68 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[从编程到软件工程]]></title>
+    <link href="http://hsfzxjy.github.io//from-programming-to-software-engineering/"/>
+    <id>http://hsfzxjy.github.io//from-programming-to-software-engineering/</id>
+    <published>2015-12-11T16:00:00.000Z</published>
+    <updated>2015-12-12T15:03:15.118Z</updated>
+    <content type="html"><![CDATA[<h2 id="序">序</h2><p>岁末的钟声，也是战斗的号角。</p>
+<p>距离高考只有不到 180 天了。180 天后，又是一个新的世界。</p>
+<p>而 1800 天前，却曾是另一个新世界的伊始。从那时起，在我眼中，世界突然变得绚丽了起来。</p>
+<p>这是属于我的回忆录，撰写于新旧交替之际。</p>
+<p>我所回忆的，是着 1800 天中，我与代码发生的点点滴滴。</p>
+<a id="more"></a>
+<h2 id="0x00">0x00</h2><p>我生长于黄埔，大城市广州的市郊。就读的小学是一间名不见经传的小学，我是第七届毕业生。年轻的校史并没有使她显得与众不同——一旁是一排更为年轻的居民楼，现在也已衰落了；另一侧则是一片更为低矮的小区。学校像是被塞在这一片拥挤的建筑中，发灰的墙更是使它们融为一体。普通得不能再普通。</p>
+<p>尽管这样，我的学校还是有些令人惊奇的设备。一是每个教室都配备的投影幕，却没有配备投影仪——就连这个名字也是多年后我才知道的。记忆中，我只见过它被使用了一次——那是二年级的一节数学公开课，讲什么早已记不清了，只记得那节课很重要很重要，老师甚至从不知什么地方借来了一架光学投影仪，并啦下了那多年未启的投影幕。那节课，所有人都是在惊奇中度过的。那是我第一次接触“高科技设备”。</p>
+<p>再有，就是电脑室了。</p>
+<p>电脑室在侧楼的顶部，几乎是学校最大的一间课室了。粗略估计，里面有八九十台电脑——可事实上，只有五分之一是可以用的，以致即便是三十人来上课，也要两人共用一台电脑。这很大程度上是由于屋顶会漏水，但也不排除是管理不善。</p>
+<p>记忆里只有三四年级能上电脑课——不排除更高年级的电脑课被其他科任老师占用的可能，记不清了。上课的内容，无非是画图、MSWord等基础软件的使用，抑或是扫雷等游戏的玩法，连系统的打字训练都没有。</p>
+<p>电脑课是我唯一不认真听的课，我对这些不感兴趣。一方面是由于电脑室的 Win98 卡成狗，而更大的原因则来自世俗——电脑会让人颓，而我想做一个乖学生。我甚至引以为豪，因为我保持了一个“纯粹”的学生的作风。</p>
+<p>除了常规电脑课，学校似乎还曾办过电脑编程兴趣班——大约还是在二年级时。我自然没有报，原因同上。这是我最早一次和编程擦肩而过，也仅仅是擦肩而过而已。</p>
+<p>六年下来，电脑对于我，仍然是怪物一个，杂糅着各种情感——敬畏、神秘、神奇，甚至有些罪恶。我当了六年”纯粹”的学生，因为我生长于郊野。</p>
+<p>直到这个世纪走完了第一个十年，我升入初中。</p>
+<p>那时，我 13 岁。</p>
+<p>那时，距 Delphi 的高峰已有 8 载，距 .NET 的逆袭已过去了 5 年。</p>
+<p>那时，Borland 已消失了两年，Google 刚刚含冤退出天朝。</p>
+<p>那时，python 于一年前成为 TIOBE 状元，django 刚刚 release 了 v1.2。</p>
+<p>那时，node.js 崭露头角，ES6 还在襁褓中。</p>
+<p>那时，Symbian 仍横行天下，Android 和 iOS 被视为异类。</p>
+<p>那年那时，世界变得奇妙了起来。</p>
+<h2 id="0x01">0x01</h2><p>至今我也不知道，初中的第一节电脑课是怎么熬过来的。短短 40 分钟，我体会到了郊野与大城市的差别。</p>
+<p>那节课，上的是编程基础课，老师是我们的班主任。</p>
+<p>这里的电脑室，俨然和小学时的大不一样。小小的一间课室，却有着比小学大电脑室更多的可用的电脑，更何况，这样的课室还有很多间。映在每台电脑屏幕上的，是我从未见过的绚丽的界面。甚至，墙上还有一大块投影幕，而且是打开的！正对着的天花板上，一台投影机在发出低声的轰鸣。</p>
+<p>这才是真正的电脑室，城市的电脑室。</p>
+<p>老师娓娓讲来，但我却惊讶地发现，我居然一个字都听不懂。这简直不可思议，作为奥数特长生，我曾尝试在五年级时涉猎微积分，终也有些懵懂的认识——我的理解能力应该不差。但”change dir“、”assign”，这些个冰冷的专业术语，却仿佛来自异世界。</p>
+<p>老师熟练地打开 Pascal 的 IDE，写下了我们的第一个程序。逻辑十分简单：从文件中读取一个数，并输出到另一个文件中。点了几下菜单后，退出了全屏，桌面上多了几个图标。双击其中的一个，一个黑色的窗口飞快地闪过，又出现了一个图标。点开一看——正是那个数。</p>
+<p>随后，老师关闭了窗口。剩下大半节课，是我们练习的时间。</p>
+<p>照着点一遍，蒙混过关就好了。我想。</p>
+<p>但投影上老师飞舞的鼠标早已让我眼花缭乱。鼠标滑动了好一会儿，才找到那个画着“F”“P”“C”的蓝色图标。单击，没反应。犹豫了一会儿，双击之，鼠标消失了，屏幕黑了。心里一咯噔，屏幕又亮了，鼠标变成了方块，窗口的色调变蓝了——但幸好，和记忆里残存的图像一样。一道短杠在闪啊闪，那是等待输入的光标。</p>
+<p>盯着发着蓝光的屏幕，我又发愁了：我完全不记得了刚才老师输入了什么。耳旁响起了噼里啪啦的敲击声，是同桌。扫了一眼他的屏幕，闪动的光标在以惊人的速度移动着，光标所经之处，留下了一串黄白相间的字迹——看起来，他很在行。</p>
+<p>我决定抄他的代码，但当手指放在键盘上时，却发现怎么也跟不上他的速度——在此之前，我很少打字，自然极不熟练。目光游走于两个屏幕和我的键盘之间，脑子在记住代码的同时还要费力地寻找着字母，我的光标就像是蜗牛在屏幕上蠕动。心急如焚，却无济于事。</p>
+<p>很快，同桌退出了 IDE，测试，一切正常。而我的代码却只敲了一半，被截尾的关键字等待着延续。</p>
+<p>这时，下课铃响了。第一次电脑课的作业，我没有完成。</p>
+<p>我几乎是逃出了电脑室。从小到大，我都是一个优等生，可这节课却如此落魄。</p>
+<p>自卑如水银泻下，渗进了内心深处。</p>
+<p>（未完待续……每周末更新）</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="序">序</h2><p>岁末的钟声，也是战斗的号角。</p>
+<p>距离高考只有不到 180 天了。180 天后，又是一个新的世界。</p>
+<p>而 1800 天前，却曾是另一个新世界的伊始。从那时起，在我眼中，世界突然变得绚丽了起来。</p>
+<p>这是属于我的回忆录，撰写于新旧交替之际。</p>
+<p>我所回忆的，是着 1800 天中，我与代码发生的点点滴滴。</p>]]>
+    
+    </summary>
+    
+      <category term="杂感" scheme="http://hsfzxjy.github.io/tags/%E6%9D%82%E6%84%9F/"/>
+    
+      <category term="软件工程" scheme="http://hsfzxjy.github.io/tags/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/"/>
+    
+      <category term="编程" scheme="http://hsfzxjy.github.io/categories/%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[生活，需要被“发现”]]></title>
@@ -989,119 +1051,6 @@
       <category term="物理" scheme="http://hsfzxjy.github.io/tags/%E7%89%A9%E7%90%86/"/>
     
       <category term="数学" scheme="http://hsfzxjy.github.io/categories/%E6%95%B0%E5%AD%A6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[【HFMUN重构系列】3. 消息系统]]></title>
-    <link href="http://hsfzxjy.github.io//HFMUN-reconstruction-3/"/>
-    <id>http://hsfzxjy.github.io//HFMUN-reconstruction-3/</id>
-    <published>2015-03-03T05:53:20.000Z</published>
-    <updated>2015-11-08T08:40:29.989Z</updated>
-    <content type="html"><![CDATA[<blockquote>
-<p>一个真正优秀的系统，值得你无数次地去重构。</p>
-</blockquote>
-<p>消息系统算是网站比较重要的一部分，它承担着将<strong>已发生的事件通知给相关用户</strong>的责任。看似简单，但若想做到DRY，实现起来却很复杂——因为，通知的类型太多了。</p>
-<p>这个系统，在三个项目中我实现了三次。三次都使用不同的方法，但三次都不怎么满意。这最后一次，算是比较成功的一次了。</p>
-<p>在第一版模联网站中，我采用了一个堪称最糟糕的方案（如图所示）：</p>
-<p><img src="/assets/wboard_notifications.jpg" alt="UML"></p>
-<p>这个方案最大的缺点：</p>
-<ol>
-<li><strong>耦合度太高</strong>。如果有一天，又多了一种消息类型，那么就要多加一张表。</li>
-<li><strong>查询的难度大</strong>。通常来说我们需要显示所有的消息，从而需要使用JOIN语句进行多表联查——这效率是很低的。</li>
-<li><strong>SQL本身就不是面向对象的</strong>。虽说<code>CommentNotification</code>是<code>Notification</code>的子类，可查询时却并不能使用类似<code>Notification.objects.all()</code>一类的语句。在一定程度上可以说：SQL本身就不是面向对象的。</li>
-</ol>
-<p>而在第二版模联网站中，我采用了<a href="https://docs.djangoproject.com/en/1.7/ref/contrib/contenttypes/" target="_blank" rel="external">泛型</a>（Generic Model Relations）这一技术来实现——这是Django另一大特色：<strong>通过记录对象的类型信息以及唯一标识符，实现了一种可以指向任何表的外键（GenericRelation）</strong>。这种技术存在的目的就是为了<strong>解耦合</strong>，使系统扩展更具灵活性——尽管要损失一些效率，但与架构的“健康”比起来那是微不足道的，无可厚非。</p>
-<p>UML图如下：</p>
-<p><img src="/assets/hfmun_notices.jpg" alt="UML"></p>
-<p>这其中，<code>notice_type</code>的取值决定了<strong><code>url</code>域的作用</strong>：</p>
-<ul>
-<li><strong><code>link</code></strong>。该消息的<code>url</code>域表示一个指向<code>related_object</code>的地址，应该展示给用户看。</li>
-<li><strong><code>invoke</code></strong>。该消息需要在用户确认后执行一个动作。其<code>url</code>域表示需要执行的动作的地址——这里有些TaskQueue的意味。</li>
-</ul>
-<p>然而，发消息时又应该怎么做呢？如果在所有的地方都来一句：<code>Notice.create(......)</code>，那也太不DRY了吧？</p>
-<p>有人说：“懒惰是程序员的天性。”</p>
-<p>我赞同，但我还想补充一句：“懒惰更是程序员精简代码的动力。”</p>
-<p>于是，我创立了一个类<code>NoticeDispatcher</code>，用于分发消息——其实这一类工具代码在之前的系统中也存在过，只不过这一版本的令我更为满意。</p>
-<pre><code><span class="class"><span class="keyword">class</span> <span class="title">NoticeDispatcher</span><span class="params">(object)</span>:</span>
-
-    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, model, default = {})</span>:</span>
-        <span class="keyword">if</span> <span class="keyword">not</span> issubclass(model, SendNoticeModelMixin):
-            <span class="keyword">raise</span> TypeError(<span class="string">'The `model` must be a subclass of  `SendNoticeModelMixin`.'</span>)
-        self.__model = model
-        self.__default = {}
-        self.__default.update(default)
-
-    <span class="function"><span class="keyword">def</span> <span class="title">send</span><span class="params">(self, *args, **kwargs)</span>:</span>
-        klass = Notice
-
-        title = self.__model.generate_title(*args, **kwargs) 
-        content = self.__model.generate_content(*args, **kwargs) 
-        url = self.__model.generate_url(*args, **kwargs)
-        user = self.__model.generate_user(*args, **kwargs)
-
-        valid_keys_set = set(kwargs.iterkeys()) &amp; \
-            set(field.name <span class="keyword">for</span> field <span class="keyword">in</span> klass._meta.fields)
-
-        params = deepcopy(self.__default)
-        params.update({key: kwargs[key] <span class="keyword">for</span> key <span class="keyword">in</span> valid_keys_set})
-        params.update({
-            <span class="string">'title'</span>: title,
-            <span class="string">'content'</span>: content,
-            <span class="string">'url'</span>: url,
-        })
-
-        results = []
-        <span class="keyword">try</span>:
-            iter(user)
-        <span class="keyword">except</span>:
-            user = (user,)
-
-        <span class="keyword">for</span> _user <span class="keyword">in</span> user:
-            params[<span class="string">'user'</span>] = _user
-            notice = klass(*args, **params)
-            notice.save()
-            results.append(notice)
-
-        <span class="keyword">return</span> results
-</code></pre><p>我们可以传入一个模型类作为参数从而获得一个<code>NoticeDispatcher</code>对象。这个模型类被要求继承于<code>notices.mixins.SendNoticeModelMixin</code>，以完成一些默认的配置——这是一个抽象基类：</p>
-<pre><code><span class="class"><span class="keyword">class</span> <span class="title">SendNoticeModelMixin</span><span class="params">(object)</span>:</span>
-
-<span class="decorator">    @classmethod</span>
-    <span class="function"><span class="keyword">def</span> <span class="title">generate_title</span><span class="params">(klass, *args, **kwargs)</span>:</span>
-        <span class="keyword">return</span> <span class="string">''</span>
-
-<span class="decorator">    @classmethod</span>
-    <span class="function"><span class="keyword">def</span> <span class="title">generate_content</span><span class="params">(klass, *args, **kwargs)</span>:</span>
-        <span class="keyword">return</span> <span class="string">''</span>
-
-<span class="decorator">    @classmethod</span>
-    <span class="function"><span class="keyword">def</span> <span class="title">generate_url</span><span class="params">(klass, *args, **kwargs)</span>:</span>
-        <span class="keyword">return</span> <span class="string">''</span>
-
-<span class="decorator">    @classmethod</span>
-    <span class="function"><span class="keyword">def</span> <span class="title">generate_user</span><span class="params">(klass, *args, **kwargs)</span>:</span>
-        <span class="keyword">return</span> []
-</code></pre><p>做完这一切之后，每当调用<code>notice_dispatcher.send()</code>方法时，<code>NoticeDispatcher</code>会自动调用模型类中的<code>generate_*</code>方法以获取构建消息对象的默认参数。像一些基本不变的内容——如<code>url</code>、<code>title</code>就可以用代码自动生成，进而提高代码复用率。</p>
-<p>当然，这个系统仍有一些不够完善的地方，如：</p>
-<ul>
-<li><code>notice_type</code>为<code>invoke</code>时的逻辑至今尚未实现。</li>
-<li>当消息的构建不需要<code>related_object</code>参数时，仍需调用原生的<code>create</code>方法，非常麻烦。</li>
-<li><code>related_object</code>参数仍需手动传入，有些不干净——最好就是能在<code>SendNoticeModelMixin</code>上实现<code>send</code>方法，很多啰嗦的代码便又可以省略掉了。</li>
-</ul>
-<p>以上问题，或是由于没有需求，或是由于懒惰（- -!），没有来得及去实现。但愿能在下一次改进时解决。</p>
-<p>总而言之呢，事情正在似乎在朝着好的方面发展。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<blockquote>
-<p>一个真正优秀的系统，值得你无数次地去重构。</p>
-</blockquote>
-<p>消息系统算是网站比较重要的一部分，它承担着将<strong>已发生的事件通知给相关用户</strong>的责任。看似简单，但若想做到DRY，实现起来却很复杂——因]]>
-    </summary>
-    
-      <category term="HFMUN重构系列" scheme="http://hsfzxjy.github.io/tags/HFMUN%E9%87%8D%E6%9E%84%E7%B3%BB%E5%88%97/"/>
-    
-      <category term="编程" scheme="http://hsfzxjy.github.io/categories/%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   

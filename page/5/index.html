@@ -1,4 +1,13 @@
-<a id="rocket" href="#top" class="show"></a><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/><meta content="yes" name="apple-mobile-web-app-capable"/><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/><meta content="telephone=no" name="format-detection"/><meta name="description"/><title>hsfzxjy | 不忌讳空山无人，不害怕遥望星辰</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"/><link rel="stylesheet" type="text/css" href="/css/pure-min.css"/><link rel="stylesheet" type="text/css" href="/css/grids-responsive-min.css"/><link rel="stylesheet" type="text/css" href="/css/style.css"/><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"/><link rel="apple-touch-icon" href="/apple-touch-icon.png"/><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"/><link rel="alternate" type="application/atom+xml" href="/atom.xml"/></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">hsfzxjy</h1><a id="logo" href="/">hsfzxjy</a><p class="description">不忌讳空山无人，不害怕遥望星辰</p><iframe src="https://ghbtns.com/github-btn.html?user=hsfzxjy&amp;type=follow&amp;count=true" frameborder="0" scrolling="0" width="170px" height="20px" class="github-btn"></iframe></div><div id="nav-menu"><a href="/" class="current"><i class="icon-home"> 首页</i></a><a href="/categories/编程/"><i class="icon-code"> 码海拾贝</i></a><a href="/categories/杂感/"><i class="icon-life"> 五味杂感</i></a><a href="/about/"><i class="icon-about"> 我</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h2 class="post-title"><a href="/kruscal-and-prim/">最小生成树（Kruscal &amp; Prim）</a></h2><div class="post-meta">2014-10-26</div><span data-thread-key="/kruscal-and-prim/" class="ds-thread-count"></span><div class="post-content"><blockquote>
+<a id="rocket" href="#top" class="show"></a><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/><meta content="yes" name="apple-mobile-web-app-capable"/><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/><meta content="telephone=no" name="format-detection"/><meta name="description"/><title>hsfzxjy | 不忌讳空山无人，不害怕遥望星辰</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"/><link rel="stylesheet" type="text/css" href="/css/pure-min.css"/><link rel="stylesheet" type="text/css" href="/css/grids-responsive-min.css"/><link rel="stylesheet" type="text/css" href="/css/style.css"/><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"/><link rel="apple-touch-icon" href="/apple-touch-icon.png"/><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"/><link rel="alternate" type="application/atom+xml" href="/atom.xml"/></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">hsfzxjy</h1><a id="logo" href="/">hsfzxjy</a><p class="description">不忌讳空山无人，不害怕遥望星辰</p><iframe src="https://ghbtns.com/github-btn.html?user=hsfzxjy&amp;type=follow&amp;count=true" frameborder="0" scrolling="0" width="170px" height="20px" class="github-btn"></iframe></div><div id="nav-menu"><a href="/" class="current"><i class="icon-home"> 首页</i></a><a href="/categories/编程/"><i class="icon-code"> 码海拾贝</i></a><a href="/categories/杂感/"><i class="icon-life"> 五味杂感</i></a><a href="/about/"><i class="icon-about"> 我</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h2 class="post-title"><a href="/revelation-of-binary/">二进制的启示</a></h2><div class="post-meta">2014-11-01</div><span data-thread-key="/revelation-of-binary/" class="ds-thread-count"></span><div class="post-content"><blockquote>
+<p>在学习数论时我们都知道：只用2的幂次可以组合出所有的正整数。这便是二进制的魅力——状态简单而又变化万千。</p>
+</blockquote>
+<h2 id="引子"><strong>引子</strong></h2><p>实际算法中，常常有一些线性的但数据量特别大的问题，如区间求和、求最小值等。很多时候，为了把时间复杂度从$O(n^2)$甚至更高的地方降下来，我们需要对数据进行一些预处理，以提高计算的速度。在这其中，有很大一部分是来自二进制运算特点的启发。</p>
+<h2 id="目录"><strong>目录</strong></h2><ol>
+<li><a href="/archives/307">树状数组</a></li>
+<li><a href="/archives/318">RMQ</a></li>
+<li><a href="/archives/324">LCA&amp;树上倍增</a></li>
+</ol>
+</div><p class="readmore"><a href="/revelation-of-binary/">阅读更多</a></p></div><div class="post"><h2 class="post-title"><a href="/kruscal-and-prim/">最小生成树（Kruscal &amp; Prim）</a></h2><div class="post-meta">2014-10-26</div><span data-thread-key="/kruscal-and-prim/" class="ds-thread-count"></span><div class="post-content"><blockquote>
 <p>测试位置：<a href="http://codevs.cn/problem/1078/" target="_blank" rel="external">WikiOI1078</a></p>
 </blockquote>
 <pre><code><span class="keyword">type</span>
@@ -816,193 +825,7 @@ end.
 <li>NOIP官网：<strong><a href="http://www.noi.cn/" target="_blank" rel="external">http://www.noi.cn/</a></strong>。</li>
 <li>中国互联网信息中心的缩写：<strong>CNNIC</strong>。</li>
 </ul>
-</div><p class="readmore"><a href="/noip-senior-knowlegdes/">阅读更多</a></p></div><div class="post"><h2 class="post-title"><a href="/uva12219-common-subexpression-elimination/">UVa12219 Common Subexpression Elimination</a></h2><div class="post-meta">2014-10-05</div><span data-thread-key="/uva12219-common-subexpression-elimination/" class="ds-thread-count"></span><div class="post-content"><blockquote>
-<p>链接：<a href="http://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=3371" target="_blank" rel="external">Link</a> 状态：<strong>Runtime Error</strong></p>
-</blockquote>
-<h2 id="前言">前言</h2><p>这题做的可真够久的，整整三个小时。但即便如此，还是只过了一部分的点，另一部分报运行时错误——估计是哈希表设计的不太好。但这确实是一道好题，因此，在睡觉前决定记录一下。</p>
-<h2 id="分析">分析</h2><p>很容易便想到：用一个三元组$(x,y,z)$表示节点，表示内容为x的节点下跟着标号为y和z的左右子树。这样一来，一类相同的子树便可以唯一确定了，而不必每构造一棵子树就把整棵树遍历一遍。<br>对于三元组的储存，刚开始图方便，用了数组。查找也是用了$O(n)$的线性查找。磕磕碰碰写了两个多小时然后兴冲冲地提交，结果TLE了…………没办法，只好又花了半个小时写了一个哈希表，然后就是上文说过的情况了：<strong>Runtime Error204</strong>。可能是哈希数组过大的原因，日后再微调一下，今天实在是没有脑子了。</p>
-<h2 id="Code">Code</h2><pre><code><span class="keyword">const</span>
-  maxn = <span class="number">20000</span>;
-<span class="keyword">type</span>
-  NodeRec = <span class="keyword">record</span>
-    Value: <span class="keyword">string</span>;
-    l, r, <span class="keyword">index</span>: longint;
-  <span class="keyword">end</span>;
-  Node = <span class="keyword">record</span>
-     left, right: longint;   <span class="comment">//Index of left and right child in the `tree` array, -1 for none.</span>
-     Rec: NodeRec;
-     <span class="keyword">index</span>: longint;
-  <span class="keyword">end</span>;
-  <span class="comment">//以下为哈希表的定义</span>
-  _PNode = ^_Node;
-  _Node = <span class="keyword">record</span>
-    n: Node;
-    next: _PNode;
-  <span class="keyword">end</span>;
-
-  HashTable = <span class="keyword">object</span>
-    arr: <span class="keyword">array</span> [<span class="number">0</span>..maxn] <span class="keyword">of</span> _PNode;
-    <span class="function"><span class="keyword">function</span> <span class="title">hash</span><span class="params">(n: NodeRec)</span>:</span> longint;
-    <span class="function"><span class="keyword">procedure</span> <span class="title">add</span><span class="params">(n: Node)</span>;</span>
-    <span class="function"><span class="keyword">procedure</span> <span class="title">clear</span>;</span>
-    <span class="function"><span class="keyword">function</span> <span class="title">find</span><span class="params">(n: NodeRec)</span>:</span> longint;
-  <span class="keyword">end</span>;
-
-<span class="function"><span class="keyword">procedure</span> <span class="title">HashTable</span>.<span class="title">clear</span>;</span>
-<span class="keyword">var</span>
-  i: longint;
-  p, q: _PNode;
-<span class="keyword">begin</span>
-  <span class="keyword">for</span> i := <span class="number">0</span> <span class="keyword">to</span> maxn <span class="keyword">do</span>
-  <span class="keyword">begin</span>
-    p := arr[i];
-    <span class="keyword">while</span> p&lt;&gt;<span class="keyword">nil</span> <span class="keyword">do</span>
-    <span class="keyword">begin</span>
-      q := p^.next;
-      dispose(p);
-      p := q;
-    <span class="keyword">end</span>;
-  <span class="keyword">end</span>;
-  fillchar(arr, sizeof(arr),<span class="number">0</span>);
-<span class="keyword">end</span>;
-
-<span class="function"><span class="keyword">function</span> <span class="title">cmp</span><span class="params">(r1, r2: NodeRec)</span>:</span> Boolean;
-<span class="keyword">begin</span>
-  cmp := (r1.l = r2.l) <span class="keyword">and</span> (r1.r = r2.r) <span class="keyword">and</span> (r1.Value = r2.Value);
-<span class="keyword">end</span>;
-
-<span class="function"><span class="keyword">function</span> <span class="title">HashTable</span>.<span class="title">hash</span><span class="params">(n: NodeRec)</span>:</span> longint;
-<span class="keyword">var</span>
-  i: longint;
-<span class="keyword">begin</span>
-  hash := <span class="number">0</span>;
-  <span class="keyword">for</span> i := <span class="number">1</span> <span class="keyword">to</span> length(n.Value) <span class="keyword">do</span>
-    hash := (hash*<span class="number">5</span> + ord(n.Value[i]) - ord(<span class="string">'a'</span>)) <span class="keyword">mod</span> maxn;
-  hash := (hash + n.l * <span class="number">10</span> + n.r * <span class="number">5</span>) <span class="keyword">mod</span> maxn;
-<span class="keyword">end</span>;
-
-<span class="function"><span class="keyword">procedure</span> <span class="title">HashTable</span>.<span class="title">add</span><span class="params">(n: Node)</span>;</span>
-<span class="keyword">var</span>
-  h: longint;
-  p, q: _PNode;
-<span class="keyword">begin</span>
-  h := hash(n.rec);
-  new(q);
-  fillchar(q^, sizeof(_Node), <span class="number">0</span>);
-  q^.next := arr[h];
-  q^.n := n;
-  arr[h] := q;
-<span class="keyword">end</span>;
-
-<span class="function"><span class="keyword">function</span> <span class="title">HashTable</span>.<span class="title">find</span><span class="params">(n: NodeRec)</span>:</span> longint;
-<span class="keyword">var</span>
-  p: _PNode;
-<span class="keyword">begin</span>
-  find := -<span class="number">1</span>;
-  p := arr[hash(n)];
-  <span class="keyword">while</span> (p&lt;&gt;<span class="keyword">nil</span>) <span class="keyword">and</span> <span class="keyword">not</span> cmp(n, p^.n.rec) <span class="keyword">do</span> p := p^.next;
-  <span class="keyword">if</span> p &lt;&gt; <span class="keyword">nil</span> <span class="keyword">then</span>
-    find := p^.n.<span class="keyword">index</span>;
-<span class="keyword">end</span>;
-<span class="comment">//哈系表定义结束</span>
-<span class="keyword">var</span>
-  inputs: Ansistring;
-  _: longint;
-  tree: <span class="keyword">array</span> [<span class="number">1</span>..<span class="number">50001</span>] <span class="keyword">of</span> Node;
-  cur: longint;              <span class="comment">//The current pointer of the input string.</span>
-  num: longint;              <span class="comment">//The current number of the `tree` array.</span>
-  ls: longint;
-  t: longint;
-  tot: longint;
-  ht: HashTable;
-
-<span class="function"><span class="keyword">function</span> <span class="title">build</span>:</span> longint; <span class="comment">//建树</span>
-<span class="keyword">label</span> lb;
-<span class="keyword">var</span>
-  rec: NodeRec;
-  i,j,l,r: longint;
-<span class="keyword">begin</span>
-  l := <span class="number">0</span>;
-  r := <span class="number">0</span>;
-  fillchar(rec, sizeof(rec), <span class="number">0</span>);
-  inc(tot);
-  rec.<span class="keyword">index</span> := tot;
-  <span class="keyword">while</span> (cur&lt;=ls) <span class="keyword">and</span> (inputs[cur] <span class="keyword">in</span> [<span class="string">'a'</span>..<span class="string">'z'</span>]) <span class="keyword">do</span>
-  <span class="keyword">begin</span>
-    rec.Value := rec.Value+inputs[cur];
-    inc(cur);
-  <span class="keyword">end</span>;
-  <span class="keyword">if</span> cur&gt;ls <span class="keyword">then</span> <span class="keyword">goto</span> lb;    <span class="comment">//。。。这里被迫跳转控制流，由于实在不想多谢，就用了臭名昭著的label</span>
-  <span class="keyword">if</span> inputs[cur] = <span class="string">'('</span> <span class="keyword">then</span>
-  <span class="keyword">begin</span>
-    inc(cur);
-    l := build();
-    rec.l := tree[l].rec.<span class="keyword">index</span>;
-    inc(cur);
-    r := build();
-    rec.r := tree[r].rec.<span class="keyword">index</span>;
-    inc(cur);
-  <span class="keyword">end</span>;
-  j := ht.find(rec);
-  <span class="keyword">if</span> j&gt;<span class="number">0</span> <span class="keyword">then</span>
-  <span class="keyword">begin</span>
-    dec(tot);
-    <span class="keyword">exit</span>(j);
-  <span class="keyword">end</span>
-  <span class="keyword">else</span>
-  <span class="keyword">begin</span>
-lb:
-    inc(num);
-    tree[num].left := l;
-    tree[num].right := r;
-    tree[num].rec := rec;
-    tree[num].<span class="keyword">index</span> := num;
-    ht.add(tree[num]);
-    <span class="keyword">exit</span>(num);
-  <span class="keyword">end</span>;
-<span class="keyword">end</span>;
-
-<span class="function"><span class="keyword">procedure</span> <span class="title">print</span><span class="params">(n: longint)</span>;</span>
-<span class="keyword">begin</span>
-  <span class="keyword">if</span> tree[n].rec.<span class="keyword">index</span> &gt; t <span class="keyword">then</span>
-  <span class="keyword">begin</span>
-    <span class="keyword">write</span>(tree[n].rec.Value);
-    t := tree[n].rec.<span class="keyword">index</span>;
-  <span class="keyword">end</span>
-  <span class="keyword">else</span>
-  <span class="keyword">begin</span>
-    <span class="keyword">write</span>(tree[n].rec.<span class="keyword">index</span>);
-    <span class="keyword">exit</span>;
-  <span class="keyword">end</span>;
-  <span class="keyword">if</span> tree[n].right = <span class="number">0</span> <span class="keyword">then</span>
-    <span class="keyword">exit</span>;
-  <span class="keyword">write</span>(<span class="string">'('</span>);
-  print(tree[n].left);
-  <span class="keyword">write</span>(<span class="string">','</span>);
-  print(tree[n].right);
-  <span class="keyword">write</span>(<span class="string">')'</span>);
-<span class="keyword">end</span>;
-<span class="keyword">begin</span>
-  assign(input, <span class="string">'main.in'</span>); reset(input);
-  assign(output, <span class="string">'main.out'</span>); rewrite(output);
-  readln(_);
-  fillchar(ht.arr, sizeof(ht.arr),<span class="number">0</span>);
-  <span class="keyword">while</span> _&gt;<span class="number">0</span> <span class="keyword">do</span>
-  <span class="keyword">begin</span>
-    dec(_);
-    readln(inputs);
-    fillchar(tree, sizeof(tree), <span class="number">0</span>);
-    ht.clear;
-    ls := length(inputs);
-    cur := <span class="number">1</span>;  num := <span class="number">0</span>; tot := <span class="number">0</span>;
-    build;
-    t := <span class="number">0</span>;
-    print(num);
-    writeln;
-  <span class="keyword">end</span>;
-  close(input); close(output);
-<span class="keyword">end</span>.
-</code></pre></div><p class="readmore"><a href="/uva12219-common-subexpression-elimination/">阅读更多</a></p></div><div class="page-navigator"><a href="/page/4/" class="pre">上一页</a><a href="/page/6/" class="next">下一页</a></div></div></div><div class="pure-u-1-4"><div id="sidebar"><div class="widget"><div id="search"><form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="http://hsfzxjy.github.io"></form></div></div><div class="widget"><div class="widget-title">导航<ul><li><a href="/archives/"> <i class="icon-archives"> 归档</i></a></li><li><a href="/works/"> <i class="icon-works"> 个人作品</i></a></li><li><a href="/atom.xml"> <i class="icon-rss"> 订阅</i></a></li></ul></div></div><div class="widget"><div class="widget-title">分类</div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/学习/">学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数学/">数学</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂感/">杂感</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程/">编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载文章/">转载文章</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/随手记/">随手记</a></li></ul></div><div class="widget"><div class="widget-title">标签</div><div class="tagcloud"><a href="/tags/物理/" style="font-size: 15px;">物理</a> <a href="/tags/Delphi/" style="font-size: 15px;">Delphi</a> <a href="/tags/杂感/" style="font-size: 15px;">杂感</a> <a href="/tags/作文/" style="font-size: 15px;">作文</a> <a href="/tags/朋友圈-诗/" style="font-size: 15px;">朋友圈 诗</a> <a href="/tags/家书/" style="font-size: 15px;">家书</a> <a href="/tags/成人礼/" style="font-size: 15px;">成人礼</a> <a href="/tags/产品/" style="font-size: 15px;">产品</a> <a href="/tags/编程/" style="font-size: 15px;">编程</a> <a href="/tags/翻译/" style="font-size: 15px;">翻译</a> <a href="/tags/web设计/" style="font-size: 15px;">web设计</a> <a href="/tags/wisecity/" style="font-size: 15px;">wisecity</a> <a href="/tags/前端自动化测试，总结/" style="font-size: 15px;">前端自动化测试，总结</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/单元测试/" style="font-size: 15px;">单元测试</a> <a href="/tags/安全/" style="font-size: 15px;">安全</a> <a href="/tags/不经意间的感动/" style="font-size: 15px;">不经意间的感动</a> <a href="/tags/HFMUN重构系列/" style="font-size: 15px;">HFMUN重构系列</a> <a href="/tags/化学/" style="font-size: 15px;">化学</a> <a href="/tags/ubuntu/" style="font-size: 15px;">ubuntu</a> <a href="/tags/apt-get/" style="font-size: 15px;">apt-get</a> <a href="/tags/OOP/" style="font-size: 15px;">OOP</a> <a href="/tags/创新作文大赛/" style="font-size: 15px;">创新作文大赛</a> <a href="/tags/Sublime/" style="font-size: 15px;">Sublime</a> <a href="/tags/转载/" style="font-size: 15px;">转载</a> <a href="/tags/字体/" style="font-size: 15px;">字体</a> <a href="/tags/百题大过关/" style="font-size: 15px;">百题大过关</a> <a href="/tags/逆袭/" style="font-size: 15px;">逆袭</a> <a href="/tags/MySql/" style="font-size: 15px;">MySql</a> <a href="/tags/NOIP2014/" style="font-size: 15px;">NOIP2014</a> <a href="/tags/信息学竞赛/" style="font-size: 15px;">信息学竞赛</a> <a href="/tags/北大金秋营/" style="font-size: 15px;">北大金秋营</a> <a href="/tags/树状数组/" style="font-size: 15px;">树状数组</a> <a href="/tags/LCA/" style="font-size: 15px;">LCA</a> <a href="/tags/归并排序/" style="font-size: 15px;">归并排序</a> <a href="/tags/逆序对/" style="font-size: 15px;">逆序对</a> <a href="/tags/最小生成树/" style="font-size: 15px;">最小生成树</a> <a href="/tags/数论/" style="font-size: 15px;">数论</a> <a href="/tags/数学/" style="font-size: 15px;">数学</a> <a href="/tags/数列/" style="font-size: 15px;">数列</a> <a href="/tags/高精度/" style="font-size: 15px;">高精度</a> <a href="/tags/UVa/" style="font-size: 15px;">UVa</a> <a href="/tags/Pascal/" style="font-size: 15px;">Pascal</a> <a href="/tags/搜索/" style="font-size: 15px;">搜索</a> <a href="/tags/剪枝/" style="font-size: 15px;">剪枝</a> <a href="/tags/浮点数/" style="font-size: 15px;">浮点数</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/游记/" style="font-size: 15px;">游记</a> <a href="/tags/win32/" style="font-size: 15px;">win32</a></div></div><div class="widget"><div class="widget-title">最新文章</div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/life-needs-discovery/">生活，需要被“发现”</a></li><li class="post-list-item"><a class="post-list-link" href="/poem-cold/">冬日清晨起床做操有感</a></li><li class="post-list-item"><a class="post-list-link" href="/poem-instinct/">剖析解题过程有感</a></li><li class="post-list-item"><a class="post-list-link" href="/poem-before-test-2/">月考二前夕</a></li><li class="post-list-item"><a class="post-list-link" href="/letter-to-parents/">家书·十八岁成人礼</a></li><li class="post-list-item"><a class="post-list-link" href="/hobby-or-needs/">炫技？还是需求？</a></li><li class="post-list-item"><a class="post-list-link" href="/the-state-of-responsive-images-in-2015/">【译】响应式图片的现状</a></li><li class="post-list-item"><a class="post-list-link" href="/why-are-so-many-programming-languages/">【译】“为什么有这么多的编程语言？”</a></li><li class="post-list-item"><a class="post-list-link" href="/wisecity-conclusion/">Wisecity 商赛总结——也谈前端自动化测试</a></li><li class="post-list-item"><a class="post-list-link" href="/how-to-fuck-a-bilk-site/">记一次 DoS 诈骗网站的经历</a></li></ul></div><div class="widget"><div class="comments-title">最近评论</div><div data-num-items="5" data-show-avatars="0" data-show-time="1" data-show-admin="0" data-excerpt-length="32" data-show-title="1" class="ds-recent-comments"></div></div></div></div></div><div id="footer">© <a href="/" rel="nofollow">hsfzxjy.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></body><script src="/js/jquery.min.js" type="text/javascript"></script>
+</div><p class="readmore"><a href="/noip-senior-knowlegdes/">阅读更多</a></p></div><div class="page-navigator"><a href="/page/4/" class="pre">上一页</a><a href="/page/6/" class="next">下一页</a></div></div></div><div class="pure-u-1-4"><div id="sidebar"><div class="widget"><div id="search"><form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="hidden" name="sitesearch" value="http://hsfzxjy.github.io"></form></div></div><div class="widget"><div class="widget-title">导航<ul><li><a href="/archives/"> <i class="icon-archives"> 归档</i></a></li><li><a href="/works/"> <i class="icon-works"> 个人作品</i></a></li><li><a href="/atom.xml"> <i class="icon-rss"> 订阅</i></a></li></ul></div></div><div class="widget"><div class="widget-title">分类</div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/学习/">学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/数学/">数学</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂感/">杂感</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/编程/">编程</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/转载文章/">转载文章</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/随手记/">随手记</a></li></ul></div><div class="widget"><div class="widget-title">标签</div><div class="tagcloud"><a href="/tags/物理/" style="font-size: 15px;">物理</a> <a href="/tags/Delphi/" style="font-size: 15px;">Delphi</a> <a href="/tags/软件工程/" style="font-size: 15px;">软件工程</a> <a href="/tags/杂感/" style="font-size: 15px;">杂感</a> <a href="/tags/作文/" style="font-size: 15px;">作文</a> <a href="/tags/朋友圈-诗/" style="font-size: 15px;">朋友圈 诗</a> <a href="/tags/家书/" style="font-size: 15px;">家书</a> <a href="/tags/成人礼/" style="font-size: 15px;">成人礼</a> <a href="/tags/产品/" style="font-size: 15px;">产品</a> <a href="/tags/编程/" style="font-size: 15px;">编程</a> <a href="/tags/翻译/" style="font-size: 15px;">翻译</a> <a href="/tags/web设计/" style="font-size: 15px;">web设计</a> <a href="/tags/wisecity/" style="font-size: 15px;">wisecity</a> <a href="/tags/前端自动化测试，总结/" style="font-size: 15px;">前端自动化测试，总结</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/单元测试/" style="font-size: 15px;">单元测试</a> <a href="/tags/安全/" style="font-size: 15px;">安全</a> <a href="/tags/不经意间的感动/" style="font-size: 15px;">不经意间的感动</a> <a href="/tags/HFMUN重构系列/" style="font-size: 15px;">HFMUN重构系列</a> <a href="/tags/化学/" style="font-size: 15px;">化学</a> <a href="/tags/ubuntu/" style="font-size: 15px;">ubuntu</a> <a href="/tags/apt-get/" style="font-size: 15px;">apt-get</a> <a href="/tags/OOP/" style="font-size: 15px;">OOP</a> <a href="/tags/创新作文大赛/" style="font-size: 15px;">创新作文大赛</a> <a href="/tags/Sublime/" style="font-size: 15px;">Sublime</a> <a href="/tags/转载/" style="font-size: 15px;">转载</a> <a href="/tags/字体/" style="font-size: 15px;">字体</a> <a href="/tags/百题大过关/" style="font-size: 15px;">百题大过关</a> <a href="/tags/逆袭/" style="font-size: 15px;">逆袭</a> <a href="/tags/MySql/" style="font-size: 15px;">MySql</a> <a href="/tags/NOIP2014/" style="font-size: 15px;">NOIP2014</a> <a href="/tags/信息学竞赛/" style="font-size: 15px;">信息学竞赛</a> <a href="/tags/北大金秋营/" style="font-size: 15px;">北大金秋营</a> <a href="/tags/树状数组/" style="font-size: 15px;">树状数组</a> <a href="/tags/LCA/" style="font-size: 15px;">LCA</a> <a href="/tags/归并排序/" style="font-size: 15px;">归并排序</a> <a href="/tags/逆序对/" style="font-size: 15px;">逆序对</a> <a href="/tags/最小生成树/" style="font-size: 15px;">最小生成树</a> <a href="/tags/数论/" style="font-size: 15px;">数论</a> <a href="/tags/数学/" style="font-size: 15px;">数学</a> <a href="/tags/数列/" style="font-size: 15px;">数列</a> <a href="/tags/高精度/" style="font-size: 15px;">高精度</a> <a href="/tags/UVa/" style="font-size: 15px;">UVa</a> <a href="/tags/Pascal/" style="font-size: 15px;">Pascal</a> <a href="/tags/搜索/" style="font-size: 15px;">搜索</a> <a href="/tags/剪枝/" style="font-size: 15px;">剪枝</a> <a href="/tags/浮点数/" style="font-size: 15px;">浮点数</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/游记/" style="font-size: 15px;">游记</a> <a href="/tags/win32/" style="font-size: 15px;">win32</a></div></div><div class="widget"><div class="widget-title">最新文章</div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/from-programming-to-software-engineering/">从编程到软件工程</a></li><li class="post-list-item"><a class="post-list-link" href="/life-needs-discovery/">生活，需要被“发现”</a></li><li class="post-list-item"><a class="post-list-link" href="/poem-cold/">冬日清晨起床做操有感</a></li><li class="post-list-item"><a class="post-list-link" href="/poem-instinct/">剖析解题过程有感</a></li><li class="post-list-item"><a class="post-list-link" href="/poem-before-test-2/">月考二前夕</a></li><li class="post-list-item"><a class="post-list-link" href="/letter-to-parents/">家书·十八岁成人礼</a></li><li class="post-list-item"><a class="post-list-link" href="/hobby-or-needs/">炫技？还是需求？</a></li><li class="post-list-item"><a class="post-list-link" href="/the-state-of-responsive-images-in-2015/">【译】响应式图片的现状</a></li><li class="post-list-item"><a class="post-list-link" href="/why-are-so-many-programming-languages/">【译】“为什么有这么多的编程语言？”</a></li><li class="post-list-item"><a class="post-list-link" href="/wisecity-conclusion/">Wisecity 商赛总结——也谈前端自动化测试</a></li></ul></div><div class="widget"><div class="comments-title">最近评论</div><div data-num-items="5" data-show-avatars="0" data-show-time="1" data-show-admin="0" data-excerpt-length="32" data-show-title="1" class="ds-recent-comments"></div></div></div></div></div><div id="footer">© <a href="/" rel="nofollow">hsfzxjy.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></body><script src="/js/jquery.min.js" type="text/javascript"></script>
 <script src="/js/totop.js" type="text/javascript"></script><script src="/js/fancybox.pack.js" type="text/javascript"></script><link rel="stylesheet" href="/css/jquery.fancybox.css" type="text/css"><script>$(document).ready(function() {
   $('img').each(function() {
     if ($(this).parent().hasClass('fancybox')) return;

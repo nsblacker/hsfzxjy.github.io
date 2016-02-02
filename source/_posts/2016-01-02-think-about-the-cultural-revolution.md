@@ -1,4 +1,5 @@
 ---
+published: false
 title: 文革之我见——读《文化苦旅》有感（其一）
 layout: post
 categories: 杂感

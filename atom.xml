@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不忌讳空山无人，不害怕遥望星辰]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hsfzxjy.github.io/"/>
-  <updated>2016-02-10T14:28:08.383Z</updated>
+  <updated>2016-02-10T14:45:13.631Z</updated>
   <id>http://hsfzxjy.github.io/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://hsfzxjy.github.io//meta-class-in-python/"/>
     <id>http://hsfzxjy.github.io//meta-class-in-python/</id>
     <published>2016-02-09T16:00:00.000Z</published>
-    <updated>2016-02-10T14:28:08.383Z</updated>
+    <updated>2016-02-10T14:45:13.631Z</updated>
     <content type="html"><![CDATA[<p>接触过 Django 的同学都应该十分熟悉它的 ORM 系统。对于 python 新手而言，这是一项几乎可以被称作“黑科技”的特性：只要你在<code>models.py</code>中随便定义一个<code>Model</code>的子类，Django 便可以：</p>
 <ul>
 <li>获取它的字段定义，并转换成表结构</li>
@@ -71,7 +71,7 @@
 <p>现在将会等价于：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer = IntMeta(<span class="string">'Integer'</span>, (int, ), &#123;&#125;)</span><br></pre></td></tr></table></figure>
 <p>由此一来，我们在使用传统类定义的同时，也可以使用元类啦。</p>
-<h3 id="栗子：子类净化器">栗子：子类净化器</h3><blockquote>
+<h2 id="栗子：子类净化器">栗子：子类净化器</h2><blockquote>
 <h4 id="需求描述">需求描述</h4><p>你是一个有语言洁癖的开发者，平时容不得别人讲一句脏话，在开发时也是如此。现在，你写出了一个非常棒的框架，并马上要将它公之于众了。不过，你的强迫症又犯了：如果你的使用者在代码中写满了脏话，怎么办？岂不是玷污了自己的纯洁？</p>
 </blockquote>
 <p>假如你就是这个丧心病狂的开发者，你会怎么做？</p>
@@ -84,11 +84,11 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ImAGoodBoy</span><span class="params">(APIBase)</span>:</span></span><br><span class="line"></span><br><span class="line">    a_polite_attribute = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># [Output] Well done! You are a polite coder!</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FuckMyBoss</span><span class="params">(APIBase)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># [Output] NameError: Sensitive words "fuck" detected in the string "FuckMyBoss".</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PretendToBePolite</span><span class="params">(APIBase)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__fuck_your_asshole</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># [Output] NameError: Sensitive words "asshole", "fuck" detected in the string "_PretendToBePolite__fuck_your_asshole".</span></span><br></pre></td></tr></table></figure>
 <p>看，即使像最后一个例子中的私有属性也难逃审查，因为它们本质都是相同的。</p>
 <p>甚至，你还可以对有问题的属性进行偷偷的修改，比如 让不文明的函数在调用时打出一行警告 等等，这里就不多说了。</p>
-<h3 id="元类_在实际开发中的应用">元类 在实际开发中的应用</h3><p>日常开发时，元类 常用吗？</p>
+<h2 id="元类_在实际开发中的应用">元类 在实际开发中的应用</h2><p>日常开发时，元类 常用吗？</p>
 <p>当然，Django 的 ORM 就是一个例子，大名鼎鼎的 SQLAlchemy 也用了这种黑魔法。</p>
 <p>此外，在一些小型的库中，也有 元类 的身影。比如 <code>abc</code>（奇怪的名字～～）——这是 python 的一个内建库，用于模拟 抽象基类（Abstract Base Classes）。开发者可以使用 <code>abc.abstractmethod</code> 装饰器，将 指定了 <code>__metaclass__ = abc.ABCMeta</code> 的类的方法定义成 抽象方法，同时这个类也成了 抽象基类，抽象基类是不可实例化的。这便实现了对 抽象基类 的模拟。</p>
 <p>倘若你也有需要动态修改类定义的需求，不妨也试试这种“黑魔法”。</p>
-<h3 id="小结">小结</h3><ul>
+<h2 id="小结">小结</h2><ul>
 <li>类 也是 对象，所有的类都是<code>type</code>的实例</li>
 <li>元类（Meta Classes）是类的类</li>
 <li><code>__metaclass__ = Meta</code> 是 <code>Meta(name, bases, dict)</code> 的 语法糖</li>

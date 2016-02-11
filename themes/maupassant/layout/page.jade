@@ -1,9 +1,9 @@
 extends base
 block title
-  title= page.title || page.page_title + " | " + config.title
+    title= page.title || page.page_title + " | " + config.title
 block content
-  .post
-    h1.post-title= page.title
-    .post-content
-      != page.content
+    .post
+        h1.post-title= page.title
+        .post-content
+            != page.content
 

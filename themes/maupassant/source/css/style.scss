@@ -6,7 +6,12 @@
  * @link http://chopstack.com
  */
 
-$bk-color: lighten(#eee, 3.2%);
+ $bk-color: lighten(#eee, 3.2%);
+
+ @font-face {
+    font-family: "life-saver";
+    src: url("../fonts/LifeSavers-Regular.ttf");
+}
 
 body {
     background-color: $bk-color;
@@ -62,7 +67,7 @@ a:focus{
             overflow: hidden;
         }
         #logo {
-            font: bold 38px/1.12 "Times New Roman", Georgia, Times, sans-serif;
+            font: bold 38px/1.12 "life-saver","Times New Roman", Georgia, Times, sans-serif;
             color: #555;
             span, &:hover {
                 color: #777;
@@ -132,7 +137,7 @@ a:focus{
             a {
                 line-height: 1.5;
                 padding: 5px;
-              }
+            }
         }
         ul {
             list-style: none;
@@ -463,6 +468,19 @@ blockquote,.stressed {
     p:last-child {
         margin: 0!important;
     }
+
+    cite {
+        float: right;
+    }
+
+    p:after {
+        visibility: hidden;
+        display: block;
+        font-size: 0;
+        content: " ";
+        clear: both;
+        height: 0;
+    }
 }
 
 strong,b,em{
@@ -610,60 +628,60 @@ div {
     border-radius: 7px;
     float: right;
     &:hover {
-            color: #444;
-            border-color: #444;
+        color: #444;
+        border-color: #444;
     }
 }
 
 /* duoshuo style*/
 #ds-thread #ds-reset {
     color: #555;
-  }
+}
 
-  #ds-thread #ds-reset .ds-replybox {
+#ds-thread #ds-reset .ds-replybox {
     margin-bottom: 30px;
-  }
+}
 
-  #ds-thread #ds-reset .ds-replybox .ds-avatar, #ds-reset .ds-avatar img {
+#ds-thread #ds-reset .ds-replybox .ds-avatar, #ds-reset .ds-avatar img {
     box-shadow: none;
-  }
+}
 
-  #ds-thread #ds-reset .ds-textarea-wrapper {
+#ds-thread #ds-reset .ds-textarea-wrapper {
     border-color: #c7d4e1;
     background: none;
     border-top-right-radius: 3px;
     border-top-left-radius: 3px;
-  }
+}
 
-  #ds-thread #ds-reset .ds-textarea-wrapper textarea {
+#ds-thread #ds-reset .ds-textarea-wrapper textarea {
     height: 60px;
-  }
+}
 
-  #ds-reset .ds-rounded-top {
+#ds-reset .ds-rounded-top {
     border-radius: 0;
-  }
+}
 
-  #ds-thread #ds-reset .ds-post-toolbar {
+#ds-thread #ds-reset .ds-post-toolbar {
     box-sizing: border-box;
     border: 1px solid #c7d4e1;
     background: #fafafa;
-  }
+}
 
-  #ds-thread #ds-reset .ds-post-options {
+#ds-thread #ds-reset .ds-post-options {
     height: 40px;
     border: none;
     background: none;
-  }
+}
 
-  #ds-thread #ds-reset .ds-toolbar-buttons {
+#ds-thread #ds-reset .ds-toolbar-buttons {
     top: 11px;
-  }
+}
 
-  #ds-thread #ds-reset .ds-sync {
+#ds-thread #ds-reset .ds-sync {
     top: 5px;
-  }
+}
 
-  #ds-thread #ds-reset .ds-post-button {
+#ds-thread #ds-reset .ds-post-button {
     top: 4px;
     right: 5px;
     width: 90px;
@@ -672,47 +690,47 @@ div {
     border-radius: 3px;
     background-image: linear-gradient(#fbfbfc, #f5f7f9);
     color: #60676d;
-  }
+}
 
-  #ds-thread #ds-reset .ds-post-button:hover {
+#ds-thread #ds-reset .ds-post-button:hover {
     background-position: 0 -30px;
     color: #60676d;
-  }
+}
 
-  #ds-thread #ds-reset .ds-comments-info {
+#ds-thread #ds-reset .ds-comments-info {
     padding: 10px 0;
-  }
+}
 
-  #ds-thread #ds-reset .ds-sort {
+#ds-thread #ds-reset .ds-sort {
     display: none;
-  }
+}
 
-  #ds-thread #ds-reset li.ds-tab a.ds-current {
+#ds-thread #ds-reset li.ds-tab a.ds-current {
     border: none;
     background: #fafafa;
     color: #60676d;
 
     &:hover {
-      background-color: #e9f0f7;
-      color: #60676d;
+        background-color: #e9f0f7;
+        color: #60676d;
     }
-  }
+}
 
-  #ds-thread #ds-reset li.ds-tab a {
+#ds-thread #ds-reset li.ds-tab a {
     border-radius: 2px;
     padding: 5px;
-  }
+}
 
-  #ds-thread #ds-reset .ds-login-buttons p {
+#ds-thread #ds-reset .ds-login-buttons p {
     color: #999;
     line-height: 36px;
-  }
+}
 
-  #ds-thread #ds-reset .ds-login-buttons .ds-service-list li {
+#ds-thread #ds-reset .ds-login-buttons .ds-service-list li {
     height: 28px;
-  }
+}
 
-  #ds-thread #ds-reset .ds-service-list a {
+#ds-thread #ds-reset .ds-service-list a {
     background: none;
     padding: 5px;
     border: 1px solid;
@@ -720,170 +738,171 @@ div {
     text-align: center;
 
     &:hover {
-      color: $bk-color;
-      background: #666;
+        color: $bk-color;
+        background: #666;
     }
-  }
+}
 
-  #ds-thread #ds-reset .ds-service-list .ds-weibo {
+#ds-thread #ds-reset .ds-service-list .ds-weibo {
     color: #fc9b00;
     border-color: #fc9b00;
 
     &:hover {
-      background: #fc9b00;
+        background: #fc9b00;
     }
-  }
+}
 
-  #ds-thread #ds-reset .ds-service-list .ds-qq {
+#ds-thread #ds-reset .ds-service-list .ds-qq {
     color: #60a3ec;
     border-color: #60a3ec;
 
     &:hover {
-      background: #60a3ec;
+        background: #60a3ec;
     }
-  }
+}
 
-  #ds-thread #ds-reset .ds-service-list .ds-renren {
+#ds-thread #ds-reset .ds-service-list .ds-renren {
     color: #2e7ac4;
     border-color: #2e7ac4;
 
     &:hover {
-      background: #2e7ac4;
+        background: #2e7ac4;
     }
-  }
+}
 
-  #ds-thread #ds-reset .ds-service-list .ds-douban {
+#ds-thread #ds-reset .ds-service-list .ds-douban {
     color: #37994c;
     border-color: #37994c;
 
     &:hover {
-      background: #37994c;
+        background: #37994c;
     }
-  }
-  #ds-thread #ds-reset .ds-service-list .ds-more-services {
+}
+#ds-thread #ds-reset .ds-service-list .ds-more-services {
     border: none;
     &:hover {
-      background: none;
+        background: none;
     }
-  }
+}
 
 /* syntax highlight*/
 pre,
 .highlight {
-  background: #2d2d2d;
-  margin: 20px 0;
-  padding: 5px;
-  overflow: auto;
-  font-size: 15px;
-  color: #ccc;
-  line-height: 1.6;
-  border-radius: 7px;
+    background: #2d2d2d;
+    margin: 20px 0;
+    padding: 5px;
+    overflow: auto;
+    font-size: 15px;
+    color: #ccc;
+    line-height: 1.6;
+    border-radius: 7px;
 }
 .highlight .gutter pre,
 .gist .gist-file .gist-data .line-numbers {
-  color: #666;
+    color: #666;
 }
 pre,
 code {
-  font-family: "Input Mono", "PT Mono", Consolas, Monaco, Menlo, monospace;
+    font-family: "Input Mono", "PT Mono", Consolas, Monaco, Menlo, monospace;
 }
 code {
-  word-break: break-all;
-  background: #eee;
-  text-shadow: 0 1px $bk-color;
-  padding: 0 0.3em;
+    word-break: break-all;
+    background: #f9f2f4;
+    color: #c7254e;
+    text-shadow: 0 1px $bk-color;
+    padding: 0 0.3em;
 }
 pre code {
-  background: none;
-  text-shadow: none;
-  padding: 0;
+    background: none;
+    text-shadow: none;
+    padding: 0;
 }
 .highlight pre {
-  border: none;
-  margin: 0;
-  padding: 1px;
+    border: none;
+    margin: 0;
+    padding: 1px;
 }
 .highlight table {
-  margin: 0;
-  width: auto;
-  border: none;
+    margin: 0;
+    width: auto;
+    border: none;
 }
 .highlight td {
-  border: none;
-  padding: 0;
+    border: none;
+    padding: 0;
 }
 .highlight figcaption {
-  font-size: 0.85em;
-  color: #999;
-  line-height: 1em;
-  margin-bottom: 1em;
+    font-size: 0.85em;
+    color: #999;
+    line-height: 1em;
+    margin-bottom: 1em;
 }
 .highlight figcaption:before,
 .highlight figcaption:after {
-  content: " ";
-  display: table;
+    content: " ";
+    display: table;
 }
 .highlight figcaption:after {
-  clear: both;
+    clear: both;
 }
 .highlight figcaption a {
-  float: right;
+    float: right;
 }
 .highlight .gutter pre {
-  text-align: right;
-  padding-right: 20px;
+    text-align: right;
+    padding-right: 20px;
 }
 .highlight .line {
-  height: 20px;
+    height: 20px;
 }
 .gist {
-  margin: 20px 0;
-  border-style: solid;
-  border-color: #ccc;
-  border-width: 1px 0;
-  background: #2d2d2d;
-  padding: 15px 40px 15px 15px;
+    margin: 20px 0;
+    border-style: solid;
+    border-color: #ccc;
+    border-width: 1px 0;
+    background: #2d2d2d;
+    padding: 15px 40px 15px 15px;
 }
 .gist .gist-file {
-  border: none;
-  font-family: "Input Mono", "PT Mono", Consolas, Monaco, Menlo, monospace;
-  margin: 0;
+    border: none;
+    font-family: "Input Mono", "PT Mono", Consolas, Monaco, Menlo, monospace;
+    margin: 0;
 }
 .gist .gist-file .gist-data {
-  background: none;
-  border: none;
+    background: none;
+    border: none;
 }
 .gist .gist-file .gist-data .line-numbers {
-  background: none;
-  border: none;
-  padding: 0 20px 0 0;
+    background: none;
+    border: none;
+    padding: 0 20px 0 0;
 }
 .gist .gist-file .gist-data .line-data {
-  padding: 0 !important;
+    padding: 0 !important;
 }
 .gist .gist-file .highlight {
-  margin: 0;
-  padding: 0;
-  border: none;
+    margin: 0;
+    padding: 0;
+    border: none;
 }
 .gist .gist-file .gist-meta {
-  background: #2d2d2d;
-  color: #999;
-  font: 13px Lato, "PingFang SC", "Microsoft YaHei", sans-serif;
-  text-shadow: 0 0;
-  padding: 0;
-  margin-top: 1em;
-  margin-left: 40px;
+    background: #2d2d2d;
+    color: #999;
+    font: 13px Lato, "PingFang SC", "Microsoft YaHei", sans-serif;
+    text-shadow: 0 0;
+    padding: 0;
+    margin-top: 1em;
+    margin-left: 40px;
 }
 .gist .gist-file .gist-meta a {
-  color: color-link;
-  font-weight: normal;
+    color: color-link;
+    font-weight: normal;
 }
 .gist .gist-file .gist-meta a:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 pre .comment {
-  color: #999;
+    color: #999;
 }
 pre .variable,
 pre .attribute,
@@ -897,7 +916,7 @@ pre .html .doctype,
 pre .css .id,
 pre .css .class,
 pre .css .pseudo {
-  color: #f2777a;
+    color: #f2777a;
 }
 pre .number,
 pre .preprocessor,
@@ -905,11 +924,11 @@ pre .built_in,
 pre .literal,
 pre .params,
 pre .constant {
-  color: #f99157;
+    color: #f99157;
 }
 pre .ruby .class .title,
 pre .css .rules .attribute {
-  color: #9c9;
+    color: #9c9;
 }
 pre .string,
 pre .value,
@@ -917,11 +936,11 @@ pre .inheritance,
 pre .header,
 pre .ruby .symbol,
 pre .xml .cdata {
-  color: #9c9;
+    color: #9c9;
 }
 pre .title,
 pre .css .hexcolor {
-  color: #6cc;
+    color: #6cc;
 }
 pre .function,
 pre .python .decorator,
@@ -931,11 +950,11 @@ pre .ruby .title .keyword,
 pre .perl .sub,
 pre .javascript .title,
 pre .coffeescript .title {
-  color: #69c;
+    color: #69c;
 }
 pre .keyword,
 pre .javascript .function {
-  color: #c9c;
+    color: #c9c;
 }
 
 /* icomoon icon fonts*/
@@ -943,9 +962,9 @@ pre .javascript .function {
     font-family: 'icomoon';
     src:url('../fonts/icomoon.eot?5xv1e3');
     src:url('../fonts/icomoon.eot?5xv1e3#iefix') format('embedded-opentype'),
-        url('../fonts/icomoon.ttf?5xv1e3') format('truetype'),
-        url('../fonts/icomoon.woff?5xv1e3') format('woff'),
-        url('../fonts/icomoon.svg?5xv1e3#icomoon') format('svg');
+    url('../fonts/icomoon.ttf?5xv1e3') format('truetype'),
+    url('../fonts/icomoon.woff?5xv1e3') format('woff'),
+    url('../fonts/icomoon.svg?5xv1e3#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -1027,28 +1046,28 @@ pre .javascript .function {
 
 /* toc*/
 .toc-article {
-  border: 1px solid #bbb;
-  border-radius: 7px;
-  margin: 2em 0 0 2em;
-  padding: 0.7em 0.7em 0 0.7em;
-  max-width: 40%;
+    border: 1px solid #bbb;
+    border-radius: 7px;
+    margin: 2em 0 0 2em;
+    padding: 0.7em 0.7em 0 0.7em;
+    max-width: 40%;
 }
 .toc-title {
-  font-size: 120%;
+    font-size: 120%;
 }
 #toc {
-  line-height: 1em;
-  float: right;
-  .toc {
+    line-height: 1em;
+    float: right;
+    .toc {
     padding: 0;
     margin: 0.5em;
     line-height: 1.8em;
     li {
-      list-style-type: none;
+        list-style-type: none;
     }
-   }
-  .toc-child {
+}
+.toc-child {
     margin-left: 1em;
     padding-left: 0;
-  }
+}
 }

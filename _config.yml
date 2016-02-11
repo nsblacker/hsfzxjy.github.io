@@ -38,10 +38,10 @@ post_asset_folder: false
 relative_link: false
 future: true
 highlight:
-  enable: true
-  line_number: true
-  auto_detect: true
-  tab_replace:
+    enable: true
+    line_number: true
+    auto_detect: true
+    tab_replace:
 
 # Category & Tag
 default_category: uncategorized
@@ -68,9 +68,9 @@ theme: maupassant
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
-  type: git
-  repo: https://github.com/hsfzxjy/hsfzxjy.github.io.git
-  branch: master
+    type: git
+    repo: https://github.com/hsfzxjy/hsfzxjy.github.io.git
+    branch: master
 
 plugins:
 - hexo-generate-feed

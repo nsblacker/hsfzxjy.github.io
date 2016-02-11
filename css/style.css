@@ -369,6 +369,15 @@ blockquote, .stressed {
   border: dashed #aaaaaa 1px; }
   blockquote p:last-child, .stressed p:last-child {
     margin: 0 !important; }
+  blockquote cite, .stressed cite {
+    float: right; }
+  blockquote p:after, .stressed p:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0; }
 
 strong, b, em {
   padding: 1px 2px;
@@ -652,7 +661,8 @@ code {
 
 code {
   word-break: break-all;
-  background: #eee;
+  background: #f9f2f4;
+  color: #c7254e;
   text-shadow: 0 1px #f6f6f6;
   padding: 0 0.3em; }
 

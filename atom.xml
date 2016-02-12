@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不忌讳空山无人，不害怕遥望星辰]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://hsfzxjy.github.io/"/>
-  <updated>2016-02-10T14:45:13.631Z</updated>
+  <updated>2016-02-12T04:14:09.571Z</updated>
   <id>http://hsfzxjy.github.io/</id>
   
   <author>
@@ -13,6 +13,83 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[17 行代码实现的简易 Javascript 字符串模板]]></title>
+    <link href="http://hsfzxjy.github.io//a-simple-javascript-template-language/"/>
+    <id>http://hsfzxjy.github.io//a-simple-javascript-template-language/</id>
+    <published>2016-02-11T16:00:00.000Z</published>
+    <updated>2016-02-12T04:14:09.571Z</updated>
+    <content type="html"><![CDATA[<p>这是源于两年前，当我在做人生中第一个真正意义上的网站时遇到的一个问题</p>
+<p>该网站采用前后端分离的方式，由后端的 REST 接口返回 JSON 数据，再由前端渲染到页面上。</p>
+<p>同许多初学 Javascript 的菜鸟一样，起初，我也是采用拼接字符串的形式，将 JSON 数据嵌入 HTML 中。开始时代码量较少，暂时还可以接受。但当页面结构复杂起来后，其弱点开始变得无法忍受起来：</p>
+<ul>
+<li><strong>书写不连贯</strong>。每写一个变量就要断一下，插入一个 <code>+</code> 和 <code>&quot;</code>。十分容易出错。</li>
+<li><strong>无法重用</strong>。HTML 片段都是离散化的数据，难以对其中重复的部分进行提取。</li>
+<li><strong>无法很好地利用 <code>&lt;template&gt;</code> 标签</strong>。这是 HTML5 中新增的一个标签，标准极力推荐将 HTML 模板放入 <code>&lt;template&gt;</code> 标签中，使代码更简洁。</li>
+</ul>
+<p>当时我的心情就是这样的：</p>
+<p><img src="http://i6.hexunimg.cn/2012-05-09/141219425.jpg" alt=""></p>
+<p>为了解决这个问题，我暂时放下了手上的项目，花了半个小时实现一个极简易的字符串模板。</p>
+<a id="more"></a>
+<h2 id="需求描述">需求描述</h2><p>实现一个 <code>render(template, context)</code> 方法，将 <code>template</code> 中的占位符用 <code>context</code> 填充。要求：</p>
+<ol>
+<li>不需要有控制流成分（如 循环、条件 等等），只要有变量替换功能即可</li>
+<li>级联的变量也可以展开</li>
+<li>被转义的的分隔符 <code>{</code> 和 <code>}</code> 不应该被渲染，分隔符与变量之间允许有空白字符</li>
+</ol>
+<p>例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">render(<span class="string">'My name is &#123;name&#125;'</span>， &#123;</span><br><span class="line">    name: <span class="string">'hsfzxjy'</span></span><br><span class="line">&#125;);  <span class="comment">// My name is hsfzxjy</span></span><br><span class="line"></span><br><span class="line">render(<span class="string">'I am in &#123;profile.location&#125;'</span>, &#123;</span><br><span class="line">    name: <span class="string">'hsfzxjy'</span>,</span><br><span class="line">    profile: &#123;</span><br><span class="line">        location: <span class="string">'Guangzhou'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;); <span class="comment">// I am in Guangzhou</span></span><br><span class="line"></span><br><span class="line">render(<span class="string">'&#123; greeting &#125;. \\&#123; This block will not be rendered &#125;'</span>, &#123;</span><br><span class="line">    greeting: <span class="string">'Hi'</span></span><br><span class="line">&#125;); <span class="comment">// Hi. &#123; This block will not be rendered &#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="实现">实现</h2><p>先写下函数的框架：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">template, context</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>显然，要做的第一件事便是 <strong>匹配模板中的占位符</strong>。</p>
+<h3 id="匹配占位符">匹配占位符</h3><p>匹配的事，肯定是交给正则表达式来完成。那么，这个正则表达式应该长什么样呢？</p>
+<p>根据 需求 1、2 的描述，我们可以写出：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/\&#123;([^\&#123;\&#125;]+)\&#125;/g</span>;</span><br></pre></td></tr></table></figure>
+<p>至于需求 3，我第一个想到的概念是 <strong>前向匹配</strong>，可惜 Javascript 并不支持，只好用一个折衷的办法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/(\\)?\&#123;([^\&#123;\&#125;\\]+)(\\)?\&#125;/g</span>;</span><br><span class="line"><span class="comment">// 若是第一个或第三个分组值不为空，则不渲染</span></span><br></pre></td></tr></table></figure>
+<p>现在，代码应该是这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">template, context</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> tokenReg = <span class="regexp">/(\\)?\&#123;([^\&#123;\&#125;\\]+)(\\)?\&#125;/g</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> template.replace(tokenReg, <span class="function"><span class="keyword">function</span> (<span class="params">word, slash1, token, slash2</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (slash1 || slash2) &#123;  <span class="comment">// 匹配到转义字符</span></span><br><span class="line">            <span class="keyword">return</span> word.replace(<span class="string">'\\'</span>, <span class="string">''</span>); <span class="comment">// 如果 分隔符被转义，则不渲染</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="占位符替换">占位符替换</h3><p>嗯，正则表达式确定了，接下来要做的便是替换工作。</p>
+<p>根据 需求2，模板引擎不仅要能渲染一级变量，更要渲染多级变量。这该怎么做呢？</p>
+<p>其实很简单：将 <code>token</code> 按 <code>.</code> 分隔开，逐级查找即可：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> variables = token.replace(<span class="regexp">/\s/g</span>, <span class="string">''</span>).split(<span class="string">'.'</span>); <span class="comment">// 切割 token</span></span><br><span class="line"><span class="keyword">var</span> currentObject = context;</span><br><span class="line"><span class="keyword">var</span> i, length, variable;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 逐级查找 context</span></span><br><span class="line"><span class="keyword">for</span> (i = <span class="number">0</span>, length = variables.length, variable = variables[i]; i &lt; length; ++i)</span><br><span class="line">    currentObject = currentObject[variable];</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> currentObject;</span><br></pre></td></tr></table></figure>
+<p>不过，有可能 <code>token</code> 指定的变量并不存在，这时上面的代码便会报错。为了更好的体验，代码最好有一定的容错能力：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> variables = token.replace(<span class="regexp">/\s/g</span>, <span class="string">''</span>).split(<span class="string">'.'</span>); <span class="comment">// 切割 token</span></span><br><span class="line"><span class="keyword">var</span> currentObject = context;</span><br><span class="line"><span class="keyword">var</span> i, length, variable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (i = <span class="number">0</span>, length = variables.length, variable = variables[i]; i &lt; length; ++i) &#123;</span><br><span class="line">    currentObject = currentObject[variable];</span><br><span class="line">    <span class="keyword">if</span> (currentObject === <span class="literal">undefined</span> || currentObject === <span class="literal">null</span>) <span class="keyword">return</span> <span class="string">''</span>; <span class="comment">// 如果当前索引的对象不存在，则直接返回空字符串。</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> currentObject;</span><br></pre></td></tr></table></figure>
+<p>把所有的代码组合在一起，便得到了最终的版本：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">template, context</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> tokenReg = <span class="regexp">/(\\)?\&#123;([^\&#123;\&#125;\\]+)(\\)?\&#125;/g</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> template.replace(tokenReg, <span class="function"><span class="keyword">function</span> (<span class="params">word, slash1, token, slash2</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (slash1 || slash2) &#123;  </span><br><span class="line">            <span class="keyword">return</span> word.replace(<span class="string">'\\'</span>, <span class="string">''</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> variables = token.replace(<span class="regexp">/\s/g</span>, <span class="string">''</span>).split(<span class="string">'.'</span>);</span><br><span class="line">        <span class="keyword">var</span> currentObject = context;</span><br><span class="line">        <span class="keyword">var</span> i, length, variable;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">0</span>, length = variables.length, variable = variables[i]; i &lt; length; ++i) &#123;</span><br><span class="line">            currentObject = currentObject[variable];</span><br><span class="line">            <span class="keyword">if</span> (currentObject === <span class="literal">undefined</span> || currentObject === <span class="literal">null</span>) <span class="keyword">return</span> <span class="string">''</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> currentObject;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>除去空白行，一共 17 行。</p>
+<h2 id="将函数挂到_String_的原型链">将函数挂到 String 的原型链</h2><p>甚至，我们可以通过修改原型链，实现一些很酷的效果：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span>.prototype.render = <span class="function"><span class="keyword">function</span> (<span class="params">context</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> render(<span class="keyword">this</span>, context);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>之后，我们便可以这样调用啦：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"&#123;greeting&#125;! My name is &#123; author.name &#125;."</span>.render(&#123;</span><br><span class="line">    greeting: <span class="string">"Hi"</span>,</span><br><span class="line">    author: &#123;</span><br><span class="line">        name: <span class="string">"hsfzxjy"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// Hi! My name is hsfzxjy.</span></span><br></pre></td></tr></table></figure>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>这是源于两年前，当我在做人生中第一个真正意义上的网站时遇到的一个问题</p>
+<p>该网站采用前后端分离的方式，由后端的 REST 接口返回 JSON 数据，再由前端渲染到页面上。</p>
+<p>同许多初学 Javascript 的菜鸟一样，起初，我也是采用拼接字符串的形式，将 JSON 数据嵌入 HTML 中。开始时代码量较少，暂时还可以接受。但当页面结构复杂起来后，其弱点开始变得无法忍受起来：</p>
+<ul>
+<li><strong>书写不连贯</strong>。每写一个变量就要断一下，插入一个 <code>+</code> 和 <code>&quot;</code>。十分容易出错。</li>
+<li><strong>无法重用</strong>。HTML 片段都是离散化的数据，难以对其中重复的部分进行提取。</li>
+<li><strong>无法很好地利用 <code>&lt;template&gt;</code> 标签</strong>。这是 HTML5 中新增的一个标签，标准极力推荐将 HTML 模板放入 <code>&lt;template&gt;</code> 标签中，使代码更简洁。</li>
+</ul>
+<p>当时我的心情就是这样的：</p>
+<p><img src="http://i6.hexunimg.cn/2012-05-09/141219425.jpg" alt=""></p>
+<p>为了解决这个问题，我暂时放下了手上的项目，花了半个小时实现一个极简易的字符串模板。</p>]]>
+    
+    </summary>
+    
+      <category term="DIY" scheme="http://hsfzxjy.github.io/tags/DIY/"/>
+    
+      <category term="javascript" scheme="http://hsfzxjy.github.io/tags/javascript/"/>
+    
+      <category term="字符串模板" scheme="http://hsfzxjy.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A8%A1%E6%9D%BF/"/>
+    
+      <category term="正则表达式" scheme="http://hsfzxjy.github.io/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
+    
+      <category term="编程" scheme="http://hsfzxjy.github.io/categories/%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Python “黑魔法” 之 Meta Classes]]></title>
@@ -1179,43 +1256,6 @@
       <category term="HFMUN重构系列" scheme="http://hsfzxjy.github.io/tags/HFMUN%E9%87%8D%E6%9E%84%E7%B3%BB%E5%88%97/"/>
     
       <category term="编程" scheme="http://hsfzxjy.github.io/categories/%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[十年]]></title>
-    <link href="http://hsfzxjy.github.io//ten-years/"/>
-    <id>http://hsfzxjy.github.io//ten-years/</id>
-    <published>2015-03-03T04:19:18.000Z</published>
-    <updated>2015-11-08T08:40:29.989Z</updated>
-    <content type="html"><![CDATA[<p>再一次站在这里，我却发现早已没有了熟悉的感觉。一切都是那样陌生：长年累月的雨水冲刷，使原本灰色的墙面变得愈加晦暗，有几处墙皮脱落了，酷似一张布满皱纹的老脸；门前，野草肆意地疯长着，没过了缩在墙角的那根水管——记忆中它一直在渗水，却不知何时被修好了，只留下了一圈丑陋的青苔，像是对这十年光阴的一个标注。</p>
-<p>这里的一切，就像是被人遗弃了。四周站着的那一圈高楼，无时无刻不在表达着对这角隅的不屑——就像长辈们对待无知的孩童一样。<br>而事实上，这里比周围的一切都要年长。</p>
-<p>时光上溯十年，那时，我居住于此。那时，还没有周围这一切。</p>
-<p>曾记得，在不远处的那块菜地，我和小伙伴趟过泥水，猫着腰在捕捉小鱼小虾。柔软的泥土记录这我们的足迹，竹架上的蔬果聆听着我们的欢笑，就连那不知名的虫儿，也哼起歌为我们助兴。</p>
-<p>曾记得，在屋后的那片小树林，上演过一次又一次的“探险之旅”。不畏阴暗，不惧神秘，只求抵达尽头时那种大汗淋漓的快意。</p>
-<p>曾记得，在楼顶的天台，我第一次仰望星空。夏夜的风吹起架子上的藤蔓，吹拂着我的脸庞。和着如水的月光，四周的一切就像仙境般梦幻。</p>
-<p>这里，有着我童年的所有回忆。</p>
-<p>可如今，这一切都像是未曾发生过。这里，也未曾记得。</p>
-<p>十年，很长，长得足以让一个人，去遗忘一个地方。</p>
-<p>再一次遇见他，没有太多的喜悦，只是相视一笑，随即，便陷入了沉默。</p>
-<p>比起上一次相遇，他又有了一些变化，整个人显得更加成熟了。但与此同时，一种未知的像雾一样的却在我们中间弥散开来，凝固着空气，窒息着心灵。</p>
-<p>我竭力搜寻着话题，想要打破这恼人的尴尬，但却徒劳无功——真的没有共同语言了，毕竟在新的环境里，我们都有了新的爱好。</p>
-<p>真是一个让人迷惑的时代——在这里，共有着美好的回忆，却也无法维系十年的友情。</p>
-<p>在那人生的上古时期，他，是我最好的朋友，一起逃过课，在小学边上的山坡尽情地疯玩；一起偷过钱，忐忑地在小商店购买垂涎已久的零食。那些年和他，一玩能玩一天，一聊能聊一宿。我们有过争吵，而更多时候，我们亲如弟兄。</p>
-<p>记忆中的那些画面，每一张笑脸，每一滴眼泪，都是那样真诚。</p>
-<p>只是，曾经的旧知己，最终还是变不到老友。</p>
-<p>十年，很长，长得足以让一个人，去疏远另一个人。</p>
-<p>十年，真的很长。承载着过去的回忆，有欢笑，有泪水——就像是人那短暂一生的缩影。</p>
-<p>人生又能有几个十年？无从得知。</p>
-<p>因此，每一个十年都弥足珍贵；每一个十年，都要用心去珍惜。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>再一次站在这里，我却发现早已没有了熟悉的感觉。一切都是那样陌生：长年累月的雨水冲刷，使原本灰色的墙面变得愈加晦暗，有几处墙皮脱落了，酷似一张布满皱纹的老脸；门前，野草肆意地疯长着，没过了缩在墙角的那根水管——记忆中它一直在渗水，却不知何时被修好了，只留下了一圈丑陋的青苔，像]]>
-    </summary>
-    
-      <category term="创新作文大赛" scheme="http://hsfzxjy.github.io/tags/%E5%88%9B%E6%96%B0%E4%BD%9C%E6%96%87%E5%A4%A7%E8%B5%9B/"/>
-    
-      <category term="杂感" scheme="http://hsfzxjy.github.io/categories/%E6%9D%82%E6%84%9F/"/>
     
   </entry>
   

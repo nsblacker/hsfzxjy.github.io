@@ -7,6 +7,7 @@
  */
 
  $bk-color: lighten(#eee, 3.2%);
+ $green: #42b983;
 
  @font-face {
     font-family: "life-saver";
@@ -199,26 +200,12 @@ a:focus{
         a {
             color: #555;
             position: relative;
-        }
+            border-bottom: 2px solid;
+            border-bottom-color: transparent;
 
-        a::before {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: #000;
-            visibility: hidden;
-            transform: scaleX(0);
-            transition-duration: 0.2s;
-            transition-timing-function: ease-in-out;
-            transition-delay: 0s;
-        }
-
-        a:hover::before {
-            visibility: visible;
-            transform: scaleX(1);
+            &:hover {
+                border-bottom-color: darken($bk-color, 70%);
+            }
         }
     }
 

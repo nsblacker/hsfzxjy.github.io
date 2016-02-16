@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title><![CDATA[thoughts of hsfzxjy]]></title>
-  <subtitle><![CDATA[不忌讳空山无人，不害怕遥望星辰]]></subtitle>
+  
   <link href="/atom.xml" rel="self"/>
   <link href="http://hsfzxjy.github.io/"/>
   <updated>2016-02-13T13:46:13.194Z</updated>

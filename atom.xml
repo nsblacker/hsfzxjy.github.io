@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://hsfzxjy.github.io/"/>
-  <updated>2016-02-13T13:46:13.194Z</updated>
+  <updated>2016-02-19T04:24:23.566Z</updated>
   <id>http://hsfzxjy.github.io/</id>
   
   <author>
@@ -13,6 +13,122 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[数学美 之 判断线段相交的最简方法]]></title>
+    <link href="http://hsfzxjy.github.io//the-simplest-way-to-find-out-if-two-segments-are-intersected/"/>
+    <id>http://hsfzxjy.github.io//the-simplest-way-to-find-out-if-two-segments-are-intersected/</id>
+    <published>2016-02-18T16:00:00.000Z</published>
+    <updated>2016-02-19T04:24:23.566Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>解析几何的巅峰<br>是 向量<br>那无关过程的狂妄与简洁<br>映射着大自然无与伦比的美</p>
+</blockquote>
+<h2 id="引子">引子</h2><p>如何判断两条直线是否相交？</p>
+<p>这很容易。平面直线，无非就是两种关系：相交 或 平行。因此，只需判断它们是否平行即可。而直线平行，等价于它们的斜率相等，只需分别计算出它们的斜率，即可做出判断。</p>
+<p>但倘若我把“直线”换成“线段”呢——如何判断两条线段是否相交？</p>
+<p>这就有些难度了。和 直线 不同，线段 是有固定长度的，即使它们所属的两条直线相交，这两条线段也不一定相交。</p>
+<p>也许你会说：分情况讨论不就行了嘛：</p>
+<ul>
+<li>先计算两条线段的斜率，判断是否平行。若平行，则一定不相交。</li>
+<li>若不平行，求出两条线段的直线方程，联立之，解出交点坐标。</li>
+<li>运用定比分点公式，判断交点是否在两条线段上。</li>
+</ul>
+<p>的确，从理论上这是一个可行的办法，这也是人们手动计算时普遍采用的方法。</p>
+<p>然而，这个方法并不怎么适用于计算机。原因如下：</p>
+<ul>
+<li>计算中出现了除法（斜率计算、定比分点），因此每次计算前都要判断除数是否为 0（或接近 0）。这很麻烦，严重干扰逻辑的表达。</li>
+<li>浮点精度丢失带来的误差。人类计算时可以采用分数，但计算机不行。计算机在储存浮点数时会有精度丢失的现象。一旦算法的计算量大起来，误差会被急剧放大，影响结果准确性。</li>
+<li>效率低下。浮点乘除会十分耗时，不适用于对实时性要求较高的生产环境（如 游戏）。</li>
+</ul>
+<p><img src="http://www.qqday.com/uploads/allimg/120627/09210Bb8-3.png" alt=""></p>
+<p>那么，有更好的方法？</p>
+<p>当然有。<br><a id="more"></a></p>
+<h2 id="类型预定义">类型预定义</h2><p>本文的算法将用 python 描述，主要用到两个数据类型：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 点</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, x, y)</span>:</span></span><br><span class="line">        self.x, self.y = x, y</span><br><span class="line"></span><br><span class="line"><span class="comment"># 向量</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Vector</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, start_point, end_point)</span>:</span></span><br><span class="line">        self.start, self.end = start_point, end_point</span><br><span class="line">        self.x = end_point.x - start_point.x</span><br><span class="line">        self.y = end_point.y - start_point.y</span><br></pre></td></tr></table></figure>
+<p>先在此处说明。</p>
+<h2 id="问题分析">问题分析</h2><p>对于“判断两条直线是否相交”这个问题，我们之所以能迅速而准确地进行判断，是因为“相交”与“不相交”这两个状态有着明显的不同点，即 <strong>斜率是否相等</strong>。</p>
+<p>那么现在，为了判断两条线段是否相交，我们也要找出“相交”与“不相交”这两个状态的不同点。</p>
+<p>假设现在有两条线段 AB 和 CD，我们画出它们之间的三种关系：</p>
+<ol>
+<li><img src="https://segmentfault.com/img/bVsRnf" alt="不相交"></li>
+<li><img src="https://segmentfault.com/img/bVsRmQ" alt="交点位于某条线段上"></li>
+<li><img src="https://segmentfault.com/img/bVsRnh" alt="相交"></li>
+</ol>
+<p>其中，情况 1 为不相交，情况 2、3 为相交。</p>
+<p>作出向量 AC、AD、BC、BD。</p>
+<p>首先介绍一个概念： <strong>向量有序对的旋转方向</strong>。这个概念指：对于共起点有序向量二元组<code>(a, b)</code>，其旋转方向为 <strong>使 a 能够旋转一个小于 180 度的角并与 b 重合的方向</strong>，简记为 <code>direct(a, b)</code>。若 <code>a</code> 和 <code>b</code> 反向共线，则旋转方向取任意值。</p>
+<p>举个例子：图一中，<code>direct(AC, AD)</code> 为顺时针方向。</p>
+<p>接下来我们要分析四个值：<code>direct(AC, AD)</code>、<code>direct(BC, BD)</code>、<code>direct(CA, CB)</code>、<code>direct(DA, DB)</code>。</p>
+<ol>
+<li>对于图一，<code>direct(AC, AD)</code> 和 <code>direct(BC, BD)</code> 都为顺时针，<code>direct(CA, CB)</code> 为逆时针，<code>direct(DA, DB)</code> 为顺时针。</li>
+<li>对于图二，<code>direct(AC, AD)</code> 为顺时针，<code>direct(BC, BD)</code> 为任意方向，<code>direct(CA, CB)</code> 为逆时针，<code>direct(DA, DB)</code> 为顺时针。</li>
+<li>对于图三，<code>direct(AC, AD)</code>、<code>direct(DA, DB)</code> 为顺时针，<code>direct(BC, BD)</code>、<code>direct(CA, CB)</code> 为逆时针。</li>
+</ol>
+<p>不难发现，两条线段相交的充要条件是：<code>direct(AC, AD) != direct(BC, BD)</code> 且 <code>direct(CA, CB) != direct(DA, DB)</code>。这便是“相交”与“不相交”这两个状态的不同点。</p>
+<p>然而你可能会觉得：旋转方向这么一个虚无飘渺的东西，怎么用程序去描述啊？</p>
+<p>再来看一幅图：</p>
+<p><img src="https://segmentfault.com/img/bVsRna" alt=""></p>
+<p>再来定义有向角：</p>
+<blockquote>
+<p>有向角 <code>&lt;a, b&gt;</code> 为 向量<code>a</code> <strong>逆时针</strong> 旋转到与 向量<code>b</code> 重合所经过的角度。</p>
+</blockquote>
+<p>不难看出，对于向量<code>a</code>、<code>b</code>：</p>
+<ul>
+<li>若 <code>direct(a, b)</code> 为逆时针，则 <code>0 &lt;= &lt;a, b&gt; &lt;= 180</code>，从而 <code>sin&lt;a, b&gt; &gt;= 0</code>。</li>
+<li>若 <code>direct(a, b)</code> 为顺时针，则 <code>180 &lt;= &lt;a, b&gt; &lt;= 360</code>，从而 <code>sin&lt;a, b&gt; &lt;= 0</code>。</li>
+</ul>
+<p>这样一来，我们可以将旋转方向的问题转化为 <strong>求有向角正弦值</strong> 的问题。而这个问题，是很容易的。</p>
+<p>如上图，记</p>
+<p>$$ OA = (x_1, y_1), OB = (x_2, y_2) $$<br>$$ |OA| = r_1, |OB| = r_2 $$</p>
+<p>则</p>
+<p>$$ sin(\lt OA, OB\gt) $$<br>$$ = sin \theta $$<br>$$ = sin (\beta - \alpha) $$<br>$$ = sin \beta cos \alpha - sin \alpha cos \beta $$<br>$$ = \frac{(sin \beta cos \alpha - sin \alpha cos \beta) * r_1 * r_2}{r_1 * r_2} $$<br>$$ = {(x_1 * y_2 - x_2 * y_1) \over (r_1 * r_2)} $$</p>
+<p>而这里，我们要的只是 <code>sin(&lt;OA, OB&gt;)</code> 的符号，而 <code>r1</code> 和 <code>r2</code> 又都是恒正的，因此只需判断 <code>x1 * y2 - x2 * y1</code> 的符号即可。</p>
+<p>这个方法的数学背景是 <strong>叉乘</strong>，可以前往 <a href="https://zh.wikipedia.org/wiki/%E5%90%91%E9%87%8F%E7%A7%AF" target="_blank" rel="external">Wikipedia</a> 了解更多。</p>
+<h2 id="思路小结">思路小结</h2><ul>
+<li>由点 A，B，C，D 计算出向量 AC，AD，BC，BD</li>
+<li>计算 <code>sin(&lt;AC, AD&gt;) * sin(&lt;BC, BD&gt;)</code> 和 <code>sin(&lt;CA, CB&gt;) * sin(&lt;DA, DB&gt;)</code>，若皆为非正数，则相交；否则，不相交。</li>
+</ul>
+<h2 id="实现">实现</h2><p>终于到代码部分了，想必大家都已不耐烦了吧。</p>
+<p>在向量的辅助下，代码显得异常简单。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">ZERO = <span class="number">1e-9</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">negative</span><span class="params">(vector)</span>:</span></span><br><span class="line">    <span class="string">"""取反"""</span></span><br><span class="line">    <span class="keyword">return</span> Vector(vector.end_point, vector.start_point)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">vector_product</span><span class="params">(vectorA, vectorB)</span>:</span></span><br><span class="line">    <span class="string">'''计算 x_1 * y_2 - x_2 * y_1'''</span></span><br><span class="line">    <span class="keyword">return</span> vectorA.x * vectorB.y - vectorB.x * vectorA.y</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_intersected</span><span class="params">(A, B, C, D)</span>:</span></span><br><span class="line">    <span class="string">'''A, B, C, D 为 Point 类型'''</span></span><br><span class="line">    AC = Vector(A, C)</span><br><span class="line">    AD = Vector(A, D)</span><br><span class="line">    BC = Vector(B, C)</span><br><span class="line">    BD = Vector(B, D)</span><br><span class="line">    CA = negative(AC)</span><br><span class="line">    CB = negative(BC)</span><br><span class="line">    DA = negative(AD)</span><br><span class="line">    DB = negative(BD)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (vector_product(AC, AD) * vector_product(BC, BD) &lt;= ZERO) \</span><br><span class="line">        <span class="keyword">and</span> (vector_product(CA, CB) * vector_product(DA, DB) &lt;= ZERO)</span><br></pre></td></tr></table></figure>
+<p>一气呵成，没有恼人的除法，没有情况讨论，只是纯粹的简单运算。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>解析几何的巅峰<br>是 向量<br>那无关过程的狂妄与简洁<br>映射着大自然无与伦比的美</p>
+</blockquote>
+<h2 id="引子">引子</h2><p>如何判断两条直线是否相交？</p>
+<p>这很容易。平面直线，无非就是两种关系：相交 或 平行。因此，只需判断它们是否平行即可。而直线平行，等价于它们的斜率相等，只需分别计算出它们的斜率，即可做出判断。</p>
+<p>但倘若我把“直线”换成“线段”呢——如何判断两条线段是否相交？</p>
+<p>这就有些难度了。和 直线 不同，线段 是有固定长度的，即使它们所属的两条直线相交，这两条线段也不一定相交。</p>
+<p>也许你会说：分情况讨论不就行了嘛：</p>
+<ul>
+<li>先计算两条线段的斜率，判断是否平行。若平行，则一定不相交。</li>
+<li>若不平行，求出两条线段的直线方程，联立之，解出交点坐标。</li>
+<li>运用定比分点公式，判断交点是否在两条线段上。</li>
+</ul>
+<p>的确，从理论上这是一个可行的办法，这也是人们手动计算时普遍采用的方法。</p>
+<p>然而，这个方法并不怎么适用于计算机。原因如下：</p>
+<ul>
+<li>计算中出现了除法（斜率计算、定比分点），因此每次计算前都要判断除数是否为 0（或接近 0）。这很麻烦，严重干扰逻辑的表达。</li>
+<li>浮点精度丢失带来的误差。人类计算时可以采用分数，但计算机不行。计算机在储存浮点数时会有精度丢失的现象。一旦算法的计算量大起来，误差会被急剧放大，影响结果准确性。</li>
+<li>效率低下。浮点乘除会十分耗时，不适用于对实时性要求较高的生产环境（如 游戏）。</li>
+</ul>
+<p><img src="http://www.qqday.com/uploads/allimg/120627/09210Bb8-3.png" alt=""></p>
+<p>那么，有更好的方法？</p>
+<p>当然有。<br>]]>
+    
+    </summary>
+    
+      <category term="向量" scheme="http://hsfzxjy.github.io/tags/%E5%90%91%E9%87%8F/"/>
+    
+      <category term="数学" scheme="http://hsfzxjy.github.io/tags/%E6%95%B0%E5%AD%A6/"/>
+    
+      <category term="计算几何" scheme="http://hsfzxjy.github.io/tags/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95/"/>
+    
+      <category term="编程" scheme="http://hsfzxjy.github.io/categories/%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[除夕杂感]]></title>
@@ -1180,29 +1296,6 @@
       <category term="ubuntu" scheme="http://hsfzxjy.github.io/tags/ubuntu/"/>
     
       <category term="随手记" scheme="http://hsfzxjy.github.io/categories/%E9%9A%8F%E6%89%8B%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[关于正弦交流电有效值计算公式的证明]]></title>
-    <link href="http://hsfzxjy.github.io//provement-of-Sinusoidal-AC-RMS-calculation-formula/"/>
-    <id>http://hsfzxjy.github.io//provement-of-Sinusoidal-AC-RMS-calculation-formula/</id>
-    <published>2015-03-04T03:32:50.000Z</published>
-    <updated>2015-11-08T08:40:29.989Z</updated>
-    <content type="html"><![CDATA[<h3 id="公式">公式</h3><p>$I = {I_m \over \sqrt{2}}$</p>
-<h3 id="证明">证明</h3><p>设 $I = Asin\omega t$，则$I^2 = A^2sin^2\omega t$。</p>
-<p>取半个周期进行计算：$${Q \over R} $$<br>$$= \int_0^{T \over 2} I^2tdt$$<br>$$={A^2 \over 2}(t - {sin2\omega t \over 2\omega})|_{0}^{T \over 2}$$<br>$$={A^2T \over 4}$$<br>$$={I^2T \over 2}$$</p>
-<p>进而： $I = {A \over \sqrt{2}}$</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h3 id="公式">公式</h3><p>$I = {I_m \over \sqrt{2}}$</p>
-<h3 id="证明">证明</h3><p>设 $I = Asin\omega t$，则$I^2 = A^2sin^2\omega t$。</p>
-<p>取半个周期进行计算：]]>
-    </summary>
-    
-      <category term="物理" scheme="http://hsfzxjy.github.io/tags/%E7%89%A9%E7%90%86/"/>
-    
-      <category term="数学" scheme="http://hsfzxjy.github.io/categories/%E6%95%B0%E5%AD%A6/"/>
     
   </entry>
   

@@ -114,8 +114,10 @@ var currentObject = context;
 var i, length, variable;
 
 // 逐级查找 context
-for (i = 0, length = variables.length, variable = variables[i]; i < length; ++i)
+for (i = 0, length = variables.length; i < length; ++i) {
+    variable = variables[i];
     currentObject = currentObject[variable];
+}
 
 return currentObject;
 ```
@@ -127,7 +129,8 @@ var variables = token.replace(/\s/g, '').split('.'); // 切割 token
 var currentObject = context;
 var i, length, variable;
 
-for (i = 0, length = variables.length, variable = variables[i]; i < length; ++i) {
+for (i = 0, length = variables.length; i < length; ++i) {
+    variable = variables[i];
     currentObject = currentObject[variable];
     if (currentObject === undefined || currentObject === null) return ''; // 如果当前索引的对象不存在，则直接返回空字符串。
 }
@@ -151,7 +154,8 @@ function render(template, context) {
         var currentObject = context;
         var i, length, variable;
 
-        for (i = 0, length = variables.length, variable = variables[i]; i < length; ++i) {
+        for (i = 0, length = variables.length; i < length; ++i) {
+            variable = variables[i];
             currentObject = currentObject[variable];
             if (currentObject === undefined || currentObject === null) return '';
         }

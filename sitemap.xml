@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://hsfzxjy.github.io//python-generator-coroutine/</loc>
+    <lastmod>2016-04-02T15:17:51.136Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://hsfzxjy.github.io//a-simple-javascript-template-language/</loc>
     <lastmod>2016-03-26T11:05:21.678Z</lastmod>
   </url>

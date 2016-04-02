@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://hsfzxjy.github.io/"/>
-  <updated>2016-04-02T15:17:51.136Z</updated>
+  <updated>2016-04-02T15:21:00.540Z</updated>
   <id>http://hsfzxjy.github.io/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://hsfzxjy.github.io//python-generator-coroutine/"/>
     <id>http://hsfzxjy.github.io//python-generator-coroutine/</id>
     <published>2016-04-01T16:00:00.000Z</published>
-    <updated>2016-04-02T15:17:51.136Z</updated>
+    <updated>2016-04-02T15:21:00.540Z</updated>
     <content type="html"><![CDATA[<h2 id="写在前面">写在前面</h2><blockquote>
 <ul>
 <li>本文默认读者对 Python 生成器 有一定的了解，不了解者请移步至<a href="http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/0014317799226173f45ce40636141b6abc8424e12b5fb27000" target="_blank" rel="external">生成器 - 廖雪峰的官方网站</a>。</li>
@@ -29,6 +29,7 @@
 <p>学过 Python 的都知道，Python 里有一个很厉害的概念叫做 生成器（Generators）。一个生成器就像是一个微小的线程，可以随处暂停，也可以随时恢复执行，还可以和代码块外部进行数据交换。恰当使用生成器，可以极大地简化代码逻辑。</p>
 <p>也许，你可以熟练地使用生成器完成一些看似不可能的任务，如“无穷斐波那契数列”，并引以为豪，认为所谓的生成器也不过如此——那我可要告诉你：这些都太小儿科了，下面我所要介绍的绝对会让你大开眼界。</p>
 <p><strong>生成器 可以实现 协程，你相信吗？</strong></p>
+<a id="more"></a>
 <h2 id="什么是协程">什么是协程</h2><p>在异步编程盛行的今天，也许你已经对 协程（coroutines） 早有耳闻，但却不一定了解它。我们先来看看 <a href="https://en.wikipedia.org/wiki/Coroutine" target="_blank" rel="external">Wikipedia</a> 的定义：</p>
 <blockquote>
 <p>Coroutines are computer program components that generalize subroutines for nonpreemptive multitasking, by allowing multiple entry points for suspending and resuming execution at certain locations.</p>
@@ -122,7 +123,14 @@
     <summary type="html">
     <![CDATA[<h2 id="写在前面">写在前面</h2><blockquote>
 <ul>
-<li>本文默认读者对 Python 生成器 有一定的了解，不了解者请移步至<a href="http://www.liaoxuefeng.com/wiki/0014316089557264a6b3]]>
+<li>本文默认读者对 Python 生成器 有一定的了解，不了解者请移步至<a href="http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/0014317799226173f45ce40636141b6abc8424e12b5fb27000">生成器 - 廖雪峰的官方网站</a>。</li>
+<li>本文基于 Python 3.5.1，文中所有的例子都可在 <a href="https://github.com/hsfzxjy/python-generator-coroutine-examples">Github</a> 上获得。</li>
+</ul>
+</blockquote>
+<p>学过 Python 的都知道，Python 里有一个很厉害的概念叫做 生成器（Generators）。一个生成器就像是一个微小的线程，可以随处暂停，也可以随时恢复执行，还可以和代码块外部进行数据交换。恰当使用生成器，可以极大地简化代码逻辑。</p>
+<p>也许，你可以熟练地使用生成器完成一些看似不可能的任务，如“无穷斐波那契数列”，并引以为豪，认为所谓的生成器也不过如此——那我可要告诉你：这些都太小儿科了，下面我所要介绍的绝对会让你大开眼界。</p>
+<p><strong>生成器 可以实现 协程，你相信吗？</strong></p>]]>
+    
     </summary>
     
       <category term="coroutine" scheme="http://hsfzxjy.github.io/tags/coroutine/"/>

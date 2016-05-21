@@ -204,6 +204,9 @@ a:focus {
     line-height: 1.77;
     color: #444;
     padding-top: 20px; }
+    .post .post-content b.pay {
+      display: block;
+      text-align: center; }
     .post .post-content h2, .post .post-content h3 {
       margin: 1.4em 0 1.1em; }
     .post .post-content pre code {
@@ -240,6 +243,8 @@ a:focus {
       padding: 0.5em 0;
       margin: auto;
       display: block; }
+      .post .post-content img.pay {
+        max-width: 200px; }
     .post .post-content ul, .post .post-content ol {
       overflow: auto;
       padding: .5em 2.4em;

@@ -1,0 +1,12 @@
+extends base
+block title
+    title= page.title + ' | ' + config.title
+block content
+    .post
+        h2 分类
+        div.widget
+            != list_categories()
+        h2 标签
+        != tagcloud({min_font: 16, max_font: 26})
+        h2 RSS 订阅
+        a(href='/atom.xml') atom.xml

@@ -31,8 +31,65 @@ menu:
     directory: /about/
     icon: icon-about
     position: main
+  - page: aggregation
+    directory: /aggr/
+    icon: icon-history
+    position: main
   - page: rss
     directory: /atom.xml
     icon: icon-rss
     position: optional
 sections: [编程, 杂感]
+
+timeline:
+  - num: 1
+    word: 2010/09 - 第一次接触 Pascal 编程
+  - num: 2
+    word: 2011    - 第一次接触 Delphi
+  - num: 3
+    word: 2013/01 - 第一次接触 python
+  - num: 4
+    word: 2013/05 - 考入华师附中奥班
+  - num: 5
+    word: 2013/06 - 中考
+  - num: 6
+    word: 2013/07 - 第一个“工程”（STF 集成社交平台）
+  - num: 7
+    word: 2013/10 - 第一个高联一等奖
+  - num: 8
+    word: 2013/11 - 第一个博客，托管于 SAE
+  - num: 9
+    word: 2014/03 - 开发 HFMUN 2014
+  - num: 10
+    word: 2014/03 - 获得 新浪云中级开发者 称号
+  - num: 11
+    word: 2014/07 - 开发 wisecity 1.0
+  - num: 12
+    word: 2015/03 - 开发 HFMUN 2015
+  - num: 13
+    word: 2015/03 - 得到新浪微博加 V 认证
+  - num: 14
+    word: 2015/04 - 博客迁移至 Github Pages，使用 jekyll 渲染
+  - num: 15
+    word: 2015/05 - 因献给母亲的诗获得第一笔稿酬
+  - num: 16
+    word: 2015/07 - 开发 wisecity 2.0，第一笔报酬
+  - num: 17
+    word: 2015/10 - 第二个高联一等奖
+  - num: 18
+    word: 2015/10/18 - 成人礼
+  - num: 19
+    word: 2015/11 - 博客改用 hexo 渲染
+  - num: 20
+    word: 2016/01 - 获得 2016 Segmentfault Top Writer 称号
+  - num: 21
+    word: 2016/02/10 - Segmentfault 上的第一篇技术分享
+  - num: 22
+    word: 2016/03 - 开发 HFMUN 2016
+  - num: 23
+    word: 2016/05 - “Python 黑魔法”系列文章 被伯乐在线转载
+  - num: 24
+    word: 2016/06/07 - 高考
+  - num: 25
+    word: 2016/06 - 开发 wisecity 3.0，尝试自主运维，尝试组件化开发，尝试测试驱动开发
+

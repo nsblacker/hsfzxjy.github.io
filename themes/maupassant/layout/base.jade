@@ -81,7 +81,7 @@ html
                                                 i(class=item.icon)= ' ' + __(item.page)
                 .widget
                     .widget-title= __('categories')
-                    != list_categories({show_count: false})
+                    != list_categories({show_count: true})
                 .widget
                     .widget-title= __('tags')
                     .tagcloud

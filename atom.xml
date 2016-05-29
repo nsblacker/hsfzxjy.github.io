@@ -959,7 +959,7 @@
     <link href="http://hsfzxjy.github.io//wisecity-conclusion/"/>
     <id>http://hsfzxjy.github.io//wisecity-conclusion/</id>
     <published>2015-07-23T16:00:00.000Z</published>
-    <updated>2015-11-08T08:40:30.149Z</updated>
+    <updated>2016-05-29T04:42:01.206Z</updated>
     <content type="html"><![CDATA[<p>真没想到，高伯还是给了我两百块报酬（土豪就是土豪）——我还担心他连运营成本都不肯给呢，毕竟网站做得并不是令人太满意。为社团做了两年的网站，这是第一次收到报酬，也算是自己赚的第一桶金吧。</p>
 <p>事实证明，临去北京前我给 cc 开放了管理者权限是一个非常正确的选择。尽管 wisecity 已经举办了两届，尽管在此之前我已做过 4 个网站，尽管这次的网站是在上一届的基础上进行改造的，我的心里仍有些忐忑不安，害怕它会出什么问题——抑或是大会的工作人员操作不当导致网站崩溃云云（这事真的发生了）。5 天的 wisecity 大会，我都身在北京，身边没有电脑，没有解决问题的条件，因此需要一个有基本的编程能力的人协助我。5 天下来，问题还不少，调试的过程可谓是十分原始：接到问题后，囿于有限的条件，我只能通过翻看手机上的代码，在脑海中模拟并觉出问题所在，找到最小代价的改动方案，再将改动之处通过短信通知 cc——当然，很多时候并不那么顺利，我还需要跟多的信息帮助判断，比如错误日志，又比如进行特定操作时的表现（这个最坑爹，可遇而不可求）。我尽一切努力在脑海中想象着程序的流程，很累，但也很有挑战性。</p>
 <p>第一天就遇到了一个棘手的问题：高伯在删除测试数据时不小心把管理员账号（admin）一起删掉了。这个消息从扬声器传出后，我足足沉默了一分钟，<br>心里像是有千万头草泥马奔过：</p>
@@ -996,9 +996,11 @@
     
       <category term="前端" scheme="http://hsfzxjy.github.io/tags/%E5%89%8D%E7%AB%AF/"/>
     
-      <category term="前端自动化测试，总结" scheme="http://hsfzxjy.github.io/tags/%E5%89%8D%E7%AB%AF%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%EF%BC%8C%E6%80%BB%E7%BB%93/"/>
+      <category term="前端自动化测试" scheme="http://hsfzxjy.github.io/tags/%E5%89%8D%E7%AB%AF%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/"/>
     
       <category term="单元测试" scheme="http://hsfzxjy.github.io/tags/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/"/>
+    
+      <category term="总结" scheme="http://hsfzxjy.github.io/tags/%E6%80%BB%E7%BB%93/"/>
     
       <category term="编程" scheme="http://hsfzxjy.github.io/categories/%E7%BC%96%E7%A8%8B/"/>
     

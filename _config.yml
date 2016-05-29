@@ -7,7 +7,6 @@ title: thoughts of hsfzxjy
 subtitle: #不忌讳空山无人，不害怕遥望星辰
 description:
 author: hsfzxjy
-language:
 timezone:
 
 # URL
@@ -52,7 +51,7 @@ tag_map:
 ## Hexo uses Moment.js to parse and display date
 ## You can customize the date format as defined in
 ## http://momentjs.com/docs/#/displaying/format/
-date_format: YYYY-MM-DD
+date_format: YYYY年MM月DD日
 time_format: HH:mm:ss
 
 # Pagination
@@ -69,7 +68,7 @@ theme: maupassant
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
     type: git
-    repo: https://github.com/hsfzxjy/hsfzxjy.github.io.git
+    repo: git@github.com:hsfzxjy/hsfzxjy.github.io.git
     branch: master
 
 plugins:
